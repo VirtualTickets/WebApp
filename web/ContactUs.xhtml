@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Created by Nicholas Greer on 2016.04.09 
+Copyright © 2016 Nicholas Greer. All rights reserved.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+
+    <!--Menu at the top of the screen-->
+    <ui:composition template="/templates/header.xhtml">
+        <h:head>
+            <title>Security Question</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+            <h:outputStylesheet name="css/jsfcrud.css"/>
+            <h:outputStylesheet library="css" name="globalStyles.css"/>
+        </h:head>
+        <ui:define name="body">
+            <div align="center" style="width:50%; margin:0 auto;">
+               <h:panelGrid columns="2" cellpadding="5">
+                    <h:outputLabel value="Name" />
+                    <h:outputLabel value="Email" />
+                    <h:outputLabel value="Nicholas Greer" />
+                    <h:outputLabel value="imp40@vt.edu" />
+                    <h:outputLabel value="Benjamin Sweeney" />
+                    <h:outputLabel value="bends11@vt.edu" />
+                    <h:outputLabel value="Kent Hannigan" />
+                    <h:outputLabel value="kent@vt.edu" />
+                    <h:outputLabel value="Nicholas Phillpott" />
+                    <h:outputLabel value="nickwp54@vt.edu" />
+                    <h:outputLabel value="Alex Hsu" />
+                    <h:outputLabel value="halex@vt.edu" />
+               </h:panelGrid>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>
+
+
