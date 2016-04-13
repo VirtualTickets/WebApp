@@ -29,7 +29,8 @@ public class MovieManager implements Serializable {
         currTitle = null;
         movies = new ArrayList<>();
         
-        Movie m = new Movie("Batman vs Superman");
+        Movie m = new Movie();
+        m.setTitle("Batman vs. Superman");
         
         for (int i = 0; i < 128; i++) {
             movies.add(m);
