@@ -9,14 +9,14 @@ Copyright © 2016 Nicholas Greer. All rights reserved.
       xmlns:h="http://xmlns.jcp.org/jsf/html"
 
     <!--Menu at the top of the screen-->
-    <ui:composition template="/templates/header.xhtml">
+    <ui:composition template="/templates/main.xhtml">
         <h:head>
             <title>Security Question</title>
             <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
             <h:outputStylesheet name="css/jsfcrud.css"/>
             <h:outputStylesheet library="css" name="globalStyles.css"/>
         </h:head>
-        <ui:define name="body">
+        <ui:define name="content">
             <div align="center" style="width:50%; margin:0 auto;">
                <h:panelGrid columns="2" cellpadding="5">
                     <h:outputLabel value="Name" />
