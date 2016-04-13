@@ -5,8 +5,21 @@ across all web pages.
 -->
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:h="http://xmlns.jcp.org/jsf/html">
     <ui:composition>
-        Header
+        <h:panelGrid columns="2" columnClasses="leftTopCornerAlign, rightTopCornerAlign">
+               
+                        <p:menubar>
+                            <p:menuitem value="Home" url="./index.xhtml" icon="ui-icon-home" />
+                            <p:menuitem value="All Movies" url="./Movies.xhtml"/>
+                            <p:menuitem value="Recent Movies" url="./Movies.xhtml"/>
+                            <f:facet name="options">
+                                <p:inputText style="margin-right:10px" placeholder="Search Movies"/>
+                            </f:facet>
+
+                        </p:menubar>
+            </h:panelGrid>
     </ui:composition>
 </html>
