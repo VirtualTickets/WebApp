@@ -12,9 +12,9 @@ across all web pages.
         <h:panelGrid columns="2" columnClasses="leftTopCornerAlign, rightTopCornerAlign">
                
                         <p:menubar>
-                            <p:menuitem value="Home" url="./index.xhtml" icon="ui-icon-home" />
-                            <p:menuitem value="All Movies" url="./Movies.xhtml"/>
-                            <p:menuitem value="Recent Movies" url="./Movies.xhtml"/>
+                            <p:menuitem value="Home" outcome="index" icon="ui-icon-home" />
+                            <p:menuitem value="All Movies" outcome="Movies"/>
+                            <p:menuitem value="Recent Movies" outcome="Movies"/>
                             <f:facet name="options">
                                 <p:inputText style="margin-right:10px" placeholder="Search Movies"/>
                             </f:facet>

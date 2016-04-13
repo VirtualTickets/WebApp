@@ -20,12 +20,13 @@ import java.util.List;
 public class MovieManager implements Serializable {
 
     private List<Movie> movies;
+    private String currTitle;
     
     /**
      * Creates a new instance of ApiManager
      */
     public MovieManager() {
-        
+        currTitle = null;
         movies = new ArrayList<>();
         
         Movie m = new Movie("Batman vs Superman");
@@ -33,6 +34,23 @@ public class MovieManager implements Serializable {
         for (int i = 0; i < 128; i++) {
             movies.add(m);
         }
+    }
+
+    public String getCurrTitle() {
+        if (currTitle == null) return null;
+        return currTitle;
+    }
+
+    public void setCurrTitle(String currTitle) {
+        this.currTitle = currTitle;
+    }
+    
+    
+    
+    public void view() {
+        if (getCurrTitle() == null) setCurrTitle("Batman vs Superman");
+        
+        else setCurrTitle(null);
     }
     
     public List<Movie> getMovies() {

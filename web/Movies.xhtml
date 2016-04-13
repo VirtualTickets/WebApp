@@ -32,23 +32,23 @@ Copyright © 2016 Benjamin Sweeney. All rights reserved.
                                 </h:form>
                             </f:facet>
                             <h:form>
-                                <h:commandLink action="#{movieManager.purchase()}" style="text-decoration: none">
+                                <h:commandLink onclick="#{movieManager.view()}" style="text-decoration: none">
                                     <p:panel >
                                         <h:graphicImage value="#{resource['images/batman.jpg']}" style="max-height: 185px; max-width: 125px" alt="Hello" />
                                         <br/>
                                         <br/>
                                         <h:outputText value="#{movie.title}"/>
                                         <br/>
-
                                     </p:panel>
+                                    <p:ajax update=":movie:title"/>
                                 </h:commandLink>
                             </h:form>
                         </p:dataGrid>
                     </h:panelGroup>
                     <h:panelGroup>
-                        <div>
-                            <h:outputText value="Stuff"/>
-                        </div>
+                        <h:form id="movie">
+                            <h:outputText value="#{movieManager.currTitle}" id="title"/>
+                        </h:form>
                     </h:panelGroup>
                 </p:panelGrid>
             </ui:define>
