@@ -4,27 +4,48 @@
  */
 package com.mycompany.virtualtickets;
 
+import org.json.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.net.URL;
 import java.nio.charset.Charset;
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.util.ArrayList;
+
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 /**
  *
  * @author painter
  */
 public class ApiManager {
+
+    private static final String OCAPI = "yqcmwu38uh7mf9rpgsdbqnyj";
+
+    public static void main (String args[]) {
+        ArrayList<Movie> movs = searchOnConnectZip("23453");
+        for (Movie i : movs) {
+            System.out.println(i.getTitle() + " " 
+                + i.getReleased() + " "
+                + i.getRated()+ " "
+                + i.getRuntime()+ " "
+                + i.getShowtimes().toString() + "\n\n" );
+        }
+        
+    }
+
     /**
      *
      * @param title
      * @return
      */
-    public Movie searchOmdb(String title) {
+    public Movie searchOmdbTitle(String title) {
         Movie mov = null;
 
         String url = "http://www.omdbapi.com/?t="
@@ -32,18 +53,56 @@ public class ApiManager {
 
         try {
             JSONObject json = readJsonFromUrl(url);
-            mov = new Movie (
-            json.getString("title"),
-            json.getInt("year"), 
-            json.getString("rated"),
-            json.getString("released"),
-            json.getString("runtime"),
-            json.getString("metascore"),
-            json.getString("imbdscore"));
+            mov = new Movie();
+            mov.setTitle(json.getString("title"));
+            mov.setYear(Integer.parseInt(json.getString("year")));
+            mov.setRated(json.getString("rated"));
+            mov.setReleased(json.getString("released"));
+            mov.setRuntime(json.getString("runtime"));
+            mov.setMetascore(json.getString("metascore"));
+            mov.setImdbRating(json.getString("imbdscore"));
         } catch (Exception e) {
-            return mov;
+            return null;
         }
         return mov;
+    }
+
+    public static ArrayList<Movie> searchOnConnectZip(String zip) {
+        ArrayList<Movie> movs = new ArrayList<Movie>();
+        
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        String d = dateFormat.format(date);
+
+        String url = "http://data.tmsapi.com/v1.1/movies/showings?startDate="
+                + d
+                + "&zip="
+                + zip
+                + "&api_key=" + OCAPI;
+        
+        System.out.println(url);
+
+        try {
+            JSONArray json = readJsonArrayFromUrl(url);
+            JSONObject j; 
+            Movie mov; 
+            for (int i = 0; i < json.length(); i++) {
+                j = json.getJSONObject(i);
+                mov = new Movie();
+                mov.setTitle(j.getString("title"));
+                mov.setYear(j.getInt("releaseYear"));
+                mov.setRated(j.getJSONArray("ratings").getJSONObject(0).getString("code"));
+                mov.setReleased(j.getString("releaseDate"));
+                mov.setRuntime(j.getString("runTime"));
+                mov.setShowtimes(j.getJSONArray("showtimes"));
+                movs.add(mov);
+            }
+            
+        } catch(Exception e) {
+            return null;
+        }
+        
+        return movs;
     }
 
     public static JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
@@ -52,6 +111,18 @@ public class ApiManager {
             BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
             String jsonText = readAll(rd);
             JSONObject json = new JSONObject(jsonText);
+            return json;
+        } finally {
+            is.close();
+        }
+    }
+    
+        public static JSONArray readJsonArrayFromUrl(String url) throws IOException, JSONException {
+        InputStream is = new URL(url).openStream();
+        try {
+            BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+            String jsonText = readAll(rd);
+            JSONArray json = new JSONArray(jsonText);
             return json;
         } finally {
             is.close();
@@ -66,4 +137,5 @@ public class ApiManager {
         }
         return sb.toString();
     }
+
 }
