@@ -12,36 +12,45 @@ Copyright © 2016 Benjamin Sweeney. All rights reserved.
     <h:body>
         <ui:composition template="/templates/main.xhtml">
             <ui:define name="content">
-                <p:dataGrid var="movie" columns="4" value="#{movieManager.movies}" 
-                            rows="16" rowsPerPageTemplate="8, 16, 32, 128" paginator="true"
-                            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
-                    <f:facet name="header">
-                        <h:form>
-                            <p:menubar>
-                                <p:menuitem value="Now Playing" action="#{movieManager.nowPlaying()}"/>
-                                <p:menuitem value="Coming Soon" action="#{movieManager.comingSoon()}"/>
-                                <p:menuitem value="Box Office" action="#{movieManager.boxOffice()}"/>
-                                <p:menuitem value="Favorites" action="#{movieManager.showFavorites()}"/>
-                                <p:menuitem value="Recommended" action="#{movieManager.showRecommended()}"/>
-                                <f:facet name="options">
-                                    <h:outputText value="#{movieManager.movieTableHeader}"/>
-                                </f:facet>
-                            </p:menubar>
-                        </h:form>
-                    </f:facet>
-                    <h:form>
-                        <h:commandLink action="#{movieManager.purchase()}" style="text-decoration: none">
-                            <p:panel >
-                                <h:graphicImage value="#{resource['images/batman.jpg']}" style="max-height: 185px; max-width: 125px" alt="Hello" />
-                                <br/>
-                                <br/>
-                                <h:outputText value="#{movie.title}"/>
-                                <br/>
+                <p:panelGrid columns="2">
+                    <h:panelGroup>
+                        <p:dataGrid var="movie" columns="4" value="#{movieManager.movies}" 
+                                    rows="16" rowsPerPageTemplate="8, 16, 32, 128" paginator="true"
+                                    paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+                            <f:facet name="header">
+                                <h:form>
+                                    <p:menubar>
+                                        <p:menuitem value="Now Playing" action="#{movieManager.nowPlaying()}"/>
+                                        <p:menuitem value="Coming Soon" action="#{movieManager.comingSoon()}"/>
+                                        <p:menuitem value="Box Office" action="#{movieManager.boxOffice()}"/>
+                                        <p:menuitem value="Favorites" action="#{movieManager.showFavorites()}"/>
+                                        <p:menuitem value="Recommended" action="#{movieManager.showRecommended()}"/>
+                                        <f:facet name="options">
+                                            <h:outputText value="#{movieManager.movieTableHeader}"/>
+                                        </f:facet>
+                                    </p:menubar>
+                                </h:form>
+                            </f:facet>
+                            <h:form>
+                                <h:commandLink action="#{movieManager.purchase()}" style="text-decoration: none">
+                                    <p:panel >
+                                        <h:graphicImage value="#{resource['images/batman.jpg']}" style="max-height: 185px; max-width: 125px" alt="Hello" />
+                                        <br/>
+                                        <br/>
+                                        <h:outputText value="#{movie.title}"/>
+                                        <br/>
 
-                            </p:panel>
-                        </h:commandLink>
-                    </h:form>
-                </p:dataGrid>
+                                    </p:panel>
+                                </h:commandLink>
+                            </h:form>
+                        </p:dataGrid>
+                    </h:panelGroup>
+                    <h:panelGroup>
+                        <div>
+                            <h:outputText value="Stuff"/>
+                        </div>
+                    </h:panelGroup>
+                </p:panelGrid>
             </ui:define>
         </ui:composition>
     </h:body>
