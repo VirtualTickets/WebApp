@@ -4,6 +4,9 @@
  */
 package com.mycompany.virtualtickets;
 
+import org.json.*;
+
+
 /**
  *
  * @author painter
@@ -15,24 +18,11 @@ public class Movie {
     private String released; 
     private String runtime; 
     private String metascore; 
-    private String imdbRating; 
+    private String imdbRating;
+    private JSONArray showtimes;
+    
     
     public Movie() {
-        
-    }
-    
-    public Movie(String title) {
-        this.title = title;
-    }
-
-    public Movie(String title, int year, String rated, String released, String runtime, String metascore, String imdbRating) {
-        this.title = title;
-        this.year = year;
-        this.rated = rated;
-        this.released = released;
-        this.runtime = runtime;
-        this.metascore = metascore;
-        this.imdbRating = imdbRating;
     }
 
     public String getTitle() {
@@ -90,7 +80,13 @@ public class Movie {
     public void setImdbRating(String imdbRating) {
         this.imdbRating = imdbRating;
     }
-    
-    
+
+    public JSONArray getShowtimes() {
+        return showtimes;
+    }
+
+    public void setShowtimes(JSONArray showtimes) {
+        this.showtimes = showtimes;
+    }
     
 }
