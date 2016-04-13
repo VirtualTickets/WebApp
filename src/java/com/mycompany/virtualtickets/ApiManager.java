@@ -28,17 +28,17 @@ public class ApiManager {
 
     private static final String OCAPI = "yqcmwu38uh7mf9rpgsdbqnyj";
 
-    public static void main (String args[]) {
-        ArrayList<Movie> movs = searchOnConnectZip("23453");
-        for (Movie i : movs) {
-            System.out.println(i.getTitle() + " " 
-                + i.getReleased() + " "
-                + i.getRated()+ " "
-                + i.getRuntime()+ " "
-                + i.getShowtimes().toString() + "\n\n" );
-        }
-        
-    }
+//    public static void main(String args[]) {
+//        ArrayList<Movie> movs = searchOnConnectZip("23453");
+//        for (Movie i : movs) {
+//            System.out.println(i.getTitle() + " "
+//                    + i.getReleased() + " "
+//                    + i.getRated() + " "
+//                    + i.getRuntime() + " "
+//                    + i.getShowtimes().toString() + "\n\n");
+//        }
+//
+//    }
 
     /**
      *
@@ -67,9 +67,25 @@ public class ApiManager {
         return mov;
     }
 
-    public static ArrayList<Movie> searchOnConnectZip(String zip) {
+    public String getPosterURL(String title) {
+        String poster = null;
+
+        String url = "http://www.omdbapi.com/?t="
+                + title + "&y=&plot=full&r=json";
+
+        try {
+            JSONObject json = readJsonFromUrl(url);
+            poster = json.getString("Poster");
+
+        } catch (Exception e) {
+            return null;
+        }
+        return poster;
+    }
+
+    public ArrayList<Movie> searchOnConnectZip(String zip) {
         ArrayList<Movie> movs = new ArrayList<Movie>();
-        
+
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
         String d = dateFormat.format(date);
@@ -79,13 +95,13 @@ public class ApiManager {
                 + "&zip="
                 + zip
                 + "&api_key=" + OCAPI;
-        
+
         System.out.println(url);
 
         try {
             JSONArray json = readJsonArrayFromUrl(url);
-            JSONObject j; 
-            Movie mov; 
+            JSONObject j;
+            Movie mov;
             for (int i = 0; i < json.length(); i++) {
                 j = json.getJSONObject(i);
                 mov = new Movie();
@@ -97,15 +113,15 @@ public class ApiManager {
                 mov.setShowtimes(j.getJSONArray("showtimes"));
                 movs.add(mov);
             }
-            
-        } catch(Exception e) {
+
+        } catch (Exception e) {
             return null;
         }
-        
+
         return movs;
     }
 
-    public static JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
+    public JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
         InputStream is = new URL(url).openStream();
         try {
             BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
@@ -116,8 +132,8 @@ public class ApiManager {
             is.close();
         }
     }
-    
-        public static JSONArray readJsonArrayFromUrl(String url) throws IOException, JSONException {
+
+    public JSONArray readJsonArrayFromUrl(String url) throws IOException, JSONException {
         InputStream is = new URL(url).openStream();
         try {
             BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
@@ -129,7 +145,7 @@ public class ApiManager {
         }
     }
 
-    private static String readAll(Reader rd) throws IOException {
+    private String readAll(Reader rd) throws IOException {
         StringBuilder sb = new StringBuilder();
         int cp;
         while ((cp = rd.read()) != -1) {
