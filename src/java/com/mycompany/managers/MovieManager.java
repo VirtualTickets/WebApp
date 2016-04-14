@@ -21,7 +21,6 @@ import java.util.List;
 public class MovieManager implements Serializable {
 
     private List<Movie> nowPlaying;
-    private List<Movie> searchByTitle;
     private String searchTitle;
     private Movie currMovie;
     private ApiManager apiManager;
@@ -50,7 +49,17 @@ public class MovieManager implements Serializable {
         this.currMovie = currMovie;
     }
     
-    
+    public ArrayList<String> getNowPlayingTitles() {
+        ArrayList<String> titles = new ArrayList<>();
+        
+        List<Movie> list = getNowPlaying();
+        
+        for (Movie m : list) {
+            titles.add(m.getTitle());
+        }
+        
+        return titles;
+    }
 
     public String getSearchTitle() {
         return searchTitle;
@@ -80,6 +89,7 @@ public class MovieManager implements Serializable {
     }
 
     public List<Movie> getSearchByTitle() {
+        System.out.println("Getting movies by title");
         return apiManager.searchByTitleOmdb(this.searchTitle);
     }
     
