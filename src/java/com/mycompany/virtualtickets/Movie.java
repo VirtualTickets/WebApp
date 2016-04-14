@@ -17,9 +17,11 @@ public class Movie {
     private String rated; 
     private String released; 
     private String runtime; 
-    private String metascore; 
+    private String metascore;
+    private String description; 
     private String imdbRating;
     private JSONArray showtimes;
+    private String poster; 
     
     
     public Movie() {
@@ -73,6 +75,14 @@ public class Movie {
         this.metascore = metascore;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public String getImdbRating() {
         return imdbRating;
     }
@@ -88,5 +98,12 @@ public class Movie {
     public void setShowtimes(JSONArray showtimes) {
         this.showtimes = showtimes;
     }
-    
+
+    public String getPoster() {
+        return poster;
+    }
+
+    public void setPoster(String poster) {
+        this.poster = poster;
+    }
 }
