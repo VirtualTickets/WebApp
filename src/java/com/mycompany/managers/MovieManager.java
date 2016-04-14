@@ -66,16 +66,16 @@ public class MovieManager implements Serializable {
     public ArrayList<String> getNowPlayingTitles() {
         ArrayList<String> titles = new ArrayList<>();
         titles.add("Choose a Movie");
-        //List<Movie> list = getNowPlaying();
-        titles.add("movie 1");
-        titles.add("movie 2");
-        titles.add("movie 3");
-        /*
+        List<Movie> list = getNowPlaying();
+        //titles.add("movie 1");
+        //titles.add("movie 2");
+        //titles.add("movie 3");
+        
         for (Movie m : list) {
             titles.add(m.getTitle());
             
         }
-        */
+        
         return titles;
     }
     

@@ -28,8 +28,9 @@ import java.util.Calendar;
  */
 public class ApiManager {
 
-    private static final String OCAPI = "yqcmwu38uh7mf9rpgsdbqnyj";
-
+    //private static final String OCAPI = "yqcmwu38uh7mf9rpgsdbqnyj";
+      private static final String OCAPI = "fw8t9na72xqh8ggq8abcgya8";
+      //private static final String OCAPI = "xj3ferv39aeteuxmbyv56j9d";
 //    public static void main(String args[]) {
 //        ArrayList<Movie> movs = searchOnConnectZip("23453");
 //        for (Movie i : movs) {
@@ -120,6 +121,7 @@ public class ApiManager {
     }
 
     public ArrayList<Movie> searchOnConnectZip(String zip) {
+        System.out.println("new zip: " + zip);
         ArrayList<Movie> movs = new ArrayList<Movie>();
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -145,7 +147,8 @@ public class ApiManager {
                 mov.setYear(j.getInt("releaseYear"));
                 mov.setRated(j.getJSONArray("ratings").getJSONObject(0).getString("code"));
                 mov.setReleased(j.getString("releaseDate"));
-                mov.setRuntime(j.getString("runTime"));
+                mov.setRuntime("120min");
+//                mov.setRuntime(j.getString("runTime"));
                 mov.setShowtimes(j.getJSONArray("showtimes"));
                 mov.setDescription(j.getString("longDescription"));
                 movs.add(mov);
