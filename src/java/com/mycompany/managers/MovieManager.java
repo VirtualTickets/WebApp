@@ -23,11 +23,14 @@ public class MovieManager implements Serializable {
     private List<Movie> nowPlaying;
     private String currTitle;
     private Movie currMovie;
+    private ApiManager apiManager;
     
     /**
      * Creates a new instance of ApiManager
      */
     public MovieManager() {
+        
+        apiManager = new ApiManager();
         
 //        nowPlaying = new ArrayList<>();
 //        
@@ -64,7 +67,7 @@ public class MovieManager implements Serializable {
     
     public List<Movie> getNowPlaying() {
         if (nowPlaying == null) {
-            nowPlaying = ApiManager.searchOnConnectZip("24061");
+            nowPlaying = apiManager.searchOnConnectZip("24061");
         }
         return nowPlaying;
     }
