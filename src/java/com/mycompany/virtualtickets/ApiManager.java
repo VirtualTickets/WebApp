@@ -14,6 +14,8 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.List;
+
 
 import java.util.Date;
 import java.text.DateFormat;
@@ -28,24 +30,23 @@ public class ApiManager {
 
     private static final String OCAPI = "yqcmwu38uh7mf9rpgsdbqnyj";
 
-    public static void main (String args[]) {
-        ArrayList<Movie> movs = searchOnConnectZip("23453");
-        for (Movie i : movs) {
-            System.out.println(i.getTitle() + " " 
-                + i.getReleased() + " "
-                + i.getRated()+ " "
-                + i.getRuntime()+ " "
-                + i.getShowtimes().toString() + "\n\n" );
-        }
-        
-    }
-
+//    public static void main(String args[]) {
+//        ArrayList<Movie> movs = searchOnConnectZip("23453");
+//        for (Movie i : movs) {
+//            System.out.println(i.getTitle() + " "
+//                    + i.getReleased() + " "
+//                    + i.getRated() + " "
+//                    + i.getRuntime() + " "
+//                    + i.getShowtimes().toString() + "\n\n");
+//        }
+//
+//    }
     /**
      *
      * @param title
      * @return
      */
-    public Movie searchOmdbTitle(String title) {
+    public Movie searchForMovieOmdb(String title) {
         Movie mov = null;
 
         String url = "http://www.omdbapi.com/?t="
@@ -61,15 +62,66 @@ public class ApiManager {
             mov.setRuntime(json.getString("runtime"));
             mov.setMetascore(json.getString("metascore"));
             mov.setImdbRating(json.getString("imbdscore"));
+            mov.setDescription(json.getString("Plot"));
         } catch (Exception e) {
             return null;
         }
         return mov;
     }
 
-    public static ArrayList<Movie> searchOnConnectZip(String zip) {
+    /**
+     *
+     * @param title
+     * @return
+     */
+    public ArrayList<Movie> searchByTitleOmdb(String title) {
         ArrayList<Movie> movs = new ArrayList<Movie>();
-        
+
+        String url = "http://www.omdbapi.com/?s="
+                + title + "&type=movie";
+
+        try {
+            JSONArray json = readJsonArrayFromUrl(url);
+            JSONObject j;
+            Movie mov; 
+            for (int i = 0; i < json.length(); i++) {
+                j = json.getJSONObject(i);
+                mov = new Movie();
+                mov.setTitle(j.getString("Title"));
+                mov.setYear(j.getInt("Year"));
+                mov.setPoster(j.getString("Poster"));
+                movs.add(mov);
+            }
+        } catch (Exception e) {
+            return null;
+        }
+        return movs;
+    }
+
+    /**
+     * 
+     * @param title
+     * @return 
+     */
+    public String getPosterURL(String title) {
+        String poster = null;
+
+        String url = "http://www.omdbapi.com/?t="
+                + title + "&y=&plot=full&r=json";
+
+        try {
+            JSONObject json = readJsonFromUrl(url);
+            poster = json.getString("Poster");
+
+        } catch (Exception e) {
+            return null;
+        }
+        return poster;
+    }
+
+    public ArrayList<Movie> searchOnConnectZip(String zip) {
+        ArrayList<Movie> movs = new ArrayList<Movie>();
+
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
         String d = dateFormat.format(date);
@@ -79,13 +131,13 @@ public class ApiManager {
                 + "&zip="
                 + zip
                 + "&api_key=" + OCAPI;
-        
+
         System.out.println(url);
 
         try {
             JSONArray json = readJsonArrayFromUrl(url);
-            JSONObject j; 
-            Movie mov; 
+            JSONObject j;
+            Movie mov;
             for (int i = 0; i < json.length(); i++) {
                 j = json.getJSONObject(i);
                 mov = new Movie();
@@ -95,17 +147,18 @@ public class ApiManager {
                 mov.setReleased(j.getString("releaseDate"));
                 mov.setRuntime(j.getString("runTime"));
                 mov.setShowtimes(j.getJSONArray("showtimes"));
+                mov.setDescription(j.getString("longDescription"));
                 movs.add(mov);
             }
-            
-        } catch(Exception e) {
+
+        } catch (Exception e) {
             return null;
         }
-        
+
         return movs;
     }
 
-    public static JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
+    public JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
         InputStream is = new URL(url).openStream();
         try {
             BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
@@ -116,8 +169,8 @@ public class ApiManager {
             is.close();
         }
     }
-    
-        public static JSONArray readJsonArrayFromUrl(String url) throws IOException, JSONException {
+
+    public JSONArray readJsonArrayFromUrl(String url) throws IOException, JSONException {
         InputStream is = new URL(url).openStream();
         try {
             BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
@@ -129,7 +182,7 @@ public class ApiManager {
         }
     }
 
-    private static String readAll(Reader rd) throws IOException {
+    private String readAll(Reader rd) throws IOException {
         StringBuilder sb = new StringBuilder();
         int cp;
         while ((cp = rd.read()) != -1) {
