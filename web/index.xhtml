@@ -33,10 +33,10 @@
 						<h:commandButton id="changeLoc"  action="#{movieManager.changeLocation()}" value="Change Location" styleClass="buttonText"/>
 		
                                                 <!-- <p:outputLabel for="select_movie" value="Select a Movie" /> -->
-                                                <h:selectOneMenu id="select_movie" value="Select a Movie" required="true" onchange="dropdownSelect()">
+                                                <h:selectOneMenu id="select_movie" value="#{movieManager.searchTitle}" required="true" onchange="dropdownSelect()">
                                                     <f:selectItems value="#{movieManager.nowPlayingTitles}"/>
                                                 </h:selectOneMenu>
-                                                <h:commandButton id="getShowtimes"  action="#{movieManager.getShowtimes()}" value="Get Tickets &amp; Showtimes" styleClass="buttonText"/>
+                                                <h:commandButton id="getShowtimes"  action="#{movieManager.searchByTitle()}" value="Get Tickets &amp; Showtimes" styleClass="buttonText"/>
                                     </h:panelGrid>
                                     <br />
                                     <h2>Currently Showing:</h2>
