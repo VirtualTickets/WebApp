@@ -81,7 +81,7 @@ public class ApiManager {
                 + title + "&type=movie";
 
         try {
-            JSONObject json = readJsonFromUrl(url);
+            JSONArray json = readJsonArrayFromUrl(url);
             JSONObject j;
             Movie mov; 
             for (int i = 0; i < json.length(); i++) {
