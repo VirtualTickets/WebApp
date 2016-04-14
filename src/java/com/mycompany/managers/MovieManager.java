@@ -21,15 +21,18 @@ import java.util.List;
 public class MovieManager implements Serializable {
 
     private List<Movie> nowPlaying;
-    private String currTitle;
+    private List<Movie> searchByTitle;
+    private String searchTitle;
     private Movie currMovie;
     private ApiManager apiManager;
+    private String type;
+    
     
     /**
      * Creates a new instance of ApiManager
      */
     public MovieManager() {
-        
+        type = "Now Playing";
         apiManager = new ApiManager();
         
 //        nowPlaying = new ArrayList<>();
@@ -49,20 +52,24 @@ public class MovieManager implements Serializable {
     
     
 
-    public String getCurrTitle() {
-        return currTitle;
+    public String getSearchTitle() {
+        return searchTitle;
     }
 
-    public void setCurrTitle(String currTitle) {
-        this.currTitle = currTitle;
+    public void setSearchTitle(String searchTitle) {
+        this.searchTitle = searchTitle;
     }
     
-    
+    public String searchByTitle() {
+        type = "Search By Title";
+        
+        return "Movies";
+    }
     
     public void view() {
-        if (getCurrTitle() == null) setCurrTitle("Batman vs Superman");
+        if (getSearchTitle() == null) setSearchTitle("Batman vs Superman");
         
-        else setCurrTitle(null);
+        else setSearchTitle(null);
     }
     
     public List<Movie> getNowPlaying() {
@@ -71,18 +78,34 @@ public class MovieManager implements Serializable {
         }
         return nowPlaying;
     }
+
+    public List<Movie> getSearchByTitle() {
+        return apiManager.searchByTitleOmdb(this.searchTitle);
+    }
+    
+    public List<Movie> getMovies() {
+        switch (type) {
+            case "Now Playing":
+                return getNowPlaying();
+            case "Search By Title":
+                return getSearchByTitle();
+        }
+        
+        return null;
+    }
     
     public String getMovieTableHeader() {
         
-        return "Movies";
+        return type;
     }
     
     public String purchase() {
         return "Purchase";
     }
     
-    public String nowPlaying() {
-        return "";
+    public String showNowPlaying() {
+        type = "Now Playing";
+        return "Movies";
     }
     
     public String comingSoon() {

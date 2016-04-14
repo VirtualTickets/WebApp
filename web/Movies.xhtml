@@ -14,16 +14,15 @@ Copyright © 2016 Benjamin Sweeney. All rights reserved.
             <ui:define name="content">
                 <p:panelGrid columns="2" style="border-style: none">
                     <h:panelGroup>
-                        <p:dataGrid var="movie" columns="4" value="#{movieManager.nowPlaying}" 
+                        <p:dataGrid var="movie" columns="4" value="#{movieManager.movies}" 
                                     rows="16" rowsPerPageTemplate="8, 16, 32, 128" paginator="true"
                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                     >
                             <f:facet name="header">
                                 <h:form>
                                     <p:menubar>
-                                        <p:menuitem value="Now Playing" action="#{movieManager.nowPlaying()}"/>
+                                        <p:menuitem value="Now Playing" action="#{movieManager.showNowPlaying()}"/>
                                         <p:menuitem value="Coming Soon" action="#{movieManager.comingSoon()}"/>
-                                        <p:menuitem value="Box Office" action="#{movieManager.boxOffice()}"/>
                                         <p:menuitem value="Favorites" action="#{movieManager.showFavorites()}"/>
                                         <p:menuitem value="Recommended" action="#{movieManager.showRecommended()}"/>
                                         <f:facet name="options">
