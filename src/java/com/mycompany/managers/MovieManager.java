@@ -25,13 +25,14 @@ public class MovieManager implements Serializable {
     private Movie currMovie;
     private ApiManager apiManager;
     private String type;
-    
+    private String zipCode;
     
     /**
      * Creates a new instance of ApiManager
      */
     public MovieManager() {
         type = "Now Playing";
+        zipCode = "24061";
         apiManager = new ApiManager();
         
 //        nowPlaying = new ArrayList<>();
@@ -41,6 +42,14 @@ public class MovieManager implements Serializable {
 //        }
     }
 
+    public String getZipCode() {
+        return zipCode;
+    }
+    
+    public void setZipCode(String zip) {
+        zipCode = zip;
+    }
+    
     public Movie getCurrMovie() {
         return currMovie;
     }
@@ -49,16 +58,43 @@ public class MovieManager implements Serializable {
         this.currMovie = currMovie;
     }
     
+    public void changeLocation() {
+        //ArrayList<String> temp = getNowPlayingTitles();
+        System.out.println("location changed");
+    }
+    
     public ArrayList<String> getNowPlayingTitles() {
         ArrayList<String> titles = new ArrayList<>();
-        
-        List<Movie> list = getNowPlaying();
-        
+        titles.add("Choose a Movie");
+        //List<Movie> list = getNowPlaying();
+        titles.add("movie 1");
+        titles.add("movie 2");
+        titles.add("movie 3");
+        /*
         for (Movie m : list) {
             titles.add(m.getTitle());
+            
         }
-        
+        */
         return titles;
+    }
+    
+    public ArrayList<String> getNowPlayingPosters() {
+        ArrayList<String> posters = new ArrayList<>();
+        
+        //List<Movie> list = getNowPlaying();
+        posters.add("http://i.imgur.com/hQsw8Oe.jpg");
+        posters.add("http://i.imgur.com/ZUli3ZH.jpg");
+        posters.add("http://i.imgur.com/M2AYIht.jpg");
+        posters.add("http://i.imgur.com/ZcMT33m.jpg");
+        posters.add("http://i.imgur.com/sODzs5B.png");
+
+        /*
+        for (Movie m : list) {
+            posters.add(m.getPoster());
+        }
+        */
+        return posters;
     }
 
     public String getSearchTitle() {
@@ -83,7 +119,7 @@ public class MovieManager implements Serializable {
     
     public List<Movie> getNowPlaying() {
         if (nowPlaying == null) {
-            nowPlaying = apiManager.searchOnConnectZip("24061");
+            nowPlaying = apiManager.searchOnConnectZip(zipCode);
         }
         return nowPlaying;
     }

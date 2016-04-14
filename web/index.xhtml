@@ -11,13 +11,6 @@
         <!-- <h:outputStylesheet name="css/jsfcrud.css"/> -->
     </h:head>
 
-    <script type="text/javascript">
-        var selectedMovie = ""
-
-        function dropdownSelect() {
-            selectedMovie = document.getElementById("form:select_movie").value;
-        }
-    </script>
 
     <h:body>
         <ui:composition template="/templates/main.xhtml">
@@ -25,37 +18,68 @@
                 <div align="center">
                     <h:form class="form">
 				<div align="center">
-				    <h:panelGrid columns="2" columnClasses="rightAlign, leftAlign" bgcolor="blue">
-						<div>
-                                                        <h2>Tickets &amp; Showtimes Near</h2>
-							<h:outputLabel value="24061"/>
-						</div>
-						<h:commandButton id="changeLoc"  action="#{movieManager.changeLocation()}" value="Change Location" styleClass="buttonText"/>
-		
-                                                <!-- <p:outputLabel for="select_movie" value="Select a Movie" /> -->
-                                                <h:selectOneMenu id="select_movie" value="#{movieManager.searchTitle}" required="true" onchange="dropdownSelect()">
+                                    <br />
+                                    <br />
+                                    <h:panelGrid border="1">
+                                        <h:panelGrid columns="2" columnClasses="rightAlign, leftAlign" bgcolor="lightblue">
+                                            <h:panelGroup>
+                                                <h2>Tickets &amp; Showtimes Near: </h2>
+                                            </h:panelGroup>
+                                            <h:panelGroup>
+                                                <h:inputText id="zip" value="#{movieManager.zipCode}" required="true" label="Zip Code">
+                                                    <f:validateLength minimum="5" />
+                                                </h:inputText>
+                                                    <h:commandButton id="changeLoc"  action="#{movieManager.changeLocation()}" value="Change Location" styleClass="buttonText"/>
+                                            </h:panelGroup>
+                                            <h:panelGroup style="display:block; text-align:center">
+                                                <h:selectOneMenu id="select_movie" value="#{movieManager.searchTitle}" required="true" onchange="dropdownSelect()" style="font-size:18px">
                                                     <f:selectItems value="#{movieManager.nowPlayingTitles}"/>
                                                 </h:selectOneMenu>
-                                                <h:commandButton id="getShowtimes"  action="#{movieManager.searchByTitle()}" value="Get Tickets &amp; Showtimes" styleClass="buttonText"/>
+                                            </h:panelGroup>
+                                            <h:commandButton id="getShowtimes"  action="#{movieManager.searchByTitle()}" value="Get Tickets &amp; Showtimes" styleClass="buttonText" style="width:240px; height:40px; font-size:20px"/>
+                                        </h:panelGrid>
                                     </h:panelGrid>
                                     <br />
-                                    <h2>Currently Showing:</h2>
                                     <br />
-                                    <h:panelGrid columns="5">
-					<h:graphicImage url="http://i.imgur.com/M2AYIht.jpg"
-							width="180" height="267" alt="Movie img"/>
-						
-					<h:graphicImage url="http://i.imgur.com/ZUli3ZH.jpg"
-							width="180" height="266" alt="Movie img"/>
-						
-					<h:graphicImage url="http://i.imgur.com/9NJr8pp.jpg"
-							width="180" height="267" alt="Movie img"/>
-						
-					<h:graphicImage url="http://i.imgur.com/ZcMT33m.jpg"
-							width="180" height="267" alt="Movie img"/>
-						
-					<h:graphicImage url="http://i.imgur.com/sODzs5B.png"
-							width="180" height="267" alt="Movie img"/>
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <h2>Currently Showing:</h2>
+                                    <h:panelGrid border="1">
+                                        <h:panelGrid columns="5" bgcolor="lightblue" border="0" cellpadding="10" cellspacing="10">
+                                            <h:commandLink>
+                                                <f:ajax event="action" listener="#{movieManager.changeLocation()}"/>
+                                                <h:graphicImage url="#{movieManager.nowPlayingPosters[0]}"
+                                                                width="180" height="267" alt="Movie img" onclick=""/>
+                                            </h:commandLink>
+
+                                            <h:commandLink>
+                                                <f:ajax event="action" listener="#{movieManager.changeLocation()}"/>
+                                                <h:graphicImage url="#{movieManager.nowPlayingPosters[1]}"
+                                                                width="180" height="266" alt="Movie img"/>
+                                            </h:commandLink>
+
+                                            <h:commandLink>
+                                                <f:ajax event="action" listener="#{movieManager.changeLocation()}"/>
+                                                <h:graphicImage url="#{movieManager.nowPlayingPosters[2]}"
+                                                                width="180" height="267" alt="Movie img"/>
+                                            </h:commandLink>
+
+                                            <h:commandLink>
+                                                <f:ajax event="action" listener="#{movieManager.changeLocation()}"/>
+                                                <h:graphicImage url="#{movieManager.nowPlayingPosters[3]}"
+                                                                width="180" height="267" alt="Movie img"/>
+                                            </h:commandLink>
+
+                                            <h:commandLink>
+                                                <f:ajax event="action" listener="#{movieManager.changeLocation()}"/>
+                                                <h:graphicImage url="#{movieManager.nowPlayingPosters[4]}"
+                                                                width="180" height="267" alt="Movie img"/>
+                                            </h:commandLink>
+                                        </h:panelGrid>
                                     </h:panelGrid>
 				</div>
                     </h:form>
