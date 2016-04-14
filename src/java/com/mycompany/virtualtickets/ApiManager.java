@@ -14,6 +14,8 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.List;
+
 
 import java.util.Date;
 import java.text.DateFormat;
@@ -39,13 +41,12 @@ public class ApiManager {
 //        }
 //
 //    }
-
     /**
      *
      * @param title
      * @return
      */
-    public Movie searchOmdbTitle(String title) {
+    public Movie searchForMovieOmdb(String title) {
         Movie mov = null;
 
         String url = "http://www.omdbapi.com/?t="
@@ -61,12 +62,47 @@ public class ApiManager {
             mov.setRuntime(json.getString("runtime"));
             mov.setMetascore(json.getString("metascore"));
             mov.setImdbRating(json.getString("imbdscore"));
+            mov.setDescription(json.getString("Plot"));
         } catch (Exception e) {
             return null;
         }
         return mov;
     }
 
+    /**
+     *
+     * @param title
+     * @return
+     */
+    public ArrayList<Movie> searchByTitleOmdb(String title) {
+        ArrayList<Movie> movs = new ArrayList<Movie>();
+
+        String url = "http://www.omdbapi.com/?s="
+                + title + "&type=movie";
+
+        try {
+            JSONObject json = readJsonFromUrl(url);
+            JSONObject j;
+            Movie mov; 
+            for (int i = 0; i < json.length(); i++) {
+                j = json.getJSONObject(i);
+                mov = new Movie();
+                mov.setTitle(j.getString("Title"));
+                mov.setYear(j.getInt("Year"));
+                mov.setPoster(j.getString("Poster"));
+                movs.add(mov);
+            }
+        } catch (Exception e) {
+            return null;
+        }
+        return movs;
+    }
+
+    /**
+     * 
+     * @param title
+     * @return 
+     */
     public String getPosterURL(String title) {
         String poster = null;
 
@@ -111,6 +147,7 @@ public class ApiManager {
                 mov.setReleased(j.getString("releaseDate"));
                 mov.setRuntime(j.getString("runTime"));
                 mov.setShowtimes(j.getJSONArray("showtimes"));
+                mov.setDescription(j.getString("longDescription"));
                 movs.add(mov);
             }
 
