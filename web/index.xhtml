@@ -34,7 +34,7 @@
 		
                                                 <!-- <p:outputLabel for="select_movie" value="Select a Movie" /> -->
                                                 <h:selectOneMenu id="select_movie" value="Select a Movie" required="true" onchange="dropdownSelect()">
-                                                    <f:selectItems value="#{this.getTopMoviesNearby()}"/>
+                                                    <f:selectItems value="#{movieManager.nowPlayingTitles}"/>
                                                 </h:selectOneMenu>
                                                 <h:commandButton id="getShowtimes"  action="#{movieManager.getShowtimes()}" value="Get Tickets &amp; Showtimes" styleClass="buttonText"/>
                                     </h:panelGrid>

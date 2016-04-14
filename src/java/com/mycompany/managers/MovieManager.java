@@ -50,7 +50,17 @@ public class MovieManager implements Serializable {
         this.currMovie = currMovie;
     }
     
-    
+    public ArrayList<String> getNowPlayingTitles() {
+        ArrayList<String> titles = new ArrayList<>();
+        
+        List<Movie> list = getNowPlaying();
+        
+        for (Movie m : list) {
+            titles.add(m.getTitle());
+        }
+        
+        return titles;
+    }
 
     public String getSearchTitle() {
         return searchTitle;
