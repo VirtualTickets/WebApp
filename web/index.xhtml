@@ -24,43 +24,40 @@
             <ui:define name="content">
                 <div align="center">
                     <h:form class="form">
-                        <div align="center">
-                            <h:panelGrid columns="2" columnClasses="rightAlign, leftAlign">
-                                <div>
-                                    <h2> Tickets &amp; Showtimes Near </h2>
-                                    <h:outputLabel value="24061"/>
-                                </div>
-                                <h:commandButton id="changeLoc" value="Change Location" styleClass="buttonText"/>
-
-                                <!-- <p:outputLabel for="select_movie" value="Select a Movie" /> -->
-                                <!--
-                                <h:selectOneMenu id="select_movie" value="Select a Movie" required="true" onchange="dropdownSelect()">
-                                    <f:selectItems value="#{this.getTopMoviesNearby()}"/>
-                                </h:selectOneMenu>
-                                -->
-                                <h2> test </h2>
-                                <h:commandButton id="getShowtimes" value="Get Tickets &amp; Showtimes" styleClass="buttonText"/>
-                            </h:panelGrid>
-                            <br />
-                            <h2>Currently Showing:</h2>
-                            <br />
-                            <h:panelGrid columns="5">
-                                <h:graphicImage url="http://i.imgur.com/M2AYIht.jpg"
-                                                width="180" height="267" alt="Movie img"/>
-
-                                <h:graphicImage url="http://i.imgur.com/ZUli3ZH.jpg"
-                                                width="180" height="266" alt="Movie img"/>
-
-                                <h:graphicImage url="http://i.imgur.com/9NJr8pp.jpg"
-                                                width="180" height="267" alt="Movie img"/>
-
-                                <h:graphicImage url="http://i.imgur.com/ZcMT33m.jpg"
-                                                width="180" height="267" alt="Movie img"/>
-
-                                <h:graphicImage url="http://i.imgur.com/sODzs5B.png"
-                                                width="180" height="267" alt="Movie img"/>
-                            </h:panelGrid>
-                        </div>
+				<div align="center">
+				    <h:panelGrid columns="2" columnClasses="rightAlign, leftAlign">
+						<div>
+                                                        <h2>Tickets &amp; Showtimes Near</h2>
+							<h:outputLabel value="24061"/>
+						</div>
+						<h:commandButton id="changeLoc"  action="#{movieManager.changeLocation()}" value="Change Location" styleClass="buttonText"/>
+		
+                                                <!-- <p:outputLabel for="select_movie" value="Select a Movie" /> -->
+                                                <h:selectOneMenu id="select_movie" value="Select a Movie" required="true" onchange="dropdownSelect()">
+                                                    <f:selectItems value="#{this.getTopMoviesNearby()}"/>
+                                                </h:selectOneMenu>
+                                                <h:commandButton id="getShowtimes"  action="#{movieManager.getShowtimes()}" value="Get Tickets &amp; Showtimes" styleClass="buttonText"/>
+                                    </h:panelGrid>
+                                    <br />
+                                    <h2>Currently Showing:</h2>
+                                    <br />
+                                    <h:panelGrid columns="5">
+					<h:graphicImage url="http://i.imgur.com/M2AYIht.jpg"
+							width="180" height="267" alt="Movie img"/>
+						
+					<h:graphicImage url="http://i.imgur.com/ZUli3ZH.jpg"
+							width="180" height="266" alt="Movie img"/>
+						
+					<h:graphicImage url="http://i.imgur.com/9NJr8pp.jpg"
+							width="180" height="267" alt="Movie img"/>
+						
+					<h:graphicImage url="http://i.imgur.com/ZcMT33m.jpg"
+							width="180" height="267" alt="Movie img"/>
+						
+					<h:graphicImage url="http://i.imgur.com/sODzs5B.png"
+							width="180" height="267" alt="Movie img"/>
+                                    </h:panelGrid>
+				</div>
                     </h:form>
                 </div>
             </ui:define>
@@ -68,4 +65,5 @@
     </h:body>
 
 </html>
+
 
