@@ -24,6 +24,15 @@ public class Movie {
     
     public Movie() {
     }
+    
+    public Movie(String title) {
+        this.title = title;
+        this.released = "Mar 31 2016";
+        this.rated = "R";
+        this.imdbRating = "9.9";
+        this.metascore = "9.8";
+        this.runtime = "1:59";
+    }
 
     public String getTitle() {
         return title;

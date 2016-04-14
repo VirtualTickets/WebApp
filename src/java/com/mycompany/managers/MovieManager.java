@@ -4,6 +4,7 @@
  */
 package com.mycompany.managers;
 
+import com.mycompany.virtualtickets.ApiManager;
 import com.mycompany.virtualtickets.Movie;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -19,26 +20,33 @@ import java.util.List;
 @SessionScoped
 public class MovieManager implements Serializable {
 
-    private List<Movie> movies;
+    private List<Movie> nowPlaying;
     private String currTitle;
+    private Movie currMovie;
     
     /**
      * Creates a new instance of ApiManager
      */
     public MovieManager() {
-        currTitle = null;
-        movies = new ArrayList<>();
         
-        Movie m = new Movie();
-        m.setTitle("Batman vs. Superman");
-        
-        for (int i = 0; i < 128; i++) {
-            movies.add(m);
-        }
+//        nowPlaying = new ArrayList<>();
+//        
+//        for (int i = 0; i < 128; i++) {
+//            nowPlaying.add(new Movie("Batman vs. Superman" + i));
+//        }
     }
 
+    public Movie getCurrMovie() {
+        return currMovie;
+    }
+
+    public void setCurrMovie(Movie currMovie) {
+        this.currMovie = currMovie;
+    }
+    
+    
+
     public String getCurrTitle() {
-        if (currTitle == null) return null;
         return currTitle;
     }
 
@@ -54,9 +62,11 @@ public class MovieManager implements Serializable {
         else setCurrTitle(null);
     }
     
-    public List<Movie> getMovies() {
-        
-        return movies;
+    public List<Movie> getNowPlaying() {
+        if (nowPlaying == null) {
+            nowPlaying = ApiManager.searchOnConnectZip("24061");
+        }
+        return nowPlaying;
     }
     
     public String getMovieTableHeader() {

@@ -12,11 +12,12 @@ Copyright © 2016 Benjamin Sweeney. All rights reserved.
     <h:body>
         <ui:composition template="/templates/main.xhtml">
             <ui:define name="content">
-                <p:panelGrid columns="2">
+                <p:panelGrid columns="2" style="border-style: none">
                     <h:panelGroup>
-                        <p:dataGrid var="movie" columns="4" value="#{movieManager.movies}" 
+                        <p:dataGrid var="movie" columns="4" value="#{movieManager.nowPlaying}" 
                                     rows="16" rowsPerPageTemplate="8, 16, 32, 128" paginator="true"
-                                    paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+                                    paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                    >
                             <f:facet name="header">
                                 <h:form>
                                     <p:menubar>
@@ -32,7 +33,7 @@ Copyright © 2016 Benjamin Sweeney. All rights reserved.
                                 </h:form>
                             </f:facet>
                             <h:form>
-                                <h:commandLink onclick="#{movieManager.view()}" style="text-decoration: none">
+                                <p:commandLink update=":movie" onclick="#{movieManager.view()}" style="text-decoration: none">
                                     <p:panel >
                                         <h:graphicImage value="#{resource['images/batman.jpg']}" style="max-height: 185px; max-width: 125px" alt="Hello" />
                                         <br/>
@@ -40,14 +41,27 @@ Copyright © 2016 Benjamin Sweeney. All rights reserved.
                                         <h:outputText value="#{movie.title}"/>
                                         <br/>
                                     </p:panel>
-                                    <p:ajax update=":movie:title"/>
-                                </h:commandLink>
+                                    <f:setPropertyActionListener value="#{movie}" target="#{movieManager.currMovie}"/>
+                                </p:commandLink>
                             </h:form>
                         </p:dataGrid>
                     </h:panelGroup>
                     <h:panelGroup>
                         <h:form id="movie">
-                            <h:outputText value="#{movieManager.currTitle}" id="title"/>
+                            <p:panelGrid columns="2" rendered="#{movieManager.currMovie != null}">
+                                <h:outputText value="Title: "/>
+                                <h:outputText value="#{movieManager.currMovie.title}"/>
+                                <h:outputText value="Release date: "/>
+                                <h:outputText value="#{movieManager.currMovie.released}"/>
+                                <h:outputText value="Rating: "/>
+                                <h:outputText value="#{movieManager.currMovie.rated}"/>
+                                <h:outputText value="IMBD rating: "/>
+                                <h:outputText value="#{movieManager.currMovie.imdbRating}"/>
+                                <h:outputText value="Metascore: "/>
+                                <h:outputText value="#{movieManager.currMovie.metascore}"/>
+                                <h:outputText value="Runtime: "/>
+                                <h:outputText value="#{movieManager.currMovie.runtime}"/>
+                            </p:panelGrid>
                         </h:form>
                     </h:panelGroup>
                 </p:panelGrid>
