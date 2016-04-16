@@ -39,17 +39,17 @@ Copyright © 2016 Benjamin Sweeney. All rights reserved.
                                 <h:outputText value="Payment Info"/>
                             </f:facet>
                             <h:outputText value="Credit Card Number" rendered="#{!accountManager.hasPaymentInfo}"/>
-                            <h:inputText/>
+                            <h:inputText rendered="#{!accountManager.hasPaymentInfo}"/>
                             <h:outputText value="Expiration Month" rendered="#{!accountManager.hasPaymentInfo}"/>
-                            <h:inputText/>
+                            <h:inputText rendered="#{!accountManager.hasPaymentInfo}"/>
                             <h:outputText value="Expiration Year" rendered="#{!accountManager.hasPaymentInfo}"/>
-                            <h:inputText/>
+                            <h:inputText rendered="#{!accountManager.hasPaymentInfo}"/>
                             <h:outputText value="First Name" rendered="#{!accountManager.hasPaymentInfo}"/>
-                            <h:inputText/>
+                            <h:inputText rendered="#{!accountManager.hasPaymentInfo}"/>
                             <h:outputText value="Last Name" rendered="#{!accountManager.hasPaymentInfo}"/>
-                            <h:inputText/>
+                            <h:inputText rendered="#{!accountManager.hasPaymentInfo}"/>
                             <h:outputText value="Billing ZIP Code" rendered="#{!accountManager.hasPaymentInfo}"/>
-                            <h:inputText/>
+                            <h:inputText rendered="#{!accountManager.hasPaymentInfo}"/>
                             <h:outputText value="CVC"/>
                             <h:inputText/>
                             <h:outputText value="Number of tickets"/>
