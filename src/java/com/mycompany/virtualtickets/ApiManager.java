@@ -28,8 +28,8 @@ import java.util.Calendar;
  */
 public class ApiManager {
 
-      private static final String[] OCAPI = {"yqcmwu38uh7mf9rpgsdbqnyj", "fw8t9na72xqh8ggq8abcgya8", "xj3ferv39aeteuxmbyv56j9d", "s8f22txztahfh3uttvhw4tj7"};
-      private int keyIdx = 0;
+      private static final String[] OCAPI = {"yqcmwu38uh7mf9rpgsdbqnyj", "fw8t9na72xqh8ggq8abcgya8", "xj3ferv39aeteuxmbyv56j9d", "s8f22txztahfh3uttvhw4tj7", "jcrv4xfdy2ayt73wysg6ubpt" };
+      private int keyIdx = 4;
 //    public static void main(String args[]) {
 //        ArrayList<Movie> movs = searchOnConnectZip("23453");
 //        for (Movie i : movs) {
@@ -143,28 +143,72 @@ public class ApiManager {
             for (int i = 0; i < json.length(); i++) {
                 j = json.getJSONObject(i);
                 mov = new Movie();
-                mov.setTitle(j.getString("title"));
-                mov.setYear(j.getInt("releaseYear"));
-                mov.setRated(j.getJSONArray("ratings").getJSONObject(0).getString("code"));
-                mov.setReleased(j.getString("releaseDate"));
-                mov.setRuntime("120min");
-//                mov.setRuntime(j.getString("runTime"));
-                mov.setShowtimes(j.getJSONArray("showtimes"));
-                mov.setDescription(j.getString("longDescription"));
+                
+                try {
+                    mov.setRated(j.getJSONArray("ratings").getJSONObject(0).getString("code"));
+                }
+                catch (Exception e) {
+                    mov.setRated("none");
+                }
+                try {
+                    mov.setTitle(j.getString("title"));
+                }
+                catch (Exception e) {
+                    mov.setTitle("none");
+                }
+                try {
+                    mov.setYear(j.getInt("releaseYear"));
+                }
+                catch (Exception e) {
+                    mov.setYear(0);
+                }
+                try {
+                    mov.setRated(j.getJSONArray("ratings").getJSONObject(0).getString("code"));
+                }
+                catch (Exception e) {
+                    mov.setRated("none");
+                }
+                try {
+                    mov.setReleased(j.getString("releaseDate"));
+                }
+                catch (Exception e) {
+                    mov.setReleased("none");
+                }
+                try {
+                    mov.setRuntime(j.getString("runTime"));
+                }
+                catch (Exception e) {
+                    mov.setRuntime("none");
+                }
+                try {
+                    mov.setShowtimes(j.getJSONArray("showtimes"));
+                }
+                catch (Exception e) {
+                    //mov.setShowtimes("none");
+                }
+                try {
+                    mov.setDescription(j.getString("longDescription"));
+                }
+                catch (Exception e) {
+                    mov.setDescription("none");
+                }
+               
                 //System.out.println("Poster: " + j.getString("preferredImage").toString());
                 //System.out.println(j);
                 movs.add(mov);
             }
 
         } catch (Exception e) {
-            
+           // System.out.println("exception: " + e);
             //If nothing is returned, try with a different key. 
+            /*
             if (e instanceof IOException && e.toString().regionMatches(57, "403", 0, 3)) {
                 if (keyIdx < OCAPI.length - 1) {
                     keyIdx++;
                     return searchOnConnectZip(zip);
                 }
             }
+            */
             
             return null;
         }
