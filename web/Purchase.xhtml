@@ -7,34 +7,79 @@ Copyright © 2016 Benjamin Sweeney. All rights reserved.
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <body>
-        <h:form>
-            <p:selectOneRadio layout="pageDirection" rendered="#{!loginManager.loggedIn}">
-                <f:selectItem itemLabel="Create Account"/>
-                <f:selectItem itemLabel="Sign in"/>
-                <f:selectItem itemLabel="Check out as Guest"/>
-            </p:selectOneRadio>
-
-            <p:panelGrid columns="2" rendered="#{!accountManager.hasPaymentInfo}">
-                <h:outputText value="Credit Card Number"/>
-                <h:inputText/>
-                <h:outputText value="Expiration Month"/>
-                <h:inputText/>
-                <h:outputText value="Expiration Year"/>
-                <h:inputText/>
-                <h:outputText value="First Name"/>
-                <h:inputText/>
-                <h:outputText value="Last Name"/>
-                <h:inputText/>
-                <h:outputText value="Billing ZIP Code"/>
-                <h:inputText/>
-            </p:panelGrid>
-            <p:panelGrid columns="2">
-                <h:outputText value="CVC"/>
-                <h:inputText/>
-            </p:panelGrid>
-            <h:commandButton value="Confirm" action="#{movieManager.confirmPurchase()}"/>
-        </h:form>
-    </body>
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:body>
+        <ui:composition template="/templates/main.xhtml">
+            <ui:define name="content">
+                <div>
+                    <h:form>
+                        <!--p:selectOneRadio layout="pageDirection" rendered="#{!loginManager.loggedIn}" value="#{movieManager.checkoutAs}">
+                            <f:selectItem itemLabel="Check out as Guest" itemValue="Guest"/>
+                            <f:selectItem itemLabel="Create Account" itemValue="Create"/>
+                            <f:selectItem itemLabel="Sign in" itemValue="Sign in"/>
+                        </p:selectOneRadio>
+                        <br/>
+                        
+                        
+                        <h:outputText value="Email"/>
+                        <br/>
+                        <h:inputText/>
+                        <br/>
+                        <br/>
+                        <h:outputText value="Create Password"/>
+                        <br/>
+                        <h:inputText/>
+                        
+                        
+                        <br/>
+                        <br/-->
+                        <p:panelGrid columns="2">
+                            <f:facet name="header">
+                                <h:outputText value="Payment Info"/>
+                            </f:facet>
+                            <h:outputText value="Credit Card Number" rendered="#{!accountManager.hasPaymentInfo}"/>
+                            <h:inputText/>
+                            <h:outputText value="Expiration Month" rendered="#{!accountManager.hasPaymentInfo}"/>
+                            <h:inputText/>
+                            <h:outputText value="Expiration Year" rendered="#{!accountManager.hasPaymentInfo}"/>
+                            <h:inputText/>
+                            <h:outputText value="First Name" rendered="#{!accountManager.hasPaymentInfo}"/>
+                            <h:inputText/>
+                            <h:outputText value="Last Name" rendered="#{!accountManager.hasPaymentInfo}"/>
+                            <h:inputText/>
+                            <h:outputText value="Billing ZIP Code" rendered="#{!accountManager.hasPaymentInfo}"/>
+                            <h:inputText/>
+                            <h:outputText value="CVC"/>
+                            <h:inputText/>
+                            <h:outputText value="Number of tickets"/>
+                            <h:inputText />
+                        </p:panelGrid>  
+                        <br/>
+                        <h:commandButton value="Confirm" action="#{movieManager.confirmPurchase()}"/>
+                    </h:form>
+                </div>
+                <div style="position: absolute; top: 100px; left: 65%;">
+                    <h:form id="movie">
+                        <p:panelGrid columns="2" rendered="#{movieManager.currMovie != null}">
+                            <h:outputText value="Title: "/>
+                            <h:outputText value="#{movieManager.currMovie.title}"/>
+                            <h:outputText value="Release date: "/>
+                            <h:outputText value="#{movieManager.currMovie.released}"/>
+                            <h:outputText value="Rating: "/>
+                            <h:outputText value="#{movieManager.currMovie.rated}"/>
+                            <h:outputText value="IMBD rating: "/>
+                            <h:outputText value="#{movieManager.currMovie.imdbRating}"/>
+                            <h:outputText value="Metascore: "/>
+                            <h:outputText value="#{movieManager.currMovie.metascore}"/>
+                            <h:outputText value="Runtime: "/>
+                            <h:outputText value="#{movieManager.currMovie.runtime}"/>
+                        </p:panelGrid>
+                        <br/>
+                        <p:media value="https://www.youtube.com/v/yY0PBoDlHMI" width="100%"   height="270" player="flash" rendered="#{movieManager.currMovie != null}" />
+                    </h:form>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
 </html>

@@ -26,6 +26,7 @@ public class MovieManager implements Serializable {
     private ApiManager apiManager;
     private String type;
     private String zipCode;
+    private String checkoutAs = "Guest";
     
     /**
      * Creates a new instance of ApiManager
@@ -40,6 +41,14 @@ public class MovieManager implements Serializable {
         for (int i = 0; i < 128; i++) {
             nowPlaying.add(new Movie("Batman vs. Superman" + i));
         }
+    }
+
+    public String getCheckoutAs() {
+        return checkoutAs;
+    }
+
+    public void setCheckoutAs(String checkoutAs) {
+        this.checkoutAs = checkoutAs;
     }
 
     public String getZipCode() {
