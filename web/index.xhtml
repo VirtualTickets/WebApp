@@ -23,7 +23,7 @@
                                     <h:panelGrid border="1">
                                         <h:panelGrid columns="2" columnClasses="rightAlign, leftAlign" bgcolor="lightblue">
                                             <h:panelGroup>
-                                                <h2>Tickets &amp; Showtimes Near: </h2>
+                                                <h2>Tickets &amp; Showtimes Nearby </h2>
                                             </h:panelGroup>
                                             <h:panelGroup>
                                                 <h:inputText id="zip" value="#{movieManager.zipCode}" required="true" label="Zip Code">
@@ -51,31 +51,31 @@
                                     <h:panelGrid border="1">
                                         <h:panelGrid columns="5" bgcolor="lightblue" border="0" cellpadding="10" cellspacing="10">
                                             <h:commandLink>
-                                                <f:ajax event="action" listener="#{movieManager.changeLocation()}"/>
+                                                <f:ajax event="action" listener="#{movieManager.searchByTitle(movieManager.topNowPlayingTitles[0])}"/>
                                                 <h:graphicImage url="#{movieManager.nowPlayingPosters[0]}"
                                                                 width="180" height="267" alt="Movie img" onclick=""/>
                                             </h:commandLink>
 
                                             <h:commandLink>
-                                                <f:ajax event="action" listener="#{movieManager.changeLocation()}"/>
+                                                <f:ajax event="action" listener="#{movieManager.searchByTitle(movieManager.topNowPlayingTitles[1])}"/>
                                                 <h:graphicImage url="#{movieManager.nowPlayingPosters[1]}"
                                                                 width="180" height="266" alt="Movie img"/>
                                             </h:commandLink>
 
                                             <h:commandLink>
-                                                <f:ajax event="action" listener="#{movieManager.changeLocation()}"/>
+                                                <f:ajax event="action" listener="#{movieManager.searchByTitle(movieManager.topNowPlayingTitles[2])}"/>
                                                 <h:graphicImage url="#{movieManager.nowPlayingPosters[2]}"
                                                                 width="180" height="267" alt="Movie img"/>
                                             </h:commandLink>
 
                                             <h:commandLink>
-                                                <f:ajax event="action" listener="#{movieManager.changeLocation()}"/>
+                                                <f:ajax event="action" listener="#{movieManager.searchByTitle(movieManager.topNowPlayingTitles[3])}"/>
                                                 <h:graphicImage url="#{movieManager.nowPlayingPosters[3]}"
                                                                 width="180" height="267" alt="Movie img"/>
                                             </h:commandLink>
 
                                             <h:commandLink>
-                                                <f:ajax event="action" listener="#{movieManager.changeLocation()}"/>
+                                                <f:ajax event="action" listener="#{movieManager.searchByTitle(movieManager.topNowPlayingTitles[4])}"/>
                                                 <h:graphicImage url="#{movieManager.nowPlayingPosters[4]}"
                                                                 width="180" height="267" alt="Movie img"/>
                                             </h:commandLink>

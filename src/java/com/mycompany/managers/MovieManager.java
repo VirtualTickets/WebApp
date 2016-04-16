@@ -67,9 +67,6 @@ public class MovieManager implements Serializable {
         ArrayList<String> titles = new ArrayList<>();
         titles.add("Choose a Movie");
         List<Movie> list = getNowPlaying();
-        //titles.add("movie 1");
-        //titles.add("movie 2");
-        //titles.add("movie 3");
         
         for (Movie m : list) {
             titles.add(m.getTitle());
@@ -79,21 +76,38 @@ public class MovieManager implements Serializable {
         return titles;
     }
     
+    /**
+     * gets the titles of the top 5 movies. For now this is simply the first
+     * 5 returned, but it should be based upon highest grossing or something.
+     * @return the list of top 5 titles
+     */
+    public ArrayList<String> getTopNowPlayingTitles() {
+        ArrayList<String> titles = new ArrayList<>();
+        List<Movie> list = getNowPlaying();
+        
+        for (int i=0; i <= 5; i++) {
+            titles.add(list.get(i).getTitle());
+        }
+        
+        return titles;
+    }
+        
     public ArrayList<String> getNowPlayingPosters() {
         ArrayList<String> posters = new ArrayList<>();
         
-        //List<Movie> list = getNowPlaying();
+        List<Movie> list = getNowPlaying();
         posters.add("http://i.imgur.com/hQsw8Oe.jpg");
         posters.add("http://i.imgur.com/ZUli3ZH.jpg");
         posters.add("http://i.imgur.com/M2AYIht.jpg");
         posters.add("http://i.imgur.com/ZcMT33m.jpg");
         posters.add("http://i.imgur.com/sODzs5B.png");
 
-        /*
+        
         for (Movie m : list) {
             posters.add(m.getPoster());
         }
-        */
+        
+        System.out.println(posters);
         return posters;
     }
 
@@ -108,6 +122,13 @@ public class MovieManager implements Serializable {
     public String searchByTitle() {
         type = "Search By Title";
         
+        return "Movies";
+    }
+    
+    public String searchByTitle(String title) {
+        type = "Search By Title";
+        System.out.println("search by title: " + title);
+
         return "Movies";
     }
     
