@@ -152,15 +152,17 @@ public class ApiManager {
                 mov.setShowtimes(j.getJSONArray("showtimes"));
                 mov.setDescription(j.getString("longDescription"));
                 //mov.setPoster(j.getJSONArray("preferredImage").getJSONObject(1).getString("Poster Art"));
-                //System.out.println("movie: " + j.getString("title") + "*******************************************************");
+                System.out.println("movie: " + j.getString("title") + "*******************************************************");
                 //System.out.println("Poster: " + j.getJSONArray("preferredImage").getJSONObject(0).toString());
                 //System.out.println(j.toString());
                 movs.add(mov);
             }
 
         } catch (Exception e) {
+            
+            System.out.println(e.toString());
             //If nothing is returned, try with a different key. 
-            if (e instanceof IOException) {
+            if (e instanceof IOException && e.toString().regionMatches(57, "403", 0, 3)) {
                 if (keyIdx < OCAPI.length - 1) {
                     keyIdx++;
                 }
