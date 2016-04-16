@@ -54,6 +54,7 @@ public class ApiManager {
 
         try {
             JSONObject json = readJsonFromUrl(url);
+            System.out.println(json);
             mov = new Movie();
             mov.setTitle(json.getString("title"));
             mov.setYear(Integer.parseInt(json.getString("year")));
@@ -150,19 +151,22 @@ public class ApiManager {
 //                mov.setRuntime(j.getString("runTime"));
                 mov.setShowtimes(j.getJSONArray("showtimes"));
                 mov.setDescription(j.getString("longDescription"));
+                //mov.setPoster(j.getJSONArray("preferredImage").getJSONObject(1).getString("Poster Art"));
+                //System.out.println("movie: " + j.getString("title") + "*******************************************************");
+                //System.out.println("Poster: " + j.getJSONArray("preferredImage").getJSONObject(0).toString());
+                //System.out.println(j.toString());
                 movs.add(mov);
             }
 
         } catch (Exception e) {
             //If nothing is returned, try with a different key. 
-            //If we start getting NullPointerExceptions for other reasons, change this.
-            if (e instanceof NullPointerException) {
+            if (e instanceof IOException) {
                 if (keyIdx < OCAPI.length - 1) {
-                    System.out.println("CHANGING keyIDX");
                     keyIdx++;
                 }
                 return searchOnConnectZip(zip);
             }
+            
             return null;
         }
 
