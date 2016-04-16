@@ -152,6 +152,7 @@ public class ApiManager {
                 mov.setShowtimes(j.getJSONArray("showtimes"));
                 mov.setDescription(j.getString("longDescription"));
                 //System.out.println("Poster: " + j.getString("preferredImage").toString());
+                //System.out.println(j);
                 movs.add(mov);
             }
 
@@ -162,8 +163,8 @@ public class ApiManager {
             if (e instanceof IOException && e.toString().regionMatches(57, "403", 0, 3)) {
                 if (keyIdx < OCAPI.length - 1) {
                     keyIdx++;
+                    return searchOnConnectZip(zip);
                 }
-                return searchOnConnectZip(zip);
             }
             
             return null;
