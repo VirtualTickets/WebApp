@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Created by Benjamin Sweeney on 2016.04.07 
+Copyright © 2016 Benjamin Sweeney. All rights reserved.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <body>
+        <h:form>
+            <p:selectOneRadio layout="pageDirection" rendered="#{!loginManager.loggedIn}">
+                <f:selectItem itemLabel="Create Account"/>
+                <f:selectItem itemLabel="Sign in"/>
+                <f:selectItem itemLabel="Check out as Guest"/>
+            </p:selectOneRadio>
+
+            <p:panelGrid columns="2" rendered="#{!accountManager.hasPaymentInfo}">
+                <h:outputText value="Credit Card Number"/>
+                <h:inputText/>
+                <h:outputText value="Expiration Month"/>
+                <h:inputText/>
+                <h:outputText value="Expiration Year"/>
+                <h:inputText/>
+                <h:outputText value="First Name"/>
+                <h:inputText/>
+                <h:outputText value="Last Name"/>
+                <h:inputText/>
+                <h:outputText value="Billing ZIP Code"/>
+                <h:inputText/>
+            </p:panelGrid>
+            <p:panelGrid columns="2">
+                <h:outputText value="CVC"/>
+                <h:inputText/>
+            </p:panelGrid>
+            <h:commandButton value="Confirm" action="#{movieManager.confirmPurchase()}"/>
+        </h:form>
+    </body>
+</html>

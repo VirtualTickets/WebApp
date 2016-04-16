@@ -64,6 +64,10 @@ public class AccountManager implements Serializable {
      */
     @EJB
     private PhotoFacade photoFacade;
+    
+    public boolean isHasPaymentInfo() {
+        return false;
+    }
 
     public String[] getListOfStates() {
         return listOfStates;
