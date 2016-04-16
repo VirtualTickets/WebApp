@@ -158,7 +158,6 @@ public class ApiManager {
 
         } catch (Exception e) {
             
-            System.out.println(e.toString());
             //If nothing is returned, try with a different key. 
             if (e instanceof IOException && e.toString().regionMatches(57, "403", 0, 3)) {
                 if (keyIdx < OCAPI.length - 1) {
