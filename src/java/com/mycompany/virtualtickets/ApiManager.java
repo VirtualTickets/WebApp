@@ -28,9 +28,8 @@ import java.util.Calendar;
  */
 public class ApiManager {
 
-    //private static final String OCAPI = "yqcmwu38uh7mf9rpgsdbqnyj";
-      private static final String OCAPI = "fw8t9na72xqh8ggq8abcgya8";
-      //private static final String OCAPI = "xj3ferv39aeteuxmbyv56j9d";
+      private static final String[] OCAPI = {"yqcmwu38uh7mf9rpgsdbqnyj", "fw8t9na72xqh8ggq8abcgya8", "xj3ferv39aeteuxmbyv56j9d", "s8f22txztahfh3uttvhw4tj7"};
+      private int keyIdx = 0;
 //    public static void main(String args[]) {
 //        ArrayList<Movie> movs = searchOnConnectZip("23453");
 //        for (Movie i : movs) {
@@ -132,10 +131,10 @@ public class ApiManager {
                 + d
                 + "&zip="
                 + zip
-                + "&api_key=" + OCAPI;
+                + "&api_key=" + OCAPI[keyIdx];
 
         System.out.println(url);
-
+        
         try {
             JSONArray json = readJsonArrayFromUrl(url);
             JSONObject j;
@@ -155,6 +154,15 @@ public class ApiManager {
             }
 
         } catch (Exception e) {
+            //If nothing is returned, try with a different key. 
+            //If we start getting NullPointerExceptions for other reasons, change this.
+            if (e instanceof NullPointerException) {
+                if (keyIdx < OCAPI.length - 1) {
+                    System.out.println("CHANGING keyIDX");
+                    keyIdx++;
+                }
+                return searchOnConnectZip(zip);
+            }
             return null;
         }
 
