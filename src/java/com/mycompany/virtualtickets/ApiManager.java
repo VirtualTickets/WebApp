@@ -28,7 +28,7 @@ import java.util.Calendar;
  */
 public class ApiManager {
 
-      private static final String[] OCAPI = {"yqcmwu38uh7mf9rpgsdbqnyj", "fw8t9na72xqh8ggq8abcgya8", "xj3ferv39aeteuxmbyv56j9d", "s8f22txztahfh3uttvhw4tj7"};
+      private static final String[] OCAPI = {"yqcmwu38uh7mf9rpgsdbqnyj", "fw8t9na72xqh8ggq8abcgya8", "xj3ferv39aeteuxmbyv56j9d", "s8f22txztahfh3uttvhw4tj7","bkenv8zj8vxssgnewvveqsv5"};
       private int keyIdx = 0;
 //    public static void main(String args[]) {
 //        ArrayList<Movie> movs = searchOnConnectZip("23453");
@@ -128,6 +128,8 @@ public class ApiManager {
         Date date = new Date();
         String d = dateFormat.format(date);
 
+       keyIdx = 4;
+        
         String url = "http://data.tmsapi.com/v1.1/movies/showings?startDate="
                 + d
                 + "&zip="
@@ -145,7 +147,7 @@ public class ApiManager {
                 mov = new Movie();
                 mov.setTitle(j.getString("title"));
                 mov.setYear(j.getInt("releaseYear"));
-                mov.setRated(j.getJSONArray("ratings").getJSONObject(0).getString("code"));
+                //mov.setRated(j.getJSONArray("ratings").getJSONObject(0).getString("code"));
                 mov.setReleased(j.getString("releaseDate"));
                 mov.setRuntime("120min");
 //                mov.setRuntime(j.getString("runTime"));
@@ -159,12 +161,12 @@ public class ApiManager {
         } catch (Exception e) {
             
             //If nothing is returned, try with a different key. 
-            if (e instanceof IOException && e.toString().regionMatches(57, "403", 0, 3)) {
+            /*if (e instanceof IOException && e.toString().regionMatches(57, "403", 0, 3)) {
                 if (keyIdx < OCAPI.length - 1) {
                     keyIdx++;
                     return searchOnConnectZip(zip);
                 }
-            }
+            }*/
             
             return null;
         }

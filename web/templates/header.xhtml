@@ -24,6 +24,30 @@ across all web pages.
 
                 </p:menubar>
             </h:form>
+            <h:form>
+                <p:growl id="msgs" showDetail="true" />
+                <p:panel id="toggleable" header="" toggleable="true" closable="false" toggleSpeed="500" closeSpeed="500" widgetVar="panel" style="margin-bottom:20px">
+                    <f:facet name="actions">
+                    <p:menuitem>
+                            <h:graphicImage name="/images/batman.jpg" value="/images/batman.jpg" height="50" onclick="PF('panel').toggle()" />
+                  
+                    </p:menuitem>
+                        </f:facet>
+                    <p:ajax event="close" listener="#{panelView.onClose}" update="msgs" />
+                    <p:ajax event="toggle" listener="#{panelView.onToggle}" update="msgs" />
+
+                    <h:panelGrid columns="2" cellpadding="10">
+                        <p:graphicImage name="demo/images/godfather/godfather2.jpg" />
+                        <h:outputText value="Francis"/>
+                    </h:panelGrid>
+
+
+                    
+                    
+
+
+                </p:panel>
+            </h:form>
         </h:panelGrid>
     </ui:composition>
 </html>
