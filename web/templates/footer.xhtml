@@ -14,22 +14,18 @@ Copyright © 2016 Nicholas Greer. All rights reserved.
         <div align="center">
         <h:form>
         <h:panelGrid columns="10" columnClasses="leftTopCornerAlign, rightTopCornerAlign">
-            <h:link outcome="www.facebook.com">
-                <f:ajax event="action" listener="#{movieManager.searchByTitle(movieManager.topNowPlayingTitles[4])}"/>
-                    <h:graphicImage url="#{resource['images:facebook.png']}" style="width:100%; height:100%; max-height:36px; max-width:36px;" alt="Facebook"/>
-            </h:link>
-            <h:commandLink>
-                <f:ajax event="action" listener="#{movieManager.searchByTitle(movieManager.topNowPlayingTitles[4])}"/>
-                    <h:graphicImage url="#{resource['images:googlePlus.png']}" style="width:100%; height:100%; max-height:36px; max-width:36px;" alt="G+"/>
-            </h:commandLink>
-            <h:commandLink>
-                <f:ajax event="action" listener="#{movieManager.searchByTitle(movieManager.topNowPlayingTitles[4])}"/>
-                    <h:graphicImage url="#{resource['images:linkedIn.png']}" style="width:100%; height:100%; max-height:36px; max-width:36px;" alt="linkedIn"/>
-            </h:commandLink>
-            <h:commandLink>
-                <f:ajax event="action" listener="#{movieManager.searchByTitle(movieManager.topNowPlayingTitles[4])}"/>
-                    <h:graphicImage url="#{resource['images:twitter.png']}" style="width:100%; height:100%; max-height:36px; max-width:36px;" alt="Twitter"/>
-            </h:commandLink>
+            <h:outputLink value="https://www.facebook.com/fandango">
+                <h:graphicImage url="#{resource['images:facebook.png']}" style="width:100%; height:100%; max-height:36px; max-width:36px;" alt="Facebook"/>
+            </h:outputLink>
+            <h:outputLink value="https://plus.google.com/+Fandango">
+                <h:graphicImage url="#{resource['images:googlePlus.png']}" style="width:100%; height:100%; max-height:36px; max-width:36px;" alt="G+"/>
+            </h:outputLink>
+            <h:outputLink value="https://www.linkedin.com/company/fandango">
+                <h:graphicImage url="#{resource['images:linkedIn.png']}" style="width:100%; height:100%; max-height:36px; max-width:36px;" alt="linkedIn"/>
+            </h:outputLink>
+            <h:outputLink value="https://twitter.com/fandango?lang=en">
+                <h:graphicImage url="#{resource['images:twitter.png']}" style="width:100%; height:100%; max-height:36px; max-width:36px;" alt="Twitter"/>
+            </h:outputLink>
             <p:spacer width="100" />  <p:spacer width="20" />
             <h:outputText value="© 2016, Group 12, Inc."/>
             <p:spacer width="100" />  <p:spacer width="20" />

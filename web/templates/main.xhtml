@@ -6,23 +6,23 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets">
-<!--
-Author: Nicholas Phillpott
-The main template file. Contains the style sheets input as well as a source
-to JQuery. 
--->
+    <!--
+    Author: Nicholas Phillpott
+    The main template file. Contains the style sheets input as well as a source
+    to JQuery. 
+    -->
     <h:head>
         <f:facet name="first">
             <meta http-equiv="X-UA-Compatible" content="IE=edge" />
             <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
-            <meta name="viewport" content="width=device-width, initial-scale=1" />		
-
+            <meta name="viewport" content="width=device-width, initial-scale=1.0"/>		
+            <h:outputStylesheet name="css/global.css"/>
             <title>Companies</title>
         </f:facet>
 
-        <f:facet name="middle">
+        <!--f:facet name="middle">
             <h:outputStylesheet name="bootstrap/css/bootstrap.css" />
-            
+
             <h:outputStylesheet name="css/dashboard.css"/>
 
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" />
@@ -32,7 +32,7 @@ to JQuery.
 
         <f:facet name="last">
 
-        </f:facet>
+        </f:facet-->
 
     </h:head>
 
