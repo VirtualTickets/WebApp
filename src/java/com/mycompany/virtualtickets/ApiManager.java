@@ -30,7 +30,7 @@ public class ApiManager {
 
       private static final String[] OCAPI = {"yqcmwu38uh7mf9rpgsdbqnyj", "fw8t9na72xqh8ggq8abcgya8", "xj3ferv39aeteuxmbyv56j9d", 
           "s8f22txztahfh3uttvhw4tj7", "jcrv4xfdy2ayt73wysg6ubpt","bkenv8zj8vxssgnewvveqsv5" };
-      private int keyIdx = 4;
+      private int keyIdx = 5;
 //    public static void main(String args[]) {
 //        ArrayList<Movie> movs = searchOnConnectZip("23453");
 //        for (Movie i : movs) {
@@ -116,8 +116,10 @@ public class ApiManager {
             poster = json.getString("Poster");
 
         } catch (Exception e) {
+            System.out.println("EXCEPTION GETTING POSTER URL!!!!!!!!!");
             return null;
         }
+        System.out.println("title to find poster for: " + title + "  poster url: " + poster);
         return poster;
     }
 
