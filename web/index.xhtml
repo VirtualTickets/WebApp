@@ -1,4 +1,13 @@
 <?xml version='1.0' encoding='UTF-8' ?>
+<!-- Orange toolbar that covers entire width at top rather than 2 split sections? -->
+<!-- Posters need to be grabbed from an api -->
+<!-- orange rectangles need to be created with html, as well as the text for the slideshow -->
+<!-- imdb and rottentomatoes logo need to be placed and sizes properly on the slideshow -->
+<!-- potentially remove the text from the index. -->
+<!-- update contact us to have pics of everybody -->
+<!-- need to get lists of "critically acclaimed" and "highest grossing / most popular" -->
+<!-- add some clickability to the slideshow images, so that I can view the trailer / showtimes -->
+<!-- change location search and search by title need to work -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
@@ -9,12 +18,23 @@
         <title>Virtual Tickets Cloud App</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <h:outputStylesheet name="css/global.css"/> 
+        
     </h:head>
 
 
     <h:body>
         <ui:composition template="/templates/main.xhtml">
             <ui:define name="content">
+                <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+                <link type="text/css"
+                    href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/redmond/jquery-ui.css" rel="stylesheet" />
+                <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
+                <script type="text/javascript" src="http://lab.abhinayrathore.com/jquery_youtube/jquery.youtubepopup.js"></script>
+                <script type="text/javascript">
+                    $(function () {
+                        $("a.youtube").YouTubePopup({ autoplay: 1 });
+                    });
+                </script>
                 <div align="center">
                     <h:form class="form">
 				<div align="center">
@@ -24,6 +44,8 @@
                                         <h:panelGrid columns="2" columnClasses="rightAlign, leftAlign" bgcolor="lightblue">
                                             <h:panelGroup>
                                                 <h2>Tickets &amp; Showtimes Nearby </h2>
+                                                <a class="youtube" href="https://www.youtube.com/watch?v=3MUGAxpI0Bc"
+                                                    title="jQuery YouTube Popup Player Plugin TEST">Pop-up Youtube Test</a>
                                             </h:panelGroup>
                                             <h:panelGroup>
                                                 <h:inputText id="zip" value="#{movieManager.zipCode}" required="true" label="Zip Code">
