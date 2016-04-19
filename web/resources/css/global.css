@@ -14,11 +14,16 @@ Copyright © 2016 Benjamin Sweeney. All rights reserved.
     height: 100%!important;*/
 }
 
-@import url(http://fonts.googleapis.com/css?family=Varela+Round);
+/*@import url(http://fonts.googleapis.com/css?family=Varela+Round);*/
 
 html, body { 
     background: #333 url("http://codepen.io/images/classy_fabric.png"); 
     margin:0; padding:0; height:100%;
+    color:orange;
+}
+
+h2 {
+    color:black;
 }
 
 p {
@@ -189,3 +194,11 @@ input#img-6:checked ~ .nav-dots label#img-dot-6 {
     cursor:pointer;
     opacity: 1.0;
  }
+
+ .rightAlign {
+    text-align: right;
+}
+
+ .leftAlign {
+    text-align: left;
+}

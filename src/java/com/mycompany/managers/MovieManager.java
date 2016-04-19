@@ -27,6 +27,8 @@ public class MovieManager implements Serializable {
     private String type;
     private String zipCode;
     private String checkoutAs = "Guest";
+    private String numTickets = "1";
+    
     
     /**
      * Creates a new instance of ApiManager
@@ -36,14 +38,27 @@ public class MovieManager implements Serializable {
         zipCode = "24061";
         apiManager = new ApiManager();
         
-        /*
+        
         nowPlaying = new ArrayList<>();
         
         for (int i = 0; i < 128; i++) {
             nowPlaying.add(new Movie("Batman vs. Superman" + i));
         }
-        */
+        
     }
+
+    public String getNumTickets() {
+        return numTickets;
+    }
+    
+    public String getTotalPrice() {
+        return String.format("Total: $%.2f", 11.0 * Integer.parseInt(getNumTickets()));
+    }
+
+    public void setNumTickets(String numTickets) {
+        this.numTickets = numTickets;
+    }
+    
 
     public String getCheckoutAs() {
         return checkoutAs;
@@ -153,9 +168,9 @@ public class MovieManager implements Serializable {
     }
     
     public List<Movie> getNowPlaying() {
-       if (nowPlaying == null) {
-           nowPlaying = apiManager.searchOnConnectZip(zipCode);
-       }
+//       if (nowPlaying == null) {
+//           nowPlaying = apiManager.searchOnConnectZip(zipCode);
+//       }
         return nowPlaying;
     }
 
