@@ -371,4 +371,18 @@ public class AccountManager implements Serializable {
         return photoList.get(0).getThumbnailName();
     }
 
+    public boolean isLoggedIn()
+  {
+
+      return null != FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("username");
+  }
+    
+    public String getUserImage()
+    {
+                if(isLoggedIn())
+                {
+                    return "/images/LoggedIn.png";
+                }
+                return "/images/LoggedOut.png";
+    }
 }

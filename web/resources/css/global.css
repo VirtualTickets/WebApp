@@ -5,6 +5,8 @@ Copyright © 2016 Benjamin Sweeney. All rights reserved.
 /* 
     Created on : Apr 16, 2016, 2:54:02 PM
     Author     : Ben
+    
+    Most of this css was added by Kent and is used for the index. 
 */
 
 .ui-datagrid-column {
@@ -21,6 +23,10 @@ html, body {
 
 p {
     margin:0;
+}
+
+.headerBarTable td {
+    vertical-align: top;
 }
 .page {
     position: relative;
@@ -161,3 +167,25 @@ input#img-5:checked ~ .nav-dots label#img-dot-5,
 input#img-6:checked ~ .nav-dots label#img-dot-6 {
 	background: rgba(0, 0, 0, 0.8);
 }
+
+#parent {
+    text-align:center;
+}
+
+.back
+{  
+    display:inline-block;
+    position:relative;
+}
+.playIcon
+{
+    position:absolute;
+    top:5px;
+    left:5px;
+    opacity: 0.45;
+ }
+ 
+.playIcon:hover{
+    cursor:pointer;
+    opacity: 1.0;
+ }
