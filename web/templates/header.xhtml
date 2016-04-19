@@ -10,7 +10,7 @@ across all web pages.
       xmlns:h="http://xmlns.jcp.org/jsf/html">
     
     <ui:composition>
-        <div style="float:left;">
+        <h:panelGrid columns="2" columnClasses="rightAlign, leftAlign" bgcolor="lightblue">
             <h:form>
                 <p:menubar style="width:100%;">
                     <f:facet name="title">
@@ -25,8 +25,7 @@ across all web pages.
 
                 </p:menubar>
             </h:form>
-        </div>
-        <div style="float:right;">
+       
             <h:form>
                 <p:graphicImage name="/images/batman.jpg" id="imageImg"/>
                 <p:overlayPanel id="imagePanel" for="imageImg" hideEffect="fade">
@@ -35,7 +34,7 @@ across all web pages.
                     <h:outputText value="Logout" />
                 </p:overlayPanel>
             </h:form>
-        </div>
+            </h:panelGrid>
 
 
     </ui:composition>
