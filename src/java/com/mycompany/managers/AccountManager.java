@@ -66,7 +66,7 @@ public class AccountManager implements Serializable {
     private PhotoFacade photoFacade;
     
     public boolean isHasPaymentInfo() {
-        return true;
+        return false;
     }
 
     public String[] getListOfStates() {
