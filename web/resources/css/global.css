@@ -225,6 +225,10 @@ input#img-6:checked ~ .nav-dots label#img-dot-6 {
     text-align: left;
 }
 
+.row {
+    background-color: gray;
+}
+
 
 
 
