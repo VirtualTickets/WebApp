@@ -19,6 +19,11 @@ Copyright © 2016 Benjamin Sweeney. All rights reserved.
 html, body { 
     background: #333 url("http://codepen.io/images/classy_fabric.png"); 
     margin:0; padding:0; height:100%;
+    color:orange;
+}
+
+h2 {
+    color:black;
 }
 
 p {
