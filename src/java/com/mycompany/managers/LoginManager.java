@@ -18,6 +18,7 @@ import javax.faces.context.FacesContext;
  *
  * @author Greer
  */
+
 public class LoginManager implements Serializable {
 
   private String username;
@@ -119,4 +120,6 @@ public class LoginManager implements Serializable {
             getSessionMap().put("user_id", user.getId());
   }
 
+  
 }
+  
