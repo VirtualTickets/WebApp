@@ -1,4 +1,6 @@
 <?xml version='1.0' encoding='UTF-8' ?>
+<!-- provide nick with a user icon for both logged in and logged out -->
+
 <!-- Orange toolbar that covers entire width at top rather than 2 split sections? -->
 <!-- Posters need to be grabbed from an api -->
 <!-- orange rectangles need to be created with html, as well as the text for the slideshow -->
@@ -6,8 +8,14 @@
 <!-- potentially remove the text from the index. -->
 <!-- update contact us to have pics of everybody -->
 <!-- need to get lists of "critically acclaimed" and "highest grossing / most popular" -->
-<!-- add some clickability to the slideshow images, so that I can view the trailer / showtimes -->
+<!-- add some clickability to the slideshow images, so that I can view the trailer / maybe showtimes -->
 <!-- change location search and search by title need to work -->
+<!-- add hover text to the lower 5 images and whatever else needs hover text. -->
+<!-- fix the x in the close box of the pop-up youtube player -->
+<!-- make titles look better, use rottentomatoes for example. (in ref to crit acc & most pop) -->
+<!-- titles of movies below posters? -->
+<!-- make everythings dimension in relation to the screen size, to enable risizing of the window? -->
+<!-- make nav dots more visible. try white. -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
@@ -18,9 +26,7 @@
         <title>Virtual Tickets Cloud App</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <h:outputStylesheet name="css/global.css"/> 
-        
     </h:head>
-
 
     <h:body>
         <ui:composition template="/templates/main.xhtml">
@@ -40,12 +46,11 @@
 				<div align="center">
                                     <br />
                                     <br />
+                                    <br />
                                     <h:panelGrid border="1">
                                         <h:panelGrid columns="2" columnClasses="rightAlign, leftAlign" bgcolor="lightblue">
                                             <h:panelGroup>
                                                 <h2>Tickets &amp; Showtimes Nearby </h2>
-                                                <a class="youtube" href="https://www.youtube.com/watch?v=3MUGAxpI0Bc"
-                                                    title="jQuery YouTube Popup Player Plugin TEST">Pop-up Youtube Test</a>
                                             </h:panelGroup>
                                             <h:panelGroup>
                                                 <h:inputText id="zip" value="#{movieManager.zipCode}" required="true" label="Zip Code">
@@ -62,13 +67,17 @@
                                         </h:panelGrid>
                                     </h:panelGrid>
                                     <br />
-                                    <br />
-                                    <h2 style="color:orange;">Critically Acclaimed:</h2>
+                                    <h1 style="color:orange;"><u>Critically Acclaimed</u></h1>
                                     <ul class="slides" >
                                         <input type="radio" name="radio-btn" id="img-1" checked="true" />
                                         <li class="slide-container">
-                                            <div class="slide">
-                                                <img src="http://i.imgur.com/bDYcPOV.jpg" />
+                                            <div id="parent">
+                                                <div class="slide"><img src="http://i.imgur.com/bDYcPOV.jpg" border="0" />
+                                                  <a class="youtube" href="https://www.youtube.com/watch?v=HcgJRQWxKnw"
+                                                    title="Watch Movie Trailer">
+                                                      <img src="http://i.imgur.com/yHGv97W.png" border="0" class="playIcon" />
+                                                  </a>
+                                                </div>
                                             </div>
                                             <div class="nav">
                                                 <label for="img-6" class="prev">&#x2039;</label>
@@ -78,8 +87,13 @@
 
                                         <input type="radio" name="radio-btn" id="img-2" />
                                         <li class="slide-container">
-                                            <div class="slide">
-                                              <img src="http://i.imgur.com/Gq3pCYJ.jpg" />
+                                            <div id="parent">
+                                                <div class="slide"><img src="http://i.imgur.com/Gq3pCYJ.jpg" border="0" />
+                                                    <a class="youtube" href="https://www.youtube.com/watch?v=HcgJRQWxKnw"
+                                                        title="Watch Movie Trailer">
+                                                        <img src="http://i.imgur.com/yHGv97W.png" border="0" class="playIcon" />
+                                                    </a>
+                                                </div>
                                             </div>
                                             <div class="nav">
                                                 <label for="img-1" class="prev">&#x2039;</label>
@@ -89,8 +103,13 @@
 
                                         <input type="radio" name="radio-btn" id="img-3" />
                                         <li class="slide-container">
-                                            <div class="slide">
-                                              <img src="http://i.imgur.com/97mKr2R.jpg" />
+                                            <div id="parent">
+                                                <div class="slide"><img src="http://i.imgur.com/97mKr2R.jpg" border="0" />
+                                                    <a class="youtube" href="https://www.youtube.com/watch?v=HcgJRQWxKnw"
+                                                        title="Watch Movie Trailer">
+                                                        <img src="http://i.imgur.com/yHGv97W.png" border="0" class="playIcon" />
+                                                    </a>                                                   
+                                                </div>
                                             </div>
                                             <div class="nav">
                                                 <label for="img-2" class="prev">&#x2039;</label>
@@ -100,8 +119,13 @@
 
                                         <input type="radio" name="radio-btn" id="img-4" />
                                         <li class="slide-container">
-                                            <div class="slide">
-                                              <img src="http://farm9.staticflickr.com/8061/8237246833_54d8fa37f0_z.jpg" />
+                                            <div id="parent">
+                                                <div class="slide"><img src="http://i.imgur.com/bDYcPOV.jpg" border="0" />
+                                                    <a class="youtube" href="https://www.youtube.com/watch?v=HcgJRQWxKnw"
+                                                        title="Watch Movie Trailer">
+                                                        <img src="http://i.imgur.com/yHGv97W.png" border="0" class="playIcon" />
+                                                    </a>   
+                                                </div>
                                             </div>
                                             <div class="nav">
                                                 <label for="img-3" class="prev">&#x2039;</label>
@@ -111,8 +135,13 @@
 
                                         <input type="radio" name="radio-btn" id="img-5" />
                                         <li class="slide-container">
-                                            <div class="slide">
-                                              <img src="http://farm9.staticflickr.com/8055/8098750623_66292a35c0_z.jpg" />
+                                            <div id="parent">
+                                                <div class="slide"><img src="http://i.imgur.com/bDYcPOV.jpg" border="0" />
+                                                    <a class="youtube" href="https://www.youtube.com/watch?v=HcgJRQWxKnw"
+                                                        title="Watch Movie Trailer">
+                                                        <img src="http://i.imgur.com/yHGv97W.png" border="0" class="playIcon" />
+                                                    </a>  
+                                                </div>
                                             </div>
                                             <div class="nav">
                                                     <label for="img-4" class="prev">&#x2039;</label>
@@ -122,8 +151,13 @@
 
                                         <input type="radio" name="radio-btn" id="img-6" />
                                         <li class="slide-container">
-                                            <div class="slide">
-                                              <img src="http://farm9.staticflickr.com/8195/8098750703_797e102da2_z.jpg" />
+                                            <div id="parent">
+                                                <div class="slide"><img src="http://i.imgur.com/bDYcPOV.jpg" border="0" />
+                                                    <a class="youtube" href="https://www.youtube.com/watch?v=HcgJRQWxKnw"
+                                                        title="Watch Movie Trailer">
+                                                        <img src="http://i.imgur.com/yHGv97W.png" border="0" class="playIcon" />
+                                                    </a>  
+                                                </div>
                                             </div>
                                             <div class="nav">
                                                     <label for="img-5" class="prev">&#x2039;</label>
@@ -142,9 +176,8 @@
                                     </ul>
                       
                                     <br />
-                                    <br />
                                     
-                                    <h2 style="color:orange;">Most Popular(highest grossing for now):</h2>
+                                    <h1 style="color:orange;"><u>Most Popular</u></h1>
                                     <h:panelGrid border="1">
                                         <h:panelGrid columns="5" bgcolor="lightblue" border="0" cellpadding="10" cellspacing="10">
                                             <h:commandLink>
