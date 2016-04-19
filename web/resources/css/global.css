@@ -24,6 +24,10 @@ html, body {
 p {
     margin:0;
 }
+
+.headerBarTable td {
+    vertical-align: top;
+}
 .page {
     position: relative;
     height:100%;
