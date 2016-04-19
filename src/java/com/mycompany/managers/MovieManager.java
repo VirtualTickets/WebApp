@@ -36,11 +36,13 @@ public class MovieManager implements Serializable {
         zipCode = "24061";
         apiManager = new ApiManager();
         
+        /*
         nowPlaying = new ArrayList<>();
         
         for (int i = 0; i < 128; i++) {
             nowPlaying.add(new Movie("Batman vs. Superman" + i));
         }
+        */
     }
 
     public String getCheckoutAs() {
@@ -111,14 +113,17 @@ public class MovieManager implements Serializable {
         posters.add("http://i.imgur.com/ZcMT33m.jpg");
         posters.add("http://i.imgur.com/sODzs5B.png");
 
-        
+        /*
         for (Movie m : list) {
-            posters.add(m.getPoster());
+            posters.add(apiManager.getPosterURL(m.getTitle()));
         }
+        */
         
-        System.out.println(posters);
+        //System.out.println("*****************************************" + posters);
         return posters;
     }
+    
+    
 
     public String getSearchTitle() {
         return searchTitle;
@@ -148,9 +153,9 @@ public class MovieManager implements Serializable {
     }
     
     public List<Movie> getNowPlaying() {
-//        if (nowPlaying == null) {
-//            nowPlaying = apiManager.searchOnConnectZip(zipCode);
-//        }
+       if (nowPlaying == null) {
+           nowPlaying = apiManager.searchOnConnectZip(zipCode);
+       }
         return nowPlaying;
     }
 

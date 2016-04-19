@@ -1,4 +1,13 @@
 <?xml version='1.0' encoding='UTF-8' ?>
+<!-- Orange toolbar that covers entire width at top rather than 2 split sections? -->
+<!-- Posters need to be grabbed from an api -->
+<!-- orange rectangles need to be created with html, as well as the text for the slideshow -->
+<!-- imdb and rottentomatoes logo need to be placed and sizes properly on the slideshow -->
+<!-- potentially remove the text from the index. -->
+<!-- update contact us to have pics of everybody -->
+<!-- need to get lists of "critically acclaimed" and "highest grossing / most popular" -->
+<!-- add some clickability to the slideshow images, so that I can view the trailer / showtimes -->
+<!-- change location search and search by title need to work -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
@@ -8,13 +17,24 @@
     <h:head>
         <title>Virtual Tickets Cloud App</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <!-- <h:outputStylesheet name="css/jsfcrud.css"/> -->
+        <h:outputStylesheet name="css/global.css"/> 
+        
     </h:head>
 
 
     <h:body>
         <ui:composition template="/templates/main.xhtml">
             <ui:define name="content">
+                <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+                <link type="text/css"
+                    href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/redmond/jquery-ui.css" rel="stylesheet" />
+                <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
+                <script type="text/javascript" src="http://lab.abhinayrathore.com/jquery_youtube/jquery.youtubepopup.js"></script>
+                <script type="text/javascript">
+                    $(function () {
+                        $("a.youtube").YouTubePopup({ autoplay: 1 });
+                    });
+                </script>
                 <div align="center">
                     <h:form class="form">
 				<div align="center">
@@ -24,6 +44,8 @@
                                         <h:panelGrid columns="2" columnClasses="rightAlign, leftAlign" bgcolor="lightblue">
                                             <h:panelGroup>
                                                 <h2>Tickets &amp; Showtimes Nearby </h2>
+                                                <a class="youtube" href="https://www.youtube.com/watch?v=3MUGAxpI0Bc"
+                                                    title="jQuery YouTube Popup Player Plugin TEST">Pop-up Youtube Test</a>
                                             </h:panelGroup>
                                             <h:panelGroup>
                                                 <h:inputText id="zip" value="#{movieManager.zipCode}" required="true" label="Zip Code">
@@ -41,13 +63,88 @@
                                     </h:panelGrid>
                                     <br />
                                     <br />
+                                    <h2 style="color:orange;">Critically Acclaimed:</h2>
+                                    <ul class="slides" >
+                                        <input type="radio" name="radio-btn" id="img-1" checked="true" />
+                                        <li class="slide-container">
+                                            <div class="slide">
+                                                <img src="http://i.imgur.com/bDYcPOV.jpg" />
+                                            </div>
+                                            <div class="nav">
+                                                <label for="img-6" class="prev">&#x2039;</label>
+                                                <label for="img-2" class="next">&#x203a;</label>
+                                            </div>
+                                        </li>
+
+                                        <input type="radio" name="radio-btn" id="img-2" />
+                                        <li class="slide-container">
+                                            <div class="slide">
+                                              <img src="http://i.imgur.com/Gq3pCYJ.jpg" />
+                                            </div>
+                                            <div class="nav">
+                                                <label for="img-1" class="prev">&#x2039;</label>
+                                                <label for="img-3" class="next">&#x203a;</label>
+                                            </div>
+                                        </li>
+
+                                        <input type="radio" name="radio-btn" id="img-3" />
+                                        <li class="slide-container">
+                                            <div class="slide">
+                                              <img src="http://i.imgur.com/97mKr2R.jpg" />
+                                            </div>
+                                            <div class="nav">
+                                                <label for="img-2" class="prev">&#x2039;</label>
+                                                <label for="img-4" class="next">&#x203a;</label>
+                                            </div>
+                                        </li>
+
+                                        <input type="radio" name="radio-btn" id="img-4" />
+                                        <li class="slide-container">
+                                            <div class="slide">
+                                              <img src="http://farm9.staticflickr.com/8061/8237246833_54d8fa37f0_z.jpg" />
+                                            </div>
+                                            <div class="nav">
+                                                <label for="img-3" class="prev">&#x2039;</label>
+                                                <label for="img-5" class="next">&#x203a;</label>
+                                            </div>
+                                        </li>
+
+                                        <input type="radio" name="radio-btn" id="img-5" />
+                                        <li class="slide-container">
+                                            <div class="slide">
+                                              <img src="http://farm9.staticflickr.com/8055/8098750623_66292a35c0_z.jpg" />
+                                            </div>
+                                            <div class="nav">
+                                                    <label for="img-4" class="prev">&#x2039;</label>
+                                                    <label for="img-6" class="next">&#x203a;</label>
+                                            </div>
+                                        </li>
+
+                                        <input type="radio" name="radio-btn" id="img-6" />
+                                        <li class="slide-container">
+                                            <div class="slide">
+                                              <img src="http://farm9.staticflickr.com/8195/8098750703_797e102da2_z.jpg" />
+                                            </div>
+                                            <div class="nav">
+                                                    <label for="img-5" class="prev">&#x2039;</label>
+                                                    <label for="img-1" class="next">&#x203a;</label>
+                                            </div>
+                                        </li>
+
+                                        <li class="nav-dots">
+                                          <label for="img-1" class="nav-dot" id="img-dot-1"></label>
+                                          <label for="img-2" class="nav-dot" id="img-dot-2"></label>
+                                          <label for="img-3" class="nav-dot" id="img-dot-3"></label>
+                                          <label for="img-4" class="nav-dot" id="img-dot-4"></label>
+                                          <label for="img-5" class="nav-dot" id="img-dot-5"></label>
+                                          <label for="img-6" class="nav-dot" id="img-dot-6"></label>
+                                        </li>
+                                    </ul>
+                      
                                     <br />
                                     <br />
-                                    <br />
-                                    <br />
-                                    <br />
-                                    <br />
-                                    <h2>Currently Showing:</h2>
+                                    
+                                    <h2 style="color:orange;">Most Popular(highest grossing for now):</h2>
                                     <h:panelGrid border="1">
                                         <h:panelGrid columns="5" bgcolor="lightblue" border="0" cellpadding="10" cellspacing="10">
                                             <h:commandLink>
