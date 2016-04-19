@@ -225,6 +225,7 @@ public class AccountManager implements Serializable {
     public String createAccount() {
         
         // Check to see if a user already exists with the username given.
+        System.out.println(username);
         User aUser = userFacade.findByUsername(username);
         
         if (aUser != null) {
