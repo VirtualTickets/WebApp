@@ -9,74 +9,71 @@ Copyright © 2016 Benjamin Sweeney. All rights reserved.
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <h:outputStylesheet name="css/global.css"/> 
+    </h:head>
     <h:body>
         <ui:composition template="/templates/main.xhtml">
             <ui:define name="content">
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <div style="width: 60%; top: 100px;">
-                    <p:dataGrid var="movie" columns="4" value="#{movieManager.movies}"
-                                rows="16" rowsPerPageTemplate="8, 16, 32, 128" paginator="true"
-                                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                >
-                        <f:facet name="header">
-                            <h:form>
-                                <p:menubar>
-                                    <p:menuitem value="Now Playing" action="#{movieManager.showNowPlaying()}"/>
-                                    <p:menuitem value="Coming Soon" action="#{movieManager.comingSoon()}"/>
-                                    <p:menuitem value="Favorites" action="#{movieManager.showFavorites()}"/>
-                                    <p:menuitem value="Recommended" action="#{movieManager.showRecommended()}"/>
-                                    <f:facet name="options">
-                                        <h:outputText value="#{movieManager.movieTableHeader}"/>
-                                    </f:facet>
-                                </p:menubar>
-                            </h:form>
-                        </f:facet>
-                        <h:form>
-                            <p:commandLink update=":movie" onclick="#{movieManager.view()}" style="text-decoration: none">
-                                <p:panel >
-                                    <h:graphicImage value="#{resource['images/batman.jpg']}" style="max-height: 185px; max-width: 125px" alt="Hello" />
-                                    <br/>
-                                    <br/>
-                                    <h:outputText value="#{movie.title}"/>
-                                    <br/>
-                                </p:panel>
-                                <f:setPropertyActionListener value="#{movie}" target="#{movieManager.currMovie}"/>
-                            </p:commandLink>
-                        </h:form>
-                    </p:dataGrid>
-                </div>
-                <div style="position: fixed; top: 25%; left: 65%;">
-                    <h:form id="movie">
-                        <h:commandButton value="Purchase" action="#{movieManager.purchase()}" rendered="#{movieManager.currMovie != null}"/>
-                        <br/>
-                        <br/>
-                        <p:panelGrid columns="2" rendered="#{movieManager.currMovie != null}">
+                <div id="moviesPage">
+                    <div style="width: 60%; top: 100px;">
+                        <p:dataGrid var="movie" columns="4" value="#{movieManager.movies}"
+                                    rows="16" rowsPerPageTemplate="8, 16, 32, 128" paginator="true"
+                                    paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                    >
                             <f:facet name="header">
-                                <h:outputText value="Movie Info"/>
+                                <h:form>
+                                    <p:menubar>
+                                        <p:menuitem value="Now Playing" action="#{movieManager.showNowPlaying()}"/>
+                                        <p:menuitem value="Coming Soon" action="#{movieManager.comingSoon()}"/>
+                                        <p:menuitem value="Favorites" action="#{movieManager.showFavorites()}"/>
+                                        <p:menuitem value="Recommended" action="#{movieManager.showRecommended()}"/>
+                                        <f:facet name="options">
+                                            <h:outputText value="#{movieManager.movieTableHeader}"/>
+                                        </f:facet>
+                                    </p:menubar>
+                                </h:form>
                             </f:facet>
-                            <h:outputText value="Title: "/>
-                            <h:outputText value="#{movieManager.currMovie.title}"/>
-                            <h:outputText value="Release date: "/>
-                            <h:outputText value="#{movieManager.currMovie.released}"/>
-                            <h:outputText value="Rating: "/>
-                            <h:outputText value="#{movieManager.currMovie.rated}"/>
-                            <h:outputText value="IMBD rating: "/>
-                            <h:outputText value="#{movieManager.currMovie.imdbRating}"/>
-                            <h:outputText value="Metascore: "/>
-                            <h:outputText value="#{movieManager.currMovie.metascore}"/>
-                            <h:outputText value="Runtime: "/>
-                            <h:outputText value="#{movieManager.currMovie.runtime}"/>
-                        </p:panelGrid>
-                        <br/>
-                        <p:media value="https://www.youtube.com/v/yY0PBoDlHMI" width="100%"   height="270" player="flash" rendered="#{movieManager.currMovie != null}" />
-                    </h:form>
+                            <h:form>
+                                <p:commandLink update=":movie" onclick="#{movieManager.view()}" style="text-decoration: none">
+                                    <p:panel >
+                                        <h:graphicImage value="#{resource['images/batman.jpg']}" style="max-height: 185px; max-width: 125px" alt="Hello" />
+                                        <br/>
+                                        <br/>
+                                        <h:outputText value="#{movie.title}"/>
+                                        <br/>
+                                    </p:panel>
+                                    <f:setPropertyActionListener value="#{movie}" target="#{movieManager.currMovie}"/>
+                                </p:commandLink>
+                            </h:form>
+                        </p:dataGrid>
+                    </div>
+                    <div style="position: fixed; top: 25%; left: 65%;">
+                        <h:form id="movie">
+                            <h:commandButton value="Purchase" action="#{movieManager.purchase()}" rendered="#{movieManager.currMovie != null}"/>
+                            <br/>
+                            <br/>
+                            <p:panelGrid columns="2" rendered="#{movieManager.currMovie != null}">
+                                <f:facet name="header">
+                                    <h:outputText value="Movie Info"/>
+                                </f:facet>
+                                <h:outputText value="Title: "/>
+                                <h:outputText value="#{movieManager.currMovie.title}"/>
+                                <h:outputText value="Release date: "/>
+                                <h:outputText value="#{movieManager.currMovie.released}"/>
+                                <h:outputText value="Rating: "/>
+                                <h:outputText value="#{movieManager.currMovie.rated}"/>
+                                <h:outputText value="IMBD rating: "/>
+                                <h:outputText value="#{movieManager.currMovie.imdbRating}"/>
+                                <h:outputText value="Metascore: "/>
+                                <h:outputText value="#{movieManager.currMovie.metascore}"/>
+                                <h:outputText value="Runtime: "/>
+                                <h:outputText value="#{movieManager.currMovie.runtime}"/>
+                            </p:panelGrid>
+                            <br/>
+                            <p:media value="https://www.youtube.com/v/yY0PBoDlHMI" width="100%"   height="270" player="flash" rendered="#{movieManager.currMovie != null}" />
+                        </h:form>
+                    </div>
                 </div>
             </ui:define>
         </ui:composition>
