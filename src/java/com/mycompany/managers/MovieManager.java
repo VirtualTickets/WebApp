@@ -39,11 +39,11 @@ public class MovieManager implements Serializable {
         apiManager = new ApiManager();
         
         
-        nowPlaying = new ArrayList<>();
-        
-        for (int i = 0; i < 128; i++) {
-            nowPlaying.add(new Movie("Batman vs. Superman" + i));
-        }
+//        nowPlaying = new ArrayList<>();
+//        
+//        for (int i = 0; i < 128; i++) {
+//            nowPlaying.add(new Movie("Batman vs. Superman" + i));
+//        }
         
     }
 
@@ -168,10 +168,10 @@ public class MovieManager implements Serializable {
     }
     
     public List<Movie> getNowPlaying() {
-//       if (nowPlaying == null) {
-//           nowPlaying = apiManager.searchOnConnectZip(zipCode);
-//       }
-        return nowPlaying;
+       if (nowPlaying == null) {
+           nowPlaying = apiManager.moviesPlayingInLocalTheatres(zipCode);
+       }
+       return nowPlaying;
     }
 
     public List<Movie> getSearchByTitle() {
