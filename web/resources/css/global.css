@@ -101,11 +101,22 @@ html, body {
 
 .grow { 
     transition: all .2s ease-in-out; 
+    border-width: 10px;
+    border-style: double;
+    border-color: black;
 }
 .grow:hover {
     transform: scale(1.1); 
 }
 
+.userImage {
+}
+
+.userImage:hover {
+    cursor: pointer;
+    opacity: 0.5;
+    background-color: rgba(247, 148, 29, 0.7)
+}
 
 
 /*
@@ -307,6 +318,8 @@ input#img-6:checked ~ .nav-dots label#img-dot-6 {
  .rightAlign {
     text-align: right;
 }
+
+
 
  .leftAlign {
     text-align: left;
