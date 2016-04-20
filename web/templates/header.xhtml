@@ -30,7 +30,7 @@ across all web pages.
             </h:form>
             
             <h:form>
-                <p:graphicImage id="userImage" class="userImage" height="99" width="100" url="http://i.imgur.com/AJiXEWD.png"/>
+                <p:graphicImage id="userImage" class="userImage" height="99" width="100" name="#{accountManager.getUserImage()}"/>
                 <p:overlayPanel id="imagePanel" for="userImage" hideEffect="fade">
                     <h:commandLink value="Edit Account" action="/customer/EditAccount" rendered="#{accountManager.isLoggedIn()}" />
                     <h:commandLink value="Create Account" action="/customer/CreateAccount" rendered="#{!accountManager.isLoggedIn()}" />
