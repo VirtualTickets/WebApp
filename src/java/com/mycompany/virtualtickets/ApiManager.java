@@ -185,7 +185,6 @@ public class ApiManager {
         try {
             JSONArray json = readJsonArrayFromUrl(url);
             JSONObject movie;
-            Movie mov;
 
             for (int i = 0; i < json.length(); i++) {
                 movie = json.getJSONObject(i);
@@ -196,6 +195,41 @@ public class ApiManager {
         }
         return movs;
     }
+    
+    /**
+     * 
+     * @param theatreId
+     * @return 
+     */
+    public ArrayList<Movie> movieShowtimes(String tmsId, String zip) {
+        ArrayList<Movie> movs = new ArrayList<Movie>();
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        String d = dateFormat.format(date);
+
+        String url = "http://data.tmsapi.com/v1.1/movies/"
+                + tmsId
+                + "/showings?startDate="
+                + d
+                + "&zip="
+                + zip
+                + "&api_key="
+                + OCAPI;
+        try {
+            JSONArray json = readJsonArrayFromUrl(url);
+            JSONObject movie;
+
+            for (int i = 0; i < json.length(); i++) {
+                movie = json.getJSONObject(i);
+                movs.add(jsonToMovie(movie));
+            }
+        } catch (Exception e) {
+            return null;
+        }
+        return movs;
+    }
+    
 
     /**
      *
