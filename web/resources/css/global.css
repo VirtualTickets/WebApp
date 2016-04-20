@@ -112,7 +112,7 @@ html, body {
 .userImage {
 }
 
-.userImage: hover {
+.userImage:hover {
     cursor: pointer;
     opacity: 0.5;
     background-color: rgba(247, 148, 29, 0.7)
