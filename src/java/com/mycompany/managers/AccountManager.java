@@ -293,7 +293,7 @@ public class AccountManager implements Serializable {
                 statusMessage = "Something went wrong while deleting your account!";
                 return "";
             }
-            
+            this.logout();
             return "/index.xhtml?faces-redirect=true";
         }
         return "";
