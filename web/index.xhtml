@@ -1,14 +1,19 @@
 <?xml version='1.0' encoding='UTF-8' ?>
+<!-- TODO List for Others:                                              -->
 <!-- tell nick to fix the cc month field of create account, cuz it doesn't recognize 04 as 2 digits. -->
 <!-- have him right align the fields in the drop down and add icons to each field on the left of the text -->
 <!-- have him add an arrow that faces down or up depending on the state of the drop down -->
+<!-- new table for each theater when user searches for a movie? like fandago.-->
+<!-- separation of IMAX 3d, REALD 3D, Standard, etc on movies page -->
+<!-- date selector on movie page as well, like fandango -->
+<!-- movies page needs to reset when navigated away from -->
 
-
+<!-- My TODO List:                                                      -->
 <!-- Orange toolbar that covers entire width at top rather than 2 split sections? 
      If so, consider another orange bar at the bottom for the footer -->
+<!-- 2 ppl liked the idea of a fully extended menu bar at the top. Also increase its height -->
+
 <!-- Posters need to be grabbed from an api -->
-<!-- orange rectangles need to be created with html, as well as the text for the slideshow -->
-<!-- imdb and rottentomatoes logo need to be placed and sized properly on the slideshow -->
 <!-- potentially remove the text from the index. -->
 <!-- update contact us to have pics of everybody -->
 <!-- need to get lists of "critically acclaimed" and "highest grossing / most popular" -->
@@ -22,6 +27,11 @@
 <!-- do we want to select our theater before searches? maybe use a drop down auto-selected to closest theater. 
      Could have this selection in the upper toolbar, index, or on the movies pag. -->
 <!-- removing the line that referenced some jQuery css fixed the wonky menu bar minus the home icon missing, but made the x for close need fixing -->
+<!-- either put critics consensus title back or do -Critics Name at the end of the quote -->
+<!-- fix alignment of ratings text -->
+<!-- experiment with fixed height/width box overlays -->
+<!-- experiment with font-size that scales with the page -->
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
@@ -97,7 +107,7 @@
                                                         </span>
                                                     </div>
                                                     <a class="youtube" href="https://www.youtube.com/watch?v=HcgJRQWxKnw"
-                                                       title="Watch Movie Trailer">
+                                                       title="Watch Trailer">
                                                         <img src="http://i.imgur.com/yHGv97W.png" border="0" class="playIcon" />
                                                     </a>
                                                 </div>
@@ -117,7 +127,7 @@
                                                         <span>The Jungle Book:<br />Fuck yeah this box works</span>
                                                     </div>
                                                     <a class="youtube" href="https://www.youtube.com/watch?v=HcgJRQWxKnw"
-                                                        title="Watch Movie Trailer">
+                                                        title="Watch Trailer">
                                                         <img src="http://i.imgur.com/yHGv97W.png" border="0" class="playIcon" />
                                                     </a>
                                                 </div>
@@ -137,7 +147,7 @@
                                                         <span>The Jungle Book:<br />Fuck yeah this box works</span>
                                                     </div>
                                                     <a class="youtube" href="https://www.youtube.com/watch?v=HcgJRQWxKnw"
-                                                        title="Watch Movie Trailer">
+                                                        title="Watch Trailer">
                                                         <img src="http://i.imgur.com/yHGv97W.png" border="0" class="playIcon" />
                                                     </a>                                                   
                                                 </div>
@@ -157,7 +167,7 @@
                                                         <span>The Jungle Book:<br />Fuck yeah this box works</span>
                                                     </div>
                                                     <a class="youtube" href="https://www.youtube.com/watch?v=HcgJRQWxKnw"
-                                                        title="Watch Movie Trailer">
+                                                        title="Watch Trailer">
                                                         <img src="http://i.imgur.com/yHGv97W.png" border="0" class="playIcon" />
                                                     </a>   
                                                 </div>
@@ -177,7 +187,7 @@
                                                         <span>The Jungle Book:<br />Fuck yeah this box works</span>
                                                     </div>
                                                     <a class="youtube" href="https://www.youtube.com/watch?v=HcgJRQWxKnw"
-                                                        title="Watch Movie Trailer">
+                                                        title="Watch Trailer">
                                                         <img src="http://i.imgur.com/yHGv97W.png" border="0" class="playIcon" />
                                                     </a>  
                                                 </div>
@@ -197,7 +207,7 @@
                                                         <span>The Jungle Book:<br />Fuck yeah this box works</span>
                                                     </div>
                                                     <a class="youtube" href="https://www.youtube.com/watch?v=HcgJRQWxKnw"
-                                                        title="Watch Movie Trailer">
+                                                        title="Watch Trailer">
                                                         <img src="http://i.imgur.com/yHGv97W.png" border="0" class="playIcon" />
                                                     </a>  
                                                 </div>
@@ -225,32 +235,32 @@
                                         <h:panelGrid columns="5" bgcolor="lightblue" border="0" cellpadding="10" cellspacing="10">
                                             <h:commandLink>
                                                 <f:ajax event="action" listener="#{movieManager.searchByTitle(movieManager.topNowPlayingTitles[0])}"/>
-                                                <h:graphicImage url="#{movieManager.nowPlayingPosters[0]}"
-                                                                width="180" height="267" alt="Movie img" onclick=""/>
+                                                <h:graphicImage class="grow" url="#{movieManager.nowPlayingPosters[0]}"
+                                                                width="180" height="267" alt="Movie img" title="Find Showings"/>
                                             </h:commandLink>
 
                                             <h:commandLink>
                                                 <f:ajax event="action" listener="#{movieManager.searchByTitle(movieManager.topNowPlayingTitles[1])}"/>
-                                                <h:graphicImage url="#{movieManager.nowPlayingPosters[1]}"
-                                                                width="180" height="266" alt="Movie img"/>
+                                                <h:graphicImage class="grow" url="#{movieManager.nowPlayingPosters[1]}"
+                                                                width="180" height="266" alt="Movie img" title="Find Showings"/>
                                             </h:commandLink>
 
                                             <h:commandLink>
                                                 <f:ajax event="action" listener="#{movieManager.searchByTitle(movieManager.topNowPlayingTitles[2])}"/>
-                                                <h:graphicImage url="#{movieManager.nowPlayingPosters[2]}"
-                                                                width="180" height="267" alt="Movie img"/>
+                                                <h:graphicImage class="grow" url="#{movieManager.nowPlayingPosters[2]}"
+                                                                width="180" height="267" alt="Movie img" title="Find Showings"/>
                                             </h:commandLink>
 
                                             <h:commandLink>
                                                 <f:ajax event="action" listener="#{movieManager.searchByTitle(movieManager.topNowPlayingTitles[3])}"/>
-                                                <h:graphicImage url="#{movieManager.nowPlayingPosters[3]}"
-                                                                width="180" height="267" alt="Movie img"/>
+                                                <h:graphicImage class="grow" url="#{movieManager.nowPlayingPosters[3]}"
+                                                                width="180" height="267" alt="Movie img" title="Find Showings"/>
                                             </h:commandLink>
 
                                             <h:commandLink>
                                                 <f:ajax event="action" listener="#{movieManager.searchByTitle(movieManager.topNowPlayingTitles[4])}"/>
-                                                <h:graphicImage url="#{movieManager.nowPlayingPosters[4]}"
-                                                                width="180" height="267" alt="Movie img"/>
+                                                <h:graphicImage class="grow" url="#{movieManager.nowPlayingPosters[4]}"
+                                                                width="180" height="267" alt="Movie img" title="Find Showings"/>
                                             </h:commandLink>
                                         </h:panelGrid>
                                     </h:panelGrid>
