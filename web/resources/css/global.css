@@ -35,19 +35,69 @@ html, body {
     height: 420px;
 }
 
-.textOverlay span {
+.movieTitle{
+    position: absolute;
+    font-weight: bold;
+    top: 20px;
+    font-size: 250%;
+    color: #fff;
+    padding: 0 20px;
+    width: 25%;
+    line-height: 150%;
+    background: rgba(247, 148, 29, 0.7);
+    margin: 0px;
+}
+
+.rtRating {
+    position: absolute;
+    bottom: 130px;
+    font-size: 180%;
+    color: #fff;
+    padding: 0 20px;
+    width: 12%;
+    line-height: 150%;
+    background: rgba(247, 148, 29, 0.7);
+    margin: 0px;
+}
+
+.imdbRating {
     position: absolute;
     bottom: 20px;
+    font-size: 180%;
+    color: #fff;
+    padding: 0 20px;
+    width: 12%;
+    line-height: 150%;
+    background: rgba(247, 148, 29, 0.7);
+    margin: 0px;
+}
+
+.criticsTitle{
+    position: absolute;
+    bottom: 240px;
+    right:0px;
+    font-size: 200%;
+    color: #fff;
+    padding: 0 20px;
+    width: 18%;
+    line-height: 150%;
+    background: rgba(247, 148, 29, 0.7);
+    margin: 0px;
+}
+
+
+.criticsConsensus{
+    position: absolute;
+    bottom: 20px;
+    right: 0px;
     font-size: 150%;
     color: #fff;
     padding: 0 20px;
-    width: 30%;
+    width: 35%;
     line-height: 150%;
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(247, 148, 29, 0.7);
     margin: 0px;
-
 }
-
 
 
 
