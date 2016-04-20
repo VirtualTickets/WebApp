@@ -35,7 +35,7 @@ public class ApiManagerTest {
         System.out.println("findTheatres");
         String zip = "23453";
         ApiManager instance = new ApiManager();
-        ArrayList<Theatre> result = instance.findTheatres(zip);
+        // ArrayList<Theatre> result = instance.findTheatres(zip);
     }
 
     /**
@@ -46,7 +46,7 @@ public class ApiManagerTest {
         System.out.println("theatreDetails");
         String theatreId = "5315";
         ApiManager instance = new ApiManager();
-        Theatre result = instance.theatreDetails(theatreId);
+        //Theatre result = instance.theatreDetails(theatreId);
     }
 
     /**
@@ -57,7 +57,7 @@ public class ApiManagerTest {
         System.out.println("theatreShowtimes");
         String theatreId = "5315";
         ApiManager instance = new ApiManager();
-        ArrayList<Movie> result = instance.theatreShowtimes(theatreId);
+        //ArrayList<Movie> result = instance.theatreShowtimes(theatreId);
     }
 
     /**
@@ -68,7 +68,7 @@ public class ApiManagerTest {
         System.out.println("moviesPlayingInLocalTheatres");
         String zip = "23453";
         ApiManager instance = new ApiManager();
-        ArrayList<Movie> result = instance.moviesPlayingInLocalTheatres(zip);
+        //ArrayList<Movie> result = instance.moviesPlayingInLocalTheatres(zip);
     }
     
 }
