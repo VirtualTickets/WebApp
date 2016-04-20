@@ -16,7 +16,6 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -28,20 +27,8 @@ import java.util.Calendar;
  */
 public class ApiManager {
 
-      private static final String[] OCAPI = {"yqcmwu38uh7mf9rpgsdbqnyj", "fw8t9na72xqh8ggq8abcgya8", "xj3ferv39aeteuxmbyv56j9d", 
-          "s8f22txztahfh3uttvhw4tj7", "jcrv4xfdy2ayt73wysg6ubpt","bkenv8zj8vxssgnewvveqsv5" };
-      private int keyIdx = 5;
-//    public static void main(String args[]) {
-//        ArrayList<Movie> movs = searchOnConnectZip("23453");
-//        for (Movie i : movs) {
-//            System.out.println(i.getTitle() + " "
-//                    + i.getReleased() + " "
-//                    + i.getRated() + " "
-//                    + i.getRuntime() + " "
-//                    + i.getShowtimes().toString() + "\n\n");
-//        }
-//
-//    }
+    private static final String OCAPI = "yqcmwu38uh7mf9rpgsdbqnyj";
+
     /**
      *
      * @param title
@@ -58,13 +45,13 @@ public class ApiManager {
             System.out.println(json);
             mov = new Movie();
             mov.setTitle(json.getString("title"));
-            mov.setYear(Integer.parseInt(json.getString("year")));
-            mov.setRated(json.getString("rated"));
-            mov.setReleased(json.getString("released"));
+            mov.setReleaseYear(Integer.parseInt(json.getString("year")));
+            mov.setRating(json.getString("rated"));
+            mov.setReleaseDate(json.getString("released"));
             mov.setRuntime(json.getString("runtime"));
             mov.setMetascore(json.getString("metascore"));
             mov.setImdbRating(json.getString("imbdscore"));
-            mov.setDescription(json.getString("Plot"));
+            mov.setLongDescription(json.getString("Plot"));
         } catch (Exception e) {
             return null;
         }
@@ -85,13 +72,13 @@ public class ApiManager {
         try {
             JSONArray json = readJsonArrayFromUrl(url);
             JSONObject j;
-            Movie mov; 
+            Movie mov;
             for (int i = 0; i < json.length(); i++) {
                 j = json.getJSONObject(i);
                 mov = new Movie();
                 mov.setTitle(j.getString("Title"));
-                mov.setYear(j.getInt("Year"));
-                mov.setPoster(j.getString("Poster"));
+                mov.setReleaseYear(j.getInt("Year"));
+                mov.setPreferredImageUri(j.getString("Poster"));
                 movs.add(mov);
             }
         } catch (Exception e) {
@@ -101,9 +88,9 @@ public class ApiManager {
     }
 
     /**
-     * 
+     *
      * @param title
-     * @return 
+     * @return
      */
     public String getPosterURL(String title) {
         String poster = null;
@@ -123,105 +110,289 @@ public class ApiManager {
         return poster;
     }
 
+    /**
+     * @deprecated @param zip
+     * @return
+     */
     public ArrayList<Movie> searchOnConnectZip(String zip) {
-        System.out.println("new zip: " + zip);
+        return moviesPlayingInLocalTheatres(zip);
+    }
+
+    //--------------------------------------------------------------------------
+    // Important Stuff below
+    /**
+     *
+     * @param zip
+     * @return
+     */
+    public ArrayList<Theatre> findTheatres(String zip) {
+        ArrayList<Theatre> the = new ArrayList<Theatre>();
+
+        String url = "http://data.tmsapi.com/v1.1/theatres?zip="
+                + zip
+                + "&api_key="
+                + OCAPI;
+
+        try {
+            JSONArray jarray = readJsonArrayFromUrl(url);
+            JSONObject theatre;
+
+            for (int i = 0; i < jarray.length(); i++) {
+                theatre = jarray.getJSONObject(i);
+                the.add(jsonToTheatre(theatre));
+            }
+        } catch (Exception e) {
+            return null;
+        }
+        return the;
+    }
+
+    public Theatre theatreDetails(String theatreId) {
+        Theatre the = new Theatre();
+
+        String url = "http://data.tmsapi.com/v1.1/theatres/"
+                + theatreId
+                + "?api_key="
+                + OCAPI;
+
+        try {
+            JSONObject json = readJsonFromUrl(url);
+            the = jsonToTheatre(json);
+        } catch (Exception e) {
+            return null;
+        }
+        return the;
+    }
+
+    /**
+     *
+     * @param zip
+     * @return
+     */
+    public ArrayList<Movie> theatreShowtimes(String theatreId) {
         ArrayList<Movie> movs = new ArrayList<Movie>();
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
         String d = dateFormat.format(date);
 
-       keyIdx = 4;
-        
+        String url = "http://data.tmsapi.com/v1.1/theatres/"
+                + theatreId
+                + "/showings?startDate="
+                + d
+                + "&api_key="
+                + OCAPI;
+        try {
+            JSONArray json = readJsonArrayFromUrl(url);
+            JSONObject movie;
+            Movie mov;
+
+            for (int i = 0; i < json.length(); i++) {
+                movie = json.getJSONObject(i);
+                movs.add(jsonToMovie(movie));
+            }
+        } catch (Exception e) {
+            return null;
+        }
+        return movs;
+    }
+
+    /**
+     *
+     * @param zip
+     * @return
+     */
+    public ArrayList<Movie> moviesPlayingInLocalTheatres(String zip) {
+        ArrayList<Movie> movs = new ArrayList<Movie>();
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        String d = dateFormat.format(date);
+
         String url = "http://data.tmsapi.com/v1.1/movies/showings?startDate="
                 + d
                 + "&zip="
                 + zip
-                + "&api_key=" + OCAPI[keyIdx];
+                + "&api_key=" + OCAPI;
 
-        System.out.println(url);
-        
         try {
             JSONArray json = readJsonArrayFromUrl(url);
-            JSONObject j;
-            Movie mov;
-            for (int i = 0; i < json.length(); i++) {
-                j = json.getJSONObject(i);
-                mov = new Movie();
-                
-                try {
-                    mov.setRated(j.getJSONArray("ratings").getJSONObject(0).getString("code"));
-                }
-                catch (Exception e) {
-                    mov.setRated("none");
-                }
-                try {
-                    mov.setTitle(j.getString("title"));
-                }
-                catch (Exception e) {
-                    mov.setTitle("none");
-                }
-                try {
-                    mov.setYear(j.getInt("releaseYear"));
-                }
-                catch (Exception e) {
-                    mov.setYear(0);
-                }
-                try {
-                    mov.setRated(j.getJSONArray("ratings").getJSONObject(0).getString("code"));
-                }
-                catch (Exception e) {
-                    mov.setRated("none");
-                }
-                try {
-                    mov.setReleased(j.getString("releaseDate"));
-                }
-                catch (Exception e) {
-                    mov.setReleased("none");
-                }
-                try {
-                    mov.setRuntime(j.getString("runTime"));
-                }
-                catch (Exception e) {
-                    mov.setRuntime("none");
-                }
-                try {
-                    mov.setShowtimes(j.getJSONArray("showtimes"));
-                }
-                catch (Exception e) {
-                    //mov.setShowtimes("none");
-                }
-                try {
-                    mov.setDescription(j.getString("longDescription"));
-                }
-                catch (Exception e) {
-                    mov.setDescription("none");
-                }
-               
-                //System.out.println("Poster: " + j.getString("preferredImage").toString());
-                //System.out.println(j);
-                movs.add(mov);
-            }
+            JSONObject movie;
 
-        } catch (Exception e) {
-           // System.out.println("exception: " + e);
-            //If nothing is returned, try with a different key. 
-            /*
-            if (e instanceof IOException && e.toString().regionMatches(57, "403", 0, 3)) {
-                if (keyIdx < OCAPI.length - 1) {
-                    keyIdx++;
-                    return searchOnConnectZip(zip);
-                }
+            for (int i = 0; i < json.length(); i++) {
+                movie = json.getJSONObject(i);
+                movs.add(jsonToMovie(movie));
             }
-            */
-            
+        } catch (Exception e) {
             return null;
         }
-
         return movs;
     }
 
-    public JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
+    /**
+     *
+     * @param json
+     * @return
+     */
+    private Movie jsonToMovie(JSONObject json) {
+        Movie mov = new Movie();
+
+        try {
+            mov.setTmsId(json.getString("tmsID"));
+        } catch (Exception e) {
+            mov.setTmsId("tmsId");
+        }
+
+        try {
+            mov.setTitle(json.getString("title"));
+        } catch (Exception e) {
+            mov.setTitle("title");
+        }
+
+        try {
+            mov.setReleaseYear(json.getInt("releaseYear"));
+        } catch (Exception e) {
+            mov.setReleaseYear(9999);
+        }
+
+        try {
+            mov.setReleaseDate(json.getString("releaseDate"));
+        } catch (Exception e) {
+            mov.setReleaseDate("releaseDate");
+        }
+
+        try {
+            mov.setLongDescription(json.getString("longDescription"));
+        } catch (Exception e) {
+            mov.setLongDescription("longDescription");
+        }
+
+        try {
+            mov.setRating(json.getJSONArray("ratings").getJSONObject(0).getString("code"));
+        } catch (Exception e) {
+            mov.setRating("rating");
+        }
+
+        try {
+            mov.setRuntime(json.getString("runTime"));
+        } catch (Exception e) {
+            mov.setRuntime(null);
+        }
+
+        try {
+            mov.setPreferredImageUri(
+                    "http://developer.tmsimg.com/"
+                    + json.getJSONObject("preferredImage").getString("uri")
+                    + "?api_key="
+                    + OCAPI);
+        } catch (Exception e) {
+            mov.setPreferredImageUri("Image not found");
+        }
+
+        try {
+            JSONArray showTimes = json.getJSONArray("showtimes");
+            mov.setShowtimes(arrayOfShowtimes(showTimes));
+        } catch (Exception e) {
+            mov.setShowtimes(null);
+        }
+
+        return mov;
+    }
+
+    /**
+     *
+     * @param jarray
+     * @return
+     */
+    private List<Showtime> arrayOfShowtimes(JSONArray jarray) {
+        ArrayList<Showtime> timeList = new ArrayList<Showtime>();
+        Showtime time;
+        for (int i = 0; i < jarray.length(); i++) {
+            time = jsonToShowtime(jarray.getJSONObject(i));
+            timeList.add(time);
+        }
+        return timeList;
+    }
+
+    /**
+     *
+     * @param json
+     * @return
+     */
+    private Showtime jsonToShowtime(JSONObject json) {
+        Showtime time = new Showtime();
+
+        try {
+            time.setTheatreId(json.getJSONObject("theatre").getString("id"));
+        } catch (Exception e) {
+            time.setTheatreId(null);
+        }
+        
+        try {
+            time.setTheatreName(json.getJSONObject("theatre").getString("name"));
+        } catch (Exception e) {
+            time.setTheatreId(null);
+        }
+
+        try {
+            time.setDate(json.getString("dateTime").substring(0, 10));
+            time.setTime(json.getString("dateTime").substring(11));
+        } catch (Exception e) {
+            time.setDate("date");
+            time.setTime("time");
+        }
+
+        return time;
+    }
+
+    /**
+     *
+     * @param json
+     * @return
+     */
+    private Theatre jsonToTheatre(JSONObject json) {
+        Theatre the = new Theatre();
+
+        try {
+            the.setTheatreId(json.getString("theatreId"));
+        } catch (Exception e) {
+            the.setTheatreId("threateId");
+        }
+
+        try {
+            the.setName(json.getString("name"));
+        } catch (Exception e) {
+            the.setName("name");
+        }
+
+        try {
+            the.setTelephone(json.getJSONObject("location").getString("telephone"));
+        } catch (Exception e) {
+            the.setTelephone(null);
+        }
+
+        try {
+            JSONObject address = json.getJSONObject("location").getJSONObject("address");
+            the.setAddress(
+                    address.getString("street") + " "
+                    + address.getString("state") + " "
+                    + address.getString("city") + " "
+                    + address.getString("postalCode"));
+        } catch (Exception e) {
+            the.setAddress("address");
+        }
+
+        return the;
+    }
+
+    /**
+     *
+     * @param url
+     * @return
+     * @throws IOException
+     * @throws JSONException
+     */
+    private JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
         InputStream is = new URL(url).openStream();
         try {
             BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
@@ -233,7 +404,14 @@ public class ApiManager {
         }
     }
 
-    public JSONArray readJsonArrayFromUrl(String url) throws IOException, JSONException {
+    /**
+     *
+     * @param url
+     * @return
+     * @throws IOException
+     * @throws JSONException
+     */
+    private JSONArray readJsonArrayFromUrl(String url) throws IOException, JSONException {
         InputStream is = new URL(url).openStream();
         try {
             BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
@@ -245,6 +423,12 @@ public class ApiManager {
         }
     }
 
+    /**
+     *
+     * @param rd
+     * @return
+     * @throws IOException
+     */
     private String readAll(Reader rd) throws IOException {
         StringBuilder sb = new StringBuilder();
         int cp;
