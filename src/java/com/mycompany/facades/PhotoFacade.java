@@ -20,7 +20,7 @@ import javax.persistence.PersistenceContext;
 
 public class PhotoFacade extends AbstractFacade<Photo> {
 
-    @PersistenceContext(unitName = "Users-GreerPU")
+    @PersistenceContext(unitName = "VirtualTicketsTestPU")
     private EntityManager em;
 
     @Override
