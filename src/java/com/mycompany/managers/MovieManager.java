@@ -42,7 +42,7 @@ public class MovieManager implements Serializable {
         nowPlaying = new ArrayList<>();
         
         for (int i = 0; i < 128; i++) {
-            nowPlaying.add(new Movie("Batman vs. Superman" + i));
+            //nowPlaying.add(new Movie("Batman vs. Superman" + i));
         }
         
     }
