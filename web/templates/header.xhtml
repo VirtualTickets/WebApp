@@ -8,7 +8,10 @@ across all web pages.
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:h="http://xmlns.jcp.org/jsf/html">
-    
+    <h:head>
+        <h:outputStylesheet name="css/global.css"/> 
+    </h:head>
+
     <ui:composition>
         <h:panelGrid columns="2" width="100%" columnClasses="leftAlign, rightAlign"  styleClass="headerBarTable">
             <h:form>
@@ -27,8 +30,8 @@ across all web pages.
             </h:form>
             
             <h:form>
-                <p:graphicImage height="99" width="100" name="#{accountManager.getUserImage()}" id="imageImg"/>
-                <p:overlayPanel id="imagePanel" for="imageImg" hideEffect="fade">
+                <p:graphicImage id="userImage" class="userImage" height="99" width="100" url="http://i.imgur.com/AJiXEWD.png"/>
+                <p:overlayPanel id="imagePanel" for="userImage" hideEffect="fade">
                     <h:commandLink value="Edit Account" action="/customer/EditAccount" rendered="#{accountManager.isLoggedIn()}"/>
                     <h:commandLink value="Create Account" action="/customer/CreateAccount" rendered="#{!accountManager.isLoggedIn()}"/>
                     <br/>
