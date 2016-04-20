@@ -59,6 +59,18 @@ public class ApiManagerTest {
         ApiManager instance = new ApiManager();
         //ArrayList<Movie> result = instance.theatreShowtimes(theatreId);
     }
+    
+    /**
+     * Test of theatreShowtimes method, of class ApiManager.
+     */
+    @Test
+    public void testMovieShowtimes() {
+        System.out.println("movieShowtimes");
+        String tmsId = "MV008151610000";
+        String zip = "23453";
+        ApiManager instance = new ApiManager();
+        ArrayList<Movie> result = instance.movieShowtimes(tmsId, zip);
+    }
 
     /**
      * Test of moviesPlayingInLocalTheatres method, of class ApiManager.
