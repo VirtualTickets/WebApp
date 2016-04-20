@@ -3,6 +3,7 @@
 <!-- tell nick to fix the cc month field of create account, cuz it doesn't recognize 04 as 2 digits. -->
 <!-- have him right align the fields in the drop down and add icons to each field on the left of the text -->
 <!-- have him add an arrow that faces down or up depending on the state of the drop down -->
+<!-- highlighting of userIcon when hovered over -->
 <!-- new table for each theater when user searches for a movie? like fandago.-->
 <!-- separation of IMAX 3d, REALD 3D, Standard, etc on movies page -->
 <!-- date selector on movie page as well, like fandango -->
@@ -48,7 +49,7 @@
         <ui:composition template="/templates/main.xhtml" id="index">
             <ui:define name="content" id="index">
                 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-                <link type="text/css" href="jquery-ui.css" rel="stylesheet" /> 
+                <h:outputStylesheet name="css/jquery-ui.css"/> 
                 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
                 <script type="text/javascript" src="http://lab.abhinayrathore.com/jquery_youtube/jquery.youtubepopup.js"></script>
                 <script type="text/javascript">
