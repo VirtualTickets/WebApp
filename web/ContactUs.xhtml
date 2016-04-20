@@ -2,6 +2,7 @@
 <!--
 Created by Nicholas Greer on 2016.04.09 
 Copyright © 2016 Nicholas Greer. All rights reserved.
+<h:panelGrid columns="3" cellpadding="5" cellspacing="1" bgcolor="lightblue" rowClasses="row">
 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
@@ -11,17 +12,16 @@ Copyright © 2016 Nicholas Greer. All rights reserved.
     <!--Menu at the top of the screen-->
     <ui:composition template="/templates/main.xhtml">
         <h:head>
-            <title>Security Question</title>
+            <title>Contact Us</title>
             <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-            <h:outputStylesheet name="css/jsfcrud.css"/>
-            <h:outputStylesheet library="css" name="globalStyles.css"/>
+            <h:outputStylesheet name="css/global.css"/>
         </h:head>
         <ui:define name="content">
             <div align="center" style="width:50%; margin:0 auto;">
-               <h:panelGrid columns="3" cellpadding="5">
+               <h:panelGrid columns="3" cellpadding="5" cellspacing="20" bgcolor="gray">
                    <h:graphicImage/> 
-                    <h:outputLabel value="Name" />
-                    <h:outputLabel value="Email" />
+                    <h:outputLabel class="colHeader" value="Name" />
+                    <h:outputLabel class="colHeader" value="Email" />
                     
                     <h:graphicImage url="http://i.imgur.com/nfxNVQp.jpg"
                                    width="150" height="198" alt="Kent Hannigan" onclick=""/> 

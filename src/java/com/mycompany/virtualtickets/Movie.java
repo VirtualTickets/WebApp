@@ -4,7 +4,7 @@
  */
 package com.mycompany.virtualtickets;
 
-import org.json.*;
+import java.util.List;
 
 
 /**
@@ -12,28 +12,29 @@ import org.json.*;
  * @author painter
  */
 public class Movie {
-    private String title; 
-    private int year; 
-    private String rated; 
-    private String released; 
-    private String runtime; 
-    private String metascore;
-    private String description; 
-    private String imdbRating;
-    private JSONArray showtimes;
-    private String poster; 
     
+    private String tmsId; 
+    private String title; 
+    private int releaseYear; 
+    private String releaseDate;
+    private String longDescription; 
+    private String rating; 
+    private String runtime; 
+    private String preferredImageUri; 
+    private List<Showtime> showtimes;  
+    private String metascore; 
+    private String imdbRating; 
     
     public Movie() {
+        
     }
-    
-    public Movie(String title) {
-        this.title = title;
-        this.released = "Mar 31 2016";
-        this.rated = "R";
-        this.imdbRating = "9.9";
-        this.metascore = "9.8";
-        this.runtime = "1:59";
+
+    public String getTmsId() {
+        return tmsId;
+    }
+
+    public void setTmsId(String tmsId) {
+        this.tmsId = tmsId;
     }
 
     public String getTitle() {
@@ -44,28 +45,36 @@ public class Movie {
         this.title = title;
     }
 
-    public int getYear() {
-        return year;
+    public int getReleaseYear() {
+        return releaseYear;
     }
 
-    public void setYear(int year) {
-        this.year = year;
+    public void setReleaseYear(int releaseYear) {
+        this.releaseYear = releaseYear;
     }
 
-    public String getRated() {
-        return rated;
+    public String getReleaseDate() {
+        return releaseDate;
     }
 
-    public void setRated(String rated) {
-        this.rated = rated;
+    public void setReleaseDate(String releaseDate) {
+        this.releaseDate = releaseDate;
     }
 
-    public String getReleased() {
-        return released;
+    public String getLongDescription() {
+        return longDescription;
     }
 
-    public void setReleased(String released) {
-        this.released = released;
+    public void setLongDescription(String longDescription) {
+        this.longDescription = longDescription;
+    }
+
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
     }
 
     public String getRuntime() {
@@ -76,20 +85,28 @@ public class Movie {
         this.runtime = runtime;
     }
 
+    public String getPreferredImageUri() {
+        return preferredImageUri;
+    }
+
+    public void setPreferredImageUri(String preferredImageUri) {
+        this.preferredImageUri = preferredImageUri;
+    }
+
+    public List<Showtime> getShowtimes() {
+        return showtimes;
+    }
+
+    public void setShowtimes(List<Showtime> showtimes) {
+        this.showtimes = showtimes;
+    }
+
     public String getMetascore() {
         return metascore;
     }
 
     public void setMetascore(String metascore) {
         this.metascore = metascore;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String getImdbRating() {
@@ -99,20 +116,5 @@ public class Movie {
     public void setImdbRating(String imdbRating) {
         this.imdbRating = imdbRating;
     }
-
-    public JSONArray getShowtimes() {
-        return showtimes;
-    }
-
-    public void setShowtimes(JSONArray showtimes) {
-        this.showtimes = showtimes;
-    }
-
-    public String getPoster() {
-        return poster;
-    }
-
-    public void setPoster(String poster) {
-        this.poster = poster;
-    }
+    
 }
