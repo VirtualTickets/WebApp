@@ -152,6 +152,7 @@ p {
 .headerBarTable td {
     vertical-align: top;
 }
+
 .page {
     position: relative;
     height:100%;
@@ -275,7 +276,8 @@ input:checked + .slide-container .nav label { display: block; }
 	position: relative;
 	border-radius: 100%;
 	display: inline-block;
-	background-color: rgba(0, 0, 0, 0.6);
+	background-color: rgba(255, 255, 255, 0.6);
+        
 }
 
 .nav-dots .nav-dot:hover {
@@ -289,7 +291,7 @@ input#img-3:checked ~ .nav-dots label#img-dot-3,
 input#img-4:checked ~ .nav-dots label#img-dot-4,
 input#img-5:checked ~ .nav-dots label#img-dot-5,
 input#img-6:checked ~ .nav-dots label#img-dot-6 {
-	background: rgba(0, 0, 0, 0.8);
+	background: rgba(247, 148, 29, 0.8);
 }
 
 /*
