@@ -26,7 +26,7 @@ across all web pages.
                     </f:facet>
 
                     <p:menuitem>
-                        <div>
+                        <h:form>
                             <p:graphicImage id="userImage" class="userImage" height="60" width="60" name="#{accountManager.getUserImage()}"/>
                             <p:overlayPanel id="imagePanel" for="userImage" hideEffect="fade">
                                 <h:panelGrid columns="2" width="100%" columnClasses="rightAlign, rightAlign"  styleClass="headerBarTable">
@@ -44,8 +44,9 @@ across all web pages.
                                 </h:panelGrid>
 
                             </p:overlayPanel>
-                        </div>
+                        </h:form>
                     </p:menuitem>
+                    
                 </p:menubar>
 
     </ui:composition>
