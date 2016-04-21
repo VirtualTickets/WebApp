@@ -20,6 +20,7 @@ import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Collections;
 
 /**
  *
@@ -237,6 +238,7 @@ public class ApiManager {
      * @return
      */
     public ArrayList<Movie> moviesPlayingInLocalTheatres(String zip) {
+        System.out.println("Searching for movies with zip: " + zip);
         ArrayList<Movie> movs = new ArrayList<Movie>();
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -260,6 +262,7 @@ public class ApiManager {
         } catch (Exception e) {
             return null;
         }
+        Collections.sort(movs);
         return movs;
     }
 
