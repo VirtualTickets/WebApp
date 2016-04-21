@@ -203,6 +203,7 @@ public class ApiManager {
      * @return
      */
     public ArrayList<Movie> moviesPlayingInLocalTheatres(String zip) {
+        System.out.println("Searching for movies with zip: " + zip);
         ArrayList<Movie> movs = new ArrayList<Movie>();
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");

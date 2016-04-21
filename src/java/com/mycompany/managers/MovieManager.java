@@ -28,6 +28,7 @@ public class MovieManager implements Serializable {
     private String zipCode;
     private String checkoutAs = "Guest";
     private String numTickets = "1";
+    private boolean locationChanged = false;
     
     
     /**
@@ -85,7 +86,9 @@ public class MovieManager implements Serializable {
     }
     
     public void changeLocation() {
-        //ArrayList<String> temp = getNowPlayingTitles();
+        locationChanged = true;
+        ArrayList<String> temp = getNowPlayingTitles();
+        locationChanged = false;
         System.out.println("location changed");
     }
     
@@ -168,7 +171,11 @@ public class MovieManager implements Serializable {
     }
     
     public List<Movie> getNowPlaying() {
-       if (nowPlaying == null) {
+       if (locationChanged)
+       {
+           nowPlaying = apiManager.moviesPlayingInLocalTheatres(zipCode);
+       }
+       else if (nowPlaying == null) {
            nowPlaying = apiManager.moviesPlayingInLocalTheatres(zipCode);
        }
        return nowPlaying;

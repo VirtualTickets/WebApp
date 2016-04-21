@@ -39,10 +39,10 @@ html, body {
     position: absolute;
     font-weight: bold;
     top: 20px;
-    font-size: 250%;
+    font-size: 2vw;
     color: #fff;
     padding: 0 20px;
-    width: 25%;
+    width: 22%;
     line-height: 150%;
     background: rgba(247, 148, 29, 0.7);
     margin: 0px;
@@ -50,8 +50,8 @@ html, body {
 
 .rtRating {
     position: absolute;
-    bottom: 130px;
-    font-size: 180%;
+    top: 100px;
+    font-size: 1.7vw;
     color: #fff;
     padding: 0 20px;
     width: 12%;
@@ -62,8 +62,8 @@ html, body {
 
 .imdbRating {
     position: absolute;
-    bottom: 20px;
-    font-size: 180%;
+    top: 190px;
+    font-size: 1.7vw;
     color: #fff;
     padding: 0 20px;
     width: 12%;
@@ -74,9 +74,9 @@ html, body {
 
 .criticsTitle{
     position: absolute;
-    bottom: 240px;
+    bottom: 180px;
     right:0px;
-    font-size: 200%;
+    font-size: 1.7vw;
     color: #fff;
     padding: 0 20px;
     width: 18%;
@@ -90,7 +90,7 @@ html, body {
     position: absolute;
     bottom: 20px;
     right: 0px;
-    font-size: 150%;
+    font-size: 1.3vw;
     color: #fff;
     padding: 0 20px;
     width: 35%;
