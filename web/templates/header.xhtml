@@ -13,9 +13,7 @@ across all web pages.
     </h:head>
 
     <ui:composition>
-        <h:panelGrid columns="2" width="100%" columnClasses="leftAlign, rightAlign"  styleClass="headerBarTable">
-            <h:form>
-                <p:menubar style="vertical-align: top;width:50%;">
+                <p:menubar style="vertical-align: top;width:99.4%; height:60px; background-color: #3cc5bc;">
                     <f:facet name="title">
                         <p:graphicImage value="/resources/images/Capture.png"/>
                     </f:facet>
@@ -23,33 +21,31 @@ across all web pages.
                     <p:menuitem value="All Movies" outcome="/Movies"/>
                     <p:menuitem value="Recent Movies" outcome="/Movies"/>
                     <f:facet name="options">
-                        <p:inputText style="margin-right:10px" placeholder="Search Movies" />
+                        <p:inputText style="margin-right:300px" placeholder="Search Movies" />
                     </f:facet>
 
-                </p:menubar>
-            </h:form>
-            
-            <h:form>
-                <p:graphicImage id="userImage" class="userImage" height="99" width="100" name="#{accountManager.getUserImage()}"/>
-                <p:overlayPanel id="imagePanel" for="userImage" hideEffect="fade">
-                    <h:panelGrid columns="2" width="100%" columnClasses="rightAlign, rightAlign"  styleClass="headerBarTable">
-                        <h:graphicImage name="/images/batman.jpg" height="10"/>
-                        <h:panelGroup>
-                    <h:commandLink value="Edit Account" action="/customer/EditAccount" rendered="#{accountManager.isLoggedIn()}" />
-                    <h:commandLink value="Create Account" action="/customer/CreateAccount" rendered="#{!accountManager.isLoggedIn()}" />
-                        </h:panelGroup>
-                    <h:graphicImage name="/images/batman.jpg" height="10"/>
-                    <h:panelGroup>
-                    <h:commandLink value="Logout" action="#{accountManager.logout()}" rendered="#{accountManager.isLoggedIn()}" />
-                    <h:commandLink value="Login" action="/customer/LoginPage" rendered="#{!accountManager.isLoggedIn()}" />
-                    </h:panelGroup>
-                    
-                    </h:panelGrid>
-                    
-                </p:overlayPanel>
-            </h:form>
-            </h:panelGrid>
+                    <p:menuitem>
+                        <div>
+                            <p:graphicImage id="userImage" class="userImage" height="60" width="60" name="#{accountManager.getUserImage()}"/>
+                            <p:overlayPanel id="imagePanel" for="userImage" hideEffect="fade">
+                                <h:panelGrid columns="2" width="100%" columnClasses="rightAlign, rightAlign"  styleClass="headerBarTable">
+                                    <h:graphicImage name="/images/batman.jpg" height="10"/>
+                                    <h:panelGroup>
+                                <h:commandLink value="Edit Account" action="/customer/EditAccount" rendered="#{accountManager.isLoggedIn()}" />
+                                <h:commandLink value="Create Account" action="/customer/CreateAccount" rendered="#{!accountManager.isLoggedIn()}" />
+                                    </h:panelGroup>
+                                <h:graphicImage name="/images/batman.jpg" height="10"/>
+                                <h:panelGroup>
+                                <h:commandLink value="Logout" action="#{accountManager.logout()}" rendered="#{accountManager.isLoggedIn()}" />
+                                <h:commandLink value="Login" action="/customer/LoginPage" rendered="#{!accountManager.isLoggedIn()}" />
+                                </h:panelGroup>
 
+                                </h:panelGrid>
+
+                            </p:overlayPanel>
+                        </div>
+                    </p:menuitem>
+                </p:menubar>
 
     </ui:composition>
     

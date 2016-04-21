@@ -44,6 +44,7 @@
         <title>Virtual Tickets Cloud App</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <h:outputStylesheet name="css/global.css"/> 
+        <link href='https://fonts.googleapis.com/css?family=Lato:900' rel='stylesheet' type='text/css'></link>
     </h:head>
 
     <h:body id="index">
@@ -53,6 +54,7 @@
                 <h:outputStylesheet name="css/jquery-ui.css"/> 
                 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
                 <script type="text/javascript" src="http://lab.abhinayrathore.com/jquery_youtube/jquery.youtubepopup.js"></script>
+                
                 <script type="text/javascript">
                     $(function () {
                         $("a.youtube").YouTubePopup({ autoplay: 1 });
@@ -60,12 +62,12 @@
                 </script>
                 <div id="index">
                     <h:form class="form">
-				<div style="background:lightgrey;"   align="center">
+				<div class="ticketsAndShowtimesDiv"  align="center">
                                    <br/>
-                                    <h:panelGrid border="1">
-                                        <h:panelGrid columns="2" columnClasses="leftAlign, rightAlign" bgcolor="lightblue">
+                                    <h:panelGrid styleClass="ticketsPanel" border="1">
+                                        <h:panelGrid columns="2" columnClasses="leftAlign, rightAlign">
                                             <h:panelGroup>
-                                                <h2>Tickets &amp; Showtimes Nearby </h2>
+                                                <h2 id="ticketsAndShowtimes">Tickets &amp; Showtimes Nearby </h2>
                                             </h:panelGroup>
                                             <h:panelGroup>
                                                 <h:inputText id="zip" value="#{movieManager.zipCode}" required="true" label="Zip Code" style="width:50px;">
@@ -84,7 +86,7 @@
                                     <br />
                                 </div>
                                 <div align="center">
-                                    <h1 style="color:orange;"><u>Critically Acclaimed</u></h1>
+                                    <h1 id="crticallyAcclaimedTitle">Critically Acclaimed</h1>
                                 </div>
                                     <ul class="slides" >
                                         <input type="radio" name="radio-btn" id="img-1" checked="true" />
@@ -235,11 +237,12 @@
                                     <br />
                                     <br />
                                     <br />
-                                <div style="background:lightgrey;" align="center">
-                                    <h1 style="color:orange;"><u>Most Popular</u></h1>
+                                <div id="topPostersDiv" align="center">
+                                    <br/>
+                                    <h1 id="popularTitle">Most Popular</h1>
 
-                                    <h:panelGrid border="1">
-                                        <h:panelGrid columns="5" bgcolor="lightblue" border="0" cellpadding="10" cellspacing="10">
+                                    <h:panelGrid styleClass="topPostersPanel" border="1">
+                                        <h:panelGrid columns="5" border="0" cellpadding="10" cellspacing="10">
                                             <h:commandLink>
                                                 <f:ajax event="action" listener="#{movieManager.searchByTitle(movieManager.topNowPlayingTitles[0])}"/>
                                                 <h:graphicImage class="grow" url="#{movieManager.nowPlayingPosters[0]}"

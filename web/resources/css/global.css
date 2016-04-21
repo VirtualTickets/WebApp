@@ -39,13 +39,15 @@ html, body {
     position: absolute;
     font-weight: bold;
     top: 20px;
-    font-size: 2vw;
+    font-size: 1.8vw;
     color: #fff;
     padding: 0 20px;
     width: 22%;
     line-height: 150%;
     background: rgba(247, 148, 29, 0.7);
     margin: 0px;
+    font-family: 'Lato', sans-serif;
+
 }
 
 .rtRating {
@@ -58,6 +60,8 @@ html, body {
     line-height: 150%;
     background: rgba(247, 148, 29, 0.7);
     margin: 0px;
+    font-family: 'Lato', sans-serif;
+
 }
 
 .imdbRating {
@@ -70,6 +74,8 @@ html, body {
     line-height: 150%;
     background: rgba(247, 148, 29, 0.7);
     margin: 0px;
+    font-family: 'Lato', sans-serif;
+
 }
 
 .criticsTitle{
@@ -117,6 +123,51 @@ html, body {
     opacity: 0.5;
     background-color: rgba(247, 148, 29, 0.7)
 }
+
+#topPostersDiv {
+    /*background-color: rgba(60, 197, 188, 1)*/
+    background: lightgrey;
+}
+
+.ticketsAndShowtimesDiv {
+    background-color: lightgrey; 
+}
+
+.topPostersPanel {
+    background-color: #3cc5bc;
+    margin-bottom: 20px;
+}
+
+.ticketsPanel {
+    background-color: #3cc5bc;
+    
+    margin-top: 20px;
+    margin-bottom: 20px;
+    
+}
+
+#ticketsAndShowtimes {
+    color: white;
+    font-size: 30px;
+    font-family: 'Lato', sans-serif;
+}
+
+h1 {
+    font-family: 'Lato', sans-serif;
+    color: orange;
+}
+
+
+#crticallyAcclaimedTitle {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#popularTitle {
+    margin-top: 2px;
+    margin-bottom: 18px;
+}
+
 
 
 /*
@@ -187,7 +238,7 @@ p {
     width: 70%;
     height: 420px;
     display: block;
-    margin: 0 auto;
+    margin: 0 auto 20px auto;
     position: relative;
 }
 
