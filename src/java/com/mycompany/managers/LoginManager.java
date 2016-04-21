@@ -58,7 +58,7 @@ public class LoginManager implements Serializable {
   }
   
   public String resetPassword() {
-      return "EnterUsername?faces-redirect=true";
+      return "/customer/ForgotPassword?faces-redirect=true";
   }
   
   public boolean isLoggedIn() {

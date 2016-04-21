@@ -41,25 +41,27 @@ Copyright © 2016 Nicholas Greer. All rights reserved.
                         </h:inputText>
                         <p:message for="lastName" display="icon" />
  
-                        <p:outputLabel for="ccn" value="CC Number" />
-                    <h:selectOneMenu id="ccn" value="#{accountManager.ccNumber}" required="true">
-                    <f:selectItems value="#{accountManager.ccNumber}"/>
-                    </h:selectOneMenu>
-                    <p:message for="ccn" display="icon" />   
-                   
-                    
+                       <p:outputLabel for="ccn" value="CC Number" />
+                    <h:inputText id="ccn" value="#{accountManager.selected.ccNumber}" 
+                                 required="true" label="CC Number">
+                        <f:validateLength minimum="2" />
+                    </h:inputText>
+                    <p:message for="ccn" display="icon" />
+
                     <p:outputLabel for="ccem" value="CC Ex Month" />
-                    <h:selectOneMenu id="ccem" value="#{accountManager.ccExMonth}" required="true">
-                        <f:selectItems value="#{accountManager.ccExMonth}"/>
-                    </h:selectOneMenu>
-                    <p:message for="ccem" display="icon" />   
+                    <h:inputText id="ccem" value="#{accountManager.selected.ccExMonth}" 
+                                 required="true" label="CC Ex Month">
+                        <f:validateLength minimum="1" />
+                    </h:inputText>
+                    <p:message for="ccem" display="icon" />  
                     
-                    <p:outputLabel for="ccey" value="CC Ex Year" />
-                    <h:selectOneMenu id="security_ques" value="#{accountManager.ccExYear}" required="true">
-                    <f:selectItems value="#{accountManager.ccExYear}"/>
-                    </h:selectOneMenu>
-                    <p:message for="ccey" display="icon" />   
- 
+                    <p:outputLabel for="ccey" value="CC EX Year" />
+                    <h:inputText id="ccey" value="#{accountManager.selected.ccExYear}" 
+                                 required="true" label="CC Ex Year">
+                        <f:validateLength minimum="2" />
+                    </h:inputText>
+                    <p:message for="ccey" display="icon" />
+                     
                         <p:outputLabel for="email" value="Email:" />
                         <h:inputText id="email" value="#{accountManager.selected.email}"
                                      label="Email" required="true">

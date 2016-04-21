@@ -31,7 +31,9 @@ public class MovieManager implements Serializable {
     private String zipCode;
     private String checkoutAs = "Guest";
     private String numTickets = "1";
-
+    private boolean locationChanged = false;
+    
+    
     /**
      * Creates a new instance of ApiManager
      */
@@ -97,7 +99,9 @@ public class MovieManager implements Serializable {
     }
 
     public void changeLocation() {
-        //ArrayList<String> temp = getNowPlayingTitles();
+        locationChanged = true;
+        ArrayList<String> temp = getNowPlayingTitles();
+        locationChanged = false;
         System.out.println("location changed");
     }
 
@@ -180,14 +184,14 @@ public class MovieManager implements Serializable {
     }
 
     public List<Movie> getNowPlaying() {
-        if (nowPlaying == null) {
-            nowPlaying = apiManager.moviesPlayingInLocalTheatres(zipCode);
-//            for (Movie m : nowPlaying) {
-//                m.setPreferredImageUri(apiManager.getPosterURL(m.getTitle()));
-//            }
-            Collections.sort(nowPlaying);
-        }
-        return nowPlaying;
+       if (locationChanged)
+       {
+           nowPlaying = apiManager.moviesPlayingInLocalTheatres(zipCode);
+       }
+       else if (nowPlaying == null) {
+           nowPlaying = apiManager.moviesPlayingInLocalTheatres(zipCode);
+       }
+       return nowPlaying;
     }
 
     public List<Movie> getSearchByTitle() {
