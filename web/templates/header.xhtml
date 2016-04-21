@@ -14,25 +14,22 @@ across all web pages.
     </h:head>
 
     <ui:composition>
-                <p:menubar styleClass="topMenu">
-                    <f:facet name="title">
-                        <p:graphicImage value="/resources/images/Capture.png"/>
-                    </f:facet>
-                    <p:menuitem value="Home" outcome="/index" icon="ui-icon-home" />
-                    <p:menuitem value="All Movies" action="#{movieManager.showNowPlaying()}"/>
-                    <p:menuitem value="Recent Movies" action="#{movieManager.showNowPlaying()}"/>
-                        <p:inputText style="margin-right:10px;vertical-align: top" placeholder="Search Movies" />
-                        
-                            <p:graphicImage id="userImage" class="userImage" height="60" width="60" name="#{accountManager.getUserImage()}"/>
-                            
-                            <p:overlayPanel id="imagePanel" for="userImage" hideEffect="fade">
-                                <h:form>
-                                <h:panelGrid columns="2" width="100%" columnClasses="rightAlign, rightAlign"  styleClass="headerBarTable">
-                                    <h:graphicImage name="/images/batman.jpg" height="10"/>
-                                    <h:panelGroup>
-                                <h:commandLink value="Edit Account" action="/customer/EditAccount" rendered="#{accountManager.isLoggedIn()}" />
-                                <h:commandLink value="Create Account" action="/customer/CreateAccount" rendered="#{!accountManager.isLoggedIn()}" />
-                                    </h:panelGroup>
+        <h:form>
+            <p:menubar styleClass="topMenu">
+                <f:facet name="title">
+                    <p:graphicImage value="/resources/images/Capture.png"/>
+                </f:facet>
+                <p:menuitem value="Home" outcome="/index" icon="ui-icon-home" />
+                <p:menuitem value="All Movies" action="#{movieManager.showNowPlaying()}"/>
+                <p:menuitem value="Recent Movies" action="#{movieManager.showNowPlaying()}"/>
+                <f:facet name="options">
+                    <p:inputText style="margin-right:10px;vertical-align: top" placeholder="Search Movies" />
+
+                    <p:graphicImage id="userImage" class="userImage" height="60" width="60" name="#{accountManager.getUserImage()}"/>
+
+                    <p:overlayPanel id="imagePanel" for="userImage" hideEffect="fade">
+                        <h:form>
+                            <h:panelGrid columns="2" width="100%" columnClasses="rightAlign, rightAlign"  styleClass="headerBarTable">
                                 <h:graphicImage name="/images/batman.jpg" height="10"/>
                                 <h:panelGroup>
                                     <h:commandLink value="Edit Account" action="/customer/EditAccount" rendered="#{accountManager.isLoggedIn()}" />
@@ -44,17 +41,11 @@ across all web pages.
                                     <h:commandLink value="Login" action="/customer/LoginPage" rendered="#{!accountManager.isLoggedIn()}" />
                                 </h:panelGroup>
 
-                                </h:panelGrid>
-                                </h:form>
+                            </h:panelGrid>
+                        </h:form>
 
-                            </p:overlayPanel>
-                                
-                    </f:facet>
-
-                    
-                    
-                </p:menubar>
-
+                    </p:overlayPanel>
+                </f:facet>
             </p:menubar>
         </h:form>
     </ui:composition>
