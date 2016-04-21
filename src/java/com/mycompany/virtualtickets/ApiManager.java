@@ -20,6 +20,7 @@ import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Collections;
 
 /**
  *
@@ -261,6 +262,7 @@ public class ApiManager {
         } catch (Exception e) {
             return null;
         }
+        Collections.sort(movs);
         return movs;
     }
 

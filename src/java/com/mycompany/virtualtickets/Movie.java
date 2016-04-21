@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author painter
  */
-public class Movie {
+public class Movie implements Comparable<Movie> {
     
     private String tmsId; 
     private String title; 
@@ -82,7 +82,10 @@ public class Movie {
     }
 
     public String getRuntime() {
-        return runtime;
+        int hours = Integer.parseInt(runtime.substring(2, 4));
+        int minutes = Integer.parseInt(runtime.substring(5, 7));
+        
+        return "Runtime: " + hours + ":" + minutes;
     }
 
     public void setRuntime(String runtime) {
@@ -90,7 +93,16 @@ public class Movie {
     }
 
     public String getPreferredImageUri() {
+        if (preferredImageUri == null) {
+            retrievePreferredImageUri();
+        }
         return preferredImageUri;
+    }
+    
+    public void retrievePreferredImageUri() {
+        if (preferredImageUri == null) {
+            setPreferredImageUri(new ApiManager().getPosterURL(title));
+        }
     }
 
     public void setPreferredImageUri(String preferredImageUri) {
@@ -120,5 +132,11 @@ public class Movie {
     public void setImdbRating(String imdbRating) {
         this.imdbRating = imdbRating;
     }
+
+    @Override
+    public int compareTo(Movie m) {
+        return title.compareTo(m.title);
+    }
+    
     
 }
