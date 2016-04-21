@@ -22,8 +22,8 @@ Copyright © 2016 Nicholas Greer. All rights reserved.
                 <h:graphicImage value="FileStorageLocation/#{accountManager.userPhoto()}" id="profilePic"
                           class="img-rounded col-md-3"></h:graphicImage>
                     <h2> #{profileViewManager.loggedInUser.firstName} #{profileViewManager.loggedInUser.lastName} </h2>
-                    <h:button value="Edit Profile"  outcome="EditAccount"/>
-                    <h:button value="Change Photo"  outcome="EditPhoto"/>
+                    <h:button value="Edit Profile"  outcome="/customer/EditAccount"/>
+                    <h:button value="Change Photo"  outcome="/customer/EditPhoto"/>
                     <h:commandButton value="Log Out" action="#{accountManager.logout()}" />
                 <br/>
                 <br/>

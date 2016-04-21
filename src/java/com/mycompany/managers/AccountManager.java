@@ -293,7 +293,7 @@ public class AccountManager implements Serializable {
                 statusMessage = "Something went wrong while deleting your account!";
                 return "";
             }
-            
+            this.logout();
             return "/index.xhtml?faces-redirect=true";
         }
         return "";
@@ -367,6 +367,7 @@ public class AccountManager implements Serializable {
         User user = userFacade.findByUsername(user_name);
         List<Photo> photoList = photoFacade.findPhotosByUserID(user.getId());
         if (photoList.isEmpty()) {
+            System.out.println("empty images");
             return "defaultUserPhoto.png";
         }
         return photoList.get(0).getThumbnailName();
