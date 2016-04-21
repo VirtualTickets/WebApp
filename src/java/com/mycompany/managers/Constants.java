@@ -14,8 +14,13 @@ public class Constants {
     //-----------------------------------------------------------
     // Change /Users/Balci/FileStorageLocation/ below to /home/cs4984/Balci/FileStorageLocation/
     // for deployment to the server by replacing Balci with your last name.
+    // If you are Kent use: /Users/Kent H/FileStorageLocation/
+    // If you are Alex use:
+    // If you are Ben use:
+    // If you are Nick G use: /VirginiaTech/6_Spring_2016/Cloud/Users/Users_files/FileStorageLocation
+    // If you are Nick P use: 
     //-----------------------------------------------------------
-    public static final String ROOT_DIRECTORY = "/VirginiaTech/6_Spring_2016/Cloud/Users/Users_files/FileStorageLocation";
+    public static final String ROOT_DIRECTORY = "/Users/Kent H/FileStorageLocation/";
 
     public static final String TEMP_FILE = "tmp_file";
 

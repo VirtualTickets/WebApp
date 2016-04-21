@@ -18,12 +18,15 @@ Copyright © 2016 Nicholas Greer. All rights reserved.
   </jsp-config>
   <!--
     *** Change /Users/Balci below to /home/cs4984/Balci for deployment to the server by replacing Balci with your last name. ***
-
+     If you are Kent use: C:/Users/Kent H
+     If you are Alex use: 
+     If you are Ben use:
+     If you are Nick G use: C:/VirginiaTech/6_Spring_2016/Cloud/Users/Users_files
+     If you are Nick P use: 
     "alternatedocroot_n Specifies an alternate document root (docroot), where n is a positive integer
     that allows specification of more than one. Alternate docroots allow web applications to serve
     requests for certain resources from outside their own docroot" 
     See page C-46 in [https://glassfish.java.net/docs/4.0/application-deployment-guide.pdf]
   -->
-  <property name="alternatedocroot_1" value="from=/FileStorageLocation/* dir=C:/VirginiaTech/6_Spring_2016/Cloud/Users/Users_files"/>
   <property name="alternatedocroot_1" value="from=/FileStorageLocation/* dir=C:/Users/Kent H"/>
 </glassfish-web-app>
