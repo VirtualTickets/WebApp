@@ -31,8 +31,8 @@ Copyright © 2016 Benjamin Sweeney. All rights reserved.
                                         </f:facet>
                                     </p:menubar>
                                 </f:facet>
-                                <p:tab title="#{movie.title}">
-                                    <p:panelGrid columns="2" style="max-width: 100%">
+                                <p:tab title="#{movie.title}" titleStyleClass="movieTab">
+                                    <p:panelGrid columns="2" style="max-width: 100%;">
                                         <h:panelGroup>    
                                             <h:graphicImage id="img" value="#{movie.preferredImageUri}" style="max-height: 370px; max-width: 250px" alt="Hello"/>
                                         </h:panelGroup>
@@ -50,7 +50,7 @@ Copyright © 2016 Benjamin Sweeney. All rights reserved.
                                             <br/>
                                             <br/>
                                             <p:tabView value="#{movie.theatres}" var="theatre">
-                                                <p:tab title="#{theatre.name}">
+                                                <p:tab title="#{theatre.name}" titleStyleClass="theaterTab">
                                                     <p:dataGrid value="#{theatre.showtimes}" var="showtime">
                                                         <h:outputText value="#{showtime.time}"/>
                                                     </p:dataGrid>

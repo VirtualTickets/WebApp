@@ -180,6 +180,16 @@ h1 {
     font-size: 25px;
 }
 
+.movieTab {
+    color: white;
+    background: #f7941d;
+}
+
+.theaterTab {
+    color: white;
+    background: #3cc5bc;
+}
+
 
 
 /*
