@@ -9,11 +9,12 @@ across all web pages.
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:h="http://xmlns.jcp.org/jsf/html">
     <h:head>
-        <h:outputStylesheet name="css/global.css"/> 
+        <h:outputStylesheet name="css/global.css"/>
+        <link href='https://fonts.googleapis.com/css?family=Lato:900' rel='stylesheet' type='text/css'></link>
     </h:head>
 
     <ui:composition>
-                <p:menubar style="vertical-align: top;width:99.4%; height:60px; background-color: #3cc5bc;">
+                <p:menubar styleClass="topMenu">
                     <f:facet name="title">
                         <p:graphicImage value="/resources/images/Capture.png"/>
                     </f:facet>
