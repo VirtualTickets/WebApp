@@ -22,13 +22,12 @@ across all web pages.
                     <p:menuitem value="All Movies" outcome="/Movies"/>
                     <p:menuitem value="Recent Movies" outcome="/Movies"/>
                     <f:facet name="options">
-                        <p:inputText style="margin-right:300px" placeholder="Search Movies" />
-                    </f:facet>
-
-                    <p:menuitem>
-                        <h:form>
+                        <p:inputText style="margin-right:10px;vertical-align: top" placeholder="Search Movies" />
+                        
                             <p:graphicImage id="userImage" class="userImage" height="60" width="60" name="#{accountManager.getUserImage()}"/>
+                            
                             <p:overlayPanel id="imagePanel" for="userImage" hideEffect="fade">
+                                <h:form>
                                 <h:panelGrid columns="2" width="100%" columnClasses="rightAlign, rightAlign"  styleClass="headerBarTable">
                                     <h:graphicImage name="/images/batman.jpg" height="10"/>
                                     <h:panelGroup>
@@ -42,10 +41,13 @@ across all web pages.
                                 </h:panelGroup>
 
                                 </h:panelGrid>
+                                </h:form>
 
                             </p:overlayPanel>
-                        </h:form>
-                    </p:menuitem>
+                                
+                    </f:facet>
+
+                    
                     
                 </p:menubar>
 
