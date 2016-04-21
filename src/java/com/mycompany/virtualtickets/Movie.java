@@ -4,6 +4,7 @@
  */
 package com.mycompany.virtualtickets;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -131,6 +132,22 @@ public class Movie implements Comparable<Movie> {
 
     public void setImdbRating(String imdbRating) {
         this.imdbRating = imdbRating;
+    }
+    
+    public List<TheatreWithShowtimes> getTheatres() {
+        ArrayList<TheatreWithShowtimes> list = new ArrayList<>();
+        
+        for (Showtime s : showtimes) {
+            TheatreWithShowtimes t = new TheatreWithShowtimes(s.getTheatreId(), s.getTheatreName());
+            if (!list.contains(t)) {
+                list.add(t);
+            }
+            
+            int index = list.lastIndexOf(t);
+            list.get(index).addShowtime(s);
+        }
+        
+        return list;
     }
 
     @Override

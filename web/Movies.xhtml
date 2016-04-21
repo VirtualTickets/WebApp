@@ -11,6 +11,7 @@ Copyright © 2016 Benjamin Sweeney. All rights reserved.
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <h:outputStylesheet name="css/global.css"/> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
         <ui:composition template="/templates/main.xhtml">
@@ -31,15 +32,32 @@ Copyright © 2016 Benjamin Sweeney. All rights reserved.
                                     </p:menubar>
                                 </f:facet>
                                 <p:tab title="#{movie.title}">
-                                    <!--p:commandLink id="link" update=":movie" onclick="#{movieManager.view()}" style="text-decoration: none"-->
-                                            <h:graphicImage id="img" value="#{movie.preferredImageUri}" style="max-height: 185px; max-width: 125px" alt="Hello"/>
-                                            <br/>
-                                            <br/>
+                                    <p:panelGrid columns="2" style="max-width: 100%">
+                                        <h:panelGroup>    
+                                            <h:graphicImage id="img" value="#{movie.preferredImageUri}" style="max-height: 370px; max-width: 250px" alt="Hello"/>
+                                        </h:panelGroup>
+                                        <h:panelGroup>
                                             <h:outputText value="#{movie.longDescription}"/>
                                             <br/>
                                             <br/>
                                             <h:outputText value="#{movie.runtime}"/>
-                                    <!--/p:commandLink-->
+                                            <br/>
+                                            <br/>
+                                            <h:outputText value="#{movie.rating}"/>
+                                            <br/>
+                                            <br/>
+                                            <h:outputText value="#{movie.releaseDate}"/>
+                                            <br/>
+                                            <br/>
+                                            <p:tabView value="#{movie.theatres}" var="theatre">
+                                                <p:tab title="#{theatre.name}">
+                                                    <p:dataGrid value="#{theatre.showtimes}" var="showtime">
+                                                        <h:outputText value="#{showtime.time}"/>
+                                                    </p:dataGrid>
+                                                </p:tab>
+                                            </p:tabView>
+                                        </h:panelGroup>
+                                    </p:panelGrid>
                                 </p:tab>
                             </p:accordionPanel>
                         </h:form>
