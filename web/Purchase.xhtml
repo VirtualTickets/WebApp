@@ -20,14 +20,6 @@ TODO:
         <ui:composition template="/templates/main.xhtml">
             <ui:define name="content">
                 <div align="center">
-
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
                     <br/>
                     <h:form id="purchase">
                         <!--p:selectOneRadio layout="pageDirection" rendered="#{!loginManager.loggedIn}" value="#{movieManager.checkoutAs}">
@@ -51,7 +43,7 @@ TODO:
                         <br/>
                         <br/-->
 
-                        <p:panelGrid columns="2">
+                        <p:panelGrid columns="3" styleClass="noBorder">
                             <p:panelGrid columns="2" style="align-self: center;">
                                 <f:facet name="header">
                                     <h:outputText value="Payment Info"/>
@@ -87,24 +79,28 @@ TODO:
                                 <h:inputText rendered="#{!accountManager.hasPaymentInfo}"/>
                                 <h:outputText value="CVC"/>
                                 <h:inputText/>
+                                <h:outputText value="Email"/>
+                                <h:inputText value="#{movieManager.email}"/>
                             </p:panelGrid> 
-                            <p:panelGrid columns="2" rendered="#{movieManager.currMovie != null}" style="align-self: center;">
-                                <f:facet name="header">
-                                    <h:outputText value="Movie Info"/>
-                                </f:facet>
-                                <h:outputText value="Title: "/>
-                                <h:outputText value="#{movieManager.currMovie.title}"/>
-                                <h:outputText value="Release date: "/>
-                                <h:outputText value="#{movieManager.currMovie.released}"/>
-                                <h:outputText value="Rating: "/>
-                                <h:outputText value="#{movieManager.currMovie.rated}"/>
-                                <h:outputText value="IMBD rating: "/>
-                                <h:outputText value="#{movieManager.currMovie.imdbRating}"/>
-                                <h:outputText value="Metascore: "/>
-                                <h:outputText value="#{movieManager.currMovie.metascore}"/>
-                                <h:outputText value="Runtime: "/>
-                                <h:outputText value="#{movieManager.currMovie.runtime}"/>
-                            </p:panelGrid>
+                            <h:panelGroup>  
+                                <p:panelGrid columns="2" rendered="#{movieManager.currMovie != null}" style="align-self: center;">
+                                    <f:facet name="header">
+                                        <h:outputText value="Movie Info"/>
+                                    </f:facet>
+                                    <h:outputText value="Title: "/>
+                                    <h:outputText value="#{movieManager.currMovie.title}"/>
+                                    <h:outputText value="Rating: "/>
+                                    <h:outputText value="#{movieManager.currMovie.rating}"/>
+                                    <h:outputText value="Runtime: "/>
+                                    <h:outputText value="#{movieManager.currMovie.runtime}"/>
+                                    <h:outputText value="Showtime: "/>
+                                    <h:outputText value="#{movieManager.selectedShowtime.time}"/>
+                                </p:panelGrid> 
+                                <br/>
+                                <div align="center">
+                                    <h:graphicImage id="img" value="#{movieManager.currMovie.preferredImageUri}" style="max-height: 370px; max-width: 250px; align-self: center;" alt="Hello"/>
+                                </div>
+                            </h:panelGroup>
                         </p:panelGrid>
                         <br/>
                         <p:panel>
@@ -112,6 +108,7 @@ TODO:
                         </p:panel>
                         <br/>
                         <br/>
+                        <h:button value="Back" outcome="Movies"/>
                         <h:commandButton value="Confirm" action="#{movieManager.confirmPurchase()}"/>
                     </h:form>
                     <br/>

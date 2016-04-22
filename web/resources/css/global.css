@@ -22,10 +22,6 @@ html, body {
     color:orange;
 }
 
-table, td, tr, ul, li {
-    border: none!important;
-}
-
 .textOverlay { 
    margin: auto;
    position: relative; 

@@ -16,6 +16,7 @@ Copyright © 2016 Benjamin Sweeney. All rights reserved.
     <h:body>
         <ui:composition template="/templates/main.xhtml">
             <ui:define name="content">
+                <br/>
                 <div id="moviesPage" align="center">
                     <div style="width: 60%; top: 100px;">
                         <h:form id="movieTable">
@@ -51,8 +52,8 @@ Copyright © 2016 Benjamin Sweeney. All rights reserved.
                                             <br/>
                                             <p:tabView value="#{movie.theatres}" var="theatre">
                                                 <p:tab title="#{theatre.name}" titleStyleClass="theaterTab">
-                                                    <p:dataGrid value="#{theatre.showtimes}" var="showtime">
-                                                        <h:outputText value="#{showtime.time}"/>
+                                                    <p:dataGrid value="#{theatre.showtimes}" var="showtime" >
+                                                        <h:commandButton value="#{showtime.time}" action="#{movieManager.purchaseMovie(movie, showtime)}"/>
                                                     </p:dataGrid>
                                                 </p:tab>
                                             </p:tabView>
@@ -62,15 +63,6 @@ Copyright © 2016 Benjamin Sweeney. All rights reserved.
                             </p:accordionPanel>
                         </h:form>
                     </div>
-                    <!--div style="position: fixed; top: 20%; left: 65%;">
-                        <h:form id="movie">
-                            <h:commandButton value="Purchase" action="#{movieManager.purchase()}" rendered="#{movieManager.currMovie != null}"/>
-                            <br/>
-                            <br/>
-                            <h:graphicImage id="img" value="#{movieManager.currMovie.preferredImageUri}" style="max-height: 555px; max-width: 375px" alt="Hello"/>
-                            <p:media value="https://www.youtube.com/v/yY0PBoDlHMI" width="100%"   height="270" player="flash" rendered="#{movieManager.currMovie != null}" />
-                        </h:form>
-                    </div-->
                 </div>
             </ui:define>
         </ui:composition>

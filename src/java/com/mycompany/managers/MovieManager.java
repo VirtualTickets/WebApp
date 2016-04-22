@@ -6,6 +6,8 @@ package com.mycompany.managers;
 
 import com.mycompany.virtualtickets.ApiManager;
 import com.mycompany.virtualtickets.Movie;
+import com.mycompany.virtualtickets.SendEmail;
+import com.mycompany.virtualtickets.Showtime;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -26,11 +28,13 @@ public class MovieManager implements Serializable {
     private List<Movie> nowPlaying;
     private String searchTitle;
     private Movie currMovie;
+    private Showtime selectedShowtime;
     private ApiManager apiManager;
     private String type;
     private String zipCode;
     private String checkoutAs = "Guest";
     private String numTickets = "1";
+    private String email;
     private boolean locationChanged = false;
     
     
@@ -54,12 +58,24 @@ public class MovieManager implements Serializable {
         System.err.println("Title: " + title);
         for (Movie m : nowPlaying) {
             if (m.getTitle().equals(title)) {
-                m.retrievePreferredImageUri();
                 currMovie = m;
                 System.err.println("Image uri: " + m.getPreferredImageUri());
                 break;
             }
         }
+    }
+    
+    public String getConfirmationMessage() {
+        return "Thank you for your purchase of " + numTickets + " of the "
+                + selectedShowtime.getTime() + " showtime of " + currMovie.getTitle();
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getNumTickets() {
@@ -96,6 +112,14 @@ public class MovieManager implements Serializable {
 
     public void setCurrMovie(Movie currMovie) {
         this.currMovie = currMovie;
+    }
+
+    public Showtime getSelectedShowtime() {
+        return selectedShowtime;
+    }
+
+    public void setSelectedShowtime(Showtime selectedShowtime) {
+        this.selectedShowtime = selectedShowtime;
     }
 
     public void changeLocation() {
@@ -217,7 +241,9 @@ public class MovieManager implements Serializable {
         return type;
     }
 
-    public String purchase() {
+    public String purchaseMovie(Movie movie, Showtime showtime) {
+        setSelectedShowtime(showtime);
+        setCurrMovie(movie);
         return "Purchase";
     }
 
@@ -244,7 +270,7 @@ public class MovieManager implements Serializable {
     }
 
     public String confirmPurchase() {
-
+        
         return "Confirmation";
     }
 }
