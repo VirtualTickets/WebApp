@@ -21,7 +21,7 @@ public class Constants {
     // If you are Nick G use: /VirginiaTech/6_Spring_2016/Cloud/Users/Users_files/FileStorageLocation
     // If you are Nick P use: 
     //-----------------------------------------------------------
-    public static final String ROOT_DIRECTORY = "C:/Users/Ben/FileStorageLocation/";
+    public static final String ROOT_DIRECTORY = "/Users/Kent H/FileStorageLocation/";
 
     public static final String TEMP_FILE = "tmp_file";
 
