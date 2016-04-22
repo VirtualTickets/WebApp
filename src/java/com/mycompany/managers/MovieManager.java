@@ -151,6 +151,7 @@ public class MovieManager implements Serializable {
         }
          */
         //System.out.println("*****************************************" + posters);
+        System.err.println("Number of posters: " + posters.size());
         return posters;
     }
 

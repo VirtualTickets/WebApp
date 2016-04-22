@@ -53,6 +53,9 @@ public class Showtime {
     }
     
     private String parseTime() {
+        if (time == null || time.length() == 0) {
+            return "";
+        }
         int hour = Integer.parseInt(time.substring(0, 2));
         String minute = time.substring(3);
         String type;
