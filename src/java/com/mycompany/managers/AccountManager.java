@@ -4,10 +4,13 @@
  */
 package com.mycompany.managers;
 
+import com.mycompany.entities.Favorited;
 import com.mycompany.entities.Photo;
 import com.mycompany.entities.User;
+import com.mycompany.facades.FavoritedFacade;
 import com.mycompany.facades.PhotoFacade;
 import com.mycompany.facades.UserFacade;
+import com.mycompany.virtualtickets.Movie;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.LinkedHashMap;
@@ -64,7 +67,17 @@ public class AccountManager implements Serializable {
      */
     @EJB
     private PhotoFacade photoFacade;
+    
+    
+    @EJB
+    private FavoritedFacade favoritedFacade;
 
+    public void addFavorite(Movie movie) {
+        if (selected != null && movie != null) {
+            favoritedFacade.create(new Favorited(selected.getId(), movie.getTmsId()));
+        }
+    }
+    
     public String[] getListOfStates() {
         return listOfStates;
     }

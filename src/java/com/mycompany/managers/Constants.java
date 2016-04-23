@@ -37,6 +37,11 @@ public class Constants {
         "NV","NY", "OH","OK","OR","PA","PR","PW","RI","SC","SD","TN","TX","UT",
         "VA","VI","VT","WA","WI","WV","WY"};
     
+    public static final String[] MONTHS = {"January", "February", "March", 
+                                           "April", "May", "June", "July", 
+                                           "August", "September", "October",
+                                           "November", "December"};
+    
     public static final String[] QUESTIONS = {"In what city were you born?",
     "What elementary school did you attend?",
     "What is the last name of your most favorite teacher?",

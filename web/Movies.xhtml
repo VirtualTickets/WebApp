@@ -29,17 +29,24 @@ Copyright © 2016 Benjamin Sweeney. All rights reserved.
                                     <p:panelGrid columns="2" style="max-width: 100%;">
                                         <h:panelGroup>    
                                             <h:graphicImage id="img" value="#{movie.preferredImageUri}" style="max-height: 370px; max-width: 250px" alt="Hello"/>
+                                            <br/>
+                                            <h:commandButton onclick="#{accountManager.addFavorite(movie)}" value="Favorite">
+                                                <f:ajax execute="@none" render="@none"/>
+                                            </h:commandButton>
                                         </h:panelGroup>
                                         <h:panelGroup>
                                             <h:outputText value="#{movie.longDescription}"/>
                                             <br/>
                                             <br/>
+                                            <h:outputText value="Runtime: "/>
                                             <h:outputText value="#{movie.runtime}"/>
                                             <br/>
                                             <br/>
+                                            <h:outputText value="Rating: "/>
                                             <h:outputText value="#{movie.rating}"/>
                                             <br/>
                                             <br/>
+                                            <h:outputText value="Release Date: "/>
                                             <h:outputText value="#{movie.releaseDate}"/>
                                             <br/>
                                             <br/>

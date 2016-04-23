@@ -4,6 +4,7 @@
  */
 package com.mycompany.virtualtickets;
 
+import com.mycompany.managers.Constants;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,7 +60,10 @@ public class Movie implements Comparable<Movie> {
     }
 
     public String getReleaseDate() {
-        return releaseDate;
+        int month = Integer.parseInt(releaseDate.substring(5, 7));
+        String year = releaseDate.substring(0, 4);
+        String day = releaseDate.substring(8);
+        return Constants.MONTHS[month - 1] + " " + day + ", " + year;
     }
 
     public void setReleaseDate(String releaseDate) {
