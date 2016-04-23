@@ -22,7 +22,15 @@ TODO:
                 <br/>
                 <div align="center">
                     <br/>
-                    <h:outputText value="#{movieManager.confirmationMessage}" style="text-align: center!important;"/>
+                    <p:panel>
+                        <p class="confirmation">Thank you for your purchase of <b>#{movieManager.tickets}</b>
+                            for the <b>#{movieManager.selectedShowtime.time}</b>
+                            showtime of <b>#{movieManager.currMovie.title}</b></p>
+                    </p:panel>
+                    <br/>
+                    <p:panel style="width: min-content">
+                        <h:graphicImage value="#{movieManager.currMovie.preferredImageUri}" style="max-height: 555px; max-width: 375px; align-self: center;"/>
+                    </p:panel>
                 </div>
             </ui:define>
         </ui:composition>

@@ -10,28 +10,21 @@ Copyright © 2016 Benjamin Sweeney. All rights reserved.
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
-        <h:outputStylesheet name="css/global.css"/> 
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <h:outputStylesheet name="css/global.css"/> 
+        <link href='https://fonts.googleapis.com/css?family=Lato:900' rel='stylesheet' type='text/css'></link>
     </h:head>
     <h:body>
         <ui:composition template="/templates/main.xhtml">
             <ui:define name="content">
                 <br/>
+                <h1>#{movieManager.movieTableHeader}</h1>
+                <br/>
                 <div id="moviesPage" align="center">
                     <div style="width: 60%; top: 100px;">
                         <h:form id="movieTable">
                             <p:accordionPanel var="movie" value="#{movieManager.movies}" dynamic="true" cache="true">
-                                <f:facet name="header">
-                                    <p:menubar>
-                                        <p:menuitem value="Now Playing" action="#{movieManager.showNowPlaying()}"/>
-                                        <p:menuitem value="Coming Soon" action="#{movieManager.comingSoon()}"/>
-                                        <p:menuitem value="Favorites" action="#{movieManager.showFavorites()}"/>
-                                        <p:menuitem value="Recommended" action="#{movieManager.showRecommended()}"/>
-                                        <f:facet name="options">
-                                            <h:outputText value="#{movieManager.movieTableHeader}"/>
-                                        </f:facet>
-                                    </p:menubar>
-                                </f:facet>
+                                
                                 <p:tab title="#{movie.title}" titleStyleClass="movieTab">
                                     <p:panelGrid columns="2" style="max-width: 100%;">
                                         <h:panelGroup>    

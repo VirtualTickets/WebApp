@@ -65,15 +65,14 @@ public class AccountManager implements Serializable {
     @EJB
     private PhotoFacade photoFacade;
 
-    public boolean isHasPaymentInfo() {
-        return false;
-    }
-
     public String[] getListOfStates() {
         return listOfStates;
     }
 
     public BigInteger getCcNumber() {
+        if (selected != null && selected.getCcNumber() != null) {
+            setCcNumber(selected.getCcNumber());
+        }
         return ccNumber;
     }
 
@@ -82,6 +81,9 @@ public class AccountManager implements Serializable {
     }
 
     public int getCcExMonth() {
+        if (selected != null && selected.getCcExMonth() != null) {
+            setCcExMonth(selected.getCcExMonth());
+        }
         return ccExMonth;
     }
 
@@ -90,6 +92,9 @@ public class AccountManager implements Serializable {
     }
 
     public int getCcExYear() {
+        if (selected != null && selected.getCcExYear() != null) {
+            setCcExYear(selected.getCcExYear());
+        }
         return ccExYear;
     }
 
@@ -107,6 +112,9 @@ public class AccountManager implements Serializable {
      * @return the first name
      */
     public String getFirstName() {
+        if (selected != null && selected.getFirstName() != null) {
+            setFirstName(selected.getFirstName());
+        }
         return firstName;
     }
 
@@ -121,6 +129,9 @@ public class AccountManager implements Serializable {
      * @return the last name
      */
     public String getLastName() {
+        if (selected != null && selected.getLastName() != null) {
+            setLastName(selected.getLastName());
+        }
         return lastName;
     }
 
@@ -163,6 +174,9 @@ public class AccountManager implements Serializable {
      * @return the email
      */
     public String getEmail() {
+        if (selected != null && selected.getEmail() != null) {
+            setEmail(selected.getEmail());
+        }
         return email;
     }
 

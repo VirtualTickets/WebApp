@@ -65,22 +65,20 @@ TODO:
                                     </p:selectOneMenu>
                                     <h:outputText value=" x $11.00" style="font-size: 36px;"/>
                                 </h:panelGroup>
-                                <h:outputText value="Credit Card Number" rendered="#{!accountManager.hasPaymentInfo}"/>
-                                <h:inputText rendered="#{!accountManager.hasPaymentInfo}"/>
-                                <h:outputText value="Expiration Month" rendered="#{!accountManager.hasPaymentInfo}"/>
-                                <h:inputText rendered="#{!accountManager.hasPaymentInfo}"/>
-                                <h:outputText value="Expiration Year" rendered="#{!accountManager.hasPaymentInfo}"/>
-                                <h:inputText rendered="#{!accountManager.hasPaymentInfo}"/>
-                                <h:outputText value="First Name" rendered="#{!accountManager.hasPaymentInfo}"/>
-                                <h:inputText rendered="#{!accountManager.hasPaymentInfo}"/>
-                                <h:outputText value="Last Name" rendered="#{!accountManager.hasPaymentInfo}"/>
-                                <h:inputText rendered="#{!accountManager.hasPaymentInfo}"/>
-                                <h:outputText value="Billing ZIP Code" rendered="#{!accountManager.hasPaymentInfo}"/>
-                                <h:inputText rendered="#{!accountManager.hasPaymentInfo}"/>
+                                <h:outputText value="Credit Card Number" />
+                                <h:inputText value="#{accountManager.ccNumber}" required="true"/>
+                                <h:outputText value="Expiration Month"/>
+                                <h:inputText value="#{accountManager.ccExMonth}" required="true"/>
+                                <h:outputText value="Expiration Year"/>
+                                <h:inputText value="#{accountManager.ccExYear}" required="true"/>
+                                <h:outputText value="First Name"/>
+                                <h:inputText value="#{accountManager.firstName}" required="true"/>
+                                <h:outputText value="Last Name" />
+                                <h:inputText value="#{accountManager.lastName}" required="true"/>
                                 <h:outputText value="CVC"/>
-                                <h:inputText/>
+                                <h:inputText required="true"/>
                                 <h:outputText value="Email"/>
-                                <h:inputText value="#{movieManager.email}"/>
+                                <h:inputText value="#{accountManager.email}"/>
                             </p:panelGrid> 
                             <h:panelGroup>  
                                 <p:panelGrid columns="2" rendered="#{movieManager.currMovie != null}" style="align-self: center;">
