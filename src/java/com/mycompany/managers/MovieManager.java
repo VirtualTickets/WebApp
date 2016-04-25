@@ -171,17 +171,19 @@ public class MovieManager implements Serializable {
         ArrayList<String> posters = new ArrayList<>();
 
         List<Movie> list = getNowPlaying();
-        posters.add("http://i.imgur.com/hQsw8Oe.jpg");
-        posters.add("http://i.imgur.com/ZUli3ZH.jpg");
-        posters.add("http://i.imgur.com/M2AYIht.jpg");
-        posters.add("http://i.imgur.com/ZcMT33m.jpg");
-        posters.add("http://i.imgur.com/sODzs5B.png");
+//        posters.add("http://i.imgur.com/hQsw8Oe.jpg");
+//        posters.add("http://i.imgur.com/ZUli3ZH.jpg");
+//        posters.add("http://i.imgur.com/M2AYIht.jpg");
+//        posters.add("http://i.imgur.com/ZcMT33m.jpg");
+//        posters.add("http://i.imgur.com/sODzs5B.png");
 
-        /*
+        int i = 1;
         for (Movie m : list) {
-            posters.add(apiManager.getPosterURL(m.getTitle()));
+            System.out.println("Poster " + i + "  url:" + m.getPreferredImageUri());
+            posters.add(m.getPreferredImageUri());
+            i++;
         }
-         */
+         
         //System.out.println("*****************************************" + posters);
         System.err.println("Number of posters: " + posters.size());
         return posters;

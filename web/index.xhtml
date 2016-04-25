@@ -1,27 +1,21 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!-- TODO List for Others:                                              -->
-<!-- FIXED? tell nick to fix the cc month field of create account, cuz it doesn't recognize 04 as 2 digits. -->
-<!-- Done. have him right align the fields in the drop down and add icons to each field on the left of the text -->
-<!-- have him add an arrow that faces down or up depending on the state of the drop down -->
+<!-- have nick add an arrow that faces down or up depending on the state of the drop down -->
 <!-- highlighting of userIcon when hovered over -->
-<!-- new table for each theater when user searches for a movie? like fandago.-->
 <!-- separation of IMAX 3d, REALD 3D, Standard, etc on movies page -->
 <!-- date selector on movie page as well, like fandango -->
 <!-- movies page needs to reset when navigated away from -->
 <!-- white text for top menu and change font if possible. center contents of bar vertically.  -->
-<!-- user image all the way on the right. -->
 <!-- On Movies.xhtml: blue theater tab or blue background for contents of the accordionPanel (#3cc5bc) -->
+<!-- section titles need to be in CAPS. (NOW PLAYING for e.x.)-->
 
 <!-- My TODO List: -->                                                 
 <!-- consider a blue footer -->
 <!-- autochange slideshow after a few seconds -->
-<!-- Posters need to be grabbed from an api -->
-<!-- potentially remove the text from the index. -->
 <!-- update contact us to have pics of everybody -->
-<!-- need to get lists of "critically acclaimed" and "highest grossing / most popular" -->
-<!-- change location search and search by title need to work -->
+<!-- need to get list of "highest grossing / most popular" -->
+<!-- search by title needs to work -->
 <!-- add hover text to whatever still needs it. -->
-<!-- make titles look better, use rottentomatoes for example. (in ref to crit acc & most pop) -->
 <!-- titles of movies below posters? -->
 <!-- make everythings dimension in relation to the screen size, to enable risizing of the window? -->
 
@@ -30,10 +24,7 @@
 
 <!-- fix the x in the close box of the pop-up youtube player -->
 <!-- removing the line that referenced some jQuery css fixed the wonky menu bar minus the home icon missing, but made the x for close need fixing -->
-<!-- either put critics consensus title back or do -Critics Name at the end of the quote -->
 <!-- fix alignment of ratings text -->
-<!-- experiment with fixed height/width box overlays -->
-<!-- experiment with font-size that scales with the page -->
 <!-- consider making the play icon fixed size -->
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -97,18 +88,18 @@
                                                 <div class="slide">
                                                     <div class="textOverlay">
                                                         <img id="backImage" src="http://i.imgur.com/QFTEWaa.jpg" alt="" />
-                                                        <span class="movieTitle">The Jungle Book</span>
+                                                        <span class="movieTitle" id="title1">The Jungle Book</span>
                                                         <span class="rtRating">
                                                             <img src="http://i.imgur.com/kZYkSAo.png" style="width:26%; height:27%; margin-top: 9px;" />
                                                             <span style="margin-left: 10px; ">
-                                                                95%
+                                                                94%
                                                             </span>
                                                         </span>
                                                         
                                                         <span class="imdbRating">
                                                             <img src="http://i.imgur.com/rWxmqel.png" style="width:50%; height:25%; margin-top: 15px;" />                                                           
                                                             <span style="margin-left: 10px;">
-                                                                8.1
+                                                                8.0
                                                             </span>
                                                         </span>
                                                         <span class="criticsConsensus"><u><b>Critics Consensus:</b></u> As lovely to behold as it is engrossing to watch, The Jungle Book is the rare remake that actually 
@@ -132,11 +123,27 @@
                                             <div id="parent">
                                                 <div class="slide">
                                                     <div class="textOverlay">
-                                                        <img id="backImage" src="http://i.imgur.com/bDYcPOV.jpg" alt="" />
-                                                        <span>The Jungle Book:<br />Fuck yeah this box works</span>
+                                                        <img id="backImage" src="http://i.imgur.com/Qq93p1Q.jpg" alt="" />
+                                                        <span class="movieTitle" id="title2">Barbershop: The Next Cut</span>
+                                                        <span class="rtRating">
+                                                            <img src="http://i.imgur.com/kZYkSAo.png" style="width:26%; height:27%; margin-top: 9px;" />
+                                                            <span style="margin-left: 10px; ">
+                                                                92%
+                                                            </span>
+                                                        </span>
+                                                        
+                                                        <span class="imdbRating">
+                                                            <img src="http://i.imgur.com/rWxmqel.png" style="width:50%; height:25%; margin-top: 15px;" />                                                           
+                                                            <span style="margin-left: 10px;">
+                                                                6.2
+                                                            </span>
+                                                        </span>
+                                                        <span class="criticsConsensus"><u><b>Critics Consensus:</b></u> Heartfelt, thought-provoking, and above all funny, 
+                                                            Barbershop: The Next Cut is the rare belated sequel that more than lives up to the standard set by its predecessors.
+                                                        </span>
                                                     </div>
-                                                    <a class="youtube" href="https://www.youtube.com/watch?v=HcgJRQWxKnw"
-                                                        title="Watch Trailer">
+                                                    <a class="youtube" href="https://www.youtube.com/watch?v=l2vPDGStL4k"
+                                                       title="Watch Trailer">
                                                         <img src="http://i.imgur.com/yHGv97W.png" border="0" class="playIcon" />
                                                     </a>
                                                 </div>
@@ -152,13 +159,30 @@
                                             <div id="parent">
                                                 <div class="slide">
                                                     <div class="textOverlay">
-                                                        <img id="backImage" src="http://i.imgur.com/bDYcPOV.jpg" alt="" />
-                                                        <span>The Jungle Book:<br />Fuck yeah this box works</span>
+                                                        <img id="backImage" src="http://i.imgur.com/hpGFMlU.jpg" alt="" />
+                                                        <span class="movieTitle" id="title3">Zootopia</span>
+                                                        <span class="rtRating">
+                                                            <img src="http://i.imgur.com/kZYkSAo.png" style="width:26%; height:27%; margin-top: 9px;" />
+                                                            <span style="margin-left: 10px; ">
+                                                                98%
+                                                            </span>
+                                                        </span>
+                                                        
+                                                        <span class="imdbRating">
+                                                            <img src="http://i.imgur.com/rWxmqel.png" style="width:50%; height:25%; margin-top: 15px;" />                                                           
+                                                            <span style="margin-left: 10px;">
+                                                                8.3
+                                                            </span>
+                                                        </span>
+                                                        <span class="criticsConsensus"><u><b>Critics Consensus:</b></u> The brilliantly well-rounded Zootopia offers a thoughtful, 
+                                                            inclusive message that's as rich and timely as its sumptuously state-of-the-art animation -- all while remaining fas
+                                                            and funny enough to keep younger viewers entertained.
+                                                        </span>
                                                     </div>
-                                                    <a class="youtube" href="https://www.youtube.com/watch?v=HcgJRQWxKnw"
-                                                        title="Watch Trailer">
+                                                    <a class="youtube" href="https://www.youtube.com/watch?v=jWM0ct-OLsM"
+                                                       title="Watch Trailer">
                                                         <img src="http://i.imgur.com/yHGv97W.png" border="0" class="playIcon" />
-                                                    </a>                                                   
+                                                    </a>
                                                 </div>
                                             </div>
                                             <div class="nav">
@@ -172,13 +196,28 @@
                                             <div id="parent">
                                                 <div class="slide">
                                                     <div class="textOverlay">
-                                                        <img id="backImage" src="http://i.imgur.com/bDYcPOV.jpg" alt="" />
-                                                        <span>The Jungle Book:<br />Fuck yeah this box works</span>
+                                                        <img id="backImage" src="http://i.imgur.com/Jdytlkn.jpg" alt="" />
+                                                        <span class="movieTitle" id="title4">Eye In The Sky</span>
+                                                        <span class="rtRating">
+                                                            <img src="http://i.imgur.com/kZYkSAo.png" style="width:26%; height:27%; margin-top: 9px;" />
+                                                            <span style="margin-left: 10px; ">
+                                                                94%
+                                                            </span>
+                                                        </span>
+                                                        
+                                                        <span class="imdbRating">
+                                                            <img src="http://i.imgur.com/rWxmqel.png" style="width:50%; height:25%; margin-top: 15px;" />                                                           
+                                                            <span style="margin-left: 10px;">
+                                                                7.8
+                                                            </span>
+                                                        </span>
+                                                        <span class="criticsConsensus"><u><b>Critics Consensus:</b></u> As taut as it is timely, Eye in the Sky offers a powerfully acted -- and unusually cerebral -- spin on the modern wartime political thriller.
+                                                        </span>
                                                     </div>
-                                                    <a class="youtube" href="https://www.youtube.com/watch?v=HcgJRQWxKnw"
-                                                        title="Watch Trailer">
+                                                    <a class="youtube" href="https://www.youtube.com/watch?v=qiDE84TdJvA"
+                                                       title="Watch Trailer">
                                                         <img src="http://i.imgur.com/yHGv97W.png" border="0" class="playIcon" />
-                                                    </a>   
+                                                    </a>
                                                 </div>
                                             </div>
                                             <div class="nav">
@@ -192,13 +231,29 @@
                                             <div id="parent">
                                                 <div class="slide">
                                                     <div class="textOverlay">
-                                                        <img id="backImage" src="http://i.imgur.com/bDYcPOV.jpg" alt="" />
-                                                        <span>The Jungle Book:<br />Fuck yeah this box works</span>
+                                                        <img id="backImage" src="http://i.imgur.com/chV9r5M.jpg" alt="" />
+                                                        <span class="movieTitle" id="title5">The Witch</span>
+                                                        <span class="rtRating">
+                                                            <img src="http://i.imgur.com/kZYkSAo.png" style="width:26%; height:27%; margin-top: 9px;" />
+                                                            <span style="margin-left: 10px; ">
+                                                                90%
+                                                            </span>
+                                                        </span>
+                                                        
+                                                        <span class="imdbRating">
+                                                            <img src="http://i.imgur.com/rWxmqel.png" style="width:50%; height:25%; margin-top: 15px;" />                                                           
+                                                            <span style="margin-left: 10px;">
+                                                                7.1
+                                                            </span>
+                                                        </span>
+                                                        <span class="criticsConsensus"><u><b>Critics Consensus:</b></u> As thought-provoking as it is visually compelling, 
+                                                            The Witch delivers a deeply unsettling exercise in slow-building horror that suggests great things for debuting writer-director Robert Eggers.
+                                                        </span>
                                                     </div>
-                                                    <a class="youtube" href="https://www.youtube.com/watch?v=HcgJRQWxKnw"
-                                                        title="Watch Trailer">
+                                                    <a class="youtube" href="https://www.youtube.com/watch?v=iQXmlf3Sefg"
+                                                       title="Watch Trailer">
                                                         <img src="http://i.imgur.com/yHGv97W.png" border="0" class="playIcon" />
-                                                    </a>  
+                                                    </a>
                                                 </div>
                                             </div>
                                             <div class="nav">
@@ -212,13 +267,29 @@
                                             <div id="parent">
                                                 <div class="slide">
                                                     <div class="textOverlay">
-                                                        <img id="backImage" src="http://i.imgur.com/bDYcPOV.jpg" alt="" />
-                                                        <span>The Jungle Book:<br />Fuck yeah this box works</span>
+                                                        <img id="backImage" src="http://i.imgur.com/YlAGj5R.jpg" alt="" />
+                                                        <span class="movieTitle" id="title6">10 Cloverfield Lane</span>
+                                                        <span class="rtRating">
+                                                            <img src="http://i.imgur.com/kZYkSAo.png" style="width:26%; height:27%; margin-top: 9px;" />
+                                                            <span style="margin-left: 10px; ">
+                                                                89%
+                                                            </span>
+                                                        </span>
+                                                        
+                                                        <span class="imdbRating">
+                                                            <img src="http://i.imgur.com/rWxmqel.png" style="width:50%; height:25%; margin-top: 15px;" />                                                           
+                                                            <span style="margin-left: 10px;">
+                                                                7.7
+                                                            </span>
+                                                        </span>
+                                                        <span class="criticsConsensus"><u><b>Critics Consensus:</b></u> Smart, solidly crafted, and palpably tense, 10 Cloverfield Lane makes the
+                                                            most of its confined setting and outstanding cast -- and suggests a new frontier for franchise filmmaking.
+                                                        </span>
                                                     </div>
-                                                    <a class="youtube" href="https://www.youtube.com/watch?v=HcgJRQWxKnw"
-                                                        title="Watch Trailer">
+                                                    <a class="youtube" href="https://www.youtube.com/watch?v=guGBUaxtwxE"
+                                                       title="Watch Trailer">
                                                         <img src="http://i.imgur.com/yHGv97W.png" border="0" class="playIcon" />
-                                                    </a>  
+                                                    </a>
                                                 </div>
                                             </div>
                                             <div class="nav">
