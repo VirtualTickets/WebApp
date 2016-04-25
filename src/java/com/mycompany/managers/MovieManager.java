@@ -6,6 +6,8 @@ package com.mycompany.managers;
 
 import com.mycompany.virtualtickets.ApiManager;
 import com.mycompany.virtualtickets.Movie;
+import com.mycompany.virtualtickets.SendEmail;
+import com.mycompany.virtualtickets.Showtime;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -26,19 +28,21 @@ public class MovieManager implements Serializable {
     private List<Movie> nowPlaying;
     private String searchTitle;
     private Movie currMovie;
+    private Showtime selectedShowtime;
     private ApiManager apiManager;
     private String type;
     private String zipCode;
     private String checkoutAs = "Guest";
     private String numTickets = "1";
+    private String email;
     private boolean locationChanged = false;
     
+    private static final String SEARCH_BY_TITLE = "Search By Title";
     
     /**
      * Creates a new instance of ApiManager
      */
     public MovieManager() {
-        type = "Now Playing";
         zipCode = "24061";
         apiManager = new ApiManager();
 
@@ -48,18 +52,38 @@ public class MovieManager implements Serializable {
 //            nowPlaying.add(new Movie("Batman vs. Superman" + i));
 //        }
     }
+    
+    public String getTickets() {
+        String s = numTickets + " ticket";
+        if (!numTickets.equals("1")) {
+            s += "s";
+        }
+        return s;
+    }
 
     public void onTabChange(TabChangeEvent event) {
         String title = event.getTab().getTitle();
         System.err.println("Title: " + title);
         for (Movie m : nowPlaying) {
             if (m.getTitle().equals(title)) {
-                m.retrievePreferredImageUri();
                 currMovie = m;
                 System.err.println("Image uri: " + m.getPreferredImageUri());
                 break;
             }
         }
+    }
+    
+    public String getConfirmationMessage() {
+        return "Thank you for your purchase of " + numTickets + " of the "
+                + selectedShowtime.getTime() + " showtime of " + currMovie.getTitle();
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getNumTickets() {
@@ -96,6 +120,14 @@ public class MovieManager implements Serializable {
 
     public void setCurrMovie(Movie currMovie) {
         this.currMovie = currMovie;
+    }
+
+    public Showtime getSelectedShowtime() {
+        return selectedShowtime;
+    }
+
+    public void setSelectedShowtime(Showtime selectedShowtime) {
+        this.selectedShowtime = selectedShowtime;
     }
 
     public void changeLocation() {
@@ -151,6 +183,7 @@ public class MovieManager implements Serializable {
         }
          */
         //System.out.println("*****************************************" + posters);
+        System.err.println("Number of posters: " + posters.size());
         return posters;
     }
 
@@ -163,14 +196,14 @@ public class MovieManager implements Serializable {
     }
 
     public String searchByTitle() {
-        type = "Search By Title";
+        type = SEARCH_BY_TITLE;
 
         return "Movies";
     }
 
     public String searchByTitle(String title) {
-        type = "Search By Title";
-        System.out.println("search by title: " + title);
+        type = SEARCH_BY_TITLE;
+        System.err.println("search by title: " + title);
 
         return "Movies";
     }
@@ -204,7 +237,7 @@ public class MovieManager implements Serializable {
         switch (type) {
             case "Now Playing":
                 return getNowPlaying();
-            case "Search By Title":
+            case SEARCH_BY_TITLE:
                 return getSearchByTitle();
         }
 
@@ -216,12 +249,15 @@ public class MovieManager implements Serializable {
         return type;
     }
 
-    public String purchase() {
+    public String purchaseMovie(Movie movie, Showtime showtime) {
+        setSelectedShowtime(showtime);
+        setCurrMovie(movie);
         return "Purchase";
     }
 
     public String showNowPlaying() {
         type = "Now Playing";
+        
         return "Movies";
     }
 
@@ -243,7 +279,7 @@ public class MovieManager implements Serializable {
     }
 
     public String confirmPurchase() {
-
+        
         return "Confirmation";
     }
 }

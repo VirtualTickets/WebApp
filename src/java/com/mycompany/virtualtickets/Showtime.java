@@ -44,11 +44,37 @@ public class Showtime {
     }
 
     public String getTime() {
-        return time;
+        
+        return this.parseTime();
     }
 
     public void setTime(String time) {
         this.time = time;
     }
     
+    private String parseTime() {
+        if (time == null || time.length() == 0) {
+            return "";
+        }
+        int hour = Integer.parseInt(time.substring(0, 2));
+        String minute = time.substring(3);
+        String type;
+        
+        if (hour == 0) {
+            hour = 12;
+            type = "AM";
+        } 
+        else if (hour == 12) {
+            type = "PM";
+        }
+        else if (hour > 12) {
+            hour -= 12;
+            type = "PM";
+        }
+        else {
+            type = "AM";
+        }
+        
+        return hour + ":" + minute + " " + type;
+    }
 }

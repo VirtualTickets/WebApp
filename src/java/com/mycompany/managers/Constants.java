@@ -1,3 +1,4 @@
+
 /*
  * Created by Nicholas Greer on 2016.02.27  * 
  * Copyright © 2016 Nicholas Greer. All rights reserved. * 
@@ -16,11 +17,13 @@ public class Constants {
     // for deployment to the server by replacing Balci with your last name.
     // If you are Kent use: /Users/Kent H/FileStorageLocation/
     // If you are Alex use:
-    // If you are Ben use:
+    // If you are Ben use: /Users/Ben/FileStorageLocation/
     // If you are Nick G use: /VirginiaTech/6_Spring_2016/Cloud/Users/Users_files/FileStorageLocation
     // If you are Nick P use: 
     //-----------------------------------------------------------
-    public static final String ROOT_DIRECTORY = "C:/VirginiaTech/6_Spring_2016/Cloud/Users/Users_files/FileStorageLocation";
+    public static final String ROOT_DIRECTORY = "C:/Users/Ben/FileStorageLocation/";
+//    public static final String ROOT_DIRECTORY = "C:/Users/Kent H/FileStorageLocation/";
+//    public static final String ROOT_DIRECTORY = "C:/VirginiaTech/6_Spring_2016/Cloud/Users/Users_files/FileStorageLocation/";
 
     public static final String TEMP_FILE = "tmp_file";
 
@@ -33,6 +36,11 @@ public class Constants {
         "MD","ME","MH","MI","MN","MO","MS","MT","NC","ND","NE","NH","NJ","NM",
         "NV","NY", "OH","OK","OR","PA","PR","PW","RI","SC","SD","TN","TX","UT",
         "VA","VI","VT","WA","WI","WV","WY"};
+    
+    public static final String[] MONTHS = {"January", "February", "March", 
+                                           "April", "May", "June", "July", 
+                                           "August", "September", "October",
+                                           "November", "December"};
     
     public static final String[] QUESTIONS = {"In what city were you born?",
     "What elementary school did you attend?",

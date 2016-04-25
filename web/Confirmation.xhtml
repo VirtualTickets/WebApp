@@ -1,15 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-Created by Benjamin Sweeney on 2016.04.10 
+Created by Benjamin Sweeney on 2016.04.07 
 Copyright © 2016 Benjamin Sweeney. All rights reserved.
+
+TODO:
+1. center the images in the grid
+2. remove grid borders
+3. make the data + video on the right larger
+4. adjust placement so everything is centered, leaving equal amounts of white
+   space on either side.
 -->
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>Confirmation</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:body>
+        <ui:composition template="/templates/main.xhtml">
+            <ui:define name="content">
+                <br/>
+                <div align="center">
+                    <br/>
+                    <p:panel>
+                        <p class="confirmation">Thank you for your purchase of <b>#{movieManager.tickets}</b>
+                            for the <b>#{movieManager.selectedShowtime.time}</b>
+                            showtime of <b>#{movieManager.currMovie.title}</b></p>
+                    </p:panel>
+                    <br/>
+                    <p:panel style="width: min-content">
+                        <h:graphicImage value="#{movieManager.currMovie.preferredImageUri}" style="max-height: 555px; max-width: 375px; align-self: center;"/>
+                    </p:panel>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
 </html>

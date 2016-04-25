@@ -22,6 +22,11 @@ html, body {
     color:orange;
 }
 
+.confirmation {
+    font-size: 24px;
+    color: black;
+}
+
 .textOverlay { 
    margin: auto;
    position: relative; 
@@ -174,6 +179,16 @@ h1 {
     height:60px; 
     background-color: #3cc5bc; 
     font-size: 25px;
+}
+
+.movieTab {
+    color: white;
+    background: #f7941d;
+}
+
+.theaterTab {
+    color: white;
+    background: #3cc5bc;
 }
 
 

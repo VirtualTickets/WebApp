@@ -4,10 +4,13 @@
  */
 package com.mycompany.managers;
 
+import com.mycompany.entities.Favorited;
 import com.mycompany.entities.Photo;
 import com.mycompany.entities.User;
+import com.mycompany.facades.FavoritedFacade;
 import com.mycompany.facades.PhotoFacade;
 import com.mycompany.facades.UserFacade;
+import com.mycompany.virtualtickets.Movie;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.LinkedHashMap;
@@ -21,7 +24,7 @@ import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Named;
- 
+
 @Named(value = "accountManager")
 @SessionScoped
 /**
@@ -29,7 +32,7 @@ import javax.inject.Named;
  * @author Greer
  */
 public class AccountManager implements Serializable {
- 
+
     // Instance Variables (Properties)
     private String firstName;
     private String lastName;
@@ -42,38 +45,47 @@ public class AccountManager implements Serializable {
     private short ccExYear;
 
     //private int zipcode;
-   
-        
     private final String[] listOfStates = Constants.STATES;
     private Map<String, Object> security_questions;
-    
+
     private User selected;
-    
+
     /**
      * The instance variable 'userFacade' is annotated with the @EJB annotation.
-     * This means that the GlassFish application server, at runtime, will inject in
-     * this instance variable a reference to the @Stateless session bean UserFacade.
+     * This means that the GlassFish application server, at runtime, will inject
+     * in this instance variable a reference to the @Stateless session bean
+     * UserFacade.
      */
     @EJB
     private UserFacade userFacade;
 
     /**
-     * The instance variable 'photoFacade' is annotated with the @EJB annotation.
-     * This means that the GlassFish application server, at runtime, will inject in
-     * this instance variable a reference to the @Stateless session bean PhotoFacade.
+     * The instance variable 'photoFacade' is annotated with the @EJB
+     * annotation. This means that the GlassFish application server, at runtime,
+     * will inject in this instance variable a reference to the @Stateless
+     * session bean PhotoFacade.
      */
     @EJB
     private PhotoFacade photoFacade;
     
-    public boolean isHasPaymentInfo() {
-        return false;
-    }
+    
+    @EJB
+    private FavoritedFacade favoritedFacade;
 
+    public void addFavorite(Movie movie) {
+        if (selected != null && movie != null) {
+            favoritedFacade.create(new Favorited(selected.getId(), movie.getTmsId()));
+        }
+    }
+    
     public String[] getListOfStates() {
         return listOfStates;
     }
 
     public BigInteger getCcNumber() {
+        if (selected != null && selected.getCcNumber() != null) {
+            setCcNumber(selected.getCcNumber());
+        }
         return ccNumber;
     }
 
@@ -82,19 +94,25 @@ public class AccountManager implements Serializable {
     }
 
     public int getCcExMonth() {
+        if (selected != null && selected.getCcExMonth() != null) {
+            setCcExMonth(selected.getCcExMonth());
+        }
         return ccExMonth;
     }
 
     public void setCcExMonth(int month) {
-        ccExMonth = (short)month;
+        ccExMonth = (short) month;
     }
-    
+
     public int getCcExYear() {
+        if (selected != null && selected.getCcExYear() != null) {
+            setCcExYear(selected.getCcExYear());
+        }
         return ccExYear;
     }
 
     public void setCcExYear(int year) {
-        ccExYear = (short)year;
+        ccExYear = (short) year;
     }
 
     /**
@@ -107,6 +125,9 @@ public class AccountManager implements Serializable {
      * @return the first name
      */
     public String getFirstName() {
+        if (selected != null && selected.getFirstName() != null) {
+            setFirstName(selected.getFirstName());
+        }
         return firstName;
     }
 
@@ -117,11 +138,13 @@ public class AccountManager implements Serializable {
         this.firstName = firstName;
     }
 
-
     /**
      * @return the last name
      */
     public String getLastName() {
+        if (selected != null && selected.getLastName() != null) {
+            setLastName(selected.getLastName());
+        }
         return lastName;
     }
 
@@ -164,6 +187,9 @@ public class AccountManager implements Serializable {
      * @return the email
      */
     public String getEmail() {
+        if (selected != null && selected.getEmail() != null) {
+            setEmail(selected.getEmail());
+        }
         return email;
     }
 
@@ -183,9 +209,7 @@ public class AccountManager implements Serializable {
     public void setZipcode(int zipcode) {
         this.zipcode = zipcode;
     }
-    */
-   
-
+     */
     public Map<String, Object> getSecurity_questions() {
         if (security_questions == null) {
             security_questions = new LinkedHashMap<>();
@@ -195,7 +219,7 @@ public class AccountManager implements Serializable {
         }
         return security_questions;
     }
-    
+
     /**
      * @return the statusMessage
      */
@@ -213,7 +237,7 @@ public class AccountManager implements Serializable {
     public User getSelected() {
         if (selected == null) {
             selected = userFacade.find(FacesContext.getCurrentInstance().
-                getExternalContext().getSessionMap().get("user_id"));
+                    getExternalContext().getSessionMap().get("user_id"));
         }
         return selected;
     }
@@ -223,11 +247,11 @@ public class AccountManager implements Serializable {
     }
 
     public String createAccount() {
-        
+
         // Check to see if a user already exists with the username given.
         System.out.println(username);
         User aUser = userFacade.findByUsername(username);
-        
+
         if (aUser != null) {
             username = "";
             statusMessage = "Username already exists! Please select a different one!";
@@ -243,10 +267,10 @@ public class AccountManager implements Serializable {
                 user.setCcExMonth(ccExMonth);
                 user.setCcExYear(ccExYear);
                 user.setEmail(email);
-                user.setUsername(username);                
+                user.setUsername(username);
                 user.setPassword(password);
                 //ZIPCODE?
-                userFacade.create(user);                
+                userFacade.create(user);
             } catch (EJBException e) {
                 username = "";
                 statusMessage = "Something went wrong while creating your account!";
@@ -261,7 +285,7 @@ public class AccountManager implements Serializable {
     public String updateAccount() {
         if (statusMessage.isEmpty()) {
             int user_id = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user_id");
-                User editUser = userFacade.getUser(user_id);
+            User editUser = userFacade.getUser(user_id);
             try {
                 editUser.setFirstName(this.selected.getFirstName());
                 editUser.setLastName(this.selected.getLastName());
@@ -281,13 +305,13 @@ public class AccountManager implements Serializable {
         }
         return "";
     }
-    
+
     public String deleteAccount() {
         if (statusMessage.isEmpty()) {
             int user_id = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user_id");
             try {
                 userFacade.deleteUser(user_id);
-                                
+
             } catch (EJBException e) {
                 username = "";
                 statusMessage = "Something went wrong while deleting your account!";
@@ -298,7 +322,7 @@ public class AccountManager implements Serializable {
         }
         return "";
     }
-    
+
     public void validateInformation(ComponentSystemEvent event) {
         FacesContext fc = FacesContext.getCurrentInstance();
 
@@ -323,7 +347,7 @@ public class AccountManager implements Serializable {
             statusMessage = "Passwords must match!";
         } else {
             statusMessage = "";
-        }   
+        }
     }
 
     public void initializeSessionMap() {
@@ -341,13 +365,11 @@ public class AccountManager implements Serializable {
         if (verifyPassword.isEmpty()) {
             statusMessage = "";
             return false;
+        } else if (verifyPassword.equals(password)) {
+            return true;
         } else {
-            if (verifyPassword.equals(password)) {
-                return true;
-            } else {
-                statusMessage = "Invalid password entered!";
-                return false;
-            }
+            statusMessage = "Invalid password entered!";
+            return false;
         }
     }
 
@@ -356,11 +378,11 @@ public class AccountManager implements Serializable {
         username = firstName = lastName = password = email = statusMessage = "";
         ccNumber = new BigInteger("0");
         ccExMonth = ccExYear = 0;
-        
+
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         return "/index.xhtml?faces-redirect=true";
     }
-   
+
     public String userPhoto() {
         String user_name = (String) FacesContext.getCurrentInstance()
                 .getExternalContext().getSessionMap().get("username");
@@ -373,18 +395,15 @@ public class AccountManager implements Serializable {
         return photoList.get(0).getThumbnailName();
     }
 
-    public boolean isLoggedIn()
-  {
+    public boolean isLoggedIn() {
 
-      return null != FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("username");
-  }
-    
-    public String getUserImage()
-    {
-                if(isLoggedIn())
-                {
-                    return "/images/LoggedIn.png";
-                }
-                return "/images/LoggedOut.png";
+        return null != FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("username");
+    }
+
+    public String getUserImage() {
+        if (isLoggedIn()) {
+            return "/images/LoggedIn.png";
+        }
+        return "/images/LoggedOut.png";
     }
 }

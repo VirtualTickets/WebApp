@@ -4,6 +4,8 @@
  */
 package com.mycompany.virtualtickets;
 
+import java.util.Objects;
+
 /**
  *
  * @author painter
@@ -17,6 +19,11 @@ public class Theatre {
     
     public Theatre() {
         // Nothing
+    }
+    
+    public Theatre(String theatreId, String name) {
+        this.theatreId = theatreId;
+        this.name = name;
     }
 
     public String getTheatreId() {
@@ -50,4 +57,30 @@ public class Theatre {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Theatre other = (Theatre) obj;
+        if (!Objects.equals(this.theatreId, other.theatreId)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }
