@@ -44,6 +44,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Virtual Tickets Cloud App</title>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <h:outputStylesheet name="css/global.css"/> 
         <link href='https://fonts.googleapis.com/css?family=Lato:900' rel='stylesheet' type='text/css'></link>
@@ -56,236 +57,251 @@
                 <h:outputStylesheet name="css/jquery-ui.css"/> 
                 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
                 <script type="text/javascript" src="http://lab.abhinayrathore.com/jquery_youtube/jquery.youtubepopup.js"></script>
-                
+
                 <script type="text/javascript">
                     $(function () {
-                        $("a.youtube").YouTubePopup({ autoplay: 1 });
+                        $("a.youtube").YouTubePopup({autoplay: 1});
                     });
                 </script>
                 <div id="index">
                     <h:form class="form">
-				<div class="ticketsAndShowtimesDiv"  align="center">
-                                   <br/>
-                                    <h:panelGrid styleClass="ticketsPanel" border="1">
-                                        <h:panelGrid columns="2" columnClasses="leftAlign, rightAlign">
-                                            <h:panelGroup>
-                                                <h2 id="ticketsAndShowtimes">TICKETS &amp; SHOWTIMES NEARBY </h2>
-                                            </h:panelGroup>
-                                            <h:panelGroup>
-                                                <h:inputText id="zip" value="#{movieManager.zipCode}" required="true" label="Zip Code" style="width:50px;">
-                                                    <f:validateLength minimum="5" />
-                                                </h:inputText>
-                                                    <h:commandButton id="changeLoc"  action="#{movieManager.changeLocation()}" value="Change Location" styleClass="buttonText"/>
-                                            </h:panelGroup>
-                                            <h:panelGroup style="display:block; text-align:center">
-                                                <h:selectOneMenu id="select_movie" value="#{movieManager.searchTitle}" required="true" onchange="dropdownSelect()" style="font-size:18px">
-                                                    <f:selectItems value="#{movieManager.nowPlayingTitles}"/>
-                                                </h:selectOneMenu>
-                                            </h:panelGroup>
-                                            <h:commandButton id="getShowtimes"  action="#{movieManager.searchByTitle()}" value="Get Tickets &amp; Showtimes" styleClass="buttonText" style="width:240px; height:40px; font-size:20px"/>
-                                        </h:panelGrid>
-                                    </h:panelGrid>
-                                    <br />
+                        <div class="ticketsAndShowtimesDiv"  align="center">
+                            <br/>
+                            <h:panelGrid styleClass="ticketsPanel" border="1">
+                                <h:panelGrid columns="2" columnClasses="leftAlign, rightAlign">
+                                    <h:panelGroup>
+                                        <h2 id="ticketsAndShowtimes">TICKETS &amp; SHOWTIMES NEARBY </h2>
+                                    </h:panelGroup>
+                                    <h:panelGroup>
+                                        <h:inputText id="zip" value="#{movieManager.zipCode}" required="true" label="Zip Code" style="width:50px;">
+                                            <f:validateLength minimum="5" />
+                                        </h:inputText>
+                                        <h:commandButton id="changeLoc"  action="#{movieManager.changeLocation()}" value="Change Location" styleClass="buttonText"/>
+                                    </h:panelGroup>
+                                    <h:panelGroup style="display:block; text-align:center">
+                                        <h:selectOneMenu id="select_movie" value="#{movieManager.searchTitle}" required="true" onchange="dropdownSelect()" style="font-size:18px">
+                                            <f:selectItems value="#{movieManager.nowPlayingTitles}"/>
+                                        </h:selectOneMenu>
+                                    </h:panelGroup>
+                                    <h:commandButton id="getShowtimes"  action="#{movieManager.searchByTitle()}" value="Get Tickets &amp; Showtimes" styleClass="buttonText" style="width:240px; height:40px; font-size:20px"/>
+                                </h:panelGrid>
+                            </h:panelGrid>
+                            <br />
+                        </div>
+                        <div align="center">
+                            <h1 id="crticallyAcclaimedTitle">CRITICALLY ACCLAIMED</h1>
+                        </div>
+                        <ul class="slides" >
+                            <input type="radio" name="radio-btn" id="img-1" checked="true" />
+                            <li class="slide-container">
+                                <div id="parent">
+                                    <div class="slide">
+                                        <div class="textOverlay">
+                                            <img id="backImage" src="http://i.imgur.com/QFTEWaa.jpg" alt="" />
+                                            <span class="movieTitle">The Jungle Book</span>
+                                            <span class="rtRating">
+                                                <img src="http://i.imgur.com/kZYkSAo.png" style="width:26%; height:27%; margin-top: 9px;" />
+                                                <span style="margin-left: 10px; ">
+                                                    95%
+                                                </span>
+                                            </span>
+
+                                            <span class="imdbRating">
+                                                <img src="http://i.imgur.com/rWxmqel.png" style="width:50%; height:25%; margin-top: 15px;" />                                                           
+                                                <span style="margin-left: 10px;">
+                                                    8.1
+                                                </span>
+                                            </span>
+                                            <span class="criticsConsensus"><u><b>Critics Consensus:</b></u> As lovely to behold as it is engrossing to watch, The Jungle Book is the rare remake that actually 
+                                                improves upon its predecessors -- all while setting a new standard for CGI.
+                                            </span>
+                                        </div>
+                                        <a class="youtube" href="https://www.youtube.com/watch?v=HcgJRQWxKnw"
+                                           title="Watch Trailer">
+                                            <img src="http://i.imgur.com/yHGv97W.png" border="0" class="playIcon" />
+                                        </a>
+                                    </div>
                                 </div>
-                                <div align="center">
-                                    <h1 id="crticallyAcclaimedTitle">CRITICALLY ACCLAIMED</h1>
+                                <div class="nav">
+                                    <label for="img-6" class="prev">&#x2039;</label>
+                                    <label for="img-2" class="next">&#x203a;</label>
                                 </div>
-                                    <ul class="slides" >
-                                        <input type="radio" name="radio-btn" id="img-1" checked="true" />
-                                        <li class="slide-container">
-                                            <div id="parent">
-                                                <div class="slide">
-                                                    <div class="textOverlay">
-                                                        <img id="backImage" src="http://i.imgur.com/QFTEWaa.jpg" alt="" />
-                                                        <span class="movieTitle">The Jungle Book</span>
-                                                        <span class="rtRating">
-                                                            <img src="http://i.imgur.com/kZYkSAo.png" style="width:26%; height:27%; margin-top: 9px;" />
-                                                            <span style="margin-left: 10px; ">
-                                                                95%
-                                                            </span>
-                                                        </span>
-                                                        
-                                                        <span class="imdbRating">
-                                                            <img src="http://i.imgur.com/rWxmqel.png" style="width:50%; height:25%; margin-top: 15px;" />                                                           
-                                                            <span style="margin-left: 10px;">
-                                                                8.1
-                                                            </span>
-                                                        </span>
-                                                        <span class="criticsConsensus"><u><b>Critics Consensus:</b></u> As lovely to behold as it is engrossing to watch, The Jungle Book is the rare remake that actually 
-                                                            improves upon its predecessors -- all while setting a new standard for CGI.
-                                                        </span>
-                                                    </div>
-                                                    <a class="youtube" href="https://www.youtube.com/watch?v=HcgJRQWxKnw"
-                                                       title="Watch Trailer">
-                                                        <img src="http://i.imgur.com/yHGv97W.png" border="0" class="playIcon" />
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="nav">
-                                                <label for="img-6" class="prev">&#x2039;</label>
-                                                <label for="img-2" class="next">&#x203a;</label>
-                                            </div>
-                                        </li>
+                            </li>
 
-                                        <input type="radio" name="radio-btn" id="img-2" />
-                                        <li class="slide-container">
-                                            <div id="parent">
-                                                <div class="slide">
-                                                    <div class="textOverlay">
-                                                        <img id="backImage" src="http://i.imgur.com/bDYcPOV.jpg" alt="" />
-                                                        <span>The Jungle Book:<br />Fuck yeah this box works</span>
-                                                    </div>
-                                                    <a class="youtube" href="https://www.youtube.com/watch?v=HcgJRQWxKnw"
-                                                        title="Watch Trailer">
-                                                        <img src="http://i.imgur.com/yHGv97W.png" border="0" class="playIcon" />
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="nav">
-                                                <label for="img-1" class="prev">&#x2039;</label>
-                                                <label for="img-3" class="next">&#x203a;</label>
-                                            </div>
-                                        </li>
+                            <input type="radio" name="radio-btn" id="img-2" />
+                            <li class="slide-container">
+                                <div id="parent">
+                                    <div class="slide">
+                                        <div class="textOverlay">
+                                            <img id="backImage" src="http://i.imgur.com/bDYcPOV.jpg" alt="" />
+                                            <span>The Jungle Book:<br />Fuck yeah this box works</span>
+                                        </div>
+                                        <a class="youtube" href="https://www.youtube.com/watch?v=HcgJRQWxKnw"
+                                           title="Watch Trailer">
+                                            <img src="http://i.imgur.com/yHGv97W.png" border="0" class="playIcon" />
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="nav">
+                                    <label for="img-1" class="prev">&#x2039;</label>
+                                    <label for="img-3" class="next">&#x203a;</label>
+                                </div>
+                            </li>
 
-                                        <input type="radio" name="radio-btn" id="img-3" />
-                                        <li class="slide-container">
-                                            <div id="parent">
-                                                <div class="slide">
-                                                    <div class="textOverlay">
-                                                        <img id="backImage" src="http://i.imgur.com/bDYcPOV.jpg" alt="" />
-                                                        <span>The Jungle Book:<br />Fuck yeah this box works</span>
-                                                    </div>
-                                                    <a class="youtube" href="https://www.youtube.com/watch?v=HcgJRQWxKnw"
-                                                        title="Watch Trailer">
-                                                        <img src="http://i.imgur.com/yHGv97W.png" border="0" class="playIcon" />
-                                                    </a>                                                   
-                                                </div>
-                                            </div>
-                                            <div class="nav">
-                                                <label for="img-2" class="prev">&#x2039;</label>
-                                                <label for="img-4" class="next">&#x203a;</label>
-                                            </div>
-                                        </li>
+                            <input type="radio" name="radio-btn" id="img-3" />
+                            <li class="slide-container">
+                                <div id="parent">
+                                    <div class="slide">
+                                        <div class="textOverlay">
+                                            <img id="backImage" src="http://i.imgur.com/bDYcPOV.jpg" alt="" />
+                                            <span>The Jungle Book:<br />Fuck yeah this box works</span>
+                                        </div>
+                                        <a class="youtube" href="https://www.youtube.com/watch?v=HcgJRQWxKnw"
+                                           title="Watch Trailer">
+                                            <img src="http://i.imgur.com/yHGv97W.png" border="0" class="playIcon" />
+                                        </a>                                                   
+                                    </div>
+                                </div>
+                                <div class="nav">
+                                    <label for="img-2" class="prev">&#x2039;</label>
+                                    <label for="img-4" class="next">&#x203a;</label>
+                                </div>
+                            </li>
 
-                                        <input type="radio" name="radio-btn" id="img-4" />
-                                        <li class="slide-container">
-                                            <div id="parent">
-                                                <div class="slide">
-                                                    <div class="textOverlay">
-                                                        <img id="backImage" src="http://i.imgur.com/bDYcPOV.jpg" alt="" />
-                                                        <span>The Jungle Book:<br />Fuck yeah this box works</span>
-                                                    </div>
-                                                    <a class="youtube" href="https://www.youtube.com/watch?v=HcgJRQWxKnw"
-                                                        title="Watch Trailer">
-                                                        <img src="http://i.imgur.com/yHGv97W.png" border="0" class="playIcon" />
-                                                    </a>   
-                                                </div>
-                                            </div>
-                                            <div class="nav">
-                                                <label for="img-3" class="prev">&#x2039;</label>
-                                                <label for="img-5" class="next">&#x203a;</label>
-                                            </div>
-                                        </li>
+                            <input type="radio" name="radio-btn" id="img-4" />
+                            <li class="slide-container">
+                                <div id="parent">
+                                    <div class="slide">
+                                        <div class="textOverlay">
+                                            <img id="backImage" src="http://i.imgur.com/bDYcPOV.jpg" alt="" />
+                                            <span>The Jungle Book:<br />Fuck yeah this box works</span>
+                                        </div>
+                                        <a class="youtube" href="https://www.youtube.com/watch?v=HcgJRQWxKnw"
+                                           title="Watch Trailer">
+                                            <img src="http://i.imgur.com/yHGv97W.png" border="0" class="playIcon" />
+                                        </a>   
+                                    </div>
+                                </div>
+                                <div class="nav">
+                                    <label for="img-3" class="prev">&#x2039;</label>
+                                    <label for="img-5" class="next">&#x203a;</label>
+                                </div>
+                            </li>
 
-                                        <input type="radio" name="radio-btn" id="img-5" />
-                                        <li class="slide-container">
-                                            <div id="parent">
-                                                <div class="slide">
-                                                    <div class="textOverlay">
-                                                        <img id="backImage" src="http://i.imgur.com/bDYcPOV.jpg" alt="" />
-                                                        <span>The Jungle Book:<br />Fuck yeah this box works</span>
-                                                    </div>
-                                                    <a class="youtube" href="https://www.youtube.com/watch?v=HcgJRQWxKnw"
-                                                        title="Watch Trailer">
-                                                        <img src="http://i.imgur.com/yHGv97W.png" border="0" class="playIcon" />
-                                                    </a>  
-                                                </div>
-                                            </div>
-                                            <div class="nav">
-                                                    <label for="img-4" class="prev">&#x2039;</label>
-                                                    <label for="img-6" class="next">&#x203a;</label>
-                                            </div>
-                                        </li>
+                            <input type="radio" name="radio-btn" id="img-5" />
+                            <li class="slide-container">
+                                <div id="parent">
+                                    <div class="slide">
+                                        <div class="textOverlay">
+                                            <img id="backImage" src="http://i.imgur.com/bDYcPOV.jpg" alt="" />
+                                            <span>The Jungle Book:<br />Fuck yeah this box works</span>
+                                        </div>
+                                        <a class="youtube" href="https://www.youtube.com/watch?v=HcgJRQWxKnw"
+                                           title="Watch Trailer">
+                                            <img src="http://i.imgur.com/yHGv97W.png" border="0" class="playIcon" />
+                                        </a>  
+                                    </div>
+                                </div>
+                                <div class="nav">
+                                    <label for="img-4" class="prev">&#x2039;</label>
+                                    <label for="img-6" class="next">&#x203a;</label>
+                                </div>
+                            </li>
 
-                                        <input type="radio" name="radio-btn" id="img-6" />
-                                        <li class="slide-container">
-                                            <div id="parent">
-                                                <div class="slide">
-                                                    <div class="textOverlay">
-                                                        <img id="backImage" src="http://i.imgur.com/bDYcPOV.jpg" alt="" />
-                                                        <span>The Jungle Book:<br />Fuck yeah this box works</span>
-                                                    </div>
-                                                    <a class="youtube" href="https://www.youtube.com/watch?v=HcgJRQWxKnw"
-                                                        title="Watch Trailer">
-                                                        <img src="http://i.imgur.com/yHGv97W.png" border="0" class="playIcon" />
-                                                    </a>  
-                                                </div>
-                                            </div>
-                                            <div class="nav">
-                                                    <label for="img-5" class="prev">&#x2039;</label>
-                                                    <label for="img-1" class="next">&#x203a;</label>
-                                            </div>
-                                        </li>
+                            <input type="radio" name="radio-btn" id="img-6" />
+                            <li class="slide-container">
+                                <div id="parent">
+                                    <div class="slide">
+                                        <div class="textOverlay">
+                                            <img id="backImage" src="http://i.imgur.com/bDYcPOV.jpg" alt="" />
+                                            <span>The Jungle Book:<br />Fuck yeah this box works</span>
+                                        </div>
+                                        <a class="youtube" href="https://www.youtube.com/watch?v=HcgJRQWxKnw"
+                                           title="Watch Trailer">
+                                            <img src="http://i.imgur.com/yHGv97W.png" border="0" class="playIcon" />
+                                        </a>  
+                                    </div>
+                                </div>
+                                <div class="nav">
+                                    <label for="img-5" class="prev">&#x2039;</label>
+                                    <label for="img-1" class="next">&#x203a;</label>
+                                </div>
+                            </li>
 
-                                        <li class="nav-dots">
-                                          <label for="img-1" class="nav-dot" id="img-dot-1"></label>
-                                          <label for="img-2" class="nav-dot" id="img-dot-2"></label>
-                                          <label for="img-3" class="nav-dot" id="img-dot-3"></label>
-                                          <label for="img-4" class="nav-dot" id="img-dot-4"></label>
-                                          <label for="img-5" class="nav-dot" id="img-dot-5"></label>
-                                          <label for="img-6" class="nav-dot" id="img-dot-6"></label>
-                                        </li>
-                                    </ul>
-                                    <br />
-                                    <br />
-                                    <br />
-                                <div id="topPostersDiv" align="center">
-                                    <br/>
-                                    <h1 id="popularTitle">MOST POPULAR</h1>
+                            <li class="nav-dots">
+                                <label for="img-1" class="nav-dot" id="img-dot-1"></label>
+                                <label for="img-2" class="nav-dot" id="img-dot-2"></label>
+                                <label for="img-3" class="nav-dot" id="img-dot-3"></label>
+                                <label for="img-4" class="nav-dot" id="img-dot-4"></label>
+                                <label for="img-5" class="nav-dot" id="img-dot-5"></label>
+                                <label for="img-6" class="nav-dot" id="img-dot-6"></label>
+                            </li>
+                        </ul>
+                        <br />
+                        <br />
+                        <br />
+                        <div id="topPostersDiv" align="center">
+                            <br/>
+                            <h1 id="popularTitle">MOST POPULAR</h1>
 
-                                    <h:panelGrid styleClass="topPostersPanel" border="1">
-                                        <h:panelGrid columns="5" border="0" cellpadding="10" cellspacing="10">
-                                            <h:commandLink>
-                                                <f:ajax event="action" listener="#{movieManager.searchByTitle(movieManager.topNowPlayingTitles[0])}"/>
-                                                <h:graphicImage class="grow" url="#{movieManager.nowPlayingPosters[0]}"
-                                                                width="180" height="267" alt="Movie img" title="Find Showings"/>
-                                            </h:commandLink>
+                            <h:panelGrid styleClass="topPostersPanel" border="1">
+                                <h:panelGrid columns="5" border="0" cellpadding="10" cellspacing="10">
+                                    <h:commandLink>
+                                        <f:ajax event="action" listener="#{movieManager.searchByTitle(movieManager.topNowPlayingTitles[0])}"/>
+                                        <h:graphicImage class="grow" url="#{movieManager.nowPlayingPosters[0]}"
+                                                        width="180" height="267" alt="Movie img" title="Find Showings"/>
+                                    </h:commandLink>
 
-                                            <h:commandLink>
-                                                <f:ajax event="action" listener="#{movieManager.searchByTitle(movieManager.topNowPlayingTitles[1])}"/>
-                                                <h:graphicImage class="grow" url="#{movieManager.nowPlayingPosters[1]}"
-                                                                width="180" height="266" alt="Movie img" title="Find Showings"/>
-                                            </h:commandLink>
+                                    <h:commandLink>
+                                        <f:ajax event="action" listener="#{movieManager.searchByTitle(movieManager.topNowPlayingTitles[1])}"/>
+                                        <h:graphicImage class="grow" url="#{movieManager.nowPlayingPosters[1]}"
+                                                        width="180" height="266" alt="Movie img" title="Find Showings"/>
+                                    </h:commandLink>
 
-                                            <h:commandLink>
-                                                <f:ajax event="action" listener="#{movieManager.searchByTitle(movieManager.topNowPlayingTitles[2])}"/>
-                                                <h:graphicImage class="grow" url="#{movieManager.nowPlayingPosters[2]}"
-                                                                width="180" height="267" alt="Movie img" title="Find Showings"/>
-                                            </h:commandLink>
+                                    <h:commandLink>
+                                        <f:ajax event="action" listener="#{movieManager.searchByTitle(movieManager.topNowPlayingTitles[2])}"/>
+                                        <h:graphicImage class="grow" url="#{movieManager.nowPlayingPosters[2]}"
+                                                        width="180" height="267" alt="Movie img" title="Find Showings"/>
+                                    </h:commandLink>
 
-                                            <h:commandLink>
-                                                <f:ajax event="action" listener="#{movieManager.searchByTitle(movieManager.topNowPlayingTitles[3])}"/>
-                                                <h:graphicImage class="grow" url="#{movieManager.nowPlayingPosters[3]}"
-                                                                width="180" height="267" alt="Movie img" title="Find Showings"/>
-                                            </h:commandLink>
+                                    <h:commandLink>
+                                        <f:ajax event="action" listener="#{movieManager.searchByTitle(movieManager.topNowPlayingTitles[3])}"/>
+                                        <h:graphicImage class="grow" url="#{movieManager.nowPlayingPosters[3]}"
+                                                        width="180" height="267" alt="Movie img" title="Find Showings"/>
+                                    </h:commandLink>
 
-                                            <h:commandLink>
-                                                <f:ajax event="action" listener="#{movieManager.searchByTitle(movieManager.topNowPlayingTitles[4])}"/>
-                                                <h:graphicImage class="grow" url="#{movieManager.nowPlayingPosters[4]}"
-                                                                width="180" height="267" alt="Movie img" title="Find Showings"/>
-                                            </h:commandLink>
-                                        </h:panelGrid>
-                                    </h:panelGrid>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-				</div>
+                                    <h:commandLink>
+                                        <f:ajax event="action" listener="#{movieManager.searchByTitle(movieManager.topNowPlayingTitles[4])}"/>
+                                        <h:graphicImage class="grow" url="#{movieManager.nowPlayingPosters[4]}"
+                                                        width="180" height="267" alt="Movie img" title="Find Showings"/>
+                                    </h:commandLink>
+                                </h:panelGrid>
+                            </h:panelGrid>
+                            <br/>
+                            <br/>
+                            <br/>
+                        </div>
                     </h:form>
-                    
+
                 </div>
             </ui:define>
         </ui:composition>
+        <br />
+        <h:link outcome="/bought/List" value="Show All Bought Items"/>
+        <br />
+        <h:link outcome="/favorited/List" value="Show All Favorited Items"/>
+        <br />
+        <h:link outcome="/location/List" value="Show All Location Items"/>
+        <br />
+        <h:link outcome="/photo/List" value="Show All Photo Items"/>
+        <br />
+        <h:link outcome="/user/List" value="Show All User Items"/>
     </h:body>
+
+
+
+
+
 
 </html>
 
