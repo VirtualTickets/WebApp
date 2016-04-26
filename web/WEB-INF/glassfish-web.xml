@@ -19,12 +19,5 @@ Copyright © 2016 Nicholas Greer. All rights reserved.
     <property name="alternatedocroot_1" value="from=/FileStorageLocation/* dir=C:/Users/Kent"/>  
     <!--property name="alternatedocroot_1" value="from=/FileStorageLocation/* dir=C:/Users/Ben"/-->
     <!--property name="alternatedocroot_1" value="from=/FileStorageLocation/* dir=C:/VirginiaTech/6_Spring_2016/Cloud/Users/Users_files"/-->
-
-    "alternatedocroot_n Specifies an alternate document root (docroot), where n is a positive integer
-    that allows specification of more than one. Alternate docroots allow web applications to serve
-    requests for certain resources from outside their own docroot" 
-    See page C-46 in [https://glassfish.java.net/docs/4.0/application-deployment-guide.pdf]
-  -->
-  <property name="alternatedocroot_1" value="from=/FileStorageLocation/* dir=C:\\VirginiaTech\\6_Spring_2016\\Cloud\\Users\\Users_files"/>
 </glassfish-web-app>
 
