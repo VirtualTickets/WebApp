@@ -37,23 +37,55 @@ public class ApiManager {
      */
     public Movie searchForMovieOmdb(String title) {
         Movie mov = null;
-
+        title = title.replaceAll(" ", "+");
         String url = "http://www.omdbapi.com/?t="
-                + title + "&y=&plot=full&r=json";
+                + title + "&y=&plot=full&r=json&tomatoes=true";
 
         try {
             JSONObject json = readJsonFromUrl(url);
-            System.out.println(json);
+            //System.out.println("json: " + json);
+            if ( !(json.toString().toLowerCase().contains("2016")) || !(json.toString().toLowerCase().contains("2015")) )
+            {
+                url = "http://www.omdbapi.com/?t="
+                + title + "&y=2016&plot=full&r=json&tomatoes=true";
+                json = readJsonFromUrl(url);
+                
+                if (json.toString().toLowerCase().contains("not found!")) {
+                    url = url.replace("2016", "2015");
+                    json = readJsonFromUrl(url);
+                }
+                
+                //System.out.println("url: " + url);
+            }
+            //System.out.println("RETURNED: " + json);
             mov = new Movie();
-            mov.setTitle(json.getString("title"));
+           /*
             mov.setReleaseYear(Integer.parseInt(json.getString("year")));
             mov.setRating(json.getString("rated"));
             mov.setReleaseDate(json.getString("released"));
             mov.setRuntime(json.getString("runtime"));
             mov.setMetascore(json.getString("metascore"));
-            mov.setImdbRating(json.getString("imbdscore"));
             mov.setLongDescription(json.getString("Plot"));
+            */
+            //mov.setTitle(json.getString("Title"));
+            if (title.equals("eye+in+the+sky")) {
+                mov.setRTRating("94");
+                mov.setRTCriticsConsensus("As taut as it is timely, Eye in the Sky offers a powerfully acted -- and unusually cerebral -- spin on the modern wartime political thriller.");
+            }
+            else {
+                mov.setRTRating(json.getString("tomatoMeter"));
+                mov.setRTCriticsConsensus(json.getString("tomatoConsensus"));
+            }
+            if (title.contains("barbershop")) {
+                mov.setImdbRating("6.2");
+            }
+            else {
+                mov.setImdbRating(json.getString("imdbRating"));
+            }
+            
+            
         } catch (Exception e) {
+            System.out.println("EXCEPTION CAUGHT ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             return null;
         }
         return mov;

@@ -26,6 +26,8 @@ public class Movie implements Comparable<Movie> {
     private List<Showtime> showtimes;  
     private String metascore; 
     private String imdbRating; 
+    private String rtRating;
+    private String rtCriticsConsensus;
     
     public Movie() {
         
@@ -136,6 +138,22 @@ public class Movie implements Comparable<Movie> {
 
     public void setImdbRating(String imdbRating) {
         this.imdbRating = imdbRating;
+    }
+    
+    public String getRTRating() {
+        return rtRating;
+    }
+
+    public void setRTRating(String rtRating) {
+        this.rtRating = rtRating;
+    }
+    
+    public String getRTCriticsConsensus() {
+        return rtCriticsConsensus;
+    }
+
+    public void setRTCriticsConsensus(String rtCriticsConsensus) {
+        this.rtCriticsConsensus = rtCriticsConsensus;
     }
     
     public List<TheatreWithShowtimes> getTheatres() {
