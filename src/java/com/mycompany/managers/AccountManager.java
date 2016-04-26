@@ -413,7 +413,7 @@ public class AccountManager implements Serializable {
         return photoList.get(0).getThumbnailName();
     }
 
-    public boolean isLoggedIn() {
+    public static boolean isLoggedIn() {
 
         return null != FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("username");
     }
