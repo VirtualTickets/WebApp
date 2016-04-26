@@ -36,6 +36,8 @@ public class MovieManager implements Serializable {
     private String numTickets = "1";
     private String email;
     private boolean locationChanged = false;
+    private List<Movie> criticallyAcclaimed;
+    
     
     private static final String SEARCH_BY_TITLE = "Search By Title";
     
@@ -45,6 +47,19 @@ public class MovieManager implements Serializable {
     public MovieManager() {
         zipCode = "24061";
         apiManager = new ApiManager();
+        criticallyAcclaimed = new ArrayList<>();
+        String[] caTitles = {"the jungle book", "barbershop: the next cut",
+        "zootopia", "eye in the sky", "the witch", "10 cloverfield lane"};
+       
+        for (int i=0; i <= 5; i++) {
+            criticallyAcclaimed.add(apiManager.searchForMovieOmdb(caTitles[i]));  
+            System.out.println("Movie " + i);
+            System.out.println("~~~~~~~~~~~~rtRATING: " + criticallyAcclaimed.get(i).getRTRating());
+            System.out.println("~~~~~~~~~~~~rtCriticsConsensus: " + criticallyAcclaimed.get(i).getRTCriticsConsensus());
+            System.out.println("~~~~~~~~~~~~imdbRating: " + criticallyAcclaimed.get(i).getImdbRating());
+
+        }
+        
 
 //        nowPlaying = new ArrayList<>();
         
@@ -177,15 +192,11 @@ public class MovieManager implements Serializable {
 //        posters.add("http://i.imgur.com/ZcMT33m.jpg");
 //        posters.add("http://i.imgur.com/sODzs5B.png");
 
-        int i = 1;
         for (Movie m : list) {
-            System.out.println("Poster " + i + "  url:" + m.getPreferredImageUri());
             posters.add(m.getPreferredImageUri());
-            i++;
         }
          
         //System.out.println("*****************************************" + posters);
-        System.err.println("Number of posters: " + posters.size());
         return posters;
     }
 
@@ -199,7 +210,7 @@ public class MovieManager implements Serializable {
 
     public String searchByTitle() {
         type = SEARCH_BY_TITLE;
-
+        
         return "Movies";
     }
 
@@ -221,6 +232,9 @@ public class MovieManager implements Serializable {
     public List<Movie> getNowPlaying() {
        if (locationChanged)
        {
+           Movie test = apiManager.searchForMovieOmdb("10 cloverfield lane");
+           System.out.println("********************************RATING: " + test.getRTRating());
+           System.out.println("CONSENSUS: " + test.getRTCriticsConsensus());
            nowPlaying = apiManager.moviesPlayingInLocalTheatres(zipCode);
        }
        else if (nowPlaying == null) {
