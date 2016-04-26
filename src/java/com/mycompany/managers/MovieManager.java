@@ -273,7 +273,7 @@ public class MovieManager implements Serializable {
     public String showNowPlaying() {
         type = "Now Playing";
         
-        return "Movies";
+        return "/Movies";
     }
 
     public String comingSoon() {
