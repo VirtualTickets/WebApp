@@ -18,19 +18,23 @@ Copyright © 2016 Benjamin Sweeney. All rights reserved.
         <ui:composition template="/templates/main.xhtml">
             <ui:define name="content">
                 <br/>
-                <h1>#{movieManager.movieTableHeader}</h1>
+                <div align="center" style="text-align: center">
+                    <h1>Now Playing</h1>
+                </div>
                 <br/>
                 <div id="moviesPage" align="center">
                     <div style="width: 60%; top: 100px;">
                         <h:form id="movieTable">
-                            <p:accordionPanel var="movie" value="#{movieManager.movies}" dynamic="true" cache="true">
-                                
+                            <p:accordionPanel var="movie" value="#{movieManager.nowPlaying}" dynamic="true" cache="true">
+
                                 <p:tab title="#{movie.title}" titleStyleClass="movieTab">
                                     <p:panelGrid columns="2" style="max-width: 100%;">
                                         <h:panelGroup>    
                                             <h:graphicImage id="img" value="#{movie.preferredImageUri}" style="max-height: 370px; max-width: 250px" alt="Hello"/>
                                             <br/>
-                                            <p:selectBooleanButton rendered="#{movieManager.user != null}" offLabel="Favorite" onLabel="Un-Favorite" value="#{movieManager.favorited}"/>
+                                            <h:commandButton rendered="#{movieManager.isFavorited(movie) and movieManager.user != null}" action="#{movieManager.setFavorited(false, movie)}" value="Un-favorite"/>
+                                            <h:commandButton rendered="#{!movieManager.isFavorited(movie) and movieManager.user != null}" action="#{movieManager.setFavorited(true, movie)}" value="Favorite"/>
+                                            
                                         </h:panelGroup>
                                         <h:panelGroup>
                                             <h:outputText value="#{movie.longDescription}"/>

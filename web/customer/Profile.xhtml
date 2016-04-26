@@ -19,7 +19,7 @@ Copyright © 2016 Nicholas Greer. All rights reserved.
     <ui:define name="content">
         <div align="center" style="width:50%; margin:0 auto;">
             <h:form class="form-signin">
-                <h:graphicImage value="FileStorageLocation/#{accountManager.userPhoto()}" id="profilePic"
+                <h:graphicImage value="/FileStorageLocation/#{accountManager.userPhoto()}" id="profilePic"
                           class="img-rounded col-md-3"></h:graphicImage>
                     <h2> #{profileViewManager.loggedInUser.firstName} #{profileViewManager.loggedInUser.lastName} </h2>
                     <h:button value="Edit Profile"  outcome="/customer/EditAccount"/>

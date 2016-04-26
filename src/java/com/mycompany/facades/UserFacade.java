@@ -35,9 +35,11 @@ public class UserFacade extends AbstractFacade<User> {
             return null;
         }
         else {
-            return (User) (em.createQuery("SELECT u FROM User u WHERE u.username = :uname")
+            User u = (User) (em.createQuery("SELECT u FROM User u WHERE u.username = :uname")
                 .setParameter("uname", username)
-                .getSingleResult());        
+                .getSingleResult());
+            em.refresh(u);
+            return u;  
         }
     }
      public User getUser(int id) {

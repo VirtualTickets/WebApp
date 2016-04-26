@@ -34,7 +34,7 @@ public class MovieManager implements Serializable {
 
     private List<Movie> nowPlaying;
     private String searchTitle;
-    private Movie currMovie;
+    private Movie selectedMovie;
     private Showtime selectedShowtime;
     private ApiManager apiManager;
     private String type;
@@ -44,6 +44,8 @@ public class MovieManager implements Serializable {
     private String email;
     private boolean locationChanged = false;
     private User user;
+    private List<Movie> criticallyAcclaimed;
+    
     
     private boolean favorited;
 
@@ -63,54 +65,84 @@ public class MovieManager implements Serializable {
     public MovieManager() {
         zipCode = "24061";
         apiManager = new ApiManager();
+        criticallyAcclaimed = new ArrayList<>();
+        String[] caTitles = {"the jungle book", "barbershop: the next cut",
+        "zootopia", "eye in the sky", "the witch", "10 cloverfield lane"};
+       
+//        for (int i=0; i <= 5; i++) {
+//            criticallyAcclaimed.add(apiManager.searchForMovieOmdb(caTitles[i]));  
+//            System.out.println("Movie " + i);
+//            System.out.println("~~~~~~~~~~~~rtRATING: " + criticallyAcclaimed.get(i).getRTRating());
+//            System.out.println("~~~~~~~~~~~~rtCriticsConsensus: " + criticallyAcclaimed.get(i).getRTCriticsConsensus());
+//            System.out.println("~~~~~~~~~~~~imdbRating: " + criticallyAcclaimed.get(i).getImdbRating());
+//        }
+        
 
 //        nowPlaying = new ArrayList<>();
 //        for (int i = 0; i < 128; i++) {
 //            nowPlaying.add(new Movie("Batman vs. Superman" + i));
 //        }
     }
-
-    public void toggleFavorite(Movie movie) {
-        System.err.println("Calling toggle");
-        if (getUser() != null && movie != null) {
-            Favorited f = favoritedFacade.find(new FavoritedPK(user.getId(), movie.getTmsId()));
-            if (f == null) {
-                favoritedFacade.create(new Favorited(user, movie.getTmsId()));
-            } else {
-                favoritedFacade.remove(f);
-            }
-
+    
+    public String imageOf(Movie m) {
+        int i;
+        if ((i = nowPlaying.indexOf(m)) >= 0) {
+            return nowPlaying.get(i).getPreferredImageUri();
+        }
+        else {
+            return null;
         }
     }
 
-    public boolean isFavorited() {
-//        if (getUser() != null && currMovie != null) {
-//            favorited = favoritedFacade.find(new FavoritedPK(user.getId(), currMovie.getTmsId())) != null;
-//        }
+    public boolean isFavorited(Movie currMovie) {
+        
+        if (getUser() != null && currMovie != null) {
+            return userFacade.findByUsername(getUser().getUsername()).favorited(currMovie);
+        }
         return favorited;
     }
 
-    public void setFavorited(boolean favorited) {
+    public void setFavorited(boolean favorited, Movie currMovie) {
         System.err.println("Setting favorite");
-//        if (getUser() != null && currMovie != null) {
-//            Favorited f = favoritedFacade.find(new FavoritedPK(user.getId(), currMovie.getTmsId()));
-//            
-//            if (favorited && f == null) {
-//                favoritedFacade.create(new Favorited(user, currMovie.getTmsId()));
-//            }
-//            else if (!favorited && f != null) {
-//                favoritedFacade.remove(f);
-//            }
-//        }
+        if (getUser() != null && currMovie != null) {
+            Favorited f = favoritedFacade.find(new FavoritedPK(user.getId(), currMovie.getTmsId()));
+            
+            if (favorited && f == null) {
+                Favorited fav = new Favorited(user, currMovie.getTmsId());
+                favoritedFacade.create(fav);
+                getUser().getFavoritedList().add(fav);
+            }
+            else if (!favorited && f != null) {
+                favoritedFacade.remove(f);
+                getUser().getFavoritedList().remove(f);
+            }
+        }
         
         this.favorited = favorited;
     }
     
     
+    public List<Movie> getFavoriteMovies() {
+        if (getUser() != null) {
+            List<Favorited> l = getUser().getFavoritedList();
+            List<Movie> list = new ArrayList<>();
+            
+            for (Favorited f : l) {
+                Movie m = new Movie(f);
+                int i;
+                if ((i = nowPlaying.indexOf(m)) >= 0) {
+                    list.add(nowPlaying.get(i));
+                }
+            }
+            return list;
+        }
+        else return null;
+    }
+    
     
 //    public boolean isFavorited() {
-//        if (getUser() != null && currMovie != null) {
-//            return favoritedFacade.find(new FavoritedPK(user.getId(), currMovie.getTmsId())) != null;
+//        if (getUser() != null && selectedMovie != null) {
+//            return favoritedFacade.find(new FavoritedPK(user.getId(), selectedMovie.getTmsId())) != null;
 //        }
 //        
 //        return false;
@@ -118,11 +150,11 @@ public class MovieManager implements Serializable {
 //    
 //    public void setFavorited(boolean favorited) {
 //        System.err.println("Setting favorite");
-//        if (getUser() != null && currMovie != null) {
-//            Favorited f = favoritedFacade.find(new FavoritedPK(user.getId(), currMovie.getTmsId()));
+//        if (getUser() != null && selectedMovie != null) {
+//            Favorited f = favoritedFacade.find(new FavoritedPK(user.getId(), selectedMovie.getTmsId()));
 //            
 //            if (favorited && f == null) {
-//                favoritedFacade.create(new Favorited(user, currMovie.getTmsId()));
+//                favoritedFacade.create(new Favorited(user, selectedMovie.getTmsId()));
 //            }
 //            else if (!favorited && f != null) {
 //                favoritedFacade.remove(f);
@@ -148,21 +180,9 @@ public class MovieManager implements Serializable {
         return s;
     }
 
-    public void onTabChange(TabChangeEvent event) {
-        String title = event.getTab().getTitle();
-        System.err.println("Title: " + title);
-        for (Movie m : nowPlaying) {
-            if (m.getTitle().equals(title)) {
-                currMovie = m;
-                System.err.println("Image uri: " + m.getPreferredImageUri());
-                break;
-            }
-        }
-    }
-
     public String getConfirmationMessage() {
         return "Thank you for your purchase of " + numTickets + " of the "
-                + selectedShowtime.getTime() + " showtime of " + currMovie.getTitle();
+                + selectedShowtime.getTime() + " showtime of " + selectedMovie.getTitle();
     }
 
     public String getEmail() {
@@ -201,12 +221,12 @@ public class MovieManager implements Serializable {
         zipCode = zip;
     }
 
-    public Movie getCurrMovie() {
-        return currMovie;
+    public Movie getSelectedMovie() {
+        return selectedMovie;
     }
 
-    public void setCurrMovie(Movie currMovie) {
-        this.currMovie = currMovie;
+    public void setSelectedMovie(Movie selectedMovie) {
+        this.selectedMovie = selectedMovie;
     }
 
     public Showtime getSelectedShowtime() {
@@ -258,19 +278,17 @@ public class MovieManager implements Serializable {
         ArrayList<String> posters = new ArrayList<>();
 
         List<Movie> list = getNowPlaying();
-        posters.add("http://i.imgur.com/hQsw8Oe.jpg");
-        posters.add("http://i.imgur.com/ZUli3ZH.jpg");
-        posters.add("http://i.imgur.com/M2AYIht.jpg");
-        posters.add("http://i.imgur.com/ZcMT33m.jpg");
-        posters.add("http://i.imgur.com/sODzs5B.png");
+//        posters.add("http://i.imgur.com/hQsw8Oe.jpg");
+//        posters.add("http://i.imgur.com/ZUli3ZH.jpg");
+//        posters.add("http://i.imgur.com/M2AYIht.jpg");
+//        posters.add("http://i.imgur.com/ZcMT33m.jpg");
+//        posters.add("http://i.imgur.com/sODzs5B.png");
 
-        /*
         for (Movie m : list) {
-            posters.add(apiManager.getPosterURL(m.getTitle()));
+            posters.add(m.getPreferredImageUri());
         }
-         */
+         
         //System.out.println("*****************************************" + posters);
-        System.err.println("Number of posters: " + posters.size());
         return posters;
     }
 
@@ -284,7 +302,7 @@ public class MovieManager implements Serializable {
 
     public String searchByTitle() {
         type = SEARCH_BY_TITLE;
-
+        
         return "Movies";
     }
 
@@ -296,8 +314,8 @@ public class MovieManager implements Serializable {
     }
 
     public void view() {
-        if (currMovie != null) {
-            currMovie.retrievePreferredImageUri();
+        if (selectedMovie != null) {
+            selectedMovie.retrievePreferredImageUri();
             System.err.println("Updated!");
         }
         System.err.println("poop");
@@ -316,13 +334,13 @@ public class MovieManager implements Serializable {
     private List<Movie> getFavoritedMovies() {
         String user_name = (String) FacesContext.getCurrentInstance()
                 .getExternalContext().getSessionMap().get("username");
-        User user = userFacade.findByUsername(user_name);
+        User u = userFacade.findByUsername(user_name);
 
-        List<Favorited> favorited = user.getFavoritedList();
+        List<Favorited> f = u.getFavoritedList();
 
-        System.err.println("Number of favorited for " + user_name + " : " + favorited.size());
+        System.err.println("Number of favorited for " + user_name + " : " + f.size());
 
-        return Movie.convertFavorited(favorited, zipCode);
+        return Movie.convertFavorited(f, zipCode);
     }
 
     public List<Movie> getSearchByTitle() {
@@ -350,7 +368,7 @@ public class MovieManager implements Serializable {
 
     public String purchaseMovie(Movie movie, Showtime showtime) {
         setSelectedShowtime(showtime);
-        setCurrMovie(movie);
+        setSelectedMovie(movie);
         return "Purchase";
     }
 

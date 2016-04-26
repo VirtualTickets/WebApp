@@ -9,6 +9,7 @@ import com.mycompany.entities.FavoritedPK;
 import com.mycompany.managers.Constants;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 /**
@@ -39,9 +40,15 @@ public class Movie implements Comparable<Movie> {
         
         return list;
     }
+    private String rtRating;
+    private String rtCriticsConsensus;
     
     public Movie() {
         
+    }
+    
+    public Movie(Favorited f) {
+        this.tmsId = f.getFavoritedPK().getMovieId();
     }
     
     public Movie(String tmsId) {
@@ -135,6 +142,8 @@ public class Movie implements Comparable<Movie> {
     }
 
     public String getPreferredImageUri() {
+        System.err.println("Uri pre update: " + preferredImageUri);
+        System.err.println("Title: |" + getTitle() + "|");
         if (preferredImageUri == null) {
             retrievePreferredImageUri();
         }
@@ -143,7 +152,7 @@ public class Movie implements Comparable<Movie> {
     
     public void retrievePreferredImageUri() {
         if (preferredImageUri == null) {
-            setPreferredImageUri(new ApiManager().getPosterURL(title));
+            setPreferredImageUri(new ApiManager().getPosterURL(getTitle()));
         }
     }
 
@@ -184,6 +193,22 @@ public class Movie implements Comparable<Movie> {
         this.imdbRating = imdbRating;
     }
     
+    public String getRTRating() {
+        return rtRating;
+    }
+
+    public void setRTRating(String rtRating) {
+        this.rtRating = rtRating;
+    }
+    
+    public String getRTCriticsConsensus() {
+        return rtCriticsConsensus;
+    }
+
+    public void setRTCriticsConsensus(String rtCriticsConsensus) {
+        this.rtCriticsConsensus = rtCriticsConsensus;
+    }
+    
     public List<TheatreWithShowtimes> getTheatres() {
         ArrayList<TheatreWithShowtimes> list = new ArrayList<>();
         
@@ -202,8 +227,29 @@ public class Movie implements Comparable<Movie> {
 
     @Override
     public int compareTo(Movie m) {
-        return title.compareTo(m.title);
+        if (title != null && m.title != null) return title.compareTo(m.title);
+        return tmsId.compareTo(m.tmsId);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Movie other = (Movie) obj;
+        if (!Objects.equals(this.tmsId, other.tmsId)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
     
     private void set() {
         this.set(new ApiManager().movieShowtimes(tmsId, zipcode));

@@ -13,8 +13,8 @@ Copyright © 2016 Nicholas Greer. All rights reserved.
     <h:head>
         <title>Create Account</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <h:outputStylesheet name="css/jsfcrud.css"/>
-        <h:outputStylesheet library="css" name="globalStyles.css"/>
+
+        <h:outputStylesheet library="css" name="global.css"/>
     </h:head>
     <ui:define name="content">
         <div align="center" style="width:50%; margin:0 auto;">
@@ -24,83 +24,83 @@ Copyright © 2016 Nicholas Greer. All rights reserved.
                 <f:event listener="#{accountManager.validateInformation}" type="postValidate"/>
                 <p:panel id="panel" 
                          style="width: 400px; border: 0px solid white">
-                <p:messages id="msgs" />
+                    <p:messages id="msgs" />
 
-                <h:panelGrid columns="3" cellpadding="5">
-                    <p:outputLabel for="firstName" value="First Name" />
-                    <h:inputText id="firstName" value="#{accountManager.firstName}" 
-                                 required="true" label="First Name">
-                        <f:validateLength minimum="2" />
-                    </h:inputText>
-                    <p:message for="firstName" display="icon" />
-                                     
+                    <h:panelGrid columns="3" cellpadding="5">
+                        <p:outputLabel for="firstName" value="First Name" />
+                        <h:inputText id="firstName" value="#{accountManager.firstName}" 
+                                     required="true" label="First Name">
+                            <f:validateLength minimum="2" />
+                        </h:inputText>
+                        <p:message for="firstName" display="icon" />
 
-                    <p:outputLabel for="lastName" value="Last Name" />
-                    <h:inputText id="lastName" value="#{accountManager.lastName}" 
-                                 required="true" label="Last Name">
-                        <f:validateLength minimum="2" />
-                    </h:inputText>
-                    <p:message for="lastName" display="icon" />
-                    
-                    <p:outputLabel for="ccn" value="CC Number" />
-                    <h:inputText id="ccn" value="#{accountManager.ccNumber}" 
-                                 required="true" label="CC Number">
-                        <f:validateLength minimum="2" />
-                    </h:inputText>
-                    <p:message for="ccn" display="icon" />
 
-                    <p:outputLabel for="ccem" value="CC Ex Month" />
-                    <h:inputText id="ccem" value="#{accountManager.ccExMonth}" 
-                                 required="true" label="CC Ex Month">
-                        <f:validateLength minimum="1" />
-                    </h:inputText>
-                    <p:message for="ccem" display="icon" />  
-                    
-                    <p:outputLabel for="ccey" value="CC EX Year" />
-                    <h:inputText id="ccey" value="#{accountManager.ccExYear}" 
-                                 required="true" label="CC Ex Year">
-                        <f:validateLength minimum="2" />
-                    </h:inputText>
-                    <p:message for="ccey" display="icon" />
-                     
-                                   
-                    
-                    <p:outputLabel for="email" value="Email:" />
-                    <h:inputText id="email" value="#{accountManager.email}" 
-                                 label="Email" required="true">
-                        <f:validateLength minimum="2" />
-                        <f:validator validatorId="emailValidator" /> 
-                    </h:inputText>
-                    <p:message for="email" display="icon" />
+                        <p:outputLabel for="lastName" value="Last Name" />
+                        <h:inputText id="lastName" value="#{accountManager.lastName}" 
+                                     required="true" label="Last Name">
+                            <f:validateLength minimum="2" />
+                        </h:inputText>
+                        <p:message for="lastName" display="icon" />
 
-                    <p:outputLabel for="username" value="Username:" />
-                    <h:inputText id="username" value="#{accountManager.username}" 
-                                 required="true" label="Username">
-                        <f:validateLength minimum="4" />
-                    </h:inputText>
-                    <p:message for="username" display="icon" />
+                        <p:outputLabel for="ccn" value="CC Number" />
+                        <h:inputText id="ccn" value="#{accountManager.ccNumber}" 
+                                     required="true" label="CC Number">
+                            <f:validateLength minimum="2" />
+                        </h:inputText>
+                        <p:message for="ccn" display="icon" />
 
-                    <p:outputLabel for="password" value="Password:" />
-                    <h:inputSecret id="password" value="#{accountManager.password}" 
-                                required="true" label="Password">
-                        <f:validator validatorId="passwordValidator" /> 
-                    </h:inputSecret>
-                    <p:message for="password" display="icon" />
+                        <p:outputLabel for="ccem" value="CC Ex Month" />
+                        <h:inputText id="ccem" value="#{accountManager.ccExMonth}" 
+                                     required="true" label="CC Ex Month">
+                            <f:validateLength minimum="1" />
+                        </h:inputText>
+                        <p:message for="ccem" display="icon" />  
 
-                    <p:outputLabel for="confirmPassword" value="Confirm Password:" />
-                    <h:inputSecret id="confirmPassword" 
-                                required="true" label="Confirm Password">
-                    </h:inputSecret>
-                    <p:message for="confirmPassword" display="icon"/>
-                </h:panelGrid>
-            </p:panel>
-            <h:outputLabel id="error" value="#{accountManager.statusMessage}"  />
-            <br/>
-            <h:commandButton class="btn btn-lg btn-success btn-block" id="submit" 
-                             action="#{accountManager.createAccount()}" value="Submit" />   
-            <h:button class="btn btn-lg btn-danger" id="cancel" outcome="/index" value="Cancel" />
+                        <p:outputLabel for="ccey" value="CC EX Year" />
+                        <h:inputText id="ccey" value="#{accountManager.ccExYear}" 
+                                     required="true" label="CC Ex Year">
+                            <f:validateLength minimum="2" />
+                        </h:inputText>
+                        <p:message for="ccey" display="icon" />
+
+
+
+                        <p:outputLabel for="email" value="Email:" />
+                        <h:inputText id="email" value="#{accountManager.email}" 
+                                     label="Email" required="true">
+                            <f:validateLength minimum="2" />
+                            <f:validator validatorId="emailValidator" /> 
+                        </h:inputText>
+                        <p:message for="email" display="icon" />
+
+                        <p:outputLabel for="username" value="Username:" />
+                        <h:inputText id="username" value="#{accountManager.username}" 
+                                     required="true" label="Username">
+                            <f:validateLength minimum="4" />
+                        </h:inputText>
+                        <p:message for="username" display="icon" />
+
+                        <p:outputLabel for="password" value="Password:" />
+                        <h:inputSecret id="password" value="#{accountManager.password}" 
+                                       required="true" label="Password">
+                            <f:validator validatorId="passwordValidator" /> 
+                        </h:inputSecret>
+                        <p:message for="password" display="icon" />
+
+                        <p:outputLabel for="confirmPassword" value="Confirm Password:" />
+                        <h:inputSecret id="confirmPassword" 
+                                       required="true" label="Confirm Password">
+                        </h:inputSecret>
+                        <p:message for="confirmPassword" display="icon"/>
+                    </h:panelGrid>
+                </p:panel>
+                <h:outputLabel id="error" value="#{accountManager.statusMessage}"  />
+                <br/>
+                <h:commandButton class="btn btn-lg btn-success btn-block" id="submit" 
+                                 action="#{accountManager.createAccount()}" value="Submit" />   
+                <h:button class="btn btn-lg btn-danger" id="cancel" outcome="/index" value="Cancel" />
             </h:form>
         </div>
-    </ui:define>
-</ui:composition>
+        </ui:define>
+    </ui:composition>
 </html>

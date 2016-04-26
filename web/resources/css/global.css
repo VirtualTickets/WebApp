@@ -47,12 +47,34 @@ html, body {
     font-size: 1.8vw;
     color: #fff;
     padding: 0 20px;
-    width: 22%;
     line-height: 150%;
     background: rgba(247, 148, 29, 0.7);
     margin: 0px;
     font-family: 'Lato', sans-serif;
+}
 
+#title1 {
+    width: 22%;
+}
+
+#title2 {
+    width: 33%;
+}
+
+#title3 {
+    width: 11%;
+}
+
+#title4 {
+    width: 19%;
+}
+
+#title5 {
+    width: 13%;
+}
+
+#title6 {
+    width: 24%;
 }
 
 .rtRating {
