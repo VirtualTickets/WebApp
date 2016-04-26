@@ -21,39 +21,43 @@ public class ProfileViewManager implements Serializable {
 
     // Instance Variable (Property)
     private User user;
-    
-  /**
-   * The instance variable 'userFacade' is annotated with the @EJB annotation.
-   * This means that the GlassFish application server, at runtime, will inject in
-   * this instance variable a reference to the @Stateless session bean UserFacade.
-   */  
-  @EJB
-  private com.mycompany.facades.UserFacade userFacade;
 
-  public ProfileViewManager() {
+    /**
+     * The instance variable 'userFacade' is annotated with the @EJB annotation.
+     * This means that the GlassFish application server, at runtime, will inject
+     * in this instance variable a reference to the @Stateless session bean
+     * UserFacade.
+     */
+    @EJB
+    private com.mycompany.facades.UserFacade userFacade;
 
-  }
+    public ProfileViewManager() {
 
-  public String viewProfile() {
-    return "Profile";
-  }
+    }
 
-  /**
-   * @return the user
-   */
-  public User getUser() {
-    return user;
-  }
+    public String viewProfile() {
+        return "Profile";
+    }
 
-  public User getLoggedInUser() {
-    return userFacade.find(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user_id"));
-  }
+    /**
+     * @return the user
+     */
+    public User getUser() {
+        return user;
+    }
 
-  /**
-   * @param user the user to set
-   */
-  public void setUser(User user) {
-    this.user = user;
-  }
+    public User getLoggedInUser() {
+        if (!AccountManager.isLoggedIn()) {
+            return new User(-1, "", "", "", "", "");
+        }
+        return userFacade.find(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user_id"));
+    }
+
+    /**
+     * @param user the user to set
+     */
+    public void setUser(User user) {
+        this.user = user;
+    }
 
 }
