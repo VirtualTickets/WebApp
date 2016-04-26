@@ -41,8 +41,9 @@ public class Favorited implements Serializable {
         this.favoritedPK = favoritedPK;
     }
 
-    public Favorited(int userId, String movieId) {
-        this.favoritedPK = new FavoritedPK(userId, movieId);
+    public Favorited(User user, String movieId) {
+        this.favoritedPK = new FavoritedPK(user.getId(), movieId);
+        this.user = user;
     }
 
     public FavoritedPK getFavoritedPK() {

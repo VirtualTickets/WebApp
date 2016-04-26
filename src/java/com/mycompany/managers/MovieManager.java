@@ -4,6 +4,11 @@
  */
 package com.mycompany.managers;
 
+import com.mycompany.entities.Favorited;
+import com.mycompany.entities.FavoritedPK;
+import com.mycompany.entities.User;
+import com.mycompany.facades.FavoritedFacade;
+import com.mycompany.facades.UserFacade;
 import com.mycompany.virtualtickets.ApiManager;
 import com.mycompany.virtualtickets.Movie;
 import com.mycompany.virtualtickets.SendEmail;
@@ -15,6 +20,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import javax.ejb.EJB;
+import javax.faces.context.FacesContext;
 import org.primefaces.event.TabChangeEvent;
 
 /**
@@ -36,9 +43,20 @@ public class MovieManager implements Serializable {
     private String numTickets = "1";
     private String email;
     private boolean locationChanged = false;
+    private User user;
     
+    private boolean favorited;
+
     private static final String SEARCH_BY_TITLE = "Search By Title";
-    
+    private static final String NOW_PLAYING = "Now Playing";
+    private static final String FAVORITED = "Favorited";
+
+    @EJB
+    private UserFacade userFacade;
+
+    @EJB
+    private FavoritedFacade favoritedFacade;
+
     /**
      * Creates a new instance of ApiManager
      */
@@ -47,12 +65,81 @@ public class MovieManager implements Serializable {
         apiManager = new ApiManager();
 
 //        nowPlaying = new ArrayList<>();
-        
 //        for (int i = 0; i < 128; i++) {
 //            nowPlaying.add(new Movie("Batman vs. Superman" + i));
 //        }
     }
+
+    public void toggleFavorite(Movie movie) {
+        System.err.println("Calling toggle");
+        if (getUser() != null && movie != null) {
+            Favorited f = favoritedFacade.find(new FavoritedPK(user.getId(), movie.getTmsId()));
+            if (f == null) {
+                favoritedFacade.create(new Favorited(user, movie.getTmsId()));
+            } else {
+                favoritedFacade.remove(f);
+            }
+
+        }
+    }
+
+    public boolean isFavorited() {
+//        if (getUser() != null && currMovie != null) {
+//            favorited = favoritedFacade.find(new FavoritedPK(user.getId(), currMovie.getTmsId())) != null;
+//        }
+        return favorited;
+    }
+
+    public void setFavorited(boolean favorited) {
+        System.err.println("Setting favorite");
+//        if (getUser() != null && currMovie != null) {
+//            Favorited f = favoritedFacade.find(new FavoritedPK(user.getId(), currMovie.getTmsId()));
+//            
+//            if (favorited && f == null) {
+//                favoritedFacade.create(new Favorited(user, currMovie.getTmsId()));
+//            }
+//            else if (!favorited && f != null) {
+//                favoritedFacade.remove(f);
+//            }
+//        }
+        
+        this.favorited = favorited;
+    }
     
+    
+    
+//    public boolean isFavorited() {
+//        if (getUser() != null && currMovie != null) {
+//            return favoritedFacade.find(new FavoritedPK(user.getId(), currMovie.getTmsId())) != null;
+//        }
+//        
+//        return false;
+//    }
+//    
+//    public void setFavorited(boolean favorited) {
+//        System.err.println("Setting favorite");
+//        if (getUser() != null && currMovie != null) {
+//            Favorited f = favoritedFacade.find(new FavoritedPK(user.getId(), currMovie.getTmsId()));
+//            
+//            if (favorited && f == null) {
+//                favoritedFacade.create(new Favorited(user, currMovie.getTmsId()));
+//            }
+//            else if (!favorited && f != null) {
+//                favoritedFacade.remove(f);
+//            }
+//        }
+//    }
+
+    public User getUser() {
+        if (user == null) {
+            String user_name = (String) FacesContext.getCurrentInstance()
+                    .getExternalContext().getSessionMap().get("username");
+            user = userFacade.findByUsername(user_name);
+        }
+        
+        return user;
+    }
+
     public String getTickets() {
         String s = numTickets + " ticket";
         if (!numTickets.equals("1")) {
@@ -72,7 +159,7 @@ public class MovieManager implements Serializable {
             }
         }
     }
-    
+
     public String getConfirmationMessage() {
         return "Thank you for your purchase of " + numTickets + " of the "
                 + selectedShowtime.getTime() + " showtime of " + currMovie.getTitle();
@@ -217,15 +304,25 @@ public class MovieManager implements Serializable {
     }
 
     public List<Movie> getNowPlaying() {
-       if (locationChanged)
-       {
-           nowPlaying = apiManager.moviesPlayingInLocalTheatres(zipCode);
-       }
-       else if (nowPlaying == null) {
-           nowPlaying = apiManager.moviesPlayingInLocalTheatres(zipCode);
-       }
-       
-       return nowPlaying;
+        if (locationChanged) {
+            nowPlaying = apiManager.moviesPlayingInLocalTheatres(zipCode);
+        } else if (nowPlaying == null) {
+            nowPlaying = apiManager.moviesPlayingInLocalTheatres(zipCode);
+        }
+
+        return nowPlaying;
+    }
+
+    private List<Movie> getFavoritedMovies() {
+        String user_name = (String) FacesContext.getCurrentInstance()
+                .getExternalContext().getSessionMap().get("username");
+        User user = userFacade.findByUsername(user_name);
+
+        List<Favorited> favorited = user.getFavoritedList();
+
+        System.err.println("Number of favorited for " + user_name + " : " + favorited.size());
+
+        return Movie.convertFavorited(favorited, zipCode);
     }
 
     public List<Movie> getSearchByTitle() {
@@ -235,10 +332,12 @@ public class MovieManager implements Serializable {
 
     public List<Movie> getMovies() {
         switch (type) {
-            case "Now Playing":
+            case NOW_PLAYING:
                 return getNowPlaying();
             case SEARCH_BY_TITLE:
                 return getSearchByTitle();
+            case FAVORITED:
+                return getFavoritedMovies();
         }
 
         return null;
@@ -256,8 +355,14 @@ public class MovieManager implements Serializable {
     }
 
     public String showNowPlaying() {
-        type = "Now Playing";
-        
+        type = NOW_PLAYING;
+
+        return "Movies";
+    }
+
+    public String showFavorited() {
+        type = FAVORITED;
+
         return "Movies";
     }
 
@@ -270,16 +375,12 @@ public class MovieManager implements Serializable {
         return "";
     }
 
-    public String showFavorites() {
-        return "";
-    }
-
     public String showRecommended() {
         return "";
     }
 
     public String confirmPurchase() {
-        
+
         return "Confirmation";
     }
 }

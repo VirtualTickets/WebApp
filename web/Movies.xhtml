@@ -30,9 +30,7 @@ Copyright © 2016 Benjamin Sweeney. All rights reserved.
                                         <h:panelGroup>    
                                             <h:graphicImage id="img" value="#{movie.preferredImageUri}" style="max-height: 370px; max-width: 250px" alt="Hello"/>
                                             <br/>
-                                            <h:commandButton onclick="#{accountManager.addFavorite(movie)}" value="Favorite">
-                                                <f:ajax execute="@none" render="@none"/>
-                                            </h:commandButton>
+                                            <p:selectBooleanButton rendered="#{movieManager.user != null}" offLabel="Favorite" onLabel="Un-Favorite" value="#{movieManager.favorited}"/>
                                         </h:panelGroup>
                                         <h:panelGroup>
                                             <h:outputText value="#{movie.longDescription}"/>
@@ -49,6 +47,7 @@ Copyright © 2016 Benjamin Sweeney. All rights reserved.
                                             <h:outputText value="Release Date: "/>
                                             <h:outputText value="#{movie.releaseDate}"/>
                                             <br/>
+                                            <h:outputText value="#{movie.tmsId}"/>
                                             <br/>
                                             <p:tabView value="#{movie.theatres}" var="theatre">
                                                 <p:tab title="#{theatre.name}" titleStyleClass="theaterTab">

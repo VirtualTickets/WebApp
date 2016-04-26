@@ -4,6 +4,8 @@
  */
 package com.mycompany.virtualtickets;
 
+import com.mycompany.entities.Favorited;
+import com.mycompany.entities.FavoritedPK;
 import com.mycompany.managers.Constants;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,13 +28,29 @@ public class Movie implements Comparable<Movie> {
     private List<Showtime> showtimes;  
     private String metascore; 
     private String imdbRating; 
+    private String zipcode;
+    
+    public static List<Movie> convertFavorited(List<Favorited> favorited, String zipcode) {
+        List<Movie> list = new ArrayList<>();
+        
+        for (Favorited f : favorited) {
+            list.add(new Movie(f.getFavoritedPK().getMovieId(), zipcode));
+        }
+        
+        return list;
+    }
     
     public Movie() {
         
     }
     
-    public Movie(String title) {
-        this.title = title;
+    public Movie(String tmsId) {
+        this.tmsId = tmsId;
+    }
+    
+    public Movie (String tmsId, String zipcode) {
+        this.tmsId = tmsId;
+        this.zipcode = zipcode;
     }
 
     public String getTmsId() {
@@ -44,6 +62,10 @@ public class Movie implements Comparable<Movie> {
     }
 
     public String getTitle() {
+        if (title == null) {
+            set();
+        }
+        
         return title;
     }
 
@@ -52,6 +74,9 @@ public class Movie implements Comparable<Movie> {
     }
 
     public int getReleaseYear() {
+        if (releaseYear == 0) {
+            set();
+        }
         return releaseYear;
     }
 
@@ -60,6 +85,9 @@ public class Movie implements Comparable<Movie> {
     }
 
     public String getReleaseDate() {
+        if (releaseDate == null) {
+            set();
+        }
         int month = Integer.parseInt(releaseDate.substring(5, 7));
         String year = releaseDate.substring(0, 4);
         String day = releaseDate.substring(8);
@@ -71,6 +99,9 @@ public class Movie implements Comparable<Movie> {
     }
 
     public String getLongDescription() {
+        if (longDescription == null) {
+            set();
+        }
         return longDescription;
     }
 
@@ -79,6 +110,9 @@ public class Movie implements Comparable<Movie> {
     }
 
     public String getRating() {
+        if (rating == null) {
+            set();
+        }
         return rating;
     }
 
@@ -87,6 +121,9 @@ public class Movie implements Comparable<Movie> {
     }
 
     public String getRuntime() {
+        if (runtime == null) {
+            set();
+        }
         int hours = Integer.parseInt(runtime.substring(2, 4));
         int minutes = Integer.parseInt(runtime.substring(5, 7));
         
@@ -115,6 +152,9 @@ public class Movie implements Comparable<Movie> {
     }
 
     public List<Showtime> getShowtimes() {
+        if (showtimes == null) {
+            set();
+        }
         return showtimes;
     }
 
@@ -123,6 +163,9 @@ public class Movie implements Comparable<Movie> {
     }
 
     public String getMetascore() {
+        if (metascore == null) {
+            set();
+        }
         return metascore;
     }
 
@@ -131,6 +174,9 @@ public class Movie implements Comparable<Movie> {
     }
 
     public String getImdbRating() {
+        if (imdbRating == null) {
+            set();
+        }
         return imdbRating;
     }
 
@@ -157,6 +203,29 @@ public class Movie implements Comparable<Movie> {
     @Override
     public int compareTo(Movie m) {
         return title.compareTo(m.title);
+    }
+    
+    private void set() {
+        this.set(new ApiManager().movieShowtimes(tmsId, zipcode));
+    }
+
+    private void set(ArrayList<Movie> movieShowtimes) {
+        if (movieShowtimes != null && movieShowtimes.size() > 0) {
+            this.set(movieShowtimes.get(0));
+        }
+    }
+    
+    
+    private void set(Movie movie) {
+        this.imdbRating = movie.imdbRating;
+        this.longDescription = movie.longDescription;
+        this.metascore = movie.metascore;
+        this.rating = movie.rating;
+        this.releaseDate = movie.releaseDate;
+        this.releaseYear = movie.releaseYear;
+        this.runtime = movie.runtime;
+        this.showtimes = movie.showtimes;
+        this.title = movie.title;
     }
     
     

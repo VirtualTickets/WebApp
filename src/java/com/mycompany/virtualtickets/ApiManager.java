@@ -273,9 +273,11 @@ public class ApiManager {
      */
     private Movie jsonToMovie(JSONObject json) {
         Movie mov = new Movie();
+        
+        System.err.println(json);
 
         try {
-            mov.setTmsId(json.getString("tmsID"));
+            mov.setTmsId(json.getString("tmsId"));
         } catch (Exception e) {
             mov.setTmsId("tmsId");
         }
