@@ -130,6 +130,8 @@ public class ApiManager {
 
         String url = "http://www.omdbapi.com/?t="
                 + title + "&y=&plot=full&r=json";
+        
+        System.err.println("URL: " + url);
 
         try {
             JSONObject json = readJsonFromUrl(url);
@@ -137,6 +139,7 @@ public class ApiManager {
 
         } catch (Exception e) {
             System.out.println("EXCEPTION GETTING POSTER URL!!!!!!!!!");
+            e.printStackTrace();
             return null;
         }
         System.out.println("title to find poster for: " + title + "  poster url: " + poster);
@@ -305,9 +308,11 @@ public class ApiManager {
      */
     private Movie jsonToMovie(JSONObject json) {
         Movie mov = new Movie();
+        
+        System.err.println(json);
 
         try {
-            mov.setTmsId(json.getString("tmsID"));
+            mov.setTmsId(json.getString("tmsId"));
         } catch (Exception e) {
             mov.setTmsId("tmsId");
         }

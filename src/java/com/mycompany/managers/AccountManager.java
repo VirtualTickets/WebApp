@@ -5,6 +5,7 @@
 package com.mycompany.managers;
 
 import com.mycompany.entities.Favorited;
+import com.mycompany.entities.FavoritedPK;
 import com.mycompany.entities.Photo;
 import com.mycompany.entities.User;
 import com.mycompany.facades.FavoritedFacade;
@@ -74,7 +75,24 @@ public class AccountManager implements Serializable {
 
     public void addFavorite(Movie movie) {
         if (selected != null && movie != null) {
-            favoritedFacade.create(new Favorited(selected.getId(), movie.getTmsId()));
+            System.err.println("Movie id: " + movie.getTmsId());
+            if(null != favoritedFacade.find(new FavoritedPK(selected.getId(), movie.getTmsId()))) {
+                favoritedFacade.create(new Favorited(selected, movie.getTmsId()));
+            }
+            
+        }
+    }
+    
+    public void toggleFavorite(Movie movie) {
+        if (selected != null && movie != null) {
+            Favorited f = favoritedFacade.find(new FavoritedPK(selected.getId(), movie.getTmsId()));
+            if (f == null) {
+                favoritedFacade.create(new Favorited(selected, movie.getTmsId()));
+            }
+            else {
+                favoritedFacade.remove(f);
+            }
+            
         }
     }
     

@@ -4,6 +4,7 @@
  */
 package com.mycompany.entities;
 
+import com.mycompany.virtualtickets.Movie;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Collection;
@@ -239,6 +240,14 @@ public class User implements Serializable {
 
     public void setPhotoCollection(Collection<Photo> photoCollection) {
         this.photoCollection = photoCollection;
+    }
+    
+    public boolean favorited(Movie m) {
+        for (Favorited f : favoritedList) {
+            if (f.getFavoritedPK().getMovieId().equals(m.getTmsId())) return true;
+        }
+        
+        return false;
     }
     
 }

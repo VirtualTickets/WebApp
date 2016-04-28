@@ -6,18 +6,10 @@ Copyright © 2016 Nicholas Greer. All rights reserved.
 <!DOCTYPE glassfish-web-app PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Servlet 3.0//EN" "http://glassfish.org/dtds/glassfish-web-app_3_0-1.dtd">
 <glassfish-web-app error-url="">
     <class-loader delegate="true"/>
-    <!--
-      If you include the keepgenerated property when you deploy the WAR file, the generated source
-      is kept in domain-dir/generated/jsp/app-name/module-name for an application, or
-      domain-dir/generated/jsp/module-name for an individually-deployed web module.
-    -->
     <jsp-config>
         <property name="keepgenerated" value="true">
             <description>Keep a copy of the generated servlet class' java code.</description>
         </property>
     </jsp-config>
-    <!--property name="alternatedocroot_1" value="from=/FileStorageLocation/* dir=C:/Users/Kent"/-->  
-    <!--property name="alternatedocroot_1" value="from=/FileStorageLocation/* dir=C:/Users/Ben"/-->
-    <property name="alternatedocroot_1" value="from=/FileStorageLocation/* dir=C:/VirginiaTech/6_Spring_2016/Cloud/Users/Users_files"/>
+    <property name="alternatedocroot_1" value="from=/FileStorageLocation/* dir=C:/Users/Ben"/>
 </glassfish-web-app>
-

@@ -81,22 +81,22 @@ TODO:
                                 <h:inputText value="#{profileViewManager.loggedInUser.email}"/>
                             </p:panelGrid> 
                             <h:panelGroup>  
-                                <p:panelGrid columns="2" rendered="#{movieManager.currMovie != null}" style="align-self: center;">
+                                <p:panelGrid columns="2" rendered="#{movieManager.selectedMovie != null}" style="align-self: center;">
                                     <f:facet name="header">
                                         <h:outputText value="Movie Info"/>
                                     </f:facet>
                                     <h:outputText value="Title: "/>
-                                    <h:outputText value="#{movieManager.currMovie.title}"/>
+                                    <h:outputText value="#{movieManager.selectedMovie.title}"/>
                                     <h:outputText value="Rating: "/>
-                                    <h:outputText value="#{movieManager.currMovie.rating}"/>
+                                    <h:outputText value="#{movieManager.selectedMovie.rating}"/>
                                     <h:outputText value="Runtime: "/>
-                                    <h:outputText value="#{movieManager.currMovie.runtime}"/>
+                                    <h:outputText value="#{movieManager.selectedMovie.runtime}"/>
                                     <h:outputText value="Showtime: "/>
                                     <h:outputText value="#{movieManager.selectedShowtime.time}"/>
                                 </p:panelGrid> 
                                 <br/>
                                 <div align="center">
-                                    <h:graphicImage id="img" value="#{movieManager.currMovie.preferredImageUri}" style="max-height: 370px; max-width: 250px; align-self: center;" alt="Hello"/>
+                                    <h:graphicImage id="img" value="#{movieManager.selectedMovie.preferredImageUri}" style="max-height: 370px; max-width: 250px; align-self: center;" alt="Hello"/>
                                 </div>
                             </h:panelGroup>
                         </p:panelGrid>
