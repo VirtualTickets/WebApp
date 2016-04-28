@@ -132,6 +132,18 @@ html, body {
     margin: 0px;
 }
 
+.cropcircle{
+    width: 250px;
+    height: 250px;
+    border-radius: 100%;
+    background: #eee no-repeat center;
+    background-size: cover;
+}
+
+#image1{
+    background-image: url(http://www.voont.com/files/images/edit/7-ridiculous-ways-boost-self-esteem/happy.jpg);
+}
+
 .grow { 
     transition: all .2s ease-in-out; 
     border-width: 10px;

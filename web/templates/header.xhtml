@@ -24,7 +24,9 @@ across all web pages.
                 <p:menuitem value="Recent Movies" action="#{movieManager.showNowPlaying()}"/>
                 <f:facet name="options">    
                     <p:inputText style="margin-right:10px;vertical-align: top" placeholder="Search Movies" />
-                    <p:graphicImage id="userImage" class="userImage" height="60" width="60" name="#{accountManager.getUserImage()}"/>
+                    
+                    <p:graphicImage id="userImage" class="userImagecropcircle" height="60" width="60" value="#{accountManager.getUserImage()}"/>
+                    
                     <p:overlayPanel id="imagePanel" for="userImage" hideEffect="fade">
                         <h:panelGrid columns="2" width="100%" columnClasses="rightAlign, rightAlign"  styleClass="headerBarTable">
                             <h:graphicImage name="/images/batman.jpg" height="10"/>
@@ -40,13 +42,39 @@ across all web pages.
                             <h:graphicImage name="/images/batman.jpg" height="10"/>
                             <h:panelGroup>
                                 <h:commandLink value="Logout" action="#{accountManager.logout()}" rendered="#{accountManager.isLoggedIn()}" />
-                                <h:commandLink value="Login" action="/customer/LoginPage" rendered="#{!accountManager.isLoggedIn()}" />
+                                <p:commandLink value="Login" type="button" onclick="PF('dlg2').show();" rendered="#{!accountManager.isLoggedIn()}"/>
                             </h:panelGroup>
                         </h:panelGrid>
                     </p:overlayPanel>
                 </f:facet>
             </p:menubar>
         </h:form>
+        <p:dialog header="Login" widgetVar="dlg2" modal="true" resizable="false" closable="true" position="center">
+            <div align="center">
+            <h:form class="form-signin">
+                <div align="center">
+                
+                <h:panelGrid columns="2" columnClasses="rightAlign, leftAlign">
+
+                    <h:outputLabel styleClass="outputLabel" for="loginname" value="Username: " />
+                    <h:inputText class="form-control" id="loginname" value="#{loginManager.username}"/>
+                    
+                    <h:outputLabel styleClass="outputLabel" for="password" value="Password: " />
+                    <h:inputSecret class="form-control"  id="password" value="#{loginManager.password}"/>
+                
+                </h:panelGrid>
+                <br/>
+                
+                    <h:commandButton id="login"  action="#{loginManager.loginUser()}" value="Login" styleClass="buttonText"/>
+                    
+                    <h:commandButton id="retrieve"  action="#{loginManager.resetPassword()}" value="Forgot Password" styleClass="buttonText"/>                
+                 
+                </div>
+                <br/>
+                <h:outputLabel value ="#{loginManager.errorMessage}" />  
+            </h:form>
+        </div>
+        </p:dialog> 
     </ui:composition>
 
 </html>

@@ -402,8 +402,8 @@ public class AccountManager implements Serializable {
 
     public String getUserImage() {
         if (isLoggedIn()) {
-            return "/images/LoggedIn.png";
+            return "/FileStorageLocation/"+userPhoto();
         }
-        return "/images/LoggedOut.png";
+        return "/resources/images/LoggedOut.png";
     }
 }

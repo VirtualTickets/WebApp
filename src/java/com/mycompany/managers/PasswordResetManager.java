@@ -9,6 +9,8 @@ package com.mycompany.managers;
 import com.mycompany.entities.User;
 import com.mycompany.facades.UserFacade;
 import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.enterprise.context.SessionScoped;
@@ -17,6 +19,7 @@ import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Named;
+import org.apache.commons.mail.*;
 
 @Named(value = "passwordResetManager")
 @SessionScoped
@@ -71,12 +74,28 @@ public class PasswordResetManager implements Serializable{
     public String emailSubmit() {
         User user = userFacade.findByUsername(username);
         if (user.getEmail().equals(answer)) {
-            message = "";
-            return "ResetPassword?faces-redirect=true";
+            try {
+                Email email = new SimpleEmail();
+                email.setHostName("smtp.googlemail.com");
+                email.setSmtpPort(465);
+                email.setAuthenticator(new DefaultAuthenticator("virtualtickets@gmail.com", "csd@VT(S16)"));
+                email.setSSLOnConnect(true);
+                email.setFrom("virtualtickets@gmail.com");
+                email.setSubject("TestMail");
+                email.setMsg("This is a test mail ... :-)");
+                email.addTo("Imploding40@gmail.com");
+                email.send();
+                message = "An email has been sent";
+                return "ForgotPassword?faces-redirect=true";
+            } catch (EmailException ex) {
+                Logger.getLogger(PasswordResetManager.class.getName()).log(Level.SEVERE, null, ex);
+                message = "Sending email failed";
+                return "ForgotPassword?faces-redirect=true";
+            }
         }
         else {
-            message = "Answer incorrect";
-            return "SecurityQuestion?faces-redirect=true";
+            message = "That email isn't linked to that user";
+            return "ForgotPassword?faces-redirect=true";
         }
     }
  
