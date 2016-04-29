@@ -435,6 +435,20 @@ input#img-6:checked ~ .nav-dots label#img-dot-6 {
     text-align: left;
 }
 
+.leftStaticCol{
+    table-layout: fixed;
+    width:25%;
+    height:50%;
+    
+    
+}
+.rightStaticCol{
+    vertical-align: top;
+    table-layout: fixed;
+    width:75%;
+    height:50%;
+}
+
 .row {
     background-color: gray;
 }
