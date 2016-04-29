@@ -1,11 +1,10 @@
 /*
- * Created by Benjamin Sweeney on 2016.04.07  * 
+ * Created by Benjamin Sweeney on 2016.04.29  * 
  * Copyright © 2016 Benjamin Sweeney. All rights reserved. * 
  */
 package com.mycompany.facades;
 
 import com.mycompany.entities.Bought;
-import com.mycompany.entities.User;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -30,9 +29,11 @@ public class BoughtFacade extends AbstractFacade<Bought> {
         super(Bought.class);
     }
     
-    public List<Bought> findByUser(User user) {
+    
+    public List<Bought> findByUser(int userId) {
         return em.createNamedQuery("Bought.findByUserId")
-                .setParameter("userId", user.getId())
+                .setParameter("userId", userId)
                 .getResultList();
     }
+    
 }
