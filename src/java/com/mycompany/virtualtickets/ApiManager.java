@@ -68,15 +68,15 @@ public class ApiManager {
             mov.setLongDescription(json.getString("Plot"));
             */
             //mov.setTitle(json.getString("Title"));
-            if (title.equals("eye+in+the+sky")) {
-                mov.setRTRating("94");
+            if (title.toLowerCase().equals("eye+in+the+sky")) {
+                mov.setRTRating("94%");
                 mov.setRTCriticsConsensus("As taut as it is timely, Eye in the Sky offers a powerfully acted -- and unusually cerebral -- spin on the modern wartime political thriller.");
             }
             else {
-                mov.setRTRating(json.getString("tomatoMeter"));
+                mov.setRTRating(json.getString("tomatoMeter")+"%");
                 mov.setRTCriticsConsensus(json.getString("tomatoConsensus"));
             }
-            if (title.contains("barbershop")) {
+            if (title.toLowerCase().contains("barbershop")) {
                 mov.setImdbRating("6.2");
             }
             else {

@@ -48,7 +48,9 @@ public class MovieManager implements Serializable {
     private boolean locationChanged = false;
     private User user;
     private List<Movie> criticallyAcclaimed;
+    private String[] criticallyAcclaimedTitles;
 
+    
     private boolean favorited;
 
     private static final String SEARCH_BY_TITLE = "Search By Title";
@@ -72,16 +74,19 @@ public class MovieManager implements Serializable {
         zipCode = "24061";
         apiManager = new ApiManager();
         criticallyAcclaimed = new ArrayList<>();
-        String[] caTitles = {"the jungle book", "barbershop: the next cut",
-            "zootopia", "eye in the sky", "the witch", "10 cloverfield lane"};
+        String[] caTitles = {"The Jungle Book", "Barbershop: The Next Cut",
+        "Zootopia", "Eye In The Sky", "The Witch", "10 Cloverfield Lane"};
+        criticallyAcclaimedTitles = caTitles;
+        
+        for (int i=0; i <= 5; i++) {
+            criticallyAcclaimed.add(apiManager.searchForMovieOmdb(caTitles[i]));  
+            System.out.println("Movie " + i);
+            System.out.println("~~~~~~~~~~~~rtRATING: " + criticallyAcclaimed.get(i).getRTRating());
+            System.out.println("~~~~~~~~~~~~rtCriticsConsensus: " + criticallyAcclaimed.get(i).getRTCriticsConsensus());
+            System.out.println("~~~~~~~~~~~~imdbRating: " + criticallyAcclaimed.get(i).getImdbRating());
+        }
+        
 
-//        for (int i=0; i <= 5; i++) {
-//            criticallyAcclaimed.add(apiManager.searchForMovieOmdb(caTitles[i]));  
-//            System.out.println("Movie " + i);
-//            System.out.println("~~~~~~~~~~~~rtRATING: " + criticallyAcclaimed.get(i).getRTRating());
-//            System.out.println("~~~~~~~~~~~~rtCriticsConsensus: " + criticallyAcclaimed.get(i).getRTCriticsConsensus());
-//            System.out.println("~~~~~~~~~~~~imdbRating: " + criticallyAcclaimed.get(i).getImdbRating());
-//        }
 //        nowPlaying = new ArrayList<>();
 //        for (int i = 0; i < 128; i++) {
 //            nowPlaying.add(new Movie("Batman vs. Superman" + i));
@@ -265,6 +270,40 @@ public class MovieManager implements Serializable {
         return titles;
     }
 
+    public String[] getCriticallyAcclaimedTitles() {
+        return criticallyAcclaimedTitles;
+    }
+    
+    public ArrayList<String> getCriticallyAcclaimedRTRating() {
+        ArrayList<String> ratings = new ArrayList<>();
+        
+        for (Movie m : criticallyAcclaimed) {
+            ratings.add(m.getRTRating());
+        } 
+        
+        return ratings;
+    }
+    
+    public ArrayList<String> getCriticallyAcclaimedImdbRating() {
+        ArrayList<String> ratings = new ArrayList<>();
+        
+        for (Movie m : criticallyAcclaimed) {
+            ratings.add(m.getImdbRating());
+        } 
+        
+        return ratings;
+    }
+    
+    public ArrayList<String> getCriticallyAcclaimedRTCriticsConsensus() {
+        ArrayList<String> criticsC = new ArrayList<>();
+        
+        for (Movie m : criticallyAcclaimed) {
+            criticsC.add(m.getRTCriticsConsensus());
+        } 
+        
+        return criticsC;
+    }
+    
     /**
      * gets the titles of the top 5 movies. For now this is simply the first 5
      * returned, but it should be based upon highest grossing or something.

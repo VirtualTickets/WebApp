@@ -19,7 +19,7 @@ import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Named;
-import org.apache.commons.mail.*;
+//import org.apache.commons.mail.*;
 
 @Named(value = "passwordResetManager")
 @SessionScoped
@@ -72,6 +72,7 @@ public class PasswordResetManager implements Serializable{
     }
     
     public String emailSubmit() {
+        /*
         User user = userFacade.findByUsername(username);
         if (user.getEmail().equals(answer)) {
             try {
@@ -97,7 +98,10 @@ public class PasswordResetManager implements Serializable{
             message = "That email isn't linked to that user";
             return "ForgotPassword?faces-redirect=true";
         }
+*/
+        return null;
     }
+    
  
     public String getAnswer() {
         return answer;
