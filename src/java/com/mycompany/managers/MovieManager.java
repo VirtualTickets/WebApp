@@ -398,7 +398,7 @@ public class MovieManager implements Serializable {
     }
 
     public String confirmPurchase() {
-
+        //TODO: POPULATE BOUGHT TABLE
         return "Confirmation";
     }
 }

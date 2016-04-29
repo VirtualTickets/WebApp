@@ -30,7 +30,7 @@ public class BoughtFacade extends AbstractFacade<Bought> {
     }
     
     public List<Bought> findBoughtByUserID(Integer userID) {
-        return (List<Bought>) em.createNamedQuery("Bought.findPhotosByUserId")
+        return (List<Bought>) em.createNamedQuery("Bought.findByUserId")
                 .setParameter("userId", userID)
                 .getResultList();
     }
