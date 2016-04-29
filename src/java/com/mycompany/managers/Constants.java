@@ -23,7 +23,7 @@ public class Constants {
     //-----------------------------------------------------------
 //    public static final String ROOT_DIRECTORY = "C:/Users/Kent/FileStorageLocation/";
     public static final String ROOT_DIRECTORY = "C:/Users/Ben/FileStorageLocation/";
-    //public static final String ROOT_DIRECTORY = "C:/VirginiaTech/6_Spring_2016/Cloud/Users/Users_files/FileStorageLocation/";
+//    public static final String ROOT_DIRECTORY = "C:/VirginiaTech/6_Spring_2016/Cloud/Users/Users_files/FileStorageLocation/";
 
     public static final String TEMP_FILE = "tmp_file";
 

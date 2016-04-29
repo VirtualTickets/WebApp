@@ -5,6 +5,7 @@
 package com.mycompany.managers;
 
 import com.mycompany.entities.Bought;
+import com.mycompany.entities.BoughtPK;
 import com.mycompany.entities.Favorited;
 import com.mycompany.entities.FavoritedPK;
 import com.mycompany.entities.User;
@@ -53,6 +54,9 @@ public class MovieManager implements Serializable {
     private static final String SEARCH_BY_TITLE = "Search By Title";
     private static final String NOW_PLAYING = "Now Playing";
     private static final String FAVORITED = "Favorited";
+    
+    @EJB
+    private BoughtFacade boughtFacade;
 
     @EJB
     private UserFacade userFacade;
@@ -60,8 +64,6 @@ public class MovieManager implements Serializable {
     @EJB
     private FavoritedFacade favoritedFacade;
 
-    @EJB
-    private BoughtFacade boughtFacade;
 
     /**
      * Creates a new instance of ApiManager
