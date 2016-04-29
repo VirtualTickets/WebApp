@@ -4,16 +4,19 @@
  */
 package com.mycompany.managers;
 
+import com.mycompany.entities.Bought;
 import com.mycompany.entities.Favorited;
 import com.mycompany.entities.FavoritedPK;
 import com.mycompany.entities.Photo;
 import com.mycompany.entities.User;
 import com.mycompany.facades.FavoritedFacade;
 import com.mycompany.facades.PhotoFacade;
+import com.mycompany.facades.BoughtFacade;
 import com.mycompany.facades.UserFacade;
 import com.mycompany.virtualtickets.Movie;
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,7 +71,8 @@ public class AccountManager implements Serializable {
      */
     @EJB
     private PhotoFacade photoFacade;
-    
+    @EJB
+    private BoughtFacade boughtFacade;
     
     @EJB
     private FavoritedFacade favoritedFacade;
@@ -412,6 +416,15 @@ public class AccountManager implements Serializable {
         }
         return photoList.get(0).getThumbnailName();
     }
+    
+    public List<Bought> getBought()
+    {
+        String user_name = (String) FacesContext.getCurrentInstance()
+                .getExternalContext().getSessionMap().get("username");
+        User user = userFacade.findByUsername(user_name);
+        List<Bought> boughtList = boughtFacade.findBoughtByUserID(user.getId());
+        return boughtList;
+    }
 
     public static boolean isLoggedIn() {
 
@@ -424,4 +437,6 @@ public class AccountManager implements Serializable {
         }
         return "/resources/images/LoggedOut.png";
     }
+    
+    
 }
