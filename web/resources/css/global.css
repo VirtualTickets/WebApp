@@ -437,6 +437,7 @@ input#img-6:checked ~ .nav-dots label#img-dot-6 {
 
 .leftStaticCol{
     table-layout: fixed;
+    align-content: center;
     width:25%;
     height:50%;
     
