@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Created by Benjamin Sweeney on 2016.04.13 
+Copyright © 2016 Benjamin Sweeney. All rights reserved.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <h:outputStylesheet name="css/global.css"/> 
+        <link href='https://fonts.googleapis.com/css?family=Lato:900' rel='stylesheet' type='text/css'></link>
+    </h:head>
+    <h:body>
+        <ui:composition template="/templates/main.xhtml">
+            <ui:define name="content">
+                <br/>
+                <div align="center" style="text-align: center">
+                    <h1>Favorites</h1>
+                </div>
+                <br/>
+                <div id="moviesPage" align="center">
+                    <div style="width: 60%; top: 100px;">
+                        <h:form id="movieTable">
+                            <p:accordionPanel var="movie" value="#{movieManager.favoriteMovies}" dynamic="true" cache="true">
+
+                                <p:tab title="#{movie.title}" titleStyleClass="movieTab">
+                                    <p:panelGrid columns="2" style="max-width: 100%;">
+                                        <h:panelGroup>    
+                                            <h:graphicImage id="img" value="#{movie.preferredImageUri}" style="max-height: 370px; max-width: 250px" alt="Hello"/>
+                                            <br/>
+                                            <h:commandButton rendered="#{movieManager.isFavorited(movie) and movieManager.user != null}" action="#{movieManager.setFavorited(false, movie)}" value="Un-favorite"/>
+                                            <h:commandButton rendered="#{!movieManager.isFavorited(movie) and movieManager.user != null}" action="#{movieManager.setFavorited(true, movie)}" value="Favorite"/>
+                                            
+                                        </h:panelGroup>
+                                        <h:panelGroup>
+                                            <h:outputText value="#{movie.longDescription}"/>
+                                            <br/>
+                                            <br/>
+                                            <h:outputText value="Runtime: "/>
+                                            <h:outputText value="#{movie.runtime}"/>
+                                            <br/>
+                                            <br/>
+                                            <h:outputText value="Rating: "/>
+                                            <h:outputText value="#{movie.rating}"/>
+                                            <br/>
+                                            <br/>
+                                            <h:outputText value="Release Date: "/>
+                                            <h:outputText value="#{movie.releaseDate}"/>
+                                            <br/>
+                                            <h:outputText value="#{movie.tmsId}"/>
+                                            <br/>
+                                            <p:tabView value="#{movie.theatres}" var="theatre">
+                                                <p:tab title="#{theatre.name}" titleStyleClass="theaterTab">
+                                                    <p:dataGrid value="#{theatre.showtimes}" var="showtime" >
+                                                        <h:commandButton value="#{showtime.time}" action="#{movieManager.purchaseMovie(movie, showtime)}"/>
+                                                    </p:dataGrid>
+                                                </p:tab>
+                                            </p:tabView>
+                                        </h:panelGroup>
+                                    </p:panelGrid>
+                                </p:tab>
+                            </p:accordionPanel>
+                        </h:form>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

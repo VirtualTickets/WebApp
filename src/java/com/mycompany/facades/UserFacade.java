@@ -5,6 +5,7 @@
 package com.mycompany.facades;
 
 import com.mycompany.entities.User;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -29,15 +30,15 @@ public class UserFacade extends AbstractFacade<User> {
     }
     
     public User findByUsername(String username) {
-        if (em.createQuery("SELECT u FROM User u WHERE u.username = :uname")
-                .setParameter("uname", username)
-                .getResultList().isEmpty()) {
+        
+        List<User> list = em.createNamedQuery("User.findByUsername")
+                .setParameter("username", username)
+                .getResultList();
+        if (list.isEmpty()) {
             return null;
         }
         else {
-            User u = (User) (em.createQuery("SELECT u FROM User u WHERE u.username = :uname")
-                .setParameter("uname", username)
-                .getSingleResult());
+            User u = list.get(0);
             em.refresh(u);
             return u;  
         }
