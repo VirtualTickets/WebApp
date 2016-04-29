@@ -66,6 +66,7 @@ public class MovieManager implements Serializable {
     @EJB
     private FavoritedFacade favoritedFacade;
 
+
     /**
      * Creates a new instance of ApiManager
      */
@@ -91,19 +92,18 @@ public class MovieManager implements Serializable {
 //            nowPlaying.add(new Movie("Batman vs. Superman" + i));
 //        }
     }
-    
+
     public String imageOf(Movie m) {
         int i;
         if ((i = nowPlaying.indexOf(m)) >= 0) {
             return nowPlaying.get(i).getPreferredImageUri();
-        }
-        else {
+        } else {
             return null;
         }
     }
 
     public boolean isFavorited(Movie currMovie) {
-        
+
         if (getUser() != null && currMovie != null) {
             return userFacade.findByUsername(getUser().getUsername()).favorited(currMovie);
         }
@@ -114,40 +114,40 @@ public class MovieManager implements Serializable {
         System.err.println("Setting favorite");
         if (getUser() != null && currMovie != null) {
             Favorited f = favoritedFacade.find(new FavoritedPK(user.getId(), currMovie.getTmsId()));
-            
+
             if (favorited && f == null) {
                 Favorited fav = new Favorited(user, currMovie.getTmsId());
                 favoritedFacade.create(fav);
                 getUser().getFavoritedList().add(fav);
-            }
-            else if (!favorited && f != null) {
+            } else if (!favorited && f != null) {
                 favoritedFacade.remove(f);
                 getUser().getFavoritedList().remove(f);
             }
         }
-        
+
         this.favorited = favorited;
     }
-    
-    
+
     public List<Movie> getFavoriteMovies() {
         if (getUser() != null) {
             List<Favorited> l = getUser().getFavoritedList();
             List<Movie> list = new ArrayList<>();
-            
-            for (Favorited f : l) {
-                Movie m = new Movie(f);
-                int i;
-                if ((i = nowPlaying.indexOf(m)) >= 0) {
-                    list.add(nowPlaying.get(i));
+
+            if (nowPlaying != null) {
+                for (Favorited f : l) {
+                    Movie m = new Movie(f);
+                    int i;
+                    if ((i = nowPlaying.indexOf(m)) >= 0) {
+                        list.add(nowPlaying.get(i));
+                    }
                 }
             }
             return list;
+        } else {
+            return null;
         }
-        else return null;
     }
-    
-    
+
 //    public boolean isFavorited() {
 //        if (getUser() != null && selectedMovie != null) {
 //            return favoritedFacade.find(new FavoritedPK(user.getId(), selectedMovie.getTmsId())) != null;
@@ -169,14 +169,13 @@ public class MovieManager implements Serializable {
 //            }
 //        }
 //    }
-
     public User getUser() {
         if (user == null) {
             String user_name = (String) FacesContext.getCurrentInstance()
                     .getExternalContext().getSessionMap().get("username");
             user = userFacade.findByUsername(user_name);
         }
-        
+
         return user;
     }
 
@@ -206,7 +205,11 @@ public class MovieManager implements Serializable {
     }
 
     public String getTotalPrice() {
-        return String.format("Total: $%.2f", 11.0 * Integer.parseInt(getNumTickets()));
+        return String.format("Total: $%.2f", getPrice());
+    }
+
+    public float getPrice() {
+        return (float) (11.0 * Integer.parseInt(getNumTickets()));
     }
 
     public void setNumTickets(String numTickets) {
@@ -257,9 +260,11 @@ public class MovieManager implements Serializable {
         titles.add("Choose a Movie");
         List<Movie> list = getNowPlaying();
 
-        for (Movie m : list) {
-            titles.add(m.getTitle());
+        if (list != null) {
+            for (Movie m : list) {
+                titles.add(m.getTitle());
 
+            }
         }
 
         return titles;
@@ -329,7 +334,7 @@ public class MovieManager implements Serializable {
         for (Movie m : list) {
             posters.add(m.getPreferredImageUri());
         }
-         
+
         //System.out.println("*****************************************" + posters);
         return posters;
     }
@@ -344,7 +349,7 @@ public class MovieManager implements Serializable {
 
     public String searchByTitle() {
         type = SEARCH_BY_TITLE;
-        
+
         return "Movies";
     }
 
@@ -440,15 +445,19 @@ public class MovieManager implements Serializable {
     }
 
     public String confirmPurchase() {
-        //TODO: POPULATE BOUGHT TABLE
-        String user_name = (String) FacesContext.getCurrentInstance()
-                .getExternalContext().getSessionMap().get("username");
-        User user_local = userFacade.findByUsername(user_name);
-        Bought bought = new Bought();
-        bought.setCost((float)11.00*Integer.parseInt(numTickets));
-        bought.setNumTickets(Integer.parseInt(numTickets));
-        bought.setBoughtPK(new BoughtPK(user_local.getId(),"none"));
-        boughtFacade.create(bought);
+
+        if (AccountManager.isLoggedIn()) {
+            User u = getUser();
+            boughtFacade.create(new Bought(u, selectedMovie.getTitle() + "|" + selectedShowtime.getTheatreName(), Integer.parseInt(numTickets), getPrice()));
+        }
         return "Confirmation";
+    }
+
+    public List<Bought> getPurchaseHistory() {
+        if (getUser() != null) {
+            return boughtFacade.findByUser(user);
+        }
+
+        return new ArrayList<>();
     }
 }

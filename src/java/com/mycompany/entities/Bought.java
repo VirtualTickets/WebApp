@@ -61,6 +61,13 @@ public class Bought implements Serializable {
     public Bought(int userId, String movieId) {
         this.boughtPK = new BoughtPK(userId, movieId);
     }
+    
+    public Bought(User user, String movieId, int numTickets, float cost) {
+        this.boughtPK = new BoughtPK(user.getId(), movieId);
+        this.user = user;
+        this.numTickets = numTickets;
+        this.cost = cost;
+    }
 
     public BoughtPK getBoughtPK() {
         return boughtPK;
@@ -76,6 +83,10 @@ public class Bought implements Serializable {
 
     public void setNumTickets(int numTickets) {
         this.numTickets = numTickets;
+    }
+    
+    public String getFormattedCost() {
+        return String.format("$%.2f", cost);
     }
 
     public Float getCost() {
@@ -119,4 +130,12 @@ public class Bought implements Serializable {
         return "com.mycompany.entities.Bought[ boughtPK=" + boughtPK + " ]";
     }
     
+    public String getMovieTitle() {
+        return this.boughtPK.getMovieId().split("\\|")[0];
+    }
+    
+    
+    public String getMovieTheatre() {
+        return this.boughtPK.getMovieId().split("\\|")[1];
+    }
 }
