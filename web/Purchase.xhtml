@@ -65,19 +65,19 @@ TODO:
                                     </p:selectOneMenu>
                                     <h:outputText value=" x $11.00" style="font-size: 36px;"/>
                                 </h:panelGroup>
-                                <h:outputText value="Credit Card Number" />
+                                <h:outputText value="* Credit Card Number" />
                                 <h:inputText value="#{profileViewManager.loggedInUser.ccNumber}" required="true"/>
-                                <h:outputText value="Expiration Month"/>
+                                <h:outputText value="* Expiration Month"/>
                                 <h:inputText value="#{profileViewManager.loggedInUser.ccExMonth}" required="true"/>
-                                <h:outputText value="Expiration Year"/>
+                                <h:outputText value="* Expiration Year"/>
                                 <h:inputText value="#{profileViewManager.loggedInUser.ccExYear}" required="true"/>
-                                <h:outputText value="First Name"/>
+                                <h:outputText value="* First Name"/>
                                 <h:inputText value="#{profileViewManager.loggedInUser.firstName}" required="true"/>
-                                <h:outputText value="Last Name" />
+                                <h:outputText value="* Last Name" />
                                 <h:inputText value="#{profileViewManager.loggedInUser.lastName}" required="true"/>
-                                <h:outputText value="CVC"/>
+                                <h:outputText value="* CVC"/>
                                 <h:inputText required="true"/>
-                                <h:outputText value="Email"/>
+                                <h:outputText value="* Email"/>
                                 <h:inputText value="#{profileViewManager.loggedInUser.email}"/>
                             </p:panelGrid> 
                             <h:panelGroup>  
@@ -106,7 +106,8 @@ TODO:
                         </p:panel>
                         <br/>
                         <br/>
-                        <h:button value="Back" outcome="Movies"/>
+                        <h:button value="Back " outcome="/NowPlaying"/>
+                           
                         <h:commandButton value="Confirm" action="#{movieManager.confirmPurchase()}"/>
                     </h:form>
                     <br/>

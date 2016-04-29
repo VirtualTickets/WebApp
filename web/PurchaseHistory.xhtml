@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Created by Benjamin Sweeney on 2016.04.13 
+Copyright © 2016 Benjamin Sweeney. All rights reserved.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <h:outputStylesheet name="css/global.css"/> 
+        <link href='https://fonts.googleapis.com/css?family=Lato:900' rel='stylesheet' type='text/css'></link>
+    </h:head>
+    <h:body>
+        <ui:composition template="/templates/main.xhtml">
+            <ui:define name="content">
+                <br/>
+                <div align="center" style="text-align: center">
+                    <h1>Purchase History</h1>
+                </div>
+                <br/>
+                <div id="moviesPage" align="center">
+                    <div style="width: 60%; top: 100px;">
+                        <p:dataTable value="#{movieManager.purchaseHistory}" var="bought">
+                            <p:column headerText="Title">
+                                <h:outputText value="#{bought.movieTitle}"/>
+                            </p:column>
+                            
+                            <p:column headerText="Theatre">
+                                <h:outputText value="#{bought.movieTheatre}"/>
+                            </p:column>
+                            
+                            <p:column headerText="Number of Tickets">
+                                <h:outputText value="#{bought.numTickets}"/>
+                            </p:column>
+                            
+                            <p:column headerText="Price">
+                                <h:outputText value="#{bought.formattedCost}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
