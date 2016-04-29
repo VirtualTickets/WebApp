@@ -45,7 +45,22 @@ public class Showtime {
 
     public String getTime() {
         
-        return this.parseTime();
+        return parseTime();
+    }
+    
+    public int getHour() {
+        if (time == null || time.length() == 0) {
+            return 0;
+        }
+        return Integer.parseInt(time.substring(0, 2));
+    }
+    
+    public int getMinute() {
+        if (time == null || time.length() == 0) {
+            return 0;
+        }
+        return Integer.parseInt(time.substring(3));
+    
     }
 
     public void setTime(String time) {
