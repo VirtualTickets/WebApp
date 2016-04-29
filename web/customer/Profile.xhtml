@@ -26,10 +26,13 @@ Copyright © 2016 Nicholas Greer. All rights reserved.
                     <h:commandButton value="Log Out" action="#{accountManager.logout()}" />
                 <br/>
                 <br/>
-                <h:panelGrid columns="2" style="width:100%;height:50%;resize: none;vertical-align: top">
-                    <h:graphicImage value="/FileStorageLocation/#{accountManager.userPhoto()}" id="profilePic"
+                <p:layout style="width:100%;height:50%">
+                    <p:layoutUnit position="west" resizable="false" size="100">
+                        <h:graphicImage value="/FileStorageLocation/#{accountManager.userPhoto()}" id="profilePic"
                           class="img-rounded col-md-3"></h:graphicImage>
-                          <p:tabView style="vertical-align:top">
+                    </p:layoutUnit>
+                    <p:layoutUnit position="center">
+                        <p:tabView style="vertical-align:top">
                   <p:tab title="Basic Info">
                     <!-- Basic Info goes here -->
                     <h:panelGrid columns="2" cellpadding="6" >
@@ -60,7 +63,44 @@ Copyright © 2016 Nicholas Greer. All rights reserved.
                         
                     </p:tab>
                 </p:tabView>
+                    </p:layoutUnit>>
+                    </p:layout>
+                <!--
+                <h:panelGrid columns="2" style="width:100%;height:50%;resize: none;vertical-align: top;table-layout: fixed;">
+                    <h:graphicImage value="/FileStorageLocation/#{accountManager.userPhoto()}" id="profilePic"
+                          class="img-rounded col-md-3"></h:graphicImage>
+                          <p:tabView style="vertical-align:top">
+                  <p:tab title="Basic Info">
+                    <! Basic Info goes here 
+                    <h:panelGrid columns="2" cellpadding="6" >
+                      <h:outputText value="First Name: " />
+                      <h:outputText value="#{profileViewManager.loggedInUser.firstName}" />                    
+                      
+                      <h:outputText value="Last Name: " />
+                      <h:outputText value="#{profileViewManager.loggedInUser.lastName}" />
+
+                      
+                           
+
+                      <h:outputText value="Email " />
+                      <h:outputText value="#{profileViewManager.loggedInUser.email}" />
                     </h:panelGrid>
+                  </p:tab>  
+                    <p:tab title="Payment Info">
+                        <h:panelGrid columns="2" cellpadding="6">
+                        <h:outputText value="Credit Card Number: " />
+                      <h:outputText value="#{profileViewManager.loggedInUser.ccNumber}" />
+
+                      <h:outputText value="Credit Card Expiration: " />
+                      <h:outputText value="#{profileViewManager.loggedInUser.ccExMonth}/#{profileViewManager.loggedInUser.ccExYear}" />
+                    
+                      </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="History">
+                        
+                    </p:tab>
+                </p:tabView>
+                    </h:panelGrid>-->
                 <br/>
                 <br/>
             </h:form>
