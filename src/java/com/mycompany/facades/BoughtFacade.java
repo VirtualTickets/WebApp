@@ -5,6 +5,7 @@
 package com.mycompany.facades;
 
 import com.mycompany.entities.Bought;
+import com.mycompany.entities.User;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -29,9 +30,9 @@ public class BoughtFacade extends AbstractFacade<Bought> {
         super(Bought.class);
     }
     
-    public List<Bought> findBoughtByUserID(Integer userID) {
-        return (List<Bought>) em.createNamedQuery("Bought.findByUserId")
-                .setParameter("userId", userID)
+    public List<Bought> findByUser(User user) {
+        return em.createNamedQuery("Bought.findByUserId")
+                .setParameter("userId", user.getId())
                 .getResultList();
     }
 }
