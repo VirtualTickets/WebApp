@@ -58,10 +58,23 @@ Copyright © 2016 Nicholas Greer. All rights reserved.
                       </h:panelGrid>
                     </p:tab>
                     <p:tab title="History">
-                        <p:dataTable value="#{accountManager.getBought()}" var="bought" emptyMessage="No purchases made">
+                        <p:dataTable  value="#{accountManager.getBought()}" var="bought" emptyMessage="No purchases made">
                             
-                            <p:column>#{bought.numTickets} </p:column>
-                            <p:column>#{bought.cost}</p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                <h:outputText value="Number of Tickets"/>
+                                </f:facet>
+                                <h:outputText value="#{bought.numTickets}"/>
+                                
+                            
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                            <h:outputText value="Total Cost"/>    
+                            </f:facet>
+                            <h:outputText value="#{bought.cost}"/>
+                                
+                            </p:column>
                         </p:dataTable>
                     </p:tab>
                 </p:tabView>
