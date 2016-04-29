@@ -4,9 +4,12 @@
  */
 package com.mycompany.managers;
 
+import com.mycompany.entities.Bought;
+import com.mycompany.entities.BoughtPK;
 import com.mycompany.entities.Favorited;
 import com.mycompany.entities.FavoritedPK;
 import com.mycompany.entities.User;
+import com.mycompany.facades.BoughtFacade;
 import com.mycompany.facades.FavoritedFacade;
 import com.mycompany.facades.UserFacade;
 import com.mycompany.virtualtickets.ApiManager;
@@ -52,6 +55,9 @@ public class MovieManager implements Serializable {
     private static final String SEARCH_BY_TITLE = "Search By Title";
     private static final String NOW_PLAYING = "Now Playing";
     private static final String FAVORITED = "Favorited";
+    
+    @EJB
+    private BoughtFacade boughtFacade;
 
     @EJB
     private UserFacade userFacade;
@@ -399,6 +405,14 @@ public class MovieManager implements Serializable {
 
     public String confirmPurchase() {
         //TODO: POPULATE BOUGHT TABLE
+        String user_name = (String) FacesContext.getCurrentInstance()
+                .getExternalContext().getSessionMap().get("username");
+        User user_local = userFacade.findByUsername(user_name);
+        Bought bought = new Bought();
+        bought.setCost((float)11.00*Integer.parseInt(numTickets));
+        bought.setNumTickets(Integer.parseInt(numTickets));
+        bought.setBoughtPK(new BoughtPK(user_local.getId(),"none"));
+        boughtFacade.create(bought);
         return "Confirmation";
     }
 }
