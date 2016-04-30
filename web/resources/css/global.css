@@ -82,13 +82,14 @@ html, body {
     top: 100px;
     font-size: 1.7vw;
     color: #fff;
-    padding: 0 20px;
-    width: 12%;
+    padding: 5px 20px 5px;
+    width: 8%;
     line-height: 150%;
     background: rgba(247, 148, 29, 0.7);
     margin: 0px;
     font-family: 'Lato', sans-serif;
-
+    display : flex;
+    align-items : center;
 }
 
 .imdbRating {
@@ -97,11 +98,13 @@ html, body {
     font-size: 1.7vw;
     color: #fff;
     padding: 0 20px;
-    width: 12%;
+    width: 8%;
     line-height: 150%;
     background: rgba(247, 148, 29, 0.7);
     margin: 0px;
     font-family: 'Lato', sans-serif;
+    display : flex;
+    align-items : center;
 
 }
 
@@ -210,7 +213,7 @@ h1 {
 .topMenu {
     vertical-align: top;
     width:99.4%; 
-    height:60px; 
+    height:40px; 
     background-color: #3cc5bc; 
     font-size: 25px;
 }
