@@ -422,7 +422,7 @@ public class AccountManager implements Serializable {
         String user_name = (String) FacesContext.getCurrentInstance()
                 .getExternalContext().getSessionMap().get("username");
         User user = userFacade.findByUsername(user_name);
-        List<Bought> boughtList = boughtFacade.findByUser(user);
+        List<Bought> boughtList = boughtFacade.findByUser(user.getId());
         return boughtList;
     }
 

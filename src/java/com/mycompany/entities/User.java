@@ -89,8 +89,6 @@ public class User implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Favorited> favoritedList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private List<Bought> boughtList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Location> locationList;
 
     public User() {
@@ -188,15 +186,6 @@ public class User implements Serializable {
 
     public void setFavoritedList(List<Favorited> favoritedList) {
         this.favoritedList = favoritedList;
-    }
-
-    @XmlTransient
-    public List<Bought> getBoughtList() {
-        return boughtList;
-    }
-
-    public void setBoughtList(List<Bought> boughtList) {
-        this.boughtList = boughtList;
     }
 
     @XmlTransient

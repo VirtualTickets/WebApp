@@ -1,15 +1,15 @@
 /*
- * Created by Benjamin Sweeney on 2016.04.07  * 
+ * Created by Benjamin Sweeney on 2016.04.29  * 
  * Copyright © 2016 Benjamin Sweeney. All rights reserved. * 
  */
 package com.mycompany.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 /**
  *
@@ -24,16 +24,15 @@ public class BoughtPK implements Serializable {
     private int userId;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 64)
-    @Column(name = "movie_id")
-    private String movieId;
+    @Column(name = "purchase_date")
+    private long purchaseDate;
 
     public BoughtPK() {
     }
 
-    public BoughtPK(int userId, String movieId) {
+    public BoughtPK(int userId, long purchaseDate) {
         this.userId = userId;
-        this.movieId = movieId;
+        this.purchaseDate = purchaseDate;
     }
 
     public int getUserId() {
@@ -43,20 +42,24 @@ public class BoughtPK implements Serializable {
     public void setUserId(int userId) {
         this.userId = userId;
     }
-
-    public String getMovieId() {
-        return movieId;
+    
+    public Date getPurchaseTime() {
+        return new Date(purchaseDate);
     }
 
-    public void setMovieId(String movieId) {
-        this.movieId = movieId;
+    public long getPurchaseDate() {
+        return purchaseDate;
+    }
+
+    public void setPurchaseDate(long purchaseDate) {
+        this.purchaseDate = purchaseDate;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
         hash += (int) userId;
-        hash += (movieId != null ? movieId.hashCode() : 0);
+        hash += (int) purchaseDate;
         return hash;
     }
 
@@ -70,7 +73,7 @@ public class BoughtPK implements Serializable {
         if (this.userId != other.userId) {
             return false;
         }
-        if ((this.movieId == null && other.movieId != null) || (this.movieId != null && !this.movieId.equals(other.movieId))) {
+        if (this.purchaseDate != other.purchaseDate) {
             return false;
         }
         return true;
@@ -78,7 +81,7 @@ public class BoughtPK implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.entities.BoughtPK[ userId=" + userId + ", movieId=" + movieId + " ]";
+        return "com.mycompany.entities.BoughtPK[ userId=" + userId + ", purchaseDate=" + purchaseDate + " ]";
     }
     
 }
