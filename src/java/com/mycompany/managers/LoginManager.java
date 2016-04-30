@@ -116,12 +116,7 @@ public class LoginManager implements Serializable {
   public String checkLogIn(){
       
       User user = userFacade.findByUsername(getUsername());
-      try {
-              FacesContext.getCurrentInstance().getExternalContext().redirect("/customer/Profile.xhtml");
-          } catch (IOException ex) {
-              Logger.getLogger(LoginManager.class.getName()).log(Level.SEVERE, null, ex);
-          }
-  
+      
           if (user == null) {
       errorMessage = "Invalid username or password!";
       return "return false";
@@ -130,7 +125,7 @@ public class LoginManager implements Serializable {
         errorMessage = "";
         initializeSessionMap(user);
           try {
-              FacesContext.getCurrentInstance().getExternalContext().redirect("");
+              FacesContext.getCurrentInstance().getExternalContext().redirect("/index");
           } catch (IOException ex) {
               Logger.getLogger(LoginManager.class.getName()).log(Level.SEVERE, null, ex);
           }
