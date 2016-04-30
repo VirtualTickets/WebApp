@@ -364,15 +364,15 @@ public class MovieManager implements Serializable {
     public String searchByTitle() {
         type = SEARCH_BY_TITLE;
 
-        return "Movies";
+        return "/SearchResults";
     }
 
-    public String searchByTitle(String title) {
-        type = SEARCH_BY_TITLE;
-        System.err.println("search by title: " + title);
-
-        return "Movies";
-    }
+//    public String searchByTitle(String title) {
+//        type = SEARCH_BY_TITLE;
+//        System.err.println("search by title: " + title);
+//
+//        return "Movies";
+//    }
 
     public void view() {
         if (selectedMovie != null) {
@@ -404,9 +404,25 @@ public class MovieManager implements Serializable {
         return Movie.convertFavorited(f, zipCode);
     }
 
-    public List<Movie> getSearchByTitle() {
-        System.out.println("Getting movies by title");
-        return apiManager.searchByTitleOmdb(this.searchTitle);
+    public List<Movie> getSearchResults() {
+        System.out.println("Getting movies by title: |" + this.searchTitle + "|");
+        //List<Movie> list = apiManager.searchByTitleOmdb(this.searchTitle);
+        List <Movie> list = new ArrayList<Movie>();
+        String[] searchTokens = searchTitle.toLowerCase().split(" ");
+        System.err.println("Tokens: " + searchTokens.length);
+        for (String s : searchTokens) {
+            System.err.println(s);
+        }
+        for (Movie m : nowPlaying) {
+            System.err.println(m.getTitle());
+            for (String s : searchTokens) {
+                if (m.getTitle().toLowerCase().contains(s)) {
+                    list.add(m);
+                }
+            }
+        }
+        System.out.println("Movies size: " + list.size());
+        return list;
     }
 
     public List<Movie> getMovies() {
@@ -414,7 +430,7 @@ public class MovieManager implements Serializable {
             case NOW_PLAYING:
                 return getNowPlaying();
             case SEARCH_BY_TITLE:
-                return getSearchByTitle();
+                return getSearchResults();
             case FAVORITED:
                 return getFavoritedMovies();
         }

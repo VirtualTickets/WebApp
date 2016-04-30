@@ -15,6 +15,7 @@ import javax.faces.application.NavigationHandler;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import org.primefaces.context.RequestContext;
 
 @ManagedBean(name = "loginManager")
 @SessionScoped
@@ -25,133 +26,151 @@ import javax.faces.context.FacesContext;
 
 public class LoginManager implements Serializable {
 
-  private String username;
-  private String password;
-  private String errorMessage;
-  
-  /**
-   * The instance variable 'userFacade' is annotated with the @EJB annotation.
-   * This means that the GlassFish application server, at runtime, will inject in
-   * this instance variable a reference to the @Stateless session bean UserFacade.
-   */
-  @EJB
-  private UserFacade userFacade;
+    private String username;
+    private String password;
+    private String errorMessage;
+    private boolean success;
 
-  /**
-   * Creates a new instance of LoginManager
-   */
-  public LoginManager() {
-  }
+    /**
+     * The instance variable 'userFacade' is annotated with the @EJB annotation.
+     * This means that the GlassFish application server, at runtime, will inject
+     * in this instance variable a reference to the @Stateless session bean
+     * UserFacade.
+     */
+    @EJB
+    private UserFacade userFacade;
 
-  /**
-   * @return the user
-   */
-  public String getUsername() {
-    return username;
-  }
-
-  /**
-   * @param username the user to set
-   */
-  public void setUsername(String username) {
-    this.username = username;
-  }
-
-  public String createUser() {
-    return "CreateAccount";
-  }
-  
-  public String resetPassword() {
-      return "/customer/ForgotPassword?faces-redirect=true";
-  }
-  
-  public boolean isLoggedIn() {
-      return false;
-  }
-
-  /**
-   * @return the password
-   */
-  public String getPassword() {
-    return password;
-  }
-
-  /**
-   * @param password the password to set
-   */
-  public void setPassword(String password) {
-    this.password = password;
-  }
-
-  /**
-   * @return the errorMessage
-   */
-  public String getErrorMessage() {
-    return errorMessage;
-  }
-
-  /**
-   * @param errorMessage the errorMessage to set
-   */
-  public void setErrorMessage(String errorMessage) {
-    this.errorMessage = errorMessage;
-  }
-
-  public String loginUser() {
-    User user = userFacade.findByUsername(getUsername());
-    if (user == null) {
-      errorMessage = "Invalid username or password!";
-      return null;
-    } else {
-      if (user.getUsername().equals(getUsername()) && user.getPassword().equals(getPassword())) {
-        errorMessage = "";
-        initializeSessionMap(user);
-        return "";
-      }
-      errorMessage = "Invalid username or password!";
-      return "";
+    /**
+     * Creates a new instance of LoginManager
+     */
+    public LoginManager() {
     }
-  }
-  
-  public String checkLogIn(){
-      
-      User user = userFacade.findByUsername(getUsername());
-      try {
-              FacesContext.getCurrentInstance().getExternalContext().redirect("/customer/Profile.xhtml");
-          } catch (IOException ex) {
-              Logger.getLogger(LoginManager.class.getName()).log(Level.SEVERE, null, ex);
-          }
-  
-          if (user == null) {
-      errorMessage = "Invalid username or password!";
-      return "return false";
-    } else {
-      if (user.getUsername().equals(getUsername()) && user.getPassword().equals(getPassword())) {
-        errorMessage = "";
-        initializeSessionMap(user);
-          try {
-              FacesContext.getCurrentInstance().getExternalContext().redirect("");
-          } catch (IOException ex) {
-              Logger.getLogger(LoginManager.class.getName()).log(Level.SEVERE, null, ex);
-          }
-        return "/index";
-      }
-      errorMessage = "Invalid username or password!";
-      return"return false";
+
+    /**
+     * @return the user
+     */
+    public String getUsername() {
+        return username;
     }
-  }
 
-  public void initializeSessionMap(User user) {
-    FacesContext.getCurrentInstance().getExternalContext().
-            getSessionMap().put("first_name", user.getFirstName());
-    FacesContext.getCurrentInstance().getExternalContext().
-            getSessionMap().put("last_name", user.getLastName());
-    FacesContext.getCurrentInstance().getExternalContext().
-            getSessionMap().put("username", username);
-    FacesContext.getCurrentInstance().getExternalContext().
-            getSessionMap().put("user_id", user.getId());
-  }
+    /**
+     * @param username the user to set
+     */
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-  
+    public String createUser() {
+        return "CreateAccount";
+    }
+
+    public String resetPassword() {
+        return "/customer/ForgotPassword?faces-redirect=true";
+    }
+
+    public boolean isLoggedIn() {
+        return false;
+    }
+
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
+    
+    
+
+    /**
+     * @return the password
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * @param password the password to set
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    /**
+     * @return the errorMessage
+     */
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    /**
+     * @param errorMessage the errorMessage to set
+     */
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
+
+    public void loginUser() {
+        User user = userFacade.findByUsername(getUsername());
+        if (user == null) {
+            errorMessage = "Invalid username or password!";
+            success = false;
+        } else {
+            if (user.getUsername().equals(getUsername()) && user.getPassword().equals(getPassword())) {
+                errorMessage = "";
+                initializeSessionMap(user);
+                success = true;
+            }
+            else {
+                errorMessage = "Invalid username or password!";
+                success = false;
+            }
+            
+        }
+        
+        if (!success) {
+            RequestContext context = RequestContext.getCurrentInstance();
+            context.execute("PF('dlg2').show();");
+        }
+    }
+
+    public String checkLogIn() {
+
+        User user = userFacade.findByUsername(getUsername());
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/customer/Profile.xhtml");
+        } catch (IOException ex) {
+            Logger.getLogger(LoginManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        if (user == null) {
+            errorMessage = "Invalid username or password!";
+            return "return false";
+        } else {
+            if (user.getUsername().equals(getUsername()) && user.getPassword().equals(getPassword())) {
+                errorMessage = "";
+                initializeSessionMap(user);
+                try {
+                    FacesContext.getCurrentInstance().getExternalContext().redirect("");
+                } catch (IOException ex) {
+                    Logger.getLogger(LoginManager.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                return "/index";
+            }
+            errorMessage = "Invalid username or password!";
+            return "return false";
+        }
+    }
+
+    public void initializeSessionMap(User user) {
+        FacesContext.getCurrentInstance().getExternalContext().
+                getSessionMap().put("first_name", user.getFirstName());
+        FacesContext.getCurrentInstance().getExternalContext().
+                getSessionMap().put("last_name", user.getLastName());
+        FacesContext.getCurrentInstance().getExternalContext().
+                getSessionMap().put("username", username);
+        FacesContext.getCurrentInstance().getExternalContext().
+                getSessionMap().put("user_id", user.getId());
+    }
+
 }
-  

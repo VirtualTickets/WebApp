@@ -15,7 +15,7 @@ across all web pages.
     </h:head>
 
     <ui:composition>
-        <h:form>
+        <h:form id="header">
             <p:menubar styleClass="topMenu">
                 <p:menuitem>
                     <p:graphicImage value="http://i.imgur.com/OTNDqSe.png" width="200px" height="40px"/>
@@ -24,82 +24,87 @@ across all web pages.
                 <p:menuitem value="Now Playing" outcome="/NowPlaying"/>
                 <p:menuitem value="Favorites"  outcome="/Favorites" rendered="#{accountManager.isLoggedIn()}"/>
 
-                
+
                 <p:menuitem style="postion: absoulte; right: 6px;">
-                <p:inputText style="margin-right:10px;vertical-align: top" placeholder="Search Movies" />
-                    
- 
+                    <p:remoteCommand name="search" action="#{movieManager.searchByTitle()}"/>
+                    <p:inputText style="margin-right:10px;vertical-align: top" placeholder="Search Movies"
+                                 onkeypress="if (event.keyCode === 13) {search(); return false;}"
+                                 value="#{movieManager.searchTitle}"/>
+
+
                     <p:overlayPanel id="imagePanel" for="userImage" hideEffect="fade">
                         <h:panelGrid columns="2" width="100%" columnClasses="rightAlign, rightAlign"  styleClass="headerBarTable">
                             <h:graphicImage name="/images/batman.jpg" height="10" rendered="#{accountManager.isLoggedIn()}" />
                             <h:panelGroup rendered="#{accountManager.isLoggedIn()}">
                                 <div class="fa fa-user" aria-hidden="true"></div>
                                 <h:commandLink value="View Profile" action="/customer/Profile" rendered="#{accountManager.isLoggedIn()}">
-                                
-                                    </h:commandLink>
+
+                                </h:commandLink>
                             </h:panelGroup>
                             <h:panelGroup rendered="#{accountManager.isLoggedIn()}" >
                                 <div class="fa fa-star" aria-hidden="true"></div>
                                 <h:commandLink value="Favorites" action="/Favorites" rendered="#{accountManager.isLoggedIn()}" />
-                                
+
                             </h:panelGroup>
                             <h:panelGroup rendered="#{accountManager.isLoggedIn()}" >
                                 <div class="fa fa-edit" aria-hidden="true"></div>
                                 <h:commandLink value="Edit Account" action="/customer/EditAccount" rendered="#{accountManager.isLoggedIn()}" />
-                                
+
                             </h:panelGroup>
                             <h:panelGroup rendered="#{!accountManager.isLoggedIn()}" >
                                 <div class="fa fa-user-plus" aria-hidden="true"></div>
                                 <h:commandLink value="Create Account" action="/customer/CreateAccount" rendered="#{!accountManager.isLoggedIn()}" />
-                                
+
                             </h:panelGroup>
                             <h:panelGroup rendered="#{accountManager.isLoggedIn()}" >
                                 <div class="fa fa-sign-out" aria-hidden="true"></div>
                                 <h:commandLink value="Logout" action="#{accountManager.logout()}" rendered="#{accountManager.isLoggedIn()}" />
-                                
+
                             </h:panelGroup>
                             <h:panelGroup rendered="#{!accountManager.isLoggedIn()}" >
                                 <div class="fa fa-sign-in" aria-hidden="true"></div>
                                 <p:commandLink value="Login" type="button" onclick="PF('dlg2').show();" rendered="#{!accountManager.isLoggedIn()}"/>
-                                
+
                             </h:panelGroup>
                         </h:panelGrid>
                     </p:overlayPanel>
                 </p:menuitem>
-                
+
                 <p:menuitem style="margin-right: 10px;">
                     <div class="image_cropper">
                         <p:graphicImage id="userImage" class="image_cropper__image" value="http://www.electricvelocity.com.au/Upload/Blogs/smart-e-bike-side_2.jpg"/>
                     </div>
                 </p:menuitem>
             </p:menubar>
-        </h:form>
-        <p:dialog header="Login" widgetVar="dlg2" modal="true" resizable="false" closable="true" position="center">
-            <div align="center">
-            <h:form class="form-signin">
+            <p:dialog header="Login" widgetVar="dlg2" modal="true" resizable="false" closable="true" position="center" >
                 <div align="center">
-                
-                <h:panelGrid columns="2" columnClasses="rightAlign, leftAlign">
+                    <h:form class="form-signin">
+                        <div align="center">
 
-                    <h:outputLabel styleClass="outputLabel" for="loginname" value="Username: " />
-                    <h:inputText class="form-control" id="loginname" value="#{loginManager.username}"/>
-                    
-                    <h:outputLabel styleClass="outputLabel" for="password" value="Password: " />
-                    <h:inputSecret class="form-control"  id="password" value="#{loginManager.password}"/>
-                
-                </h:panelGrid>
-                <br/>
-                
-                    <h:commandButton id="login"  actionListener="#{loginManager.loginUser()}" value="Login" styleClass="buttonText"/>
-                    
-                    <h:commandButton id="retrieve"  action="#{loginManager.resetPassword()}" value="Forgot Password" styleClass="buttonText"/>                
-                 
+                            <h:panelGrid columns="2" columnClasses="rightAlign, leftAlign">
+
+                                <h:outputLabel styleClass="outputLabel" for="loginname" value="Username: " />
+                                <h:inputText class="form-control" id="loginname" value="#{loginManager.username}"/>
+
+                                <h:outputLabel styleClass="outputLabel" for="password" value="Password: " />
+                                <h:inputSecret class="form-control"  id="password" value="#{loginManager.password}"/>
+
+                            </h:panelGrid>
+                            <br/>
+
+                            <p:commandButton id="login"  actionListener="#{loginManager.loginUser()}" value="Login" styleClass="buttonText"
+                                             partialSubmit="true" update=":header" />
+
+                            <h:commandButton id="retrieve"  action="#{loginManager.resetPassword()}" value="Forgot Password" styleClass="buttonText"/>                
+
+                        </div>
+                        <br/>
+                        <h:outputLabel value ="#{loginManager.errorMessage}" />  
+                    </h:form>
                 </div>
-                <br/>
-                <h:outputLabel value ="#{loginManager.errorMessage}" />  
-            </h:form>
-        </div>
-        </p:dialog> 
+            </p:dialog> 
+
+        </h:form>
     </ui:composition>
 
 </html>
