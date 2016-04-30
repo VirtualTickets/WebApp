@@ -61,19 +61,11 @@
                     <h:form class="form">
                         <div class="ticketsAndShowtimesDiv"  align="center">
                             <br/>
+                            <h1 id="ticketsAndShowtimesTitle">TICKETS &amp; SHOWTIMES NEARBY </h1>
                             <h:panelGrid styleClass="ticketsPanel" border="1">
                                 <h:panelGrid columns="2" columnClasses="leftAlign, rightAlign">
-                                    <h:panelGroup>
-                                        <h2 id="ticketsAndShowtimes">TICKETS &amp; SHOWTIMES NEARBY </h2>
-                                    </h:panelGroup>
-                                    <h:panelGroup>
-                                        <h:inputText id="zip" value="#{movieManager.zipCode}" required="true" label="Zip Code" style="width:50px;">
-                                            <f:validateLength minimum="5" />
-                                        </h:inputText>
-                                        <h:commandButton id="changeLoc"  action="#{movieManager.changeLocation()}" value="Change Location" styleClass="buttonText"/>
-                                    </h:panelGroup>
                                     <h:panelGroup style="display:block; text-align:center">
-                                        <h:selectOneMenu id="select_movie" value="#{movieManager.searchTitle}" required="true" onchange="dropdownSelect()" style="font-size:18px">
+                                        <h:selectOneMenu id="select_movie" value="#{movieManager.searchTitle}" required="true" onchange="dropdownSelect()" style="font-size:30px">
                                             <f:selectItems value="#{movieManager.nowPlayingTitles}"/>
                                         </h:selectOneMenu>
                                     </h:panelGroup>
@@ -81,9 +73,10 @@
                                 </h:panelGrid>
                             </h:panelGrid>
                             <br />
+                            <br/>
                         </div>
                         <div align="center">
-                            <h1 id="crticallyAcclaimedTitle">CRITICALLY ACCLAIMED</h1>
+                            <h1 id="criticallyAcclaimedTitle">CRITICALLY ACCLAIMED</h1>
                         </div>
                         <ul class="slides" >
                             <input type="radio" name="radio-btn" id="img-1" checked="true" />

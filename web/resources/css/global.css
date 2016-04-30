@@ -182,14 +182,13 @@ html, body {
     background-color: #3cc5bc;
     
     margin-top: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     
 }
 
-#ticketsAndShowtimes {
-    color: white;
-    font-size: 25px;
-    font-family: 'Lato', sans-serif;
+#ticketsAndShowtimesTitle {
+    margin-top:2px;
+    margin-bottom:15px;
 }
 
 h1 {
@@ -198,7 +197,7 @@ h1 {
 }
 
 
-#crticallyAcclaimedTitle {
+#criticallyAcclaimedTitle {
     margin-top: 20px;
     margin-bottom: 20px;
 }
@@ -224,64 +223,6 @@ h1 {
 .theaterTab {
     color: white;
     background: #3cc5bc;
-}
-
-.cropCircle{
-    width: 60px;
-    height: 60px;
-    border-radius: 100%;
-    background: #eee no-repeat center;
-    background-size: cover;
-}
-
-#userPic{
-    background-image: url(http://www.voont.com/files/images/edit/7-ridiculous-ways-boost-self-esteem/happy.jpg);
-}
-
-.image-cropper {
-    max-width: 60px;
-    height: auto;
-    position: relative;
-    overflow: hidden;
-}
-.rounded {
-    display: block;
-    margin: 0 auto;
-    height: 60px;
-    width: 60px;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    -ms-border-radius: 50%;
-    -o-border-radius: 50%;
-    border-radius: 50%;
-    background:url("http://www.electricvelocity.com.au/Upload/Blogs/smart-e-bike-side_2.jpg") center no-repeat;
-    background-size:cover;
-}
-
-.image_cropper {
-
-  width: 60px;
-
-  height: 60px;
-
-  position: relative;
-
-  overflow: hidden;
-
-  border-radius: 50%;
-
-}
-
-.image_cropper__image {
-
-  display: inline;
-
-  margin: 0 auto;
-
-  height: 100%;
-
-  min-width: 100%;
-
 }
 
 /*
