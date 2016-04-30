@@ -32,7 +32,7 @@ Copyright © 2016 Nicholas Greer. All rights reserved.
                     <h:panelGrid columns="2" columnClasses="leftStaticCol, rightStaticCol" style="width:100%;height:50%;resize: none;vertical-align: top;table-layout: fixed;">
                         <h:graphicImage value="/FileStorageLocation/#{accountManager.userPhoto()}" id="profilePic"
                                         class="img-rounded col-md-3" style="width: 66%;"></h:graphicImage>
-                        <p:tabView style="vertical-align:top" styleClass="tabProfile" >
+                        <p:tabView style="vertical-align:top" styleClass="tabProfile">
                             
                             
                             <p:tab title="Basic Info" titleStyle="background-color: #3cc5bc">
@@ -62,7 +62,7 @@ Copyright © 2016 Nicholas Greer. All rights reserved.
                                 </h:panelGrid>
                             </p:tab>
                             <p:tab title="History" titleStyle="background-color: #3cc5bc">
-                                <p:dataTable  value="#{accountManager.getBought()}" styleClass="topMenu" var="bought" emptyMessage="No purchases made">
+                                <p:dataTable  value="#{accountManager.getBought()}" var="bought" emptyMessage="No purchases made">
 
                                     <p:column >
                                         <f:facet name="header">
