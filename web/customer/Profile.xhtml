@@ -83,15 +83,6 @@ Copyright © 2016 Nicholas Greer. All rights reserved.
 
                                     <p:column>
                                         <f:facet name="header">
-                                            <h:outputText value="Total Price"/>    
-                                        </f:facet>
-                                        <h:outputText value="#{bought.cost}"/>
-
-                                    </p:column>
-
-
-                                    <p:column>
-                                        <f:facet name="header">
                                             <h:outputText value="Number of Tickets"/>    
                                         </f:facet>
                                         <h:outputText value="#{bought.numTickets}"/>
@@ -101,9 +92,9 @@ Copyright © 2016 Nicholas Greer. All rights reserved.
 
                                     <p:column>
                                         <f:facet name="header">
-                                            <h:outputText value="Total Cost"/>    
+                                            <h:outputText value="Total Price"/>    
                                         </f:facet>
-                                        <h:outputText value="#{bought.cost}"/>
+                                        <h:outputText value="#{bought.formattedCost}"/>
 
                                     </p:column>
 

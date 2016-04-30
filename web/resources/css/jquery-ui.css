@@ -418,6 +418,7 @@ button.ui-button::-moz-focus-inner {
 	margin: -10px 0 0 0;
 	padding: 1px;
 	height: 20px;
+        background-image: url("http://i.imgur.com/gqyYbLS.png");
 }
 .ui-dialog .ui-dialog-content {
 	position: relative;

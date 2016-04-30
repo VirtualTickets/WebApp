@@ -136,6 +136,10 @@ public class Bought implements Serializable {
     public Float getCost() {
         return cost;
     }
+    
+    public String getFormattedCost() {
+        return String.format("$%.2f", getCost());
+    }
 
     public void setCost(Float cost) {
         this.cost = cost;

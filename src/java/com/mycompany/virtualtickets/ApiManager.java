@@ -44,46 +44,42 @@ public class ApiManager {
         try {
             JSONObject json = readJsonFromUrl(url);
             //System.out.println("json: " + json);
-            if ( !(json.toString().toLowerCase().contains("2016")) || !(json.toString().toLowerCase().contains("2015")) )
-            {
+            if (!(json.toString().toLowerCase().contains("2016")) || !(json.toString().toLowerCase().contains("2015"))) {
                 url = "http://www.omdbapi.com/?t="
-                + title + "&y=2016&plot=full&r=json&tomatoes=true";
+                        + title + "&y=2016&plot=full&r=json&tomatoes=true";
                 json = readJsonFromUrl(url);
-                
+
                 if (json.toString().toLowerCase().contains("not found!")) {
                     url = url.replace("2016", "2015");
                     json = readJsonFromUrl(url);
                 }
-                
+
                 //System.out.println("url: " + url);
             }
             //System.out.println("RETURNED: " + json);
             mov = new Movie();
-           /*
+            /*
             mov.setReleaseYear(Integer.parseInt(json.getString("year")));
             mov.setRating(json.getString("rated"));
             mov.setReleaseDate(json.getString("released"));
             mov.setRuntime(json.getString("runtime"));
             mov.setMetascore(json.getString("metascore"));
             mov.setLongDescription(json.getString("Plot"));
-            */
+             */
             //mov.setTitle(json.getString("Title"));
             if (title.toLowerCase().equals("eye+in+the+sky")) {
                 mov.setRTRating("94%");
                 mov.setRTCriticsConsensus("As taut as it is timely, Eye in the Sky offers a powerfully acted -- and unusually cerebral -- spin on the modern wartime political thriller.");
-            }
-            else {
-                mov.setRTRating(json.getString("tomatoMeter")+"%");
+            } else {
+                mov.setRTRating(json.getString("tomatoMeter") + "%");
                 mov.setRTCriticsConsensus(json.getString("tomatoConsensus"));
             }
             if (title.toLowerCase().contains("barbershop")) {
                 mov.setImdbRating("6.2");
-            }
-            else {
+            } else {
                 mov.setImdbRating(json.getString("imdbRating"));
             }
-            
-            
+
         } catch (Exception e) {
             System.out.println("EXCEPTION CAUGHT ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             return null;
@@ -103,18 +99,26 @@ public class ApiManager {
                 + title + "&type=movie";
 
         try {
-            JSONArray json = readJsonArrayFromUrl(url);
+            JSONObject obj = readJsonFromUrl(url);
+            JSONArray json = obj.getJSONArray("Search");
             JSONObject j;
             Movie mov;
             for (int i = 0; i < json.length(); i++) {
                 j = json.getJSONObject(i);
                 mov = new Movie();
-                mov.setTitle(j.getString("Title"));
-                mov.setReleaseYear(j.getInt("Year"));
-                mov.setPreferredImageUri(j.getString("Poster"));
+                if (j.has("Title")) {
+                    mov.setTitle(j.getString("Title"));
+                }
+                if (j.has("Year")) {
+                    mov.setReleaseYear(j.getInt("Year"));
+                }
+                if (j.has("Poster")) {
+                    mov.setPreferredImageUri(j.getString("Poster"));
+                }
                 movs.add(mov);
             }
         } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
         return movs;
@@ -130,7 +134,7 @@ public class ApiManager {
 
         String url = "http://www.omdbapi.com/?t="
                 + title + "&y=&plot=full&r=json";
-        
+
         System.err.println("URL: " + url);
 
         try {
@@ -231,11 +235,11 @@ public class ApiManager {
         }
         return movs;
     }
-    
+
     /**
-     * 
+     *
      * @param theatreId
-     * @return 
+     * @return
      */
     public ArrayList<Movie> movieShowtimes(String tmsId, String zip) {
         ArrayList<Movie> movs = new ArrayList<Movie>();
@@ -265,7 +269,6 @@ public class ApiManager {
         }
         return movs;
     }
-    
 
     /**
      *
@@ -308,7 +311,7 @@ public class ApiManager {
      */
     private Movie jsonToMovie(JSONObject json) {
         Movie mov = new Movie();
-        
+
         System.err.println(json);
 
         try {
@@ -401,7 +404,7 @@ public class ApiManager {
         } catch (Exception e) {
             time.setTheatreId(null);
         }
-        
+
         try {
             time.setTheatreName(json.getJSONObject("theatre").getString("name"));
         } catch (Exception e) {
