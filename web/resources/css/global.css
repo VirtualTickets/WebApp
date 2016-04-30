@@ -162,9 +162,9 @@ html, body {
 }
 
 .userImage:hover {
-    cursor: pointer;
+    cursor: pointer!important;
     opacity: 0.5;
-    background-color: rgba(247, 148, 29, 0.7)
+    background-color: rgba(247, 148, 29, 0.7);
 }
 
 #topPostersDiv {
