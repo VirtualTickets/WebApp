@@ -9,6 +9,7 @@ package com.mycompany.managers;
 import com.mycompany.entities.User;
 import com.mycompany.facades.UserFacade;
 import java.io.Serializable;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -20,6 +21,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Named;
 //import org.apache.commons.mail.*;
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 @Named(value = "passwordResetManager")
 @SessionScoped
@@ -72,14 +76,58 @@ public class PasswordResetManager implements Serializable{
     }
     
     public String emailSubmit() {
-        /*
-        User user = userFacade.findByUsername(username);
+                final String username1 = "vitualtickets.noreply@gmail.com";
+		final String password1 = "csd@VT(S16)";
+
+		Properties props = new Properties();
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.port", "587");
+
+		Session session = Session.getInstance(props,
+		  new javax.mail.Authenticator() {
+                        @Override
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(username1, password1);
+			}
+		  });
+
+		try {
+                    
+                    session = Session.getDefaultInstance(props, null);
+            session.setDebug(true);
+
+			Message message1 = new MimeMessage(session);
+			message1.setFrom(new InternetAddress("virtualtickets.noreply@gmail.com"));
+			message1.setRecipients(Message.RecipientType.TO,
+				InternetAddress.parse("imploding40@gmail.com"));
+			message1.setSubject("Testing Subject");
+			message1.setText("Dear Mail Crawler,"
+				+ "\n\n No spam to my email, please!");
+                        
+                        Transport transport = session.getTransport("smtp");
+            transport.connect("smtp.gmail.com", "virtualtickets.noreply@gmail.com", "csd@VT(S16)");
+            transport.sendMessage(message1, message1.getAllRecipients());
+            transport.close();
+
+
+			System.out.println("Done");
+
+		} catch (MessagingException e) {
+			Logger.getLogger(PasswordResetManager.class.getName()).log(Level.SEVERE, null, e);
+                        message = "Sending email failed";
+                        return "ForgotPassword?faces-redirect=true";
+		}
+                message = "sent";
+                return "";
+        /*User user = userFacade.findByUsername(username);
         if (user.getEmail().equals(answer)) {
             try {
                 Email email = new SimpleEmail();
-                email.setHostName("smtp.googlemail.com");
+                email.setHostName("smtp.gmail.com");
                 email.setSmtpPort(465);
-                email.setAuthenticator(new DefaultAuthenticator("virtualtickets@gmail.com", "csd@VT(S16)"));
+                email.setAuthenticator(new DefaultAuthenticator("virtualtickets", "csd@VT(S16)"));
                 email.setSSLOnConnect(true);
                 email.setFrom("virtualtickets@gmail.com");
                 email.setSubject("TestMail");
@@ -97,9 +145,7 @@ public class PasswordResetManager implements Serializable{
         else {
             message = "That email isn't linked to that user";
             return "ForgotPassword?faces-redirect=true";
-        }
-*/
-        return null;
+        }*/
     }
     
  
