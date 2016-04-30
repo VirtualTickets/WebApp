@@ -32,8 +32,12 @@ Copyright © 2016 Benjamin Sweeney. All rights reserved.
                                         <h:panelGroup>    
                                             <h:graphicImage id="img" value="#{movie.preferredImageUri}" style="max-height: 370px; max-width: 250px" alt="Hello"/>
                                             <br/>
-                                            <h:commandButton rendered="#{movieManager.isFavorited(movie) and movieManager.user != null}" action="#{movieManager.setFavorited(false, movie)}" value="Un-favorite"/>
-                                            <h:commandButton rendered="#{!movieManager.isFavorited(movie) and movieManager.user != null}" action="#{movieManager.setFavorited(true, movie)}" value="Favorite"/>
+                                            <p:commandButton rendered="#{movieManager.isFavorited(movie) and movieManager.user != null}" 
+                                                             actionListener="#{movieManager.setFavorited(false, movie)}" value="Un-favorite"
+                                                             partialSubmit="true" update=":movieTable"/>
+                                            <p:commandButton rendered="#{!movieManager.isFavorited(movie) and movieManager.user != null}" 
+                                                             actionListener="#{movieManager.setFavorited(true, movie)}" value="Favorite"
+                                                             partialSubmit="true" update=":movieTable"/>
                                             
                                         </h:panelGroup>
                                         <h:panelGroup>
