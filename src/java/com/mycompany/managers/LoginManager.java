@@ -101,7 +101,7 @@ public class LoginManager implements Serializable {
     User user = userFacade.findByUsername(getUsername());
     if (user == null) {
       errorMessage = "Invalid username or password!";
-      return null;
+      return "";
     } else {
       if (user.getUsername().equals(getUsername()) && user.getPassword().equals(getPassword())) {
         errorMessage = "";

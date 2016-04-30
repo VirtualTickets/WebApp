@@ -76,7 +76,7 @@ across all web pages.
         </h:form>
         <p:dialog header="Login" widgetVar="dlg2" modal="true" resizable="false" closable="true" position="center">
             <div align="center">
-            <h:form class="form-signin">
+            <h:form id="sif" class="form-signin">
                 <div align="center">
                 
                 <h:panelGrid columns="2" columnClasses="rightAlign, leftAlign">
@@ -90,15 +90,14 @@ across all web pages.
                 </h:panelGrid>
                 <br/>
                 
-                    <h:commandButton id="login" value="Login" styleClass="buttonText">
-                        <f:ajax listener="#{loginManager.checkLogIn()}" />
-                    </h:commandButton>
+                    <p:commandButton value="login" actionListener="#{loginManager.loginUser()}"
+                                                             partialSubmit="true" update=":sif"/>
                     
                     <h:commandButton id="retrieve"  action="#{loginManager.resetPassword()}" value="Forgot Password" styleClass="buttonText"/>                
                  
                 </div>
                 <br/>
-                <h:outputLabel value ="#{loginManager.errorMessage}" />  
+                <h:outputLabel id="out" value ="#{loginManager.errorMessage}" />  
             </h:form>
         </div>
         </p:dialog> 
