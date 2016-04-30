@@ -271,6 +271,18 @@ public class MovieManager implements Serializable {
 
         return titles;
     }
+    
+    public String[] getBackImages() {
+        String[] backImages = {
+            "http://i.imgur.com/QFTEWaa.jpg",
+            "http://i.imgur.com/TewghSg.jpg",
+            "http://i.imgur.com/t9qwqNm.jpg",
+            "http://i.imgur.com/IXeQQtS.jpg",
+            "http://i.imgur.com/chV9r5M.jpg",
+            "http://i.imgur.com/YlAGj5R.jpg" };
+        
+        return backImages;
+    }
 
     public String[] getCriticallyAcclaimedTitles() {
         return criticallyAcclaimedTitles;
