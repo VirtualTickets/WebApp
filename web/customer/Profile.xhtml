@@ -17,6 +17,7 @@ Copyright © 2016 Nicholas Greer. All rights reserved.
             <h:outputStylesheet library="css" name="global.css"/>
         </h:head>
         <ui:define name="content">
+            <h:outputStylesheet name="css/profile.css"/>
             <div align="center" style="width:85%; margin:0 auto;">
                 <h:form class="form-signin">
 
@@ -31,8 +32,10 @@ Copyright © 2016 Nicholas Greer. All rights reserved.
                     <h:panelGrid columns="2" columnClasses="leftStaticCol, rightStaticCol" style="width:100%;height:50%;resize: none;vertical-align: top;table-layout: fixed;">
                         <h:graphicImage value="/FileStorageLocation/#{accountManager.userPhoto()}" id="profilePic"
                                         class="img-rounded col-md-3" style="width: 66%;"></h:graphicImage>
-                        <p:tabView style="vertical-align:top" styleClass="topMenu">
-                            <p:tab title="Basic Info">
+                        <p:tabView style="vertical-align:top" styleClass="tabProfile" >
+                            
+                            
+                            <p:tab title="Basic Info" titleStyle="background-color: #3cc5bc">
                                 <!-- Basic Info goes here -->
                                 <h:panelGrid columns="2" cellpadding="6" >
                                     <h:outputText value="First Name: " />
@@ -48,7 +51,7 @@ Copyright © 2016 Nicholas Greer. All rights reserved.
                                     <h:outputText value="#{profileViewManager.loggedInUser.email}" />
                                 </h:panelGrid>
                             </p:tab>  
-                            <p:tab title="Payment Info">
+                            <p:tab title="Payment Info" titleStyle="background-color: #3cc5bc">
                                 <h:panelGrid columns="2" cellpadding="6">
                                     <h:outputText value="Credit Card Number: " />
                                     <h:outputText value="#{profileViewManager.loggedInUser.ccNumber}" />
@@ -58,10 +61,10 @@ Copyright © 2016 Nicholas Greer. All rights reserved.
 
                                 </h:panelGrid>
                             </p:tab>
-                            <p:tab title="History">
+                            <p:tab title="History" titleStyle="background-color: #3cc5bc">
                                 <p:dataTable  value="#{accountManager.getBought()}" styleClass="topMenu" var="bought" emptyMessage="No purchases made">
 
-                                    <p:column>
+                                    <p:column >
                                         <f:facet name="header">
                                             <h:outputText value="Purchase Date"/>
                                         </f:facet>
