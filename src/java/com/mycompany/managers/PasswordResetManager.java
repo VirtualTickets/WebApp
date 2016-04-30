@@ -86,6 +86,7 @@ public class PasswordResetManager implements Serializable{
     }
     
     public void getQR() {
+        String qrCodeText = "Hello World";
         File outf = new File(Constants.ROOT_DIRECTORY + "movieTicketQRCode.png");
         FileOutputStream outputStream = null;
         try {
@@ -94,42 +95,42 @@ public class PasswordResetManager implements Serializable{
             Logger.getLogger(PasswordResetManager.class.getName()).log(Level.SEVERE, null, ex);
         }
         // get QR file from text using defaults
-        File file = QRCode.from("Hello World").file();
+        File file = QRCode.from(qrCodeText).file();
 
 // get QR stream from text using defaults
-        ByteArrayOutputStream stream = QRCode.from("Hello World").stream();
+        ByteArrayOutputStream stream = QRCode.from(qrCodeText).stream();
 
 // override the image type to be JPG
-        QRCode.from("Hello World").to(ImageType.JPG).file();
-        QRCode.from("Hello World").to(ImageType.JPG).stream();
+        QRCode.from(qrCodeText).to(ImageType.JPG).file();
+        QRCode.from(qrCodeText).to(ImageType.JPG).stream();
 
 // override image size to be 250x250
-        QRCode.from("Hello World").withSize(250, 250).file();
-        QRCode.from("Hello World").withSize(250, 250).stream();
+        QRCode.from(qrCodeText).withSize(250, 250).file();
+        QRCode.from(qrCodeText).withSize(250, 250).stream();
 
 // override size and image type
-        QRCode.from("Hello World").to(ImageType.GIF).withSize(250, 250).file();
-        QRCode.from("Hello World").to(ImageType.GIF).withSize(250, 250).stream();
+        QRCode.from(qrCodeText).to(ImageType.GIF).withSize(250, 250).file();
+        QRCode.from(qrCodeText).to(ImageType.GIF).withSize(250, 250).stream();
 
 // override default colors (black on white)
 // notice that the color format is "0x(alpha: 1 byte)(RGB: 3 bytes)"
 // so in the example below it's red for foreground and yellowish for background, both 100% alpha (FF).
-        //QRCode.from("Hello World").withColor(0xFFFF0000, 0xFFFFFFAA).file();
+        //QRCode.from(qrCodeText).withColor(0xFFFF0000, 0xFFFFFFAA).file();
 
 // supply own outputstream
-        QRCode.from("Hello World").to(ImageType.PNG).writeTo(outputStream);
+        QRCode.from(qrCodeText).to(ImageType.PNG).writeTo(outputStream);
 
 // supply own file name
-        QRCode.from("Hello World").file("QRCode");
+        QRCode.from(qrCodeText).file("QRCode");
 
 // supply charset hint to ZXING
-        QRCode.from("Hello World").withCharset("UTF-8");
+        QRCode.from(qrCodeText).withCharset("UTF-8");
 
 // supply error correction level hint to ZXING
-        QRCode.from("Hello World").withErrorCorrection(ErrorCorrectionLevel.L);
+        QRCode.from(qrCodeText).withErrorCorrection(ErrorCorrectionLevel.L);
 
 // supply any hint to ZXING
-        QRCode.from("Hello World").withHint(EncodeHintType.CHARACTER_SET, "UTF-8");
+        QRCode.from(qrCodeText).withHint(EncodeHintType.CHARACTER_SET, "UTF-8");
 
 // encode contact data as vcard using defaults
         VCard johnDoe = new VCard("John Doe")
@@ -174,7 +175,7 @@ public class PasswordResetManager implements Serializable{
 			Message message1 = new MimeMessage(session);
 			message1.setFrom(new InternetAddress("virtualtickets.noreply@gmail.com"));
 			message1.setRecipients(Message.RecipientType.TO,
-				InternetAddress.parse("imploding40@gmail.com"));
+				InternetAddress.parse("fake@gmail.com"));
 			message1.setSubject("Testing Subject");
 			message1.setText("Dear Mail Crawler,"
 				+ "\n\n No spam to my email, please!");
