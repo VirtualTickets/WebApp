@@ -20,8 +20,10 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
@@ -460,14 +462,26 @@ public class MovieManager implements Serializable {
 
         if (AccountManager.isLoggedIn()) {
             User u = getUser();
-            boughtFacade.create(new Bought(u, selectedMovie.getTitle() + "|" + selectedShowtime.getTheatreName(), Integer.parseInt(numTickets), getPrice()));
+            Calendar c = Calendar.getInstance();
+            Date currDate = new Date();
+            Date purchaseDate = new Date(currDate.getYear(),
+                                        currDate.getMonth(),
+                                        currDate.getDate(),
+                                        selectedShowtime.getHour(),
+                                        selectedShowtime.getMinute());
+            boughtFacade.create(new Bought(u.getId(), 
+                                currDate.getTime(), 
+                                selectedMovie.getTitle(), 
+                                selectedShowtime.getTheatreName(), 
+                                purchaseDate.getTime(), 
+                                Integer.parseInt(numTickets), getPrice()));
         }
         return "Confirmation";
     }
 
     public List<Bought> getPurchaseHistory() {
         if (getUser() != null) {
-            return boughtFacade.findByUser(user);
+            return boughtFacade.findByUser(user.getId());
         }
 
         return new ArrayList<>();

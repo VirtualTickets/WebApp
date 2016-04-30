@@ -493,7 +493,9 @@ input#img-6:checked ~ .nav-dots label#img-dot-6 {
 }
 
 .leftStaticCol{
+    vertical-align: top;
     table-layout: fixed;
+    align-content: center;
     width:25%;
     height:50%;
     
@@ -504,6 +506,29 @@ input#img-6:checked ~ .nav-dots label#img-dot-6 {
     table-layout: fixed;
     width:75%;
     height:50%;
+}
+
+.borderedBottom{
+    border-bottom: thick solid black;
+    
+}
+
+.borderedRightAlign{
+    border-bottom: solid black;
+    background-color: #3cc5bc; 
+    text-align: right;
+}
+.borderedLeftAlign{
+    border-bottom: solid black;
+    background-color: #3cc5bc; 
+    text-align: left;
+}
+
+.tabProfile{
+    background-color: #3cc5bc;
+    color: #3cc5bc;
+    
+    
 }
 
 .row {

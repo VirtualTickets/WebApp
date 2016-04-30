@@ -1,0 +1,28 @@
+/*
+Created by Nicholas Greer on 2016.04.30 
+Copyright © 2016 Nicholas Greer. All rights reserved.
+*/
+/* 
+    Created on : Apr 30, 2016, 12:41:01 AM
+    Author     : Imploding40
+*/
+
+.customTitleBar > .ui-panel-titlebar{
+    padding: 0;
+    color: #3cc5bc; 
+    background-color: #3cc5bc; 
+    
+}
+
+th
+{
+    background-color: #3cc5bc !important;
+}
+.ui-widget-header{
+    background-color: #3cc5bc !important;
+    color: #3cc5bc !important;
+}
+
+.ui-widget-content{
+    background-color: #3cc5bc !important;
+}

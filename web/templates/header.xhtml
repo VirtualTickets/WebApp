@@ -11,6 +11,7 @@ across all web pages.
     <h:head>
         <h:outputStylesheet name="css/global.css"/>
         <link href='https://fonts.googleapis.com/css?family=Lato:900' rel='stylesheet' type='text/css'></link>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" rel="stylesheet"/>
     </h:head>
 
     <ui:composition>
@@ -32,23 +33,35 @@ across all web pages.
                         <h:panelGrid columns="2" width="100%" columnClasses="rightAlign, rightAlign"  styleClass="headerBarTable">
                             <h:graphicImage name="/images/batman.jpg" height="10" rendered="#{accountManager.isLoggedIn()}" />
                             <h:panelGroup rendered="#{accountManager.isLoggedIn()}">
-                                <h:commandLink value="View Profile" action="/customer/Profile" rendered="#{accountManager.isLoggedIn()}" />
+                                <div class="fa fa-user" aria-hidden="true"></div>
+                                <h:commandLink value="View Profile" action="/customer/Profile" rendered="#{accountManager.isLoggedIn()}">
                                 
+                                    </h:commandLink>
                             </h:panelGroup>
-                            <h:graphicImage name="/images/batman.jpg" height="10" rendered="#{accountManager.isLoggedIn()}" />
                             <h:panelGroup rendered="#{accountManager.isLoggedIn()}" >
+                                <div class="fa fa-star" aria-hidden="true"></div>
                                 <h:commandLink value="Favorites" action="/Favorites" rendered="#{accountManager.isLoggedIn()}" />
                                 
                             </h:panelGroup>
-                            <h:graphicImage name="/images/batman.jpg" height="10"/>
-                            <h:panelGroup>
+                            <h:panelGroup rendered="#{accountManager.isLoggedIn()}" >
+                                <div class="fa fa-edit" aria-hidden="true"></div>
                                 <h:commandLink value="Edit Account" action="/customer/EditAccount" rendered="#{accountManager.isLoggedIn()}" />
-                                <h:commandLink value="Create Account" action="/customer/CreateAccount" rendered="#{!accountManager.isLoggedIn()}" />
+                                
                             </h:panelGroup>
-                            <h:graphicImage name="/images/batman.jpg" height="10"/>
-                            <h:panelGroup>
+                            <h:panelGroup rendered="#{!accountManager.isLoggedIn()}" >
+                                <div class="fa fa-user-plus" aria-hidden="true"></div>
+                                <h:commandLink value="Create Account" action="/customer/CreateAccount" rendered="#{!accountManager.isLoggedIn()}" />
+                                
+                            </h:panelGroup>
+                            <h:panelGroup rendered="#{accountManager.isLoggedIn()}" >
+                                <div class="fa fa-sign-out" aria-hidden="true"></div>
                                 <h:commandLink value="Logout" action="#{accountManager.logout()}" rendered="#{accountManager.isLoggedIn()}" />
+                                
+                            </h:panelGroup>
+                            <h:panelGroup rendered="#{!accountManager.isLoggedIn()}" >
+                                <div class="fa fa-sign-in" aria-hidden="true"></div>
                                 <p:commandLink value="Login" type="button" onclick="PF('dlg2').show();" rendered="#{!accountManager.isLoggedIn()}"/>
+                                
                             </h:panelGroup>
                         </h:panelGrid>
                     </p:overlayPanel>
