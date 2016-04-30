@@ -6,8 +6,12 @@ package com.mycompany.managers;
 
 import com.mycompany.entities.User;
 import com.mycompany.facades.UserFacade;
+import java.io.IOException;
 import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.faces.application.NavigationHandler;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -97,15 +101,43 @@ public class LoginManager implements Serializable {
     User user = userFacade.findByUsername(getUsername());
     if (user == null) {
       errorMessage = "Invalid username or password!";
-      return "";
+      return null;
     } else {
       if (user.getUsername().equals(getUsername()) && user.getPassword().equals(getPassword())) {
         errorMessage = "";
         initializeSessionMap(user);
-        return "Profile";
+        return "";
       }
       errorMessage = "Invalid username or password!";
       return "";
+    }
+  }
+  
+  public String checkLogIn(){
+      
+      User user = userFacade.findByUsername(getUsername());
+      try {
+              FacesContext.getCurrentInstance().getExternalContext().redirect("/customer/Profile.xhtml");
+          } catch (IOException ex) {
+              Logger.getLogger(LoginManager.class.getName()).log(Level.SEVERE, null, ex);
+          }
+  
+          if (user == null) {
+      errorMessage = "Invalid username or password!";
+      return "return false";
+    } else {
+      if (user.getUsername().equals(getUsername()) && user.getPassword().equals(getPassword())) {
+        errorMessage = "";
+        initializeSessionMap(user);
+          try {
+              FacesContext.getCurrentInstance().getExternalContext().redirect("");
+          } catch (IOException ex) {
+              Logger.getLogger(LoginManager.class.getName()).log(Level.SEVERE, null, ex);
+          }
+        return "/index";
+      }
+      errorMessage = "Invalid username or password!";
+      return"return false";
     }
   }
 
