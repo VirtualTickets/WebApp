@@ -159,6 +159,7 @@ html, body {
 
 .userImage {
     border-radius: 100%;
+    border:2px solid white;
 }
 
 .userImage:hover {
