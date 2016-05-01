@@ -238,5 +238,11 @@ public class User implements Serializable {
         
         return false;
     }
+    public String ccNumberDisplay()
+    {
+        BigInteger temp = this.ccNumber;
+        temp = temp.mod(new BigInteger("10000"));
+        return "************"+temp.toString();
+    }
     
 }
