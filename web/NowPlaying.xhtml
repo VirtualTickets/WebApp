@@ -56,7 +56,8 @@ Copyright © 2016 Benjamin Sweeney. All rights reserved.
                                         <h:outputText value="Release Date: "/>
                                         <h:outputText value="#{movie.releaseDate}"/>
                                         <br/>
-                                        <h:outputText value="#{movie.tmsId}"/>
+                                        <!--<h:outputText value="#{movie.tmsId}"/>-->
+                                        <p:outputLabel value="#{movie.trailer}" escape="false"/>
                                         <br/>
                                         <p:tabView value="#{movie.theatres}" var="theatre">
                                             <p:tab title="#{theatre.name}" titleStyleClass="theaterTab">
