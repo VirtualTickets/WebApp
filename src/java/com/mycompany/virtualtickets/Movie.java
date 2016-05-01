@@ -45,6 +45,15 @@ public class Movie implements Comparable<Movie> {
     public Movie() {
 
     }
+    
+    public String getTrailer() {
+        String ret = new ApiManager().getTrailer(this.getTitle());
+//        if (ret.length() == 0) return "";
+//        int src = ret.indexOf("src=\"");
+//        int end = ret.indexOf("\"", src + 5);
+//        return ret.substring(src + 5, end);
+        return ret;
+    }
 
     public Movie(Favorited f) {
         this.tmsId = f.getFavoritedPK().getMovieId();

@@ -21,6 +21,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -29,6 +31,42 @@ import java.util.Collections;
 public class ApiManager {
 
     private static final String OCAPI = "yqcmwu38uh7mf9rpgsdbqnyj";
+    
+    public String getTrailer(String title) {
+        
+        System.err.println("Getting trailer");
+        
+        if (title == null) {
+            return "";
+        }
+        
+        title = title.replaceAll(" ", "%20");
+        
+        String url = "http://trailersapi.com/trailers.json?movie=" 
+                + title + "&limit=1&width=320";
+        
+        System.err.println("URL: " + url);
+        
+        try {
+            JSONArray array = this.readJsonArrayFromUrl(url);
+            
+            if (array.length() == 0) {
+                return "";
+            }
+            
+            else if (array.getJSONObject(0).has("code")) {
+                return (String) array.getJSONObject(0).get("code");
+            }
+            
+        } catch (IOException ex) {
+            Logger.getLogger(ApiManager.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JSONException ex) {
+            Logger.getLogger(ApiManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return "";
+    }
+    
 
     /**
      *
