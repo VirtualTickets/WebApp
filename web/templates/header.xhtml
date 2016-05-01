@@ -18,7 +18,9 @@ across all web pages.
         <h:form id="header">
             <p:menubar styleClass="topMenu">
                 <p:menuitem>
-                    <p:graphicImage value="http://i.imgur.com/OTNDqSe.png" width="200px" height="35px"/>
+                    <h:commandLink action="/index" >
+                        <p:graphicImage value="http://i.imgur.com/OTNDqSe.png" width="200px" height="35px"/>
+                    </h:commandLink>
                 </p:menuitem>
                 <p:menuitem value="Home" outcome="/index" icon="ui-icon-home" />
                 <p:menuitem value="Now Playing" outcome="/NowPlaying"/>

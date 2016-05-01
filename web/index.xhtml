@@ -1,8 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!-- TODO List for Others:                                              -->
-<!-- have nick add an arrow that faces down or up depending on the state of the drop down -->
-<!-- highlighting of userIcon when hovered over -->
-<!-- separation of IMAX 3d, REALD 3D, Standard, etc on movies page -->
 <!-- date selector on movie page as well, like fandango -->
 <!-- movies page needs to reset when navigated away from -->
 <!-- white text for top menu and change font if possible. center contents of bar vertically.  -->
@@ -14,8 +11,23 @@
 <!-- get some trailers!!!! -->
 <!-- put search button on right side of the search box and make it simply a magnifier icon -->
 <!-- nick needs to fix the forgot password button, so that it uses jquery style -->
+<!-- change timestamps to normal, fuck this military shit. I see it in purchase history -->
+<!-- signing in requires clicking the button. it should submit when the user hits enter as well. -->
+<!-- purchase history should have newest purchases at the top -->
+<!-- footer needs to be at bottom of page, not at the bottom of the page's content. this issue exists on a few diff pages. -->
+<!-- space out buttons on profile page -->
+<!-- dont show full CC number. maybe show ********1234 (*s for all but last 4 digits) -->
+<!-- what is that random string below release date on the movies page? -->
+<!-- pages need to reset when you navigate away from them. currently fields stay filled in as they were -->
+<!-- favorite button is missing from the movies page -->
+<!-- Some movies, such as Baaghi in 22043 zip code, don't have a poster, runtime, etc. When you search for those showtimes a NullPointerException is thrown.
+     This needs to be handled more gracefully. 
+     Similarly trying to find tickets for los compadres gives the following error:
+     Message=/SearchResults.xhtml @56,85 value="pound{movie.releaseDate}": java.lang.StringIndexOutOfBoundsException: String index out of range: 7-->
 
-<!-- My TODO List: -->                                                 
+<!-- My TODO List: --> 
+<!-- if you clicked get tickets and showtimes while drop down is on choose a movie, nothing should happen or error message displayed -->
+<!-- need to get the SEARCH_BY_POSTER shit working. not sure why it doesn't -->
 <!-- consider moving tickets title above the box and change loc in menubar -->
 <!-- consider a blue footer -->
 <!-- autochange slideshow after a few seconds -->
@@ -311,32 +323,32 @@
 
                             <h:panelGrid styleClass="topPostersPanel" border="1">
                                 <h:panelGrid columns="5" border="0" cellpadding="10" cellspacing="10">
-                                    <h:commandLink>
-                                        <f:ajax event="action" listener="#{movieManager.searchByTitle(movieManager.topNowPlayingTitles[0])}"/>
+                                    <h:commandLink action="#{movieManager.searchByTitle()}">
+                                        <f:ajax event="action" listener="#{movieManager.setSearchTitle(movieManager.topNowPlayingTitles[0])}"/>
                                         <h:graphicImage class="grow" url="#{movieManager.nowPlayingPosters[0]}"
                                                         width="180" height="267" alt="Movie img" title="Find Showings"/>
                                     </h:commandLink>
 
-                                    <h:commandLink>
-                                        <f:ajax event="action" listener="#{movieManager.searchByTitle(movieManager.topNowPlayingTitles[1])}"/>
+                                    <h:commandLink action="#{movieManager.searchByTitle()}">
+                                        <f:ajax event="action" listener="#{movieManager.setSearchTitle(movieManager.topNowPlayingTitles[1])}"/>
                                         <h:graphicImage class="grow" url="#{movieManager.nowPlayingPosters[1]}"
                                                         width="180" height="266" alt="Movie img" title="Find Showings"/>
                                     </h:commandLink>
 
-                                    <h:commandLink>
-                                        <f:ajax event="action" listener="#{movieManager.searchByTitle(movieManager.topNowPlayingTitles[2])}"/>
+                                    <h:commandLink action="#{movieManager.searchByTitle()}">
+                                        <f:ajax event="action" listener="#{movieManager.setSearchTitle(movieManager.topNowPlayingTitles[2])}"/>
                                         <h:graphicImage class="grow" url="#{movieManager.nowPlayingPosters[2]}"
                                                         width="180" height="267" alt="Movie img" title="Find Showings"/>
                                     </h:commandLink>
 
-                                    <h:commandLink>
-                                        <f:ajax event="action" listener="#{movieManager.searchByTitle(movieManager.topNowPlayingTitles[3])}"/>
+                                    <h:commandLink action="#{movieManager.searchByTitle()}">
+                                        <f:ajax event="action" listener="#{movieManager.setSearchTitle(movieManager.topNowPlayingTitles[3])}"/>
                                         <h:graphicImage class="grow" url="#{movieManager.nowPlayingPosters[3]}"
                                                         width="180" height="267" alt="Movie img" title="Find Showings"/>
                                     </h:commandLink>
 
-                                    <h:commandLink>
-                                        <f:ajax event="action" listener="#{movieManager.searchByTitle(movieManager.topNowPlayingTitles[4])}"/>
+                                    <h:commandLink action="#{movieManager.searchByTitle()}">
+                                        <f:ajax event="action" listener="#{movieManager.setSearchTitle(movieManager.topNowPlayingTitles[4])}"/>
                                         <h:graphicImage class="grow" url="#{movieManager.nowPlayingPosters[4]}"
                                                         width="180" height="267" alt="Movie img" title="Find Showings"/>
                                     </h:commandLink>
