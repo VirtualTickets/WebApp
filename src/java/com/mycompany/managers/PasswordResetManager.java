@@ -149,6 +149,12 @@ public class PasswordResetManager implements Serializable{
     }
 
     public String emailSubmit() {
+                User user = userFacade.findByUsername(username);
+                if (user == null || user.getEmail().equals(answer))
+                {
+                    message ="That email isn't linked to that user";
+                    return "";
+                }
                 getQR();
                 final String username1 = "vitualtickets.noreply@gmail.com";
 		final String password1 = "csd@VT(S16)";
@@ -175,15 +181,14 @@ public class PasswordResetManager implements Serializable{
 			Message message1 = new MimeMessage(session);
 			message1.setFrom(new InternetAddress("virtualtickets.noreply@gmail.com"));
 			message1.setRecipients(Message.RecipientType.TO,
-				InternetAddress.parse("fake@gmail.com"));
-			message1.setSubject("Testing Subject");
-			message1.setText("Dear Mail Crawler,"
-				+ "\n\n No spam to my email, please!");
+				InternetAddress.parse(user.getEmail()));
+			message1.setSubject("VirtualTickets: Password Recover");
+			message1.setText("Your password is: "+user.getPassword()+"\n\nThank You for using virtual tickets!");
                         
                         Transport transport = session.getTransport("smtp");
-            transport.connect("smtp.gmail.com", "virtualtickets.noreply@gmail.com", "csd@VT(S16)");
-            transport.sendMessage(message1, message1.getAllRecipients());
-            transport.close();
+                        transport.connect("smtp.gmail.com", "virtualtickets.noreply@gmail.com", "csd@VT(S16)");
+                        transport.sendMessage(message1, message1.getAllRecipients());
+                        transport.close();
 
 
 			System.out.println("Done");
@@ -193,7 +198,7 @@ public class PasswordResetManager implements Serializable{
                         message = "Sending email failed";
                         return "ForgotPassword?faces-redirect=true";
 		}
-                message = "sent";
+                message = "Email Sent";
                 return "";
         /*User user = userFacade.findByUsername(username);
         if (user.getEmail().equals(answer)) {
