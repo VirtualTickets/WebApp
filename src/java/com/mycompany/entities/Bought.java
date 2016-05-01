@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Bought.findByViewDate", query = "SELECT b FROM Bought b WHERE b.viewDate = :viewDate"),
     @NamedQuery(name = "Bought.findByNumTickets", query = "SELECT b FROM Bought b WHERE b.numTickets = :numTickets"),
     @NamedQuery(name = "Bought.findByCost", query = "SELECT b FROM Bought b WHERE b.cost = :cost")})
-public class Bought implements Serializable {
+public class Bought implements Serializable, Comparable<Bought> {
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
@@ -112,10 +112,36 @@ public class Bought implements Serializable {
         this.theatre = theatre;
     }
     
-    public Date getViewTime() {
-        return new Date(viewDate);
+    public String getViewTime() {
+        return formatDate(new Date(viewDate));
     }
 
+    public static String formatDate(Date d) {
+        StringBuilder s = new StringBuilder().append(d.getMonth() + "/" + d.getDate() + "/" + (d.getYear() + 1900) + " ");
+        
+        int hour = d.getHours();
+        int minute = d.getMinutes();
+        String type;
+        
+        if (hour == 0) {
+            hour = 12;
+            type = "AM";
+        } 
+        else if (hour == 12) {
+            type = "PM";
+        }
+        else if (hour > 12) {
+            hour -= 12;
+            type = "PM";
+        }
+        else {
+            type = "AM";
+        }
+        
+        s.append(hour + ":" + String.format("%02d", minute) + " " + type);
+        
+        return s.toString();
+    }
 
     public long getViewDate() {
         return viewDate;
@@ -168,6 +194,11 @@ public class Bought implements Serializable {
     @Override
     public String toString() {
         return "com.mycompany.entities.Bought[ boughtPK=" + boughtPK + " ]";
+    }
+
+    @Override
+    public int compareTo(Bought o) {
+        return this.boughtPK.compareTo(o.boughtPK);
     }
     
 }

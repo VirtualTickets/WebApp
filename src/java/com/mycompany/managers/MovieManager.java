@@ -5,7 +5,6 @@
 package com.mycompany.managers;
 
 import com.mycompany.entities.Bought;
-import com.mycompany.entities.BoughtPK;
 import com.mycompany.entities.Favorited;
 import com.mycompany.entities.FavoritedPK;
 import com.mycompany.entities.User;
@@ -14,20 +13,16 @@ import com.mycompany.facades.FavoritedFacade;
 import com.mycompany.facades.UserFacade;
 import com.mycompany.virtualtickets.ApiManager;
 import com.mycompany.virtualtickets.Movie;
-import com.mycompany.virtualtickets.SendEmail;
 import com.mycompany.virtualtickets.Showtime;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
-import org.primefaces.event.TabChangeEvent;
 
 /**
  *
@@ -42,24 +37,14 @@ public class MovieManager implements Serializable {
     private String posterClickedTitle;
     private Movie selectedMovie;
     private Showtime selectedShowtime;
-    private ApiManager apiManager;
-    private String type;
+    private final ApiManager apiManager;
     private String zipCode;
-    private String checkoutAs = "Guest";
     private String numTickets = "1";
-    private String email;
     private boolean locationChanged = false;
     private User user;
-    private List<Movie> criticallyAcclaimed;
-    private String[] criticallyAcclaimedTitles;
+    private final List<Movie> criticallyAcclaimed;
+    private final String[] criticallyAcclaimedTitles;
 
-    
-    private boolean favorited;
-
-    private static final String SEARCH_BY_TITLE = "Search By Title";
-    private static final String SEARCH_BY_POSTER = "Search By Poster";
-    private static final String NOW_PLAYING = "Now Playing";
-    private static final String FAVORITED = "Favorited";
     
     @EJB
     private BoughtFacade boughtFacade;
@@ -111,7 +96,7 @@ public class MovieManager implements Serializable {
         if (getUser() != null && currMovie != null) {
             return userFacade.findByUsername(getUser().getUsername()).favorited(currMovie);
         }
-        return favorited;
+        return false;
     }
 
     public void setFavorited(boolean favorited, Movie currMovie) {
@@ -128,8 +113,6 @@ public class MovieManager implements Serializable {
                 getUser().getFavoritedList().remove(f);
             }
         }
-
-        this.favorited = favorited;
     }
 
     public List<Movie> getFavoriteMovies() {
@@ -196,13 +179,6 @@ public class MovieManager implements Serializable {
                 + selectedShowtime.getTime() + " showtime of " + selectedMovie.getTitle();
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     public String getNumTickets() {
         return numTickets;
@@ -218,14 +194,6 @@ public class MovieManager implements Serializable {
 
     public void setNumTickets(String numTickets) {
         this.numTickets = numTickets;
-    }
-
-    public String getCheckoutAs() {
-        return checkoutAs;
-    }
-
-    public void setCheckoutAs(String checkoutAs) {
-        this.checkoutAs = checkoutAs;
     }
 
     public String getZipCode() {
@@ -374,13 +342,11 @@ public class MovieManager implements Serializable {
     }
 
     public String searchByTitle() {
-        type = SEARCH_BY_TITLE;
 
         return "/SearchResults";
     }
     
     public String searchByPoster() {
-        type = SEARCH_BY_POSTER;
         
         return "/SearchResults";
     }
@@ -470,55 +436,20 @@ public class MovieManager implements Serializable {
         return list;
     }
 
-    public List<Movie> getMovies() {
-        switch (type) {
-            case NOW_PLAYING:
-                return getNowPlaying();
-            case SEARCH_BY_TITLE:
-                return getSearchResults();
-            case SEARCH_BY_POSTER:
-                return getSearchResultsFromPoster();
-            case FAVORITED:
-                return getFavoritedMovies();
-        }
-
-        return null;
-    }
-
-    public String getMovieTableHeader() {
-
-        return type;
-    }
-
     public String purchaseMovie(Movie movie, Showtime showtime) {
         setSelectedShowtime(showtime);
         setSelectedMovie(movie);
-        return "Purchase";
+        return "/Purchase";
     }
 
     public String showNowPlaying() {
-        type = NOW_PLAYING;
-
-        return "Movies";
+        reset();
+        return "/NowPlaying";
     }
 
     public String showFavorited() {
-        type = FAVORITED;
-
-        return "Movies";
-    }
-
-    public String comingSoon() {
-        return "";
-    }
-
-    public String boxOffice() {
-
-        return "";
-    }
-
-    public String showRecommended() {
-        return "";
+        reset();
+        return "/Favorites";
     }
 
     public String confirmPurchase() {
@@ -539,7 +470,7 @@ public class MovieManager implements Serializable {
                                 purchaseDate.getTime(), 
                                 Integer.parseInt(numTickets), getPrice()));
         }
-        return "Confirmation";
+        return "/Confirmation";
     }
 
     public List<Bought> getPurchaseHistory() {
@@ -548,5 +479,13 @@ public class MovieManager implements Serializable {
         }
 
         return new ArrayList<>();
+    }
+    
+    
+    public void reset() {
+        this.numTickets = "1";
+        this.searchTitle = null;
+        this.selectedMovie = null;
+        this.selectedShowtime = null;
     }
 }

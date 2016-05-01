@@ -17,6 +17,7 @@ import com.mycompany.virtualtickets.Movie;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -428,6 +429,7 @@ public class AccountManager implements Serializable {
                 .getExternalContext().getSessionMap().get("username");
         User user = userFacade.findByUsername(user_name);
         List<Bought> boughtList = boughtFacade.findByUser(user.getId());
+        Collections.sort(boughtList);
         return boughtList;
     }
 
