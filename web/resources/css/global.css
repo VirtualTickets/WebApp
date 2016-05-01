@@ -226,6 +226,7 @@ h1 {
     height:40px; 
     background-color: #3cc5bc; 
     font-size: 25px;
+    color: white;
 }
 
 .movieTab {
@@ -493,10 +494,10 @@ input#img-6:checked ~ .nav-dots label#img-dot-6 {
     background-color: gray;
 }
 
-.whiteText {
-    color: white!important;
-}
 
+.topMenuText{
+    color: white;
+}
 
 
 

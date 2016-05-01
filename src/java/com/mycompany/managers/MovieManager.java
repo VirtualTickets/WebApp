@@ -69,10 +69,10 @@ public class MovieManager implements Serializable {
         
         for (int i=0; i <= 5; i++) {
             criticallyAcclaimed.add(apiManager.searchForMovieOmdb(caTitles[i]));  
-            System.out.println("Movie " + i);
-            System.out.println("~~~~~~~~~~~~rtRATING: " + criticallyAcclaimed.get(i).getRTRating());
-            System.out.println("~~~~~~~~~~~~rtCriticsConsensus: " + criticallyAcclaimed.get(i).getRTCriticsConsensus());
-            System.out.println("~~~~~~~~~~~~imdbRating: " + criticallyAcclaimed.get(i).getImdbRating());
+//            System.out.println("Movie " + i);
+//            System.out.println("~~~~~~~~~~~~rtRATING: " + criticallyAcclaimed.get(i).getRTRating());
+//            System.out.println("~~~~~~~~~~~~rtCriticsConsensus: " + criticallyAcclaimed.get(i).getRTCriticsConsensus());
+//            System.out.println("~~~~~~~~~~~~imdbRating: " + criticallyAcclaimed.get(i).getImdbRating());
         }
         
 
@@ -100,7 +100,7 @@ public class MovieManager implements Serializable {
     }
 
     public void setFavorited(boolean favorited, Movie currMovie) {
-        System.err.println("Setting favorite");
+        //System.err.println("Setting favorite");
         if (getUser() != null && currMovie != null) {
             Favorited f = favoritedFacade.find(new FavoritedPK(user.getId(), currMovie.getTmsId()));
 
@@ -224,7 +224,7 @@ public class MovieManager implements Serializable {
         locationChanged = true;
         ArrayList<String> temp = getNowPlayingTitles();
         locationChanged = false;
-        System.out.println("location changed");
+        //System.out.println("location changed");
     }
 
     public ArrayList<String> getNowPlayingTitles() {
@@ -316,6 +316,7 @@ public class MovieManager implements Serializable {
 //        posters.add("http://i.imgur.com/sODzs5B.png");
 
         for (Movie m : list) {
+            System.out.println("Title: " + m.getTitle() + " image: " + m.getPreferredImageUri());
             posters.add(m.getPreferredImageUri());
         }
 
@@ -336,7 +337,7 @@ public class MovieManager implements Serializable {
     }
 
     public void setPosterClickedTitle(String title) {
-        System.out.println("poster clicked title set to: " + title);
+        //System.out.println("poster clicked title set to: " + title);
         this.posterClickedTitle = title;
     }
 
@@ -358,9 +359,9 @@ public class MovieManager implements Serializable {
     public void view() {
         if (selectedMovie != null) {
             selectedMovie.retrievePreferredImageUri();
-            System.err.println("Updated!");
+            //System.err.println("Updated!");
         }
-        System.err.println("poop");
+        //System.err.println("poop");
     }
 
     public List<Movie> getNowPlaying() {
@@ -380,23 +381,23 @@ public class MovieManager implements Serializable {
 
         List<Favorited> f = u.getFavoritedList();
 
-        System.err.println("Number of favorited for " + user_name + " : " + f.size());
+        //System.err.println("Number of favorited for " + user_name + " : " + f.size());
 
         return Movie.convertFavorited(f, zipCode);
     }
 
     public List<Movie> getSearchResults() {
-        System.out.println("Getting movies by title: |" + this.searchTitle + "|");
+        //System.out.println("Getting movies by title: |" + this.searchTitle + "|");
         //List<Movie> list = apiManager.searchByTitleOmdb(this.searchTitle);
         List <Movie> list = new ArrayList<Movie>();
         String[] searchTokens = searchTitle.toLowerCase().split(" ");
-        System.err.println("Tokens: " + searchTokens.length);
+        //System.err.println("Tokens: " + searchTokens.length);
         for (String s : searchTokens) {
-            System.err.println(s);
+            //System.err.println(s);
         }
         for (Movie m : nowPlaying) {
             boolean allTokensFound = true;
-            System.err.println(m.getTitle());
+            //System.err.println(m.getTitle());
             for (String s : searchTokens) {
                 if (!(m.getTitle().toLowerCase().contains(s))) {
                     allTokensFound = false;
@@ -406,22 +407,22 @@ public class MovieManager implements Serializable {
                 list.add(m);
             }
         }
-        System.out.println("Movies size: " + list.size());
+        //System.out.println("Movies size: " + list.size());
         return list;
     }
     
         public List<Movie> getSearchResultsFromPoster() {
-        System.out.println("Getting movies by title: |" + this.posterClickedTitle + "|");
+        //System.out.println("Getting movies by title: |" + this.posterClickedTitle + "|");
         //List<Movie> list = apiManager.searchByTitleOmdb(this.searchTitle);
         List <Movie> list = new ArrayList<Movie>();
         String[] searchTokens = posterClickedTitle.toLowerCase().split(" ");
-        System.err.println("Tokens: " + searchTokens.length);
+        //System.err.println("Tokens: " + searchTokens.length);
         for (String s : searchTokens) {
-            System.err.println(s);
+            //System.err.println(s);
         }
         for (Movie m : nowPlaying) {
             boolean allTokensFound = true;
-            System.err.println(m.getTitle());
+            //System.err.println(m.getTitle());
             for (String s : searchTokens) {
                 if (!(m.getTitle().toLowerCase().contains(s))) {
                     allTokensFound = false;
@@ -431,7 +432,7 @@ public class MovieManager implements Serializable {
                 list.add(m);
             }
         }
-        System.out.println("Movies size: " + list.size());
+        //System.out.println("Movies size: " + list.size());
         return list;
     }
 
