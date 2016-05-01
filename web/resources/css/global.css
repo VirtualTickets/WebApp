@@ -496,7 +496,8 @@ input#img-6:checked ~ .nav-dots label#img-dot-6 {
 
 
 .topMenuText{
-    color: white;
+    color: white !important;
+    text-decoration: none !important;
 }
 
 

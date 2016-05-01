@@ -52,32 +52,32 @@ across all web pages.
                             <!--<div class="fa fa-user" aria-hidden="true"></div>-->
                             <h:panelGroup rendered="#{accountManager.isLoggedIn()}">
                                 <div class="fa fa-user" aria-hidden="true"></div>
-                                <h:commandLink value="View Profile" action="/customer/Profile" rendered="#{accountManager.isLoggedIn()}" styleClass="noUnderline" />
+                                <h:commandLink value="View Profile" action="/customer/Profile" rendered="#{accountManager.isLoggedIn()}" styleClass="noUnderline, topMenuText" />
                             
                             </h:panelGroup>
                             <h:panelGroup rendered="#{accountManager.isLoggedIn()}" >
                                 <div class="fa fa-star" aria-hidden="true"></div>
-                                <h:commandLink value="Favorites" action="/Favorites" rendered="#{accountManager.isLoggedIn()}" styleClass="noUnderline"/>
+                                <h:commandLink value="Favorites" action="/Favorites" rendered="#{accountManager.isLoggedIn()}" styleClass="noUnderline, topMenuText"/>
 
                             </h:panelGroup>
                             <h:panelGroup rendered="#{accountManager.isLoggedIn()}" >
                                 <div class="fa fa-edit" aria-hidden="true"></div>
-                                <h:commandLink value="Edit Account" action="/customer/EditAccount" rendered="#{accountManager.isLoggedIn()}" styleClass="noUnderline"/>
+                                <h:commandLink value="Edit Account" action="/customer/EditAccount" rendered="#{accountManager.isLoggedIn()}" styleClass="noUnderline, topMenuText"/>
 
                             </h:panelGroup>
                             <h:panelGroup rendered="#{!accountManager.isLoggedIn()}" >
                                 <div class="fa fa-user-plus" aria-hidden="true"></div>
-                                <h:commandLink value="Create Account" action="/customer/CreateAccount" rendered="#{!accountManager.isLoggedIn()}" styleClass="noUnderline"/>
+                                <h:commandLink value="Create Account" action="/customer/CreateAccount" rendered="#{!accountManager.isLoggedIn()}" styleClass="noUnderline, topMenuText"/>
 
                             </h:panelGroup>
                             <h:panelGroup rendered="#{accountManager.isLoggedIn()}" >
                                 <div class="fa fa-sign-out" aria-hidden="true"></div>
-                                <h:commandLink value="Logout" action="#{accountManager.logout()}" rendered="#{accountManager.isLoggedIn()}" styleClass="noUnderline"/>
+                                <h:commandLink value="Logout" action="#{accountManager.logout()}" rendered="#{accountManager.isLoggedIn()}" styleClass="noUnderline, topMenuText"/>
 
                             </h:panelGroup>
                             <h:panelGroup rendered="#{!accountManager.isLoggedIn()}" >
                                 <div class="fa fa-sign-in" aria-hidden="true"></div>
-                                <p:commandLink value="Login" type="button" onclick="PF('dlg2').show();" rendered="#{!accountManager.isLoggedIn()}" styleClass="noUnderline"/>
+                                <p:commandLink value="Login" type="button" onclick="PF('dlg2').show();" rendered="#{!accountManager.isLoggedIn()}" styleClass="noUnderline, topMenuText"/>
 
                             </h:panelGroup>
                         </h:panelGrid>
