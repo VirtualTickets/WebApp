@@ -34,6 +34,7 @@ public class MovieManager implements Serializable {
 
     private List<Movie> nowPlaying;
     private String searchTitle;
+    private String posterClickedTitle;
     private Movie selectedMovie;
     private Showtime selectedShowtime;
     private final ApiManager apiManager;
@@ -329,18 +330,30 @@ public class MovieManager implements Serializable {
     public void setSearchTitle(String searchTitle) {
         this.searchTitle = searchTitle;
     }
+    
+    public String getPosterClickedTitle() {
+        return posterClickedTitle;
+    }
+
+    public void setPosterClickedTitle(String title) {
+        System.out.println("poster clicked title set to: " + title);
+        this.posterClickedTitle = title;
+    }
 
     public String searchByTitle() {
 
         return "/SearchResults";
     }
+    
+    public String searchByPoster() {
+        
+        return "/SearchResults";
+    }
 
-//    public String searchByTitle(String title) {
-//        type = SEARCH_BY_TITLE;
-//        System.err.println("search by title: " + title);
-//
-//        return "Movies";
-//    }
+    public String searchByPosterClickedTitle(String title) {
+        setPosterClickedTitle(title);
+        return searchByPoster();
+    }
 
     public void view() {
         if (selectedMovie != null) {
@@ -382,11 +395,40 @@ public class MovieManager implements Serializable {
             System.err.println(s);
         }
         for (Movie m : nowPlaying) {
+            boolean allTokensFound = true;
             System.err.println(m.getTitle());
             for (String s : searchTokens) {
-                if (m.getTitle().toLowerCase().contains(s)) {
-                    list.add(m);
+                if (!(m.getTitle().toLowerCase().contains(s))) {
+                    allTokensFound = false;
                 }
+            }
+            if (allTokensFound) {
+                list.add(m);
+            }
+        }
+        System.out.println("Movies size: " + list.size());
+        return list;
+    }
+    
+        public List<Movie> getSearchResultsFromPoster() {
+        System.out.println("Getting movies by title: |" + this.posterClickedTitle + "|");
+        //List<Movie> list = apiManager.searchByTitleOmdb(this.searchTitle);
+        List <Movie> list = new ArrayList<Movie>();
+        String[] searchTokens = posterClickedTitle.toLowerCase().split(" ");
+        System.err.println("Tokens: " + searchTokens.length);
+        for (String s : searchTokens) {
+            System.err.println(s);
+        }
+        for (Movie m : nowPlaying) {
+            boolean allTokensFound = true;
+            System.err.println(m.getTitle());
+            for (String s : searchTokens) {
+                if (!(m.getTitle().toLowerCase().contains(s))) {
+                    allTokensFound = false;
+                }
+            }
+            if (allTokensFound) {
+                list.add(m);
             }
         }
         System.out.println("Movies size: " + list.size());

@@ -19,7 +19,7 @@ Copyright © 2016 Benjamin Sweeney. All rights reserved.
             <ui:define name="content">
                 <br/>
                 <div align="center" style="text-align: center">
-                    <h1>Favorites</h1>
+                    <h1>FAVORITES</h1>
                 </div>
                 <br/>
                 <div id="moviesPage" align="center">
@@ -34,10 +34,10 @@ Copyright © 2016 Benjamin Sweeney. All rights reserved.
                                             <br/>
                                             <p:commandButton rendered="#{movieManager.isFavorited(movie) and movieManager.user != null}" 
                                                              actionListener="#{movieManager.setFavorited(false, movie)}" value="Un-favorite"
-                                                             partialSubmit="true" update=":movieTable"/>
+                                                             partialSubmit="true" update=":movieTable" icon="ui-icon-star"/>
                                             <p:commandButton rendered="#{!movieManager.isFavorited(movie) and movieManager.user != null}" 
                                                              actionListener="#{movieManager.setFavorited(true, movie)}" value="Favorite"
-                                                             partialSubmit="true" update=":movieTable"/>
+                                                             partialSubmit="true" update=":movieTable" icon="ui-icon-star"/>
                                             
                                         </h:panelGroup>
                                         <h:panelGroup>

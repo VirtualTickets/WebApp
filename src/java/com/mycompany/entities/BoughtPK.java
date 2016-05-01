@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
  * @author Ben
  */
 @Embeddable
-public class BoughtPK implements Serializable {
+public class BoughtPK implements Serializable, Comparable<BoughtPK> {
 
     @Basic(optional = false)
     @NotNull
@@ -43,8 +43,8 @@ public class BoughtPK implements Serializable {
         this.userId = userId;
     }
     
-    public Date getPurchaseTime() {
-        return new Date(purchaseDate);
+    public String getPurchaseTime() {
+        return Bought.formatDate(new Date(purchaseDate));
     }
 
     public long getPurchaseDate() {
@@ -82,6 +82,19 @@ public class BoughtPK implements Serializable {
     @Override
     public String toString() {
         return "com.mycompany.entities.BoughtPK[ userId=" + userId + ", purchaseDate=" + purchaseDate + " ]";
+    }
+
+    @Override
+    public int compareTo(BoughtPK o) {
+        long diff = o.purchaseDate - this.purchaseDate;
+        
+        if (diff < 0) {
+            return -1;
+        } 
+        else if (diff > 0) {
+            return 1;
+        }
+        return 0;
     }
     
 }

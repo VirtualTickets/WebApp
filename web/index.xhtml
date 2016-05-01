@@ -1,17 +1,39 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!-- TODO List for Others:                                              -->
-<!-- have nick add an arrow that faces down or up depending on the state of the drop down -->
-<!-- highlighting of userIcon when hovered over -->
-<!-- separation of IMAX 3d, REALD 3D, Standard, etc on movies page -->
-<!-- date selector on movie page as well, like fandango -->
-<!-- movies page needs to reset when navigated away from -->
-<!-- white text for top menu and change font if possible. center contents of bar vertically.  -->
-<!-- On Movies.xhtml: blue theater tab or blue background for contents of the accordionPanel (#3cc5bc) -->
-<!-- section titles need to be in CAPS. (NOW PLAYING for e.x.)-->
+<!-- date selector on movie page as well, like fandango --> <!-- can only buy tickets for today -->
+<!-- movies page needs to reset when navigated away from --> <!-- done -->
+<!-- white text for top menu and change font if possible. center contents of bar vertically.  --> <!-- done -->
+<!-- On Movies.xhtml: blue theater tab or blue background for contents of the accordionPanel (#3cc5bc) --> 
+<!-- section titles need to be in CAPS. (NOW PLAYING for e.x.)--> <!-- done for all movie related pages and profile page-->
 <!-- favorite button on movies page needs to be the outline of a star that when hovered over fills in with orange, blue, or yellow (decide on the best looking color). -->
 <!-- theme of blue/orange/dark gray/light gray needs to be used across all pages. --> 
+<!-- add fields for things like genre, actors, producer, etc to movies page --> <!-- we dont get this info -->
+<!-- get some trailers!!!! -->
+<!-- put search button on right side of the search box and make it simply a magnifier icon --> <!-- done, home page still doesn't show icons. also, button no longer works on search results page -->
+<!-- nick needs to fix the forgot password button, so that it uses jquery style -->
+<!-- change timestamps to normal, fuck this military shit. I see it in purchase history --> <!-- done -->
+<!-- signing in requires clicking the button. it should submit when the user hits enter as well. --> 
+<!-- purchase history should have newest purchases at the top --> <!-- done -->
+<!-- footer needs to be at bottom of page, not at the bottom of the page's content. this issue exists on a few diff pages. --> <!-- is this really an issue? I know Balci doesn't care about this -->
+<!-- space out buttons on profile page -->
+<!-- dont show full CC number. maybe show ********1234 (*s for all but last 4 digits) --> <!-- they need to be able to type in a cc number tho -->
+<!-- what is that random string below release date on the movies page? --> <!-- movie id for testing -->
+<!-- pages need to reset when you navigate away from them. currently fields stay filled in as they were --> <!-- done -->
+<!-- Some movies, such as Baaghi in 22043 zip code, don't have a poster, runtime, etc. When you search for those showtimes a NullPointerException is thrown.
+     This needs to be handled more gracefully. 
+     Similarly trying to find tickets for los compadres gives the following error:
+     Message=/SearchResults.xhtml @56,85 value="pound{movie.releaseDate}": java.lang.StringIndexOutOfBoundsException: String index out of range: 7--> <!-- sort of done, no more exceptions, but we get things like Release Date: <blank> -->
+<!-- the dialogbox theme is not consistent accross pages, because the jquery.css file refrenced in index is not on every page. This leads to things like log in dialog box
+     looking different of different pages. Adding the jquery.css file to the header or footer might fix this. -->
+<!-- spacing above and below titles needs to be equal. look at index.html for examples. -->
+<!-- any buttons that are touching each other need to be spaced -->
+<!-- should logging in return you to the index? I just logged in while on the create account page and it left me there -->
+<!-- favorites page is blank --> <!-- ???? not blank for me -->
 
-<!-- My TODO List: -->                                                 
+<!-- My TODO List: --> 
+<!-- pointer when hovering over buttons? -->
+<!-- if you clicked get tickets and showtimes while drop down is on choose a movie, nothing should happen or error message displayed -->
+<!-- need to get the SEARCH_BY_POSTER shit working. not sure why it doesn't -->
 <!-- consider moving tickets title above the box and change loc in menubar -->
 <!-- consider a blue footer -->
 <!-- autochange slideshow after a few seconds -->
@@ -21,6 +43,9 @@
 <!-- add hover text to whatever still needs it. -->
 <!-- titles of movies below posters? -->
 <!-- make everythings dimension in relation to the screen size, to enable risizing of the window? -->
+<!-- space above and below titles should be consistent. look at index for an example. -->
+<!-- the jquery.css file refrenced from index is what gives dialog boxes the blue theme and what not. No other pages use it, so there
+     is an inconsistent theme across pages when you do things like try to log in. Maybe include that css file in the header or footer to fix. -->
 
 <!-- do we want to select our theater before searches? maybe use a drop down auto-selected to closest theater. 
      Could have this selection in the upper toolbar, index, or on the movies pag. -->
@@ -44,9 +69,9 @@
         <link href='https://fonts.googleapis.com/css?family=Lato:900' rel='stylesheet' type='text/css'></link>
     </h:head>
 
-    <h:body id="index">
-        <ui:composition template="/templates/main.xhtml" id="index">
-            <ui:define name="content" id="index">
+    <h:body>
+        <ui:composition template="/templates/main.xhtml">
+            <ui:define name="content">
                 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
                 <h:outputStylesheet name="css/jquery-ui.css"/> 
                 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
@@ -57,7 +82,7 @@
                         $("a.youtube").YouTubePopup({autoplay: 1});
                     });
                 </script>
-                <div id="index">
+                <div>
                     <h:form class="form">
                         <div class="ticketsAndShowtimesDiv"  align="center">
                             <br/>
@@ -87,14 +112,14 @@
                                             <img id="backImage" src="#{movieManager.backImages[0]}" alt="" />
                                             <span class="movieTitle" id="title1">#{movieManager.criticallyAcclaimedTitles[0]}</span>
                                             <span class="rtRating">
-                                                <img src="http://i.imgur.com/kZYkSAo.png" style="width:26%; height:27%; margin-top: 9px;" />
-                                                <span style="margin-left: 10px; ">
+                                                <img src="http://i.imgur.com/kZYkSAo.png" style="width:26%; height:27%; margin-bottom:5px;" />
+                                                <span style="margin-left: 10px;">
                                                     #{movieManager.criticallyAcclaimedRTRating[0]}
                                                 </span>
                                             </span>
 
                                             <span class="imdbRating">
-                                                <img src="http://i.imgur.com/rWxmqel.png" style="width:50%; height:25%; margin-top: 15px;" />                                                           
+                                                <img src="http://i.imgur.com/rWxmqel.png" style="width:50%; height:25%; margin-bottom: 5px; margin-top: 5px;" />                                                           
                                                 <span style="margin-left: 10px;">
                                                     #{movieManager.criticallyAcclaimedImdbRating[0]}
                                                 </span>
@@ -122,14 +147,14 @@
                                             <img id="backImage" src="#{movieManager.backImages[1]}" alt="" />
                                             <span class="movieTitle" id="title2">#{movieManager.criticallyAcclaimedTitles[1]}</span>
                                             <span class="rtRating">
-                                                <img src="http://i.imgur.com/kZYkSAo.png" style="width:26%; height:27%; margin-top: 9px;" />
+                                                <img src="http://i.imgur.com/kZYkSAo.png" style="width:26%; height:27%; margin-bottom:5px;" />
                                                 <span style="margin-left: 10px; ">
-                                                     #{movieManager.criticallyAcclaimedRTRating[1]}
+                                                    #{movieManager.criticallyAcclaimedRTRating[1]}
                                                 </span>
                                             </span>
 
                                             <span class="imdbRating">
-                                                <img src="http://i.imgur.com/rWxmqel.png" style="width:50%; height:25%; margin-top: 15px;" />                                                           
+                                                <img src="http://i.imgur.com/rWxmqel.png" style="width:50%; height:25%; margin-bottom: 5px; margin-top: 5px;" />                                                         
                                                 <span style="margin-left: 10px;">
                                                     #{movieManager.criticallyAcclaimedImdbRating[1]}
                                                 </span>
@@ -157,14 +182,14 @@
                                             <img id="backImage" src="#{movieManager.backImages[2]}" alt="" />
                                             <span class="movieTitle" id="title3">#{movieManager.criticallyAcclaimedTitles[2]}</span>
                                             <span class="rtRating">
-                                                <img src="http://i.imgur.com/kZYkSAo.png" style="width:26%; height:27%; margin-top: 9px;" />
+                                                <img src="http://i.imgur.com/kZYkSAo.png" style="width:26%; height:27%; margin-bottom:5px;" />
                                                 <span style="margin-left: 10px; ">
                                                     #{movieManager.criticallyAcclaimedRTRating[2]}
                                                 </span>
                                             </span>
 
                                             <span class="imdbRating">
-                                                <img src="http://i.imgur.com/rWxmqel.png" style="width:50%; height:25%; margin-top: 15px;" />                                                           
+                                                <img src="http://i.imgur.com/rWxmqel.png" style="width:50%; height:25%; margin-bottom: 5px; margin-top: 5px;" />                                                         
                                                 <span style="margin-left: 10px;">
                                                     #{movieManager.criticallyAcclaimedImdbRating[2]}
                                                 </span>
@@ -192,14 +217,14 @@
                                             <img id="backImage" src="#{movieManager.backImages[3]}" alt="" />
                                             <span class="movieTitle" id="title4">#{movieManager.criticallyAcclaimedTitles[3]}</span>
                                             <span class="rtRating">
-                                                <img src="http://i.imgur.com/kZYkSAo.png" style="width:26%; height:27%; margin-top: 9px;" />
+                                                <img src="http://i.imgur.com/kZYkSAo.png" style="width:26%; height:27%; margin-bottom:5px;" />
                                                 <span style="margin-left: 10px; ">
                                                     #{movieManager.criticallyAcclaimedRTRating[3]}
                                                 </span>
                                             </span>
 
                                             <span class="imdbRating">
-                                                <img src="http://i.imgur.com/rWxmqel.png" style="width:50%; height:25%; margin-top: 15px;" />                                                           
+                                                <img src="http://i.imgur.com/rWxmqel.png" style="width:50%; height:25%; margin-bottom: 5px; margin-top: 5px;" />                                                         
                                                 <span style="margin-left: 10px;">
                                                     #{movieManager.criticallyAcclaimedImdbRating[3]}
                                                 </span>
@@ -227,14 +252,14 @@
                                             <img id="backImage" src="#{movieManager.backImages[4]}" alt="" />
                                             <span class="movieTitle" id="title5">#{movieManager.criticallyAcclaimedTitles[4]}</span>
                                             <span class="rtRating">
-                                                <img src="http://i.imgur.com/kZYkSAo.png" style="width:26%; height:27%; margin-top: 9px;" />
+                                                <img src="http://i.imgur.com/kZYkSAo.png" style="width:26%; height:27%; margin-bottom:5px;" />
                                                 <span style="margin-left: 10px; ">
                                                     #{movieManager.criticallyAcclaimedRTRating[4]}
                                                 </span>
                                             </span>
 
                                             <span class="imdbRating">
-                                                <img src="http://i.imgur.com/rWxmqel.png" style="width:50%; height:25%; margin-top: 15px;" />                                                           
+                                                <img src="http://i.imgur.com/rWxmqel.png" style="width:50%; height:25%; margin-bottom: 5px; margin-top: 5px;" />                                                         
                                                 <span style="margin-left: 10px;">
                                                     #{movieManager.criticallyAcclaimedImdbRating[4]}
                                                 </span>
@@ -262,14 +287,14 @@
                                             <img id="backImage" src="#{movieManager.backImages[5]}" alt="" />
                                             <span class="movieTitle" id="title6">#{movieManager.criticallyAcclaimedTitles[5]}</span>
                                             <span class="rtRating">
-                                                <img src="http://i.imgur.com/kZYkSAo.png" style="width:26%; height:27%; margin-top: 9px;" />
+                                                <img src="http://i.imgur.com/kZYkSAo.png" style="width:26%; height:27%; margin-bottom:5px;" />
                                                 <span style="margin-left: 10px; ">
                                                     #{movieManager.criticallyAcclaimedRTRating[5]}
                                                 </span>
                                             </span>
 
                                             <span class="imdbRating">
-                                                <img src="http://i.imgur.com/rWxmqel.png" style="width:50%; height:25%; margin-top: 15px;" />                                                           
+                                                <img src="http://i.imgur.com/rWxmqel.png" style="width:50%; height:25%; margin-bottom: 5px; margin-top: 5px;" />                                                         
                                                 <span style="margin-left: 10px;">
                                                     #{movieManager.criticallyAcclaimedImdbRating[5]}
                                                 </span>
@@ -307,32 +332,32 @@
 
                             <h:panelGrid styleClass="topPostersPanel" border="1">
                                 <h:panelGrid columns="5" border="0" cellpadding="10" cellspacing="10">
-                                    <h:commandLink>
-                                        <f:ajax event="action" listener="#{movieManager.searchByTitle(movieManager.topNowPlayingTitles[0])}"/>
+                                    <h:commandLink action="#{movieManager.searchByTitle()}">
+                                        <f:ajax event="action" listener="#{movieManager.setSearchTitle(movieManager.topNowPlayingTitles[0])}"/>
                                         <h:graphicImage class="grow" url="#{movieManager.nowPlayingPosters[0]}"
                                                         width="180" height="267" alt="Movie img" title="Find Showings"/>
                                     </h:commandLink>
 
-                                    <h:commandLink>
-                                        <f:ajax event="action" listener="#{movieManager.searchByTitle(movieManager.topNowPlayingTitles[1])}"/>
+                                    <h:commandLink action="#{movieManager.searchByTitle()}">
+                                        <f:ajax event="action" listener="#{movieManager.setSearchTitle(movieManager.topNowPlayingTitles[1])}"/>
                                         <h:graphicImage class="grow" url="#{movieManager.nowPlayingPosters[1]}"
                                                         width="180" height="266" alt="Movie img" title="Find Showings"/>
                                     </h:commandLink>
 
-                                    <h:commandLink>
-                                        <f:ajax event="action" listener="#{movieManager.searchByTitle(movieManager.topNowPlayingTitles[2])}"/>
+                                    <h:commandLink action="#{movieManager.searchByTitle()}">
+                                        <f:ajax event="action" listener="#{movieManager.setSearchTitle(movieManager.topNowPlayingTitles[2])}"/>
                                         <h:graphicImage class="grow" url="#{movieManager.nowPlayingPosters[2]}"
                                                         width="180" height="267" alt="Movie img" title="Find Showings"/>
                                     </h:commandLink>
 
-                                    <h:commandLink>
-                                        <f:ajax event="action" listener="#{movieManager.searchByTitle(movieManager.topNowPlayingTitles[3])}"/>
+                                    <h:commandLink action="#{movieManager.searchByTitle()}">
+                                        <f:ajax event="action" listener="#{movieManager.setSearchTitle(movieManager.topNowPlayingTitles[3])}"/>
                                         <h:graphicImage class="grow" url="#{movieManager.nowPlayingPosters[3]}"
                                                         width="180" height="267" alt="Movie img" title="Find Showings"/>
                                     </h:commandLink>
 
-                                    <h:commandLink>
-                                        <f:ajax event="action" listener="#{movieManager.searchByTitle(movieManager.topNowPlayingTitles[4])}"/>
+                                    <h:commandLink action="#{movieManager.searchByTitle()}">
+                                        <f:ajax event="action" listener="#{movieManager.setSearchTitle(movieManager.topNowPlayingTitles[4])}"/>
                                         <h:graphicImage class="grow" url="#{movieManager.nowPlayingPosters[4]}"
                                                         width="180" height="267" alt="Movie img" title="Find Showings"/>
                                     </h:commandLink>

@@ -11,51 +11,50 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-
 /**
  *
  * @author painter
  */
 public class Movie implements Comparable<Movie> {
-    
-    private String tmsId; 
-    private String title; 
-    private int releaseYear; 
+
+    private String tmsId;
+    private String title;
+    private int releaseYear;
     private String releaseDate;
-    private String longDescription; 
-    private String rating; 
-    private String runtime; 
-    private String preferredImageUri; 
-    private List<Showtime> showtimes;  
-    private String metascore; 
-    private String imdbRating; 
+    private String longDescription;
+    private String rating;
+    private String runtime;
+    private String preferredImageUri;
+    private List<Showtime> showtimes;
+    private String metascore;
+    private String imdbRating;
     private String zipcode;
-    
+
     public static List<Movie> convertFavorited(List<Favorited> favorited, String zipcode) {
         List<Movie> list = new ArrayList<>();
-        
+
         for (Favorited f : favorited) {
             list.add(new Movie(f.getFavoritedPK().getMovieId(), zipcode));
         }
-        
+
         return list;
     }
     private String rtRating;
     private String rtCriticsConsensus;
-    
+
     public Movie() {
-        
+
     }
-    
+
     public Movie(Favorited f) {
         this.tmsId = f.getFavoritedPK().getMovieId();
     }
-    
+
     public Movie(String tmsId) {
         this.tmsId = tmsId;
     }
-    
-    public Movie (String tmsId, String zipcode) {
+
+    public Movie(String tmsId, String zipcode) {
         this.tmsId = tmsId;
         this.zipcode = zipcode;
     }
@@ -72,7 +71,7 @@ public class Movie implements Comparable<Movie> {
         if (title == null) {
             set();
         }
-        
+
         return title;
     }
 
@@ -92,10 +91,23 @@ public class Movie implements Comparable<Movie> {
     }
 
     public String getReleaseDate() {
+        
+        
+        
         if (releaseDate == null) {
             set();
         }
-        int month = Integer.parseInt(releaseDate.substring(5, 7));
+        if (releaseDate == null) {
+            return null;
+        }
+        
+        int month;
+        try {
+            month = Integer.parseInt(releaseDate.substring(5, 7));
+        }
+        catch (Exception e) {
+            return null;
+        }
         String year = releaseDate.substring(0, 4);
         String day = releaseDate.substring(8);
         return Constants.MONTHS[month - 1] + " " + day + ", " + year;
@@ -131,9 +143,12 @@ public class Movie implements Comparable<Movie> {
         if (runtime == null) {
             set();
         }
+        if (runtime == null) {
+            return null;
+        }
         int hours = Integer.parseInt(runtime.substring(2, 4));
         int minutes = Integer.parseInt(runtime.substring(5, 7));
-        
+
         return hours + ":" + minutes;
     }
 
@@ -142,14 +157,12 @@ public class Movie implements Comparable<Movie> {
     }
 
     public String getPreferredImageUri() {
-        System.err.println("Uri pre update: " + preferredImageUri);
-        System.err.println("Title: |" + getTitle() + "|");
         if (preferredImageUri == null) {
             retrievePreferredImageUri();
         }
         return preferredImageUri;
     }
-    
+
     public void retrievePreferredImageUri() {
         if (preferredImageUri == null) {
             setPreferredImageUri(new ApiManager().getPosterURL(getTitle()));
@@ -192,7 +205,7 @@ public class Movie implements Comparable<Movie> {
     public void setImdbRating(String imdbRating) {
         this.imdbRating = imdbRating;
     }
-    
+
     public String getRTRating() {
         return rtRating;
     }
@@ -200,7 +213,7 @@ public class Movie implements Comparable<Movie> {
     public void setRTRating(String rtRating) {
         this.rtRating = rtRating;
     }
-    
+
     public String getRTCriticsConsensus() {
         return rtCriticsConsensus;
     }
@@ -208,26 +221,28 @@ public class Movie implements Comparable<Movie> {
     public void setRTCriticsConsensus(String rtCriticsConsensus) {
         this.rtCriticsConsensus = rtCriticsConsensus;
     }
-    
+
     public List<TheatreWithShowtimes> getTheatres() {
         ArrayList<TheatreWithShowtimes> list = new ArrayList<>();
-        
+
         for (Showtime s : showtimes) {
             TheatreWithShowtimes t = new TheatreWithShowtimes(s.getTheatreId(), s.getTheatreName());
             if (!list.contains(t)) {
                 list.add(t);
             }
-            
+
             int index = list.lastIndexOf(t);
             list.get(index).addShowtime(s);
         }
-        
+
         return list;
     }
 
     @Override
     public int compareTo(Movie m) {
-        if (title != null && m.title != null) return title.compareTo(m.title);
+        if (title != null && m.title != null) {
+            return title.compareTo(m.title);
+        }
         return tmsId.compareTo(m.tmsId);
     }
 
@@ -248,9 +263,7 @@ public class Movie implements Comparable<Movie> {
         }
         return true;
     }
-    
-    
-    
+
     private void set() {
         this.set(new ApiManager().movieShowtimes(tmsId, zipcode));
     }
@@ -260,8 +273,7 @@ public class Movie implements Comparable<Movie> {
             this.set(movieShowtimes.get(0));
         }
     }
-    
-    
+
     private void set(Movie movie) {
         this.imdbRating = movie.imdbRating;
         this.longDescription = movie.longDescription;
@@ -273,6 +285,5 @@ public class Movie implements Comparable<Movie> {
         this.showtimes = movie.showtimes;
         this.title = movie.title;
     }
-    
-    
+
 }
