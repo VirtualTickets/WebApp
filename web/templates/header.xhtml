@@ -83,12 +83,14 @@ across all web pages.
             </p:menubar>
             <p:dialog header="Login" widgetVar="dlg2" modal="true" resizable="false" closable="true" position="center">
                 <div align="center">
-                    <h:form class="form-signin">
+                    <h:form id="signin" class="form-signin" >
+                      
+                        
                         <div align="center">
 
                             <h:panelGrid columns="2" columnClasses="rightAlign, leftAlign">
 
-                                <h:outputLabel styleClass="outputLabel" for="loginname" value="Username: " />
+                                <h:outputLabel styleClass="outputLabel" for="loginname" value="Username: "/>
                                 <h:inputText class="form-control" id="loginname" value="#{loginManager.username}"/>
 
                                 <h:outputLabel styleClass="outputLabel" for="password" value="Password: " />
@@ -98,12 +100,15 @@ across all web pages.
                             <br/>
 
                             <p:commandButton id="login"  actionListener="#{loginManager.loginUser()}" value="Login" styleClass="buttonText"
-                                             partialSubmit="true" update=":header" />                    
+                                             partialSubmit="true" update=":header"/>
+                                
+                                
+                            
                             <p:commandButton id="retrieve"  action="#{loginManager.resetPassword()}" value="Forgot Password" styleClass="buttonText"/>                
 
                         </div>
                         <br/>
-                        <h:outputLabel value ="#{loginManager.errorMessage}" />  
+                        <h:outputLabel id="result" value ="#{loginManager.errorMessage}" />  
                     </h:form>
                 </div>
             </p:dialog> 
