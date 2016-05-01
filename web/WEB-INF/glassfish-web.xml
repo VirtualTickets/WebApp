@@ -12,6 +12,6 @@ Copyright © 2016 Nicholas Greer. All rights reserved.
         </property>
     </jsp-config>
     <!--<property name="alternatedocroot_1" value="from=/FileStorageLocation/* dir=C:/Users/Kent"/>-->
-    <property name="alternatedocroot_1" value="from=/FileStorageLocation/* dir=C:/Users/Ben"/>
-<!--    <property name="alternatedocroot_1" value="from=/FileStorageLocation/* dir=C:/VirginiaTech/6_Spring_2016/Cloud/Users/Users_files"/>-->
+    <!--<property name="alternatedocroot_1" value="from=/FileStorageLocation/* dir=C:/Users/Ben"/>-->
+    <property name="alternatedocroot_1" value="from=/FileStorageLocation/* dir=C:/VirginiaTech/6_Spring_2016/Cloud/Users/Users_files"/>
 </glassfish-web-app>

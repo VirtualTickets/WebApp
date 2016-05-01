@@ -22,9 +22,13 @@ Copyright © 2016 Nicholas Greer. All rights reserved.
                 <h:form class="form-signin">
 
                     <h1> #{profileViewManager.loggedInUser.firstName.toUpperCase()} #{profileViewManager.loggedInUser.lastName.toUpperCase()} </h1>
+                    <h:panelGrid columns="5">
                     <h:button value="Edit Profile"  outcome="/customer/EditAccount"/>
+                    <br/>
                     <h:button value="Change Photo"  outcome="/customer/EditPhoto"/>
+                    <br/>
                     <h:commandButton value="Log Out" action="#{accountManager.logout()}" />
+                    </h:panelGrid>
                     <br/>
                     <br/>
 
