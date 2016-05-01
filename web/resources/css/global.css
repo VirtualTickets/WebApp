@@ -17,7 +17,7 @@ Copyright © 2016 Benjamin Sweeney. All rights reserved.
 /*@import url(http://fonts.googleapis.com/css?family=Varela+Round);*/
 
 html, body { 
-    background: #333 url("http://codepen.io/images/classy_fabric.png"); 
+    background: #333; 
     margin:0; padding:0; 
     color:orange;
 }
@@ -82,13 +82,14 @@ html, body {
     top: 100px;
     font-size: 1.7vw;
     color: #fff;
-    padding: 0 20px;
-    width: 12%;
+    padding: 0px 20px 0px;
+    width: 8%;
     line-height: 150%;
     background: rgba(247, 148, 29, 0.7);
     margin: 0px;
     font-family: 'Lato', sans-serif;
-
+    display : flex;
+    align-items : center;
 }
 
 .imdbRating {
@@ -97,11 +98,13 @@ html, body {
     font-size: 1.7vw;
     color: #fff;
     padding: 0 20px;
-    width: 12%;
+    width: 8%;
     line-height: 150%;
     background: rgba(247, 148, 29, 0.7);
     margin: 0px;
     font-family: 'Lato', sans-serif;
+    display : flex;
+    align-items : center;
 
 }
 
@@ -156,12 +159,22 @@ html, body {
 
 .userImage {
     border-radius: 100%;
+    border:2px solid white;
 }
 
 .userImage:hover {
+    cursor: pointer!important;
+    opacity: 0.5;
+    background-color: rgba(247, 148, 29, 0.7);
+}
+
+.socialMediaIcon {
+    border-radius: 100%;
+}
+
+.socialMediaIcon:hover {
     cursor: pointer;
     opacity: 0.5;
-    background-color: rgba(247, 148, 29, 0.7)
 }
 
 #topPostersDiv {
@@ -210,9 +223,10 @@ h1 {
 .topMenu {
     vertical-align: top;
     width:99.4%; 
-    height:60px; 
+    height:40px; 
     background-color: #3cc5bc; 
     font-size: 25px;
+    color: white;
 }
 
 .movieTab {
@@ -253,6 +267,10 @@ h2 {
 
 p {
     margin:0;
+}
+
+.noUnderline {
+    text-decoration: none;
 }
 
 .headerBarTable td {
@@ -477,7 +495,9 @@ input#img-6:checked ~ .nav-dots label#img-dot-6 {
 }
 
 
-
+.topMenuText{
+    color: white;
+}
 
 
 

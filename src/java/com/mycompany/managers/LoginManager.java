@@ -128,9 +128,9 @@ public class LoginManager implements Serializable {
             
         }
         
-        if (!success) {
+        if (success) {
             RequestContext context = RequestContext.getCurrentInstance();
-            context.execute("PF('dlg2').show();");
+            context.execute("PF('dlg2').hide();");
         }
     }
 

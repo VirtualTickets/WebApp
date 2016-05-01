@@ -135,7 +135,7 @@ public class ApiManager {
         String url = "http://www.omdbapi.com/?t="
                 + title + "&y=&plot=full&r=json";
 
-        System.err.println("URL: " + url);
+        //System.err.println("URL: " + url);
 
         try {
             JSONObject json = readJsonFromUrl(url);
@@ -146,7 +146,7 @@ public class ApiManager {
             e.printStackTrace();
             return null;
         }
-        System.out.println("title to find poster for: " + title + "  poster url: " + poster);
+        //System.out.println("title to find poster for: " + title + "  poster url: " + poster);
         return poster;
     }
 
@@ -276,7 +276,7 @@ public class ApiManager {
      * @return
      */
     public ArrayList<Movie> moviesPlayingInLocalTheatres(String zip) {
-        System.out.println("Searching for movies with zip: " + zip);
+        //System.out.println("Searching for movies with zip: " + zip);
         ArrayList<Movie> movs = new ArrayList<Movie>();
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -312,7 +312,7 @@ public class ApiManager {
     private Movie jsonToMovie(JSONObject json) {
         Movie mov = new Movie();
 
-        System.err.println(json);
+        //System.err.println(json);
 
         try {
             mov.setTmsId(json.getString("tmsId"));

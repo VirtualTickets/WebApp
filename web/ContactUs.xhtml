@@ -18,6 +18,9 @@ Copyright © 2016 Nicholas Greer. All rights reserved.
         </h:head>
         <ui:define name="content">
             <div align="center" style="width:50%; margin:0 auto;">
+                
+                <h1>CONTACT US</h1>
+                
                <h:panelGrid columns="3" cellpadding="5" cellspacing="20" bgcolor="gray">
                    <h:graphicImage/> 
                     <h:outputLabel class="colHeader" value="Name" />
@@ -28,8 +31,8 @@ Copyright © 2016 Nicholas Greer. All rights reserved.
                     <h:outputLabel value="Nicholas Greer" />
                     <h:outputLabel value="imp40@vt.edu" />
                     
-                    <h:graphicImage url="http://i.imgur.com/nfxNVQp.jpg"
-                                   width="150" height="198" alt="Kent Hannigan" onclick=""/> 
+                    <h:graphicImage value="#{resource['images:ben.jpg']}"
+                                   width="150" height="198" alt="Benjamin Sweeney" onclick=""/> 
                     <h:outputLabel value="Benjamin Sweeney" />
                     <h:outputLabel value="bends11@vt.edu" />
                     
