@@ -500,7 +500,7 @@ input#img-6:checked ~ .nav-dots label#img-dot-6 {
     text-decoration: none !important;
 }
 
-.ui-dialog-titlebar{
+#loginDialog .ui-dialog-titlebar{
     background-color: #3cc5bc !important;
     
 }
