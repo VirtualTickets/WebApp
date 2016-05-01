@@ -168,6 +168,15 @@ html, body {
     background-color: rgba(247, 148, 29, 0.7);
 }
 
+.socialMediaIcon {
+    border-radius: 100%;
+}
+
+.socialMediaIcon:hover {
+    cursor: pointer;
+    opacity: 0.5;
+}
+
 #topPostersDiv {
     /*background-color: rgba(60, 197, 188, 1)*/
     background: lightgrey;
