@@ -198,6 +198,51 @@ public class ApiManager {
 
     //--------------------------------------------------------------------------
     // Important Stuff below
+    
+    
+    /**
+     *
+     * @param zip
+     * @return
+     */
+    public ArrayList<Movie> findPopularMovies() {
+        ArrayList<Movie> movs = new ArrayList<Movie>();
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        String d = dateFormat.format(date);
+
+        String url = "http://api.themoviedb.org/3/discover/movie?api_key="
+                + "129068269e8d1c7dd718729d89908946"
+                + "&primary_release_date.gte="
+                + d
+                + "&sort_by=popularity.desc&certification_country=US";
+
+        try {
+            JSONObject json = readJsonFromUrl(url);
+            JSONArray jarray = json.getJSONArray("results");
+            JSONObject j; 
+            Movie mov; 
+
+            for (int i = 0; i < jarray.length(); i++) {
+                j = jarray.getJSONObject(i);
+                mov = new Movie(); 
+                mov.setTitle(j.getString("title"));
+                mov.setLongDescription(j.getString("overview"));
+                mov.setReleaseDate(j.getString("release_date"));
+                //mov.setPreferredImageUri(j.getString("poster_path"));
+                
+                movs.add(mov);
+            }
+        } catch (Exception e) {
+            return null;
+        }
+        return movs;
+    }
+    
+    
+    
+    
     /**
      *
      * @param zip
