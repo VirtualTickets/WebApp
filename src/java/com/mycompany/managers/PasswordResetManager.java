@@ -4,8 +4,8 @@
  */
 package com.mycompany.managers;
 
-//import com.mycompany.entities.Photo;
-//import com.mycompany.facades.PhotoFacade;
+import com.mycompany.entities.Photo;
+import com.mycompany.facades.PhotoFacade;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.mycompany.entities.User;
@@ -150,7 +150,7 @@ public class PasswordResetManager implements Serializable{
 
     public String emailSubmit() {
                 User user = userFacade.findByUsername(username);
-                if (user == null || user.getEmail().equals(answer))
+                if (user == null || !user.getEmail().equals(answer))
                 {
                     message ="That email isn't linked to that user";
                     return "";
