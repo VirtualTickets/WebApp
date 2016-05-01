@@ -24,6 +24,8 @@
      This needs to be handled more gracefully. 
      Similarly trying to find tickets for los compadres gives the following error:
      Message=/SearchResults.xhtml @56,85 value="pound{movie.releaseDate}": java.lang.StringIndexOutOfBoundsException: String index out of range: 7-->
+<!-- the dialogbox theme is not consistent accross pages, because the jquery.css file refrenced in index is not on every page. This leads to things like log in dialog box
+     looking different of different pages. Adding the jquery.css file to the header or footer might fix this. -->
 
 <!-- My TODO List: --> 
 <!-- if you clicked get tickets and showtimes while drop down is on choose a movie, nothing should happen or error message displayed -->
