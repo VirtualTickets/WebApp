@@ -289,5 +289,6 @@ public class PasswordResetManager implements Serializable{
             return "ResetPassword?faces-redirect=true";            
         }
     }
+    
             
 }
