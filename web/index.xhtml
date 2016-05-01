@@ -19,13 +19,16 @@
 <!-- dont show full CC number. maybe show ********1234 (*s for all but last 4 digits) -->
 <!-- what is that random string below release date on the movies page? -->
 <!-- pages need to reset when you navigate away from them. currently fields stay filled in as they were -->
-<!-- favorite button is missing from the movies page -->
 <!-- Some movies, such as Baaghi in 22043 zip code, don't have a poster, runtime, etc. When you search for those showtimes a NullPointerException is thrown.
      This needs to be handled more gracefully. 
      Similarly trying to find tickets for los compadres gives the following error:
      Message=/SearchResults.xhtml @56,85 value="pound{movie.releaseDate}": java.lang.StringIndexOutOfBoundsException: String index out of range: 7-->
 <!-- the dialogbox theme is not consistent accross pages, because the jquery.css file refrenced in index is not on every page. This leads to things like log in dialog box
      looking different of different pages. Adding the jquery.css file to the header or footer might fix this. -->
+<!-- spacing above and below titles needs to be equal. look at index.html for examples. -->
+<!-- any buttons that are touching each other need to be spaced -->
+<!-- should logging in return you to the index? I just logged in while on the create account page and it left me there -->
+<!-- favorites page is blank -->
 
 <!-- My TODO List: --> 
 <!-- if you clicked get tickets and showtimes while drop down is on choose a movie, nothing should happen or error message displayed -->
