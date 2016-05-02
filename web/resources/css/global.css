@@ -232,6 +232,8 @@ h1 {
 .movieTab {
     color: white;
     background: #f7941d;
+    filter: none!important;
+    opacity: 1.0!important;
 }
 
 .theaterTab {

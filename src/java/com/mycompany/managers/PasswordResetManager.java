@@ -34,25 +34,25 @@ import net.glxn.qrgen.core.image.ImageType;
 import net.glxn.qrgen.core.vcard.VCard;
 import net.glxn.qrgen.javase.QRCode;
 
-
 @Named(value = "passwordResetManager")
 @SessionScoped
 /**
  *
  * @author Greer
  */
-public class PasswordResetManager implements Serializable{
-    
+public class PasswordResetManager implements Serializable {
+
     // Instance Variables (Properties)
     private String username;
     private String message = "";
     private String answer;
     private String password;
-    
+
     /**
      * The instance variable 'userFacade' is annotated with the @EJB annotation.
-     * This means that the GlassFish application server, at runtime, will inject in
-     * this instance variable a reference to the @Stateless session bean UserFacade.
+     * This means that the GlassFish application server, at runtime, will inject
+     * in this instance variable a reference to the @Stateless session bean
+     * UserFacade.
      */
     @EJB
     private UserFacade userFacade;
@@ -72,19 +72,18 @@ public class PasswordResetManager implements Serializable{
     public void setMessage(String message) {
         this.message = message;
     }
-        
+
     public String usernameSubmit() {
         User user = userFacade.findByUsername(username);
         if (user == null) {
             message = "Entered username does not exist!";
             return "EnterUsername?faces-redirect=true";
-        }
-        else {
+        } else {
             message = "";
             return "SecurityQuestion?faces-redirect=true";
         }
     }
-    
+
     public void getQR() {
         String qrCodeText = "Hello World";
         File outf = new File(Constants.ROOT_DIRECTORY + "movieTicketQRCode.png");
@@ -116,7 +115,6 @@ public class PasswordResetManager implements Serializable{
 // notice that the color format is "0x(alpha: 1 byte)(RGB: 3 bytes)"
 // so in the example below it's red for foreground and yellowish for background, both 100% alpha (FF).
         //QRCode.from(qrCodeText).withColor(0xFFFF0000, 0xFFFFFFAA).file();
-
 // supply own outputstream
         QRCode.from(qrCodeText).to(ImageType.PNG).writeTo(outputStream);
 
@@ -149,57 +147,55 @@ public class PasswordResetManager implements Serializable{
     }
 
     public String emailSubmit() {
-                User user = userFacade.findByUsername(username);
-                if (user == null || !user.getEmail().equals(answer))
-                {
-                    message ="That email isn't linked to that user";
-                    return "";
-                }
-                getQR();
-                final String username1 = "vitualtickets.noreply@gmail.com";
-		final String password1 = "csd@VT(S16)";
+        User user = userFacade.findByUsername(username);
+        if (user == null || !user.getEmail().equals(answer)) {
+            message = "That email isn't linked to that user";
+            return "";
+        }
+        getQR();
+        final String username1 = "vitualtickets.noreply@gmail.com";
+        final String password1 = "csd@VT(S16)";
 
-		Properties props = new Properties();
-		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.smtp.host", "smtp.gmail.com");
-		props.put("mail.smtp.port", "587");
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
 
-		Session session = Session.getInstance(props,
-		  new javax.mail.Authenticator() {
-                        @Override
-			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(username1, password1);
-			}
-		  });
+        Session session = Session.getInstance(props,
+                new javax.mail.Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(username1, password1);
+            }
+        });
 
-		try {
-                    
-                    session = Session.getDefaultInstance(props, null);
+        try {
+
+            session = Session.getDefaultInstance(props, null);
             session.setDebug(true);
 
-			Message message1 = new MimeMessage(session);
-			message1.setFrom(new InternetAddress("virtualtickets.noreply@gmail.com"));
-			message1.setRecipients(Message.RecipientType.TO,
-				InternetAddress.parse(user.getEmail()));
-			message1.setSubject("VirtualTickets: Password Recover");
-			message1.setText("Your password is: "+user.getPassword()+"\n\nThank You for using virtual tickets!");
-                        
-                        Transport transport = session.getTransport("smtp");
-                        transport.connect("smtp.gmail.com", "virtualtickets.noreply@gmail.com", "csd@VT(S16)");
-                        transport.sendMessage(message1, message1.getAllRecipients());
-                        transport.close();
+            Message message1 = new MimeMessage(session);
+            message1.setFrom(new InternetAddress("virtualtickets.noreply@gmail.com"));
+            message1.setRecipients(Message.RecipientType.TO,
+                    InternetAddress.parse(user.getEmail()));
+            message1.setSubject("VirtualTickets: Password Recover");
+            message1.setText("Your password is: " + user.getPassword() + "\n\nThank You for using virtual tickets!");
 
+            Transport transport = session.getTransport("smtp");
+            transport.connect("smtp.gmail.com", "virtualtickets.noreply@gmail.com", "csd@VT(S16)");
+            transport.sendMessage(message1, message1.getAllRecipients());
+            transport.close();
 
-			System.out.println("Done");
+            System.out.println("Done");
 
-		} catch (MessagingException e) {
-			Logger.getLogger(PasswordResetManager.class.getName()).log(Level.SEVERE, null, e);
-                        message = "Sending email failed";
-                        return "ForgotPassword?faces-redirect=true";
-		}
-                message = "Email Sent";
-                return "";
+        } catch (MessagingException e) {
+            Logger.getLogger(PasswordResetManager.class.getName()).log(Level.SEVERE, null, e);
+            message = "Sending email failed";
+            return "ForgotPassword?faces-redirect=true";
+        }
+        message = "Email Sent";
+        return "";
         /*User user = userFacade.findByUsername(username);
         if (user.getEmail().equals(answer)) {
             try {
@@ -226,8 +222,7 @@ public class PasswordResetManager implements Serializable{
             return "ForgotPassword?faces-redirect=true";
         }*/
     }
-    
- 
+
     public String getAnswer() {
         return answer;
     }
@@ -260,8 +255,8 @@ public class PasswordResetManager implements Serializable{
             message = "Passwords must match!";
         } else {
             message = "";
-        }   
-    }   
+        }
+    }
 
     public String getPassword() {
         return password;
@@ -270,7 +265,7 @@ public class PasswordResetManager implements Serializable{
     public void setPassword(String password) {
         this.password = password;
     }
-    
+
     public String resetPassword() {
         if (message.equals("")) {
             message = "";
@@ -278,17 +273,15 @@ public class PasswordResetManager implements Serializable{
             try {
                 user.setPassword(password);
                 userFacade.edit(user);
-                username = answer = password = "";                
+                username = answer = password = "";
             } catch (EJBException e) {
                 message = "Something went wrong editing your profile, please try again!";
-                return "ResetPassword?faces-redirect=true";            
+                return "ResetPassword?faces-redirect=true";
             }
-            return "index?faces-redirect=true";            
-        }
-        else {
-            return "ResetPassword?faces-redirect=true";            
+            return "index?faces-redirect=true";
+        } else {
+            return "ResetPassword?faces-redirect=true";
         }
     }
-    
-            
+
 }

@@ -26,7 +26,7 @@ Copyright © 2016 Benjamin Sweeney. All rights reserved.
                     <div style="width: 60%; top: 100px;">
                         <p:accordionPanel var="movie" value="#{movieManager.searchResults}" dynamic="true" cache="true">
 
-                            <p:tab title="#{movie.title}" titleStyleClass="movieTab">
+                            <p:tab title="#{movie.title}" titleStyleClass="movieTab" disabled="#{movieManager.searchResults.size() == 1}">
                                 <p:panelGrid columns="2" style="max-width: 100%;">
                                     <h:panelGroup>    
                                         <h:graphicImage id="img" value="#{movie.preferredImageUri}" style="max-height: 370px; max-width: 250px" alt="Hello"/>
@@ -54,8 +54,6 @@ Copyright © 2016 Benjamin Sweeney. All rights reserved.
                                         <br/>
                                         <h:outputText value="Release Date: "/>
                                         <h:outputText value="#{movie.releaseDate}"/>
-                                        <br/>
-                                        <h:outputText value="#{movie.tmsId}"/>
                                         <br/>
                                         <p:tabView value="#{movie.theatres}" var="theatre">
                                             <p:tab title="#{theatre.name}" titleStyleClass="theaterTab">

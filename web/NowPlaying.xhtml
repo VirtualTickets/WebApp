@@ -27,7 +27,7 @@ Copyright © 2016 Benjamin Sweeney. All rights reserved.
                     <div style="width: 60%; top: 100px;">
                         <p:accordionPanel var="movie" value="#{movieManager.nowPlaying}" dynamic="true" cache="true">
 
-                            <p:tab title="#{movie.title}" titleStyleClass="movieTab">
+                            <p:tab title="#{movie.title}" titleStyleClass="movieTab" disabled="#{movieManager.nowPlaying.size() == 1}">
                                 <p:panelGrid columns="2" style="max-width: 100%;">
                                     <h:panelGroup>    
                                         <h:graphicImage id="img" value="#{movie.preferredImageUri}" style="max-height: 370px; max-width: 250px" alt="Hello"/>
@@ -42,22 +42,20 @@ Copyright © 2016 Benjamin Sweeney. All rights reserved.
                                         </h:form>
                                     </h:panelGroup>
                                     <h:panelGroup>
-                                        <h:outputText value="#{movie.longDescription}"/>
+                                        <h:outputText value="#{movie.longDescription}" rendered="#{movie.longDescription != null and movie.longDescription.length() > 0}"/>
                                         <br/>
                                         <br/>
-                                        <h:outputText value="Runtime: "/>
-                                        <h:outputText value="#{movie.runtime}"/>
+                                        <h:outputText value="Runtime: " rendered="#{movie.runtime != null and movie.runtime.length() > 0}"/>
+                                        <h:outputText value="#{movie.runtime}" rendered="#{movie.runtime != null and movie.runtime.length() > 0}"/>
                                         <br/>
                                         <br/>
-                                        <h:outputText value="Rating: "/>
-                                        <h:outputText value="#{movie.rating}"/>
+                                        <h:outputText value="Rating: " rendered="#{movie.rating != null and movie.rating.length() > 0}"/>
+                                        <h:outputText value="#{movie.rating}" rendered="#{movie.rating != null and movie.rating.length() > 0}"/>
                                         <br/>
                                         <br/>
-                                        <h:outputText value="Release Date: "/>
+                                        <h:outputText value="Release Date: " rendered="#{movie.releaseDate != null and movie.releaseDate.length() > 0}"/>
                                         <h:outputText value="#{movie.releaseDate}"/>
                                         <br/>
-                                        <!--<h:outputText value="#{movie.tmsId}"/>-->
-                                        <p:outputLabel value="#{movie.trailer}" escape="false"/>
                                         <br/>
                                         <p:tabView value="#{movie.theatres}" var="theatre">
                                             <p:tab title="#{theatre.name}" titleStyleClass="theaterTab">

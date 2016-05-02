@@ -158,7 +158,7 @@ public class Movie implements Comparable<Movie> {
         int hours = Integer.parseInt(runtime.substring(2, 4));
         int minutes = Integer.parseInt(runtime.substring(5, 7));
 
-        return hours + ":" + minutes;
+        return String.format("%d:%02d", hours, minutes);
     }
 
     public void setRuntime(String runtime) {
