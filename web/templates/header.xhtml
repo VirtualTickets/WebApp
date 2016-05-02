@@ -21,29 +21,30 @@ across all web pages.
         <h:form id="header" >
             <!--Menubar at the top of the screen -->
             <p:menubar styleClass="topMenu">
-                <!--VirtualTickets logo display -->
+                
                 <p:menuitem>
                     <h:commandLink action="/index" >
+                        <!--VirtualTickets logo display -->
                         <p:graphicImage value="http://i.imgur.com/OTNDqSe.png" width="200px" height="35px"/>
                     </h:commandLink>
                 </p:menuitem>
-                <!--buttons in the menubar -->
+                
                 <p:menuitem value="Home" outcome="/index" icon="ui-icon-home" styleClass="topMenuText"/>
                 <p:menuitem value="Now Playing" outcome="/NowPlaying" styleClass="topMenuText"/>
-                <!--Location selection -->
+                
                 <p:menuitem>
                     <p:spacer width="20" />
                     <h:inputText id="zip" value="#{movieManager.zipCode}" required="true" label="Zip Code" style="width:100px; vertical-align: top; margin-top:3px;">
                         <f:validateLength minimum="5" />
                     </h:inputText>
-                     <!--COnfirm button for location selection -->
+                     <!--Confirm button for location selection -->
                     <h:commandButton id="changeLoc"  action="#{movieManager.changeLocation()}" value="Change Location" style="vertical-align: top; margin-top:3px; font-size: 25px;"/>
                 </p:menuitem> 
 
 
-                <!--right-aligned elements: search bar and user icon -->
+                
                 <f:facet name="options">    
-
+                    <!--right-aligned elements: search bar and user icon -->
                     <!--Search bar -->
                     <p:remoteCommand name="search" action="#{movieManager.searchByTitle()}"/>
                     <p:inputText style="margin-right:10px;vertical-align: top" placeholder="Search Movies"

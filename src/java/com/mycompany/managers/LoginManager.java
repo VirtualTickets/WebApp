@@ -2,6 +2,7 @@
  * Created by Nicholas Greer on 2016.02.27  * 
  * Copyright © 2016 Nicholas Greer. All rights reserved. * 
  */
+//manages the login/logout user operations
 package com.mycompany.managers;
 
 import com.mycompany.entities.User;
@@ -62,18 +63,22 @@ public class LoginManager implements Serializable {
         this.username = username;
     }
 
+    //navigate to the user creation screen
     public String createUser() {
         return "CreateAccount";
     }
 
+    //navigate to the password forgot screen
     public String resetPassword() {
         return "/customer/ForgotPassword?faces-redirect=true";
     }
 
+    //we moved isLoggedIn() to accountManager, and made it static
     public boolean isLoggedIn() {
         return false;
     }
 
+    //getter and setter for success
     public boolean isSuccess() {
         return success;
     }
@@ -112,36 +117,45 @@ public class LoginManager implements Serializable {
         this.errorMessage = errorMessage;
     }
 
+    //log a user into the session
     public void loginUser() {
+        //try to find the requested user to login as
         User user = userFacade.findByUsername(getUsername());
         if (user == null) {
+            //user doesn't exist
             errorMessage = "Invalid username or password!";
             success = false;
         } else {
             if (user.getUsername().equals(getUsername()) && user.getPassword().equals(getPassword())) {
+                //user exists and password is good, log in
                 errorMessage = "";
                 initializeSessionMap(user);
                 success = true;
             }
             else {
+                //password wrong
                 errorMessage = "Invalid username or password!";
                 success = false;
             }
             
         }
         
+        //handle updates on successful login
         if (success) {
             ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext(); 
             try {
+                //reload the page to fill in fields with user info
                 ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
             } catch (IOException ex) {
                 Logger.getLogger(LoginManager.class.getName()).log(Level.SEVERE, null, ex);
             }
+            //hide the log in dialog box
             RequestContext context = RequestContext.getCurrentInstance();
             context.execute("PF('dlg2').hide();");
         }
     }
 
+    /* unused method slightly different logInUser()
     public String checkLogIn() {
 
         User user = userFacade.findByUsername(getUsername());
@@ -168,9 +182,11 @@ public class LoginManager implements Serializable {
             errorMessage = "Invalid username or password!";
             return "return false";
         }
-    }
+    }*/
 
+    //starta session with a user
     public void initializeSessionMap(User user) {
+        //set the various context fields to the correct things
         FacesContext.getCurrentInstance().getExternalContext().
                 getSessionMap().put("first_name", user.getFirstName());
         FacesContext.getCurrentInstance().getExternalContext().
