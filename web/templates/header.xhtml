@@ -38,9 +38,9 @@ across all web pages.
                 <f:facet name="options">    
 
 
-                    
+                    <p:remoteCommand name="search" action="#{movieManager.searchByTitle()}"/>
                     <p:inputText style="margin-right:10px;vertical-align: top" placeholder="Search Movies"
-                                 value="#{movieManager.searchTitle}"/>
+                                 value="#{movieManager.searchTitle}" onkeypress="if (event.keyCode == 13) { search(); return false; }"/>
                     <h:commandButton image="#{resource['images:search.png']}" action="#{movieManager.searchByTitle()}" 
                                      style="margin-right:10px;vertical-align: top; width: 40px; height: 40px;"/>
                     
