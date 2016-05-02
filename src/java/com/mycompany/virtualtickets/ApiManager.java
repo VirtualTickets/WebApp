@@ -25,21 +25,21 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * A class that allows the calling of API methods from various web services. 
+ * 
+ * 
  * @author painter
  */
 public class ApiManager {
 
     private static final String OCAPI = "yqcmwu38uh7mf9rpgsdbqnyj";
     
-    public static void main (String args[]) {
-        ApiManager man = new ApiManager(); 
-        
-        ArrayList<Movie> movs = man.findPopularMovies(); 
-        
-        System.out.println(movs); 
-    }
-    
+    /**
+     * Given movie title return the trailersapi movie trailer URL
+     * 
+     * @param title movie title
+     * @return trailer URL
+     */
     public String getTrailer(String title) {
         
         System.err.println("Getting trailer");
@@ -77,9 +77,10 @@ public class ApiManager {
     
 
     /**
-     *
-     * @param title
-     * @return
+     * Searches OMDb API for movie specific information
+     * 
+     * @param title movie title
+     * @return movie information
      */
     public Movie searchForMovieOmdb(String title) {
         Movie mov = null;
@@ -134,9 +135,10 @@ public class ApiManager {
     }
 
     /**
-     *
-     * @param title
-     * @return
+     * Searches OMDb for all movies matching a search term
+     * 
+     * @param title search term
+     * @return list of movies matching term
      */
     public ArrayList<Movie> searchByTitleOmdb(String title) {
         ArrayList<Movie> movs = new ArrayList<Movie>();
@@ -171,9 +173,9 @@ public class ApiManager {
     }
 
     /**
-     *
-     * @param title
-     * @return
+     * Search for the poster URL for a movie
+     * @param title movie title 
+     * @return poster URL
      */
     public String getPosterURL(String title) {
         String poster = null;
@@ -209,8 +211,9 @@ public class ApiManager {
     
     
     /**
-     *
-     * @param zip
+     * Search the Apiary 'themoviedb' API for a list of the countries most 
+     * popular movies
+     * @param zip 
      * @return
      */
     public ArrayList<Movie> findPopularMovies() {
@@ -252,22 +255,26 @@ public class ApiManager {
     
     
     /**
-     *
+     * OnConnect API:
+     * Search for theatres near a zip 
      * @param zip
      * @return
      */
     public ArrayList<Theatre> findTheatres(String zip) {
         ArrayList<Theatre> the = new ArrayList<Theatre>();
 
+        // Build API URL with key
         String url = "http://data.tmsapi.com/v1.1/theatres?zip="
                 + zip
                 + "&api_key="
                 + OCAPI;
 
+        // Read JSONObject from URL
         try {
             JSONArray jarray = readJsonArrayFromUrl(url);
             JSONObject theatre;
 
+            // Parse the Theatres from the JSONObject
             for (int i = 0; i < jarray.length(); i++) {
                 theatre = jarray.getJSONObject(i);
                 the.add(jsonToTheatre(theatre));
@@ -278,6 +285,12 @@ public class ApiManager {
         return the;
     }
 
+    /**
+     * OnConnect API:
+     * Returns specific data about a theatre
+     * @param theatreId
+     * @return 
+     */
     public Theatre theatreDetails(String theatreId) {
         Theatre the = new Theatre();
 
@@ -296,7 +309,8 @@ public class ApiManager {
     }
 
     /**
-     *
+     * OnConnect API:
+     * Returns a list of all show times for a theatre
      * @param zip
      * @return
      */
@@ -328,8 +342,10 @@ public class ApiManager {
     }
 
     /**
-     *
+     * OnConnect API:
+     * Returns all the local show times for a given theatre
      * @param theatreId
+     * @param zip
      * @return
      */
     public ArrayList<Movie> movieShowtimes(String tmsId, String zip) {
@@ -362,12 +378,12 @@ public class ApiManager {
     }
 
     /**
-     *
+     * OnConnect API:
+     * Returns list of all movies playing in a specific area
      * @param zip
      * @return
      */
     public ArrayList<Movie> moviesPlayingInLocalTheatres(String zip) {
-        System.out.println("******************MOVIES API CALLED*********************");
         ArrayList<Movie> movs = new ArrayList<Movie>();
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -396,7 +412,8 @@ public class ApiManager {
     }
 
     /**
-     *
+     * Given a JSON object representing an OnConnect movie transfer it to a movie
+     * object
      * @param json
      * @return
      */
@@ -468,8 +485,8 @@ public class ApiManager {
     }
 
     /**
-     *
-     * @param jarray
+     * Given a JSONArray returns a list of showtimes
+     * @param jarray JSONArray as list of showtimes
      * @return
      */
     private List<Showtime> arrayOfShowtimes(JSONArray jarray) {
@@ -483,7 +500,7 @@ public class ApiManager {
     }
 
     /**
-     *
+     * Converts an OnConnect show time JSONObject to a show time
      * @param json
      * @return
      */
@@ -514,7 +531,7 @@ public class ApiManager {
     }
 
     /**
-     *
+     * Takes an OnConnect theatre JSONObject to a Theatre 
      * @param json
      * @return
      */
@@ -554,7 +571,7 @@ public class ApiManager {
     }
 
     /**
-     *
+     * Reads a JSONObject from a called URL
      * @param url
      * @return
      * @throws IOException
@@ -573,7 +590,7 @@ public class ApiManager {
     }
 
     /**
-     *
+     * Reads a JSONArray from a called URL
      * @param url
      * @return
      * @throws IOException
@@ -592,7 +609,7 @@ public class ApiManager {
     }
 
     /**
-     *
+     * Helper method for reading URL pages. Builds a string from buffered input. 
      * @param rd
      * @return
      * @throws IOException
