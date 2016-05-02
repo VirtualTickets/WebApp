@@ -58,6 +58,7 @@ public class MovieManager implements Serializable {
 
     private List<Movie> nowPlaying;
     private List<Movie> mostPopular;
+    private ArrayList<String> mostPopularTitles;
     private String searchTitle;
     private String posterClickedTitle;
     private Movie selectedMovie;
@@ -250,7 +251,8 @@ public class MovieManager implements Serializable {
 
     public void changeLocation() {
         locationChanged = true;
-        ArrayList<String> temp = getNowPlayingTitles();
+        ArrayList<String> tempNowPlaying = getNowPlayingTitles();
+        ArrayList<String> tempMostPopular = getMostPopularTitles();
         locationChanged = false;
         //System.out.println("location changed");
     }
@@ -308,88 +310,94 @@ public class MovieManager implements Serializable {
     
     public ArrayList<String> getCriticallyAcclaimedRTCriticsConsensus() {
         ArrayList<String> criticsC = new ArrayList<>();
-        
+
         for (Movie m : criticallyAcclaimed) {
             criticsC.add(m.getRTCriticsConsensus());
-        } 
-        
+        }
+
         return criticsC;
     }
-    
+
     /**
-     * gets the titles of the 5 most popular movies. 
-     * 
+     * gets the titles of the 5 most popular movies.
+     *
      * @return the list of the 5 most popular titles
      */
     public ArrayList<String> getMostPopularTitles() {
-        ArrayList<String> titles = new ArrayList<>();
-        List<Movie> popularList = getMostPopular();
-        List<Movie> nowPlayingList = getNowPlaying();
-        int nowPlayingSize = nowPlayingList.size();
-        
-        int i = 0; //index for popularList
-        //stops scanning through list of popular titles after 5 titles are added.
-        while (titles.size() < 5 && i < popularList.size()) {
-            System.out.println("Checking to see if popTitle: " + popularList.get(i).getTitle() + " is in now Playing.");
-            boolean titleFoundInNowPlaying = false;
-            int k = 0;  //index for nowPlayingList
-            //stops when a title is found
-            while(!titleFoundInNowPlaying && k < nowPlayingSize){
-                //checks if the popular title is actually playing nearby before adding.
-                if (nowPlayingList.get(k).getTitle().equals(popularList.get(i).getTitle())){
-                    titles.add(popularList.get(i).getTitle());
-                    titleFoundInNowPlaying = true;
-                }
-                k++;
-            }
-            i++;
-        }
-        System.out.println("*************************Popular Titles After Sorting: " + titles);
-        //If less than 5 titles are found, titles will be chosen from now playing in the order given.
-        if (titles.size() < 5)
-        {
-            int r = 0;  //index for nowPlayingList
-            if (titles.size() == 0) {
-                while (titles.size() < 5 && r < nowPlayingSize) {
-                    titles.add(nowPlayingList.get(r).getTitle());
-                    r++;
-                }
-            }
-            else {
-                while (titles.size() < 5 && r < nowPlayingSize) {
-                    boolean titleAlreadyInList = false;
-                    for (String title : titles) {
-                        //checks if the title is already in the list
-                        if (nowPlayingList.get(r).getTitle().equals(title)){
-                            titleAlreadyInList = true;
-                        }
+        if (mostPopularTitles == null || locationChanged) {
+            ArrayList<String> titles = new ArrayList<>();
+            List<Movie> popularList = getMostPopular();
+            List<Movie> nowPlayingList = getNowPlaying();
+            int nowPlayingSize = nowPlayingList.size();
+
+            int i = 0; //index for popularList
+            //stops scanning through list of popular titles after 5 titles are added.
+            while (titles.size() < 5 && i < popularList.size()) {
+                System.out.println("Checking to see if popTitle: " + popularList.get(i).getTitle() + " is in now Playing.");
+                boolean titleFoundInNowPlaying = false;
+                int k = 0;  //index for nowPlayingList
+                //stops when a title is found
+                while (!titleFoundInNowPlaying && k < nowPlayingSize) {
+                    //checks if the popular title is actually playing nearby before adding.
+                    if (nowPlayingList.get(k).getTitle().equals(popularList.get(i).getTitle())) {
+                        titles.add(popularList.get(i).getTitle());
+                        titleFoundInNowPlaying = true;
                     }
-                    if (!titleAlreadyInList) {
+                    k++;
+                }
+                i++;
+            }
+            System.out.println("*************************Popular Titles After Sorting: " + titles);
+            //If less than 5 titles are found, titles will be chosen from now playing in the order given.
+            if (titles.size() < 5) {
+                int r = 0;  //index for nowPlayingList
+                if (titles.size() == 0) {
+                    while (titles.size() < 5 && r < nowPlayingSize) {
                         titles.add(nowPlayingList.get(r).getTitle());
+                        r++;
                     }
-                    r++;
+                } else {
+                    while (titles.size() < 5 && r < nowPlayingSize) {
+                        boolean titleAlreadyInList = false;
+                        for (String title : titles) {
+                            //checks if the title is already in the list
+                            if (nowPlayingList.get(r).getTitle().equals(title)) {
+                                titleAlreadyInList = true;
+                            }
+                        }
+                        if (!titleAlreadyInList) {
+                            titles.add(nowPlayingList.get(r).getTitle());
+                        }
+                        r++;
+                    }
                 }
             }
+
+            mostPopularTitles = titles;
         }
-        
-        return titles;
+        return mostPopularTitles;
     }
 
     public ArrayList<String> getMostPopularPosters() {
+        ArrayList<String> popularTitles = getMostPopularTitles();
         ArrayList<String> posters = new ArrayList<>();
-
-       // List<Movie> list = getNowPlaying();
-        posters.add("http://i.imgur.com/hQsw8Oe.jpg");
-        posters.add("http://i.imgur.com/ZUli3ZH.jpg");
-        posters.add("http://i.imgur.com/M2AYIht.jpg");
-        posters.add("http://i.imgur.com/ZcMT33m.jpg");
-        posters.add("http://i.imgur.com/sODzs5B.png");
-        /*
-        for (Movie m : list) {
-            System.out.println("Title: " + m.getTitle() + " image: " + m.getPreferredImageUri());
-            posters.add(m.getPreferredImageUri());
+        List<Movie> nowPlayingList = getNowPlaying();
+        
+//        posters.add("http://i.imgur.com/hQsw8Oe.jpg");
+//        posters.add("http://i.imgur.com/ZUli3ZH.jpg");
+//        posters.add("http://i.imgur.com/M2AYIht.jpg");
+//        posters.add("http://i.imgur.com/ZcMT33m.jpg");
+//        posters.add("http://i.imgur.com/sODzs5B.png");
+     
+        for (String title : popularTitles) {
+            for (Movie m : nowPlayingList) {
+                if (m.getTitle().equals(title)) {
+                    posters.add(m.getPreferredImageUri());
+                }
+            }
+            //System.out.println("Title: " + m.getTitle() + " image: " + m.getPreferredImageUri());
         }
-        */
+        
         //System.out.println("*****************************************" + posters);
         return posters;
     }
