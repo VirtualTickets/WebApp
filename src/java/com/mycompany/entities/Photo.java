@@ -3,6 +3,7 @@
  * Copyright © 2016 Nicholas Greer. All rights reserved. * 
  */
 //represents an entry in the Photo table in the database
+//this corresponds to a single user's photo
 package com.mycompany.entities;
 
 import com.mycompany.managers.Constants;
@@ -36,6 +37,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Photo.findByExtension", query = "SELECT p FROM Photo p WHERE p.extension = :extension")})
 public class Photo implements Serializable {
 
+    //private fields
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,6 +53,7 @@ public class Photo implements Serializable {
     @ManyToOne
     private User userId;
 
+    //constructors
     public Photo() {
     }
 
@@ -68,6 +71,7 @@ public class Photo implements Serializable {
         userId = id;
     }
 
+    //getters and setters for the fields
     public Integer getId() {
         return id;
     }
@@ -92,6 +96,7 @@ public class Photo implements Serializable {
         this.userId = userId;
     }
 
+    //create a hash code for use in the database
     @Override
     public int hashCode() {
         int hash = 0;
@@ -99,6 +104,7 @@ public class Photo implements Serializable {
         return hash;
     }
 
+    //check if two Photo objects are equal
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -112,23 +118,28 @@ public class Photo implements Serializable {
         return true;
     }
 
+    //get a string representation of the Photo object
     @Override
     public String toString() {
         return "com.mycompany.entities.Photo[ id=" + id + " ]";
     }
     
+    //get the file path where the actual image is stored
     public String getFilePath() {
         return Constants.ROOT_DIRECTORY + getFilename();
     }
 
+    //get the name of the file of the actual image
     public String getFilename() {
         return getId() + "." + getExtension();
     }
     
+    //get the name of the file of the thumbnail corresponding to this image
     public String getThumbnailName() {
         return getId() + "_thumbnail." + getExtension();
     }
     
+    //get the full filepath of the thumbnail corresponding to this photo
     public String getThumbnailFilePath() {
         return Constants.ROOT_DIRECTORY + getThumbnailName();
     }

@@ -2,6 +2,8 @@
  * Created by Benjamin Sweeney on 2016.04.07  * 
  * Copyright © 2016 Benjamin Sweeney. All rights reserved. * 
  */
+//an entry in the user table of the database. This corresponds to a single
+//user profile in our app
 package com.mycompany.entities;
 
 import com.mycompany.virtualtickets.Movie;
@@ -45,6 +47,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "User.findByCcExYear", query = "SELECT u FROM User u WHERE u.ccExYear = :ccExYear")})
 public class User implements Serializable {
 
+    //private fields
     @OneToMany(mappedBy = "userId")
     private Collection<Photo> photoCollection;
 
@@ -91,6 +94,7 @@ public class User implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Location> locationList;
 
+    //constructors
     public User() {
     }
 
@@ -107,6 +111,7 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    //getters and setters
     public Integer getId() {
         return id;
     }
@@ -179,6 +184,8 @@ public class User implements Serializable {
         this.ccExYear = ccExYear;
     }
 
+    //get the full list of entries in the favorited table corresponding to this
+    //user
     @XmlTransient
     public List<Favorited> getFavoritedList() {
         return favoritedList;
@@ -192,11 +199,14 @@ public class User implements Serializable {
     public List<Location> getLocationList() {
         return locationList;
     }
-
+    
+    //get the full list of entries in the location table corresponding to this
+    //user
     public void setLocationList(List<Location> locationList) {
         this.locationList = locationList;
     }
 
+    //create a hash code for use in the database
     @Override
     public int hashCode() {
         int hash = 0;
@@ -204,6 +214,7 @@ public class User implements Serializable {
         return hash;
     }
 
+    //check if two User objects are equal
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -217,11 +228,13 @@ public class User implements Serializable {
         return true;
     }
 
+    //get a string representation of the User object
     @Override
     public String toString() {
         return "com.mycompany.entities.User[ id=" + id + " ]";
     }
 
+    //get a full list of photo table entries corresponding to this user
     @XmlTransient
     public Collection<Photo> getPhotoCollection() {
         return photoCollection;
