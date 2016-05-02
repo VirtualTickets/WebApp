@@ -535,7 +535,6 @@ public class MovieManager implements Serializable {
 
 		try {
                     
-                         
                         Session session = Session.getDefaultInstance(props, null);
                         session.setDebug(true);
 
@@ -546,7 +545,7 @@ public class MovieManager implements Serializable {
 			message1.setSubject("VirtualTickets: Your ticket order");
                         MimeMultipart multipart = new MimeMultipart();
                         BodyPart messageBodyPart = new MimeBodyPart();
-                        String text = "Here is your ticket order of \n"+numTickets+" tickets to see "+selectedMovie.getTitle()+" at "+selectedShowtime.getTime()+" in " +selectedShowtime.getTheatreName();
+                        String text = "Here is your ticket order";
                         messageBodyPart.setText(text);
                         multipart.addBodyPart(messageBodyPart);
                         
@@ -577,7 +576,7 @@ public class MovieManager implements Serializable {
                 return ;
     }
     public String getQR() {
-        String qrCodeText = numTickets+" tickets to see "+selectedMovie.getTitle()+" @ "+selectedShowtime.getTime()+" @ " +selectedShowtime.getTheatreName();
+        String qrCodeText = "Hello World";
         File outf = new File(Constants.ROOT_DIRECTORY + "movieTicketQRCode.png");
         FileOutputStream outputStream = null;
         try {
