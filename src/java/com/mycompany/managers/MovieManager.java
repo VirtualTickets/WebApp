@@ -711,7 +711,7 @@ public class MovieManager implements Serializable {
 
             //make the text portion of the message add it to our overall message
             BodyPart messageBodyPart = new MimeBodyPart();
-            String text = "Here is your ticket order";
+            String text = "Here is your ticket order of\n" + getTickets() + " to see:\n" + selectedMovie.getTitle() + "\n" + selectedShowtime.getTime() + "\n" + selectedShowtime.getTheatreName();
             messageBodyPart.setText(text);
             multipart.addBodyPart(messageBodyPart);
 
@@ -746,7 +746,7 @@ public class MovieManager implements Serializable {
      * @return Returns the link to the qr code
      */
     public String getQR() {
-        String qrCodeText = "Hello World";
+        String qrCodeText = getTickets() + " to see:\n" + selectedMovie.getTitle() + "\n" + selectedShowtime.getTime() + "\n" + selectedShowtime.getTheatreName();
         File outf = new File(Constants.ROOT_DIRECTORY + "movieTicketQRCode.png");
         FileOutputStream outputStream = null;
         try {

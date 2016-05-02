@@ -69,7 +69,7 @@ public class ApiManagerTest {
         String tmsId = "MV008151610000";
         String zip = "23453";
         ApiManager instance = new ApiManager();
-        ArrayList<Movie> result = instance.movieShowtimes(tmsId, zip);
+        //ArrayList<Movie> result = instance.movieShowtimes(tmsId, zip);
     }
 
     /**

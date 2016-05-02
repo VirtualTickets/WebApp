@@ -22,7 +22,6 @@ Copyright © 2016 Nicholas Greer. All rights reserved.
         <div align="center" style="width:50%; margin:0 auto;">
             <h:form class="form-signin">
                 <h1 class="form-signin-heading">New Account</h1>
-                <br/>
                 <!--checks if the information is valid on a submit -->
                 <f:event listener="#{accountManager.validateInformation}" type="postValidate"/>
                 <p:panel id="panel" 
@@ -102,9 +101,12 @@ Copyright © 2016 Nicholas Greer. All rights reserved.
                 <h:outputLabel id="error" value="#{accountManager.statusMessage}"  />
                 <br/>
                 <!--Submit the account creation -->
+                <h:panelGrid columns='3'>
                 <h:commandButton class="btn btn-lg btn-success btn-block" id="submit" 
-                                 action="#{accountManager.createAccount()}" value="Submit" />   
+                                 action="#{accountManager.createAccount()}" value="Submit" />  
+                <br/>
                 <h:button class="btn btn-lg btn-danger" id="cancel" outcome="/index" value="Cancel" />
+                </h:panelGrid>
             </h:form>
         </div>
         </ui:define>
