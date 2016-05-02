@@ -3,6 +3,7 @@
  * Created by Nicholas Greer on 2016.02.27  * 
  * Copyright © 2016 Nicholas Greer. All rights reserved. * 
  */
+//handles the recovery of account passwords through email 
 package com.mycompany.managers;
 
 import com.mycompany.entities.User;
@@ -47,6 +48,8 @@ public class PasswordResetManager implements Serializable{
     @EJB
     private UserFacade userFacade;
 
+    
+    //getters and setters for username and message
     public String getUsername() {
         return username;
     }
@@ -63,6 +66,7 @@ public class PasswordResetManager implements Serializable{
         this.message = message;
     }
         
+    //currently unused, but we are considering adding in options for account recovery
     public String usernameSubmit() {
         User user = userFacade.findByUsername(username);
         if (user == null) {
@@ -76,44 +80,53 @@ public class PasswordResetManager implements Serializable{
     }
     
 
-
+    //try to recover an account with username and email 
     public String emailSubmit() {
+                //get user from database by the given name
                 User user = userFacade.findByUsername(username);
+                //check if the submitted email matches the submitted user's email
                 if (user == null || !user.getEmail().equals(answer))
                 {
                     message ="That email isn't linked to that user";
                     return "";
                 }
-                //getQR();
+                
                 final String username1 = "vitualtickets.noreply@gmail.com";
 		final String password1 = "csd@VT(S16)";
 
+                //set up properties of the email method: smtp from gmail
 		Properties props = new Properties();
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.starttls.enable", "true");
 		props.put("mail.smtp.host", "smtp.gmail.com");
 		props.put("mail.smtp.port", "587");
 
+                /*currently unused, but might allow for more specific control of a session
 		Session session = Session.getInstance(props,
 		  new javax.mail.Authenticator() {
                         @Override
 			protected PasswordAuthentication getPasswordAuthentication() {
 				return new PasswordAuthentication(username1, password1);
 			}
-		  });
+		  });*/
 
 		try {
                     
-                    session = Session.getDefaultInstance(props, null);
-            session.setDebug(true);
+                    //set up a new email session
+                    Session session = Session.getDefaultInstance(props, null);
+                    session.setDebug(true);
 
+                    //create the basic email info: to, from, and subject
 			Message message1 = new MimeMessage(session);
 			message1.setFrom(new InternetAddress("virtualtickets.noreply@gmail.com"));
 			message1.setRecipients(Message.RecipientType.TO,
 				InternetAddress.parse(user.getEmail()));
 			message1.setSubject("VirtualTickets: Password Recover");
+                        
+                        //add the body to the email
 			message1.setText("Your password is: "+user.getPassword()+"\n\nThank You for using virtual tickets!");
                         
+                        //send the email
                         Transport transport = session.getTransport("smtp");
                         transport.connect("smtp.gmail.com", "virtualtickets.noreply@gmail.com", "csd@VT(S16)");
                         transport.sendMessage(message1, message1.getAllRecipients());
@@ -123,6 +136,7 @@ public class PasswordResetManager implements Serializable{
 			System.out.println("Done");
 
 		} catch (MessagingException e) {
+                    //inform the user if this failed
 			Logger.getLogger(PasswordResetManager.class.getName()).log(Level.SEVERE, null, e);
                         message = "Sending email failed";
                         return "ForgotPassword?faces-redirect=true";
@@ -156,7 +170,7 @@ public class PasswordResetManager implements Serializable{
         }*/
     }
     
- 
+    //setter and getter for the email
     public String getAnswer() {
         return answer;
     }
@@ -165,6 +179,7 @@ public class PasswordResetManager implements Serializable{
         this.answer = answer;
     }
 
+    //check if the user has submitted the correct password information
     public void validateInformation(ComponentSystemEvent event) {
         FacesContext fc = FacesContext.getCurrentInstance();
 
@@ -192,6 +207,7 @@ public class PasswordResetManager implements Serializable{
         }   
     }   
 
+    //getter and setter for the password
     public String getPassword() {
         return password;
     }
@@ -200,9 +216,12 @@ public class PasswordResetManager implements Serializable{
         this.password = password;
     }
     
+    //change the password of a user
     public String resetPassword() {
+        //if the fields on the xhtml page are correct
         if (message.equals("")) {
             message = "";
+            //find the user and try to change the password
             User user = userFacade.findByUsername(username);
             try {
                 user.setPassword(password);
