@@ -2,6 +2,8 @@
  * Created by Benjamin Sweeney on 2016.04.29  * 
  * Copyright © 2016 Benjamin Sweeney. All rights reserved. * 
  */
+//Part of a bought entry, this contains the id of th user that purchased, 
+//and the date on which they did
 package com.mycompany.entities;
 
 import java.io.Serializable;
@@ -18,6 +20,7 @@ import javax.validation.constraints.NotNull;
 @Embeddable
 public class BoughtPK implements Serializable, Comparable<BoughtPK> {
 
+    //private fields in the BoughtPK object
     @Basic(optional = false)
     @NotNull
     @Column(name = "user_id")
@@ -27,6 +30,7 @@ public class BoughtPK implements Serializable, Comparable<BoughtPK> {
     @Column(name = "purchase_date")
     private long purchaseDate;
 
+    //constructors
     public BoughtPK() {
     }
 
@@ -35,6 +39,7 @@ public class BoughtPK implements Serializable, Comparable<BoughtPK> {
         this.purchaseDate = purchaseDate;
     }
 
+    //getters and setters for the fields
     public int getUserId() {
         return userId;
     }
@@ -43,9 +48,7 @@ public class BoughtPK implements Serializable, Comparable<BoughtPK> {
         this.userId = userId;
     }
     
-    public String getPurchaseTime() {
-        return Bought.formatDate(new Date(purchaseDate));
-    }
+    
 
     public long getPurchaseDate() {
         return purchaseDate;
@@ -54,7 +57,13 @@ public class BoughtPK implements Serializable, Comparable<BoughtPK> {
     public void setPurchaseDate(long purchaseDate) {
         this.purchaseDate = purchaseDate;
     }
+    
+    //output a formatted time for the purchase
+    public String getPurchaseTime() {
+        return Bought.formatDate(new Date(purchaseDate));
+    }
 
+    //create a hash code for database usage
     @Override
     public int hashCode() {
         int hash = 0;
@@ -63,6 +72,7 @@ public class BoughtPK implements Serializable, Comparable<BoughtPK> {
         return hash;
     }
 
+    //check if two BoughtPK object are equal
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -79,11 +89,14 @@ public class BoughtPK implements Serializable, Comparable<BoughtPK> {
         return true;
     }
 
+    //get a string representation of th BoughtPK entry
     @Override
     public String toString() {
         return "com.mycompany.entities.BoughtPK[ userId=" + userId + ", purchaseDate=" + purchaseDate + " ]";
     }
 
+    //Compare two BoughtPK objects
+    //comparisons are based on purchase times
     @Override
     public int compareTo(BoughtPK o) {
         long diff = o.purchaseDate - this.purchaseDate;
