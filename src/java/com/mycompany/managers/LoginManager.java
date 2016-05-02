@@ -14,7 +14,9 @@ import javax.ejb.EJB;
 import javax.faces.application.NavigationHandler;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 import org.primefaces.context.RequestContext;
 
 @ManagedBean(name = "loginManager")
@@ -129,6 +131,12 @@ public class LoginManager implements Serializable {
         }
         
         if (success) {
+            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext(); 
+            try {
+                ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
+            } catch (IOException ex) {
+                Logger.getLogger(LoginManager.class.getName()).log(Level.SEVERE, null, ex);
+            }
             RequestContext context = RequestContext.getCurrentInstance();
             context.execute("PF('dlg2').hide();");
         }

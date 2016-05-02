@@ -4,6 +4,8 @@
  */
 package com.mycompany.managers;
 
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.mycompany.entities.Bought;
 import com.mycompany.entities.Favorited;
 import com.mycompany.entities.FavoritedPK;
@@ -14,6 +16,10 @@ import com.mycompany.facades.UserFacade;
 import com.mycompany.virtualtickets.ApiManager;
 import com.mycompany.virtualtickets.Movie;
 import com.mycompany.virtualtickets.Showtime;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -21,9 +27,27 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
 import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
-
+import javax.mail.BodyPart;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import javax.mail.internet.MimeBodyPart;
+import net.glxn.qrgen.core.image.ImageType;
+import net.glxn.qrgen.core.vcard.VCard;
+import net.glxn.qrgen.javase.QRCode;
 /**
  *
  * @author Ben
@@ -44,6 +68,9 @@ public class MovieManager implements Serializable {
     private User user;
     private final List<Movie> criticallyAcclaimed;
     private final String[] criticallyAcclaimedTitles;
+    private User userTemp;
+    
+    
 
     
     @EJB
@@ -470,6 +497,7 @@ public class MovieManager implements Serializable {
                                 purchaseDate.getTime(), 
                                 Integer.parseInt(numTickets), getPrice()));
         }
+        sendConfirm();
         return "/Confirmation";
     }
 
@@ -488,4 +516,140 @@ public class MovieManager implements Serializable {
         this.selectedMovie = null;
         this.selectedShowtime = null;
     }
+    
+    private void sendConfirm()
+    {
+        
+                User user = userTemp;
+                String imageLoc = getQR();
+                final String username1 = "vitualtickets.noreply@gmail.com";
+		final String password1 = "csd@VT(S16)";
+
+		Properties props = new Properties();
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.port", "587");
+
+		
+
+		try {
+                    
+                         
+                        Session session = Session.getDefaultInstance(props, null);
+                        session.setDebug(true);
+
+			Message message1 = new MimeMessage(session);
+			message1.setFrom(new InternetAddress("virtualtickets.noreply@gmail.com"));
+			message1.setRecipients(Message.RecipientType.TO,
+				InternetAddress.parse(user.getEmail()));
+			message1.setSubject("VirtualTickets: Your ticket order");
+                        MimeMultipart multipart = new MimeMultipart();
+                        BodyPart messageBodyPart = new MimeBodyPart();
+                        String text = "Here is your ticket order of \n"+numTickets+" tickets to see "+selectedMovie.getTitle()+" at "+selectedShowtime.getTime()+" in " +selectedShowtime.getTheatreName();
+                        messageBodyPart.setText(text);
+                        multipart.addBodyPart(messageBodyPart);
+                        
+                        messageBodyPart = new MimeBodyPart();
+                        DataSource fds = new FileDataSource(imageLoc);
+                        messageBodyPart.setDataHandler(new DataHandler(fds));
+                        messageBodyPart.setHeader("Content-ID","<image>");
+                        multipart.addBodyPart(messageBodyPart);
+                        
+                        message1.setContent(multipart);
+                        
+			
+                        
+                        Transport transport = session.getTransport("smtp");
+                        transport.connect("smtp.gmail.com", "virtualtickets.noreply@gmail.com", "csd@VT(S16)");
+                        transport.sendMessage(message1, message1.getAllRecipients());
+                        transport.close();
+
+
+			System.out.println("Done");
+
+		} catch (MessagingException e) {
+			Logger.getLogger(PasswordResetManager.class.getName()).log(Level.SEVERE, null, e);
+                        
+                        return ;
+		}
+               
+                return ;
+    }
+    public String getQR() {
+        String qrCodeText = numTickets+" tickets to see "+selectedMovie.getTitle()+" @ "+selectedShowtime.getTime()+" @ " +selectedShowtime.getTheatreName();
+        File outf = new File(Constants.ROOT_DIRECTORY + "movieTicketQRCode.png");
+        FileOutputStream outputStream = null;
+        try {
+            outputStream = new FileOutputStream(outf);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(PasswordResetManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        // get QR file from text using defaults
+        File file = QRCode.from(qrCodeText).file();
+
+// get QR stream from text using defaults
+        ByteArrayOutputStream stream = QRCode.from(qrCodeText).stream();
+
+// override the image type to be JPG
+        QRCode.from(qrCodeText).to(ImageType.JPG).file();
+        QRCode.from(qrCodeText).to(ImageType.JPG).stream();
+
+// override image size to be 250x250
+        QRCode.from(qrCodeText).withSize(250, 250).file();
+        QRCode.from(qrCodeText).withSize(250, 250).stream();
+
+// override size and image type
+        QRCode.from(qrCodeText).to(ImageType.GIF).withSize(250, 250).file();
+        QRCode.from(qrCodeText).to(ImageType.GIF).withSize(250, 250).stream();
+
+// override default colors (black on white)
+// notice that the color format is "0x(alpha: 1 byte)(RGB: 3 bytes)"
+// so in the example below it's red for foreground and yellowish for background, both 100% alpha (FF).
+        //QRCode.from(qrCodeText).withColor(0xFFFF0000, 0xFFFFFFAA).file();
+
+// supply own outputstream
+        QRCode.from(qrCodeText).to(ImageType.PNG).writeTo(outputStream);
+
+// supply own file name
+        QRCode.from(qrCodeText).file("QRCode");
+
+// supply charset hint to ZXING
+        QRCode.from(qrCodeText).withCharset("UTF-8");
+
+// supply error correction level hint to ZXING
+        QRCode.from(qrCodeText).withErrorCorrection(ErrorCorrectionLevel.L);
+
+// supply any hint to ZXING
+        QRCode.from(qrCodeText).withHint(EncodeHintType.CHARACTER_SET, "UTF-8");
+
+// encode contact data as vcard using defaults
+        VCard johnDoe = new VCard("John Doe")
+                .setEmail("john.doe@example.org")
+                .setAddress("John Doe Street 1, 5678 Doestown")
+                .setTitle("Mister")
+                .setCompany("John Doe Inc.")
+                .setPhoneNumber("1234")
+                .setWebsite("www.example.org");
+        QRCode.from(johnDoe).file();
+
+// if using special characters don't forget to supply the encoding
+        VCard johnSpecial = new VCard("Jöhn Dɵe")
+                .setAddress("ëåäöƞ Sträät 1, 1234 Döestüwn");
+        QRCode.from(johnSpecial).withCharset("UTF-8").file();
+        
+        return Constants.ROOT_DIRECTORY + "movieTicketQRCode.png";
+    }
+    
+    public User getLoggedInTemp()
+    {
+        if(AccountManager.isLoggedIn())
+        {
+            userTemp = userFacade.find(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user_id"));
+            return userTemp;
+        }
+        userTemp = new User();
+        return userTemp;
+    }
+    
 }

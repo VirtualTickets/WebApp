@@ -15,6 +15,7 @@ across all web pages.
     </h:head>
 
     <ui:composition>
+        <h:outputStylesheet name="css/jquery-ui.css"/>
         <h:form id="header" >
             <p:menubar styleClass="topMenu">
                 <p:menuitem>
@@ -85,7 +86,7 @@ across all web pages.
                 </f:facet>
             </p:menubar>
             </h:form>
-            <p:dialog header="Login" widgetVar="dlg2" modal="true" resizable="false" closable="true" position="center">
+            <p:dialog id="loginDialog" header="Login" widgetVar="dlg2" modal="true" resizable="false" closable="true" position="center" >
                 <div align="center">
                     <h:form id="signinform" class="form-signin" onsubmit="if (event.keyCode == 13) { document.getElementById('signinform:login').click();}">
                         <div align="center">

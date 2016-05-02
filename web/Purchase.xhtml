@@ -47,19 +47,19 @@ TODO:
                                     <h:outputText value=" x $11.00" style="font-size: 36px;"/>
                                 </h:panelGroup>
                                 <h:outputText value="* Credit Card Number" />
-                                <h:inputText value="#{profileViewManager.loggedInUser.ccNumber}" required="true"/>
+                                <h:inputText value="#{movieManager.loggedInTemp.ccNumber}" required="true"/>
                                 <h:outputText value="* Expiration Month"/>
-                                <h:inputText value="#{profileViewManager.loggedInUser.ccExMonth}" required="true"/>
+                                <h:inputText value="#{movieManager.loggedInTemp.ccExMonth}" required="true"/>
                                 <h:outputText value="* Expiration Year"/>
-                                <h:inputText value="#{profileViewManager.loggedInUser.ccExYear}" required="true"/>
+                                <h:inputText value="#{movieManager.loggedInTemp.ccExYear}" required="true"/>
                                 <h:outputText value="* First Name"/>
-                                <h:inputText value="#{profileViewManager.loggedInUser.firstName}" required="true"/>
+                                <h:inputText value="#{movieManager.loggedInTemp.firstName}" required="true"/>
                                 <h:outputText value="* Last Name" />
-                                <h:inputText value="#{profileViewManager.loggedInUser.lastName}" required="true"/>
+                                <h:inputText value="#{movieManager.loggedInTemp.lastName}" required="true"/>
                                 <h:outputText value="* CVC"/>
                                 <h:inputText required="true"/>
                                 <h:outputText value="* Email"/>
-                                <h:inputText value="#{profileViewManager.loggedInUser.email}"/>
+                                <h:inputText value="#{movieManager.loggedInTemp.email}"/>
                             </p:panelGrid> 
                             <h:panelGroup>  
                                 <p:panelGrid columns="2" rendered="#{movieManager.selectedMovie != null}" style="align-self: center;">
