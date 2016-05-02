@@ -101,9 +101,12 @@ Copyright © 2016 Nicholas Greer. All rights reserved.
                 <h:outputLabel id="error" value="#{accountManager.statusMessage}"  />
                 <br/>
                 <!--Submit the account creation -->
+                <h:panelGrid columns='3'>
                 <h:commandButton class="btn btn-lg btn-success btn-block" id="submit" 
-                                 action="#{accountManager.createAccount()}" value="Submit" />   
+                                 action="#{accountManager.createAccount()}" value="Submit" />  
+                <br/>
                 <h:button class="btn btn-lg btn-danger" id="cancel" outcome="/index" value="Cancel" />
+                </h:panelGrid>
             </h:form>
         </div>
         </ui:define>
