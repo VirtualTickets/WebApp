@@ -68,6 +68,7 @@ public class MovieManager implements Serializable {
     private User user;
     private final List<Movie> criticallyAcclaimed;
     private final String[] criticallyAcclaimedTitles;
+    private User userTemp;
     
     
 
@@ -519,8 +520,7 @@ public class MovieManager implements Serializable {
     private void sendConfirm()
     {
         
-                User user = userFacade.find(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user_id"));
-                
+                User user = userTemp;
                 String imageLoc = getQR();
                 final String username1 = "vitualtickets.noreply@gmail.com";
 		final String password1 = "csd@VT(S16)";
@@ -638,6 +638,17 @@ public class MovieManager implements Serializable {
         QRCode.from(johnSpecial).withCharset("UTF-8").file();
         
         return Constants.ROOT_DIRECTORY + "movieTicketQRCode.png";
+    }
+    
+    public User getLoggedInTemp()
+    {
+        if(AccountManager.isLoggedIn())
+        {
+            userTemp = userFacade.find(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user_id"));
+            return userTemp;
+        }
+        userTemp = new User();
+        return userTemp;
     }
     
 }
