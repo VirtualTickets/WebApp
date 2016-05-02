@@ -48,28 +48,12 @@
 
 
 <!-- My TODO List: --> 
-<!-- pointer when hovering over buttons? -->
 <!-- if you clicked get tickets and showtimes while drop down is on choose a movie, nothing should happen or error message displayed -->
 <!-- need to get the SEARCH_BY_POSTER shit working. not sure why it doesn't -->
-<!-- consider moving tickets title above the box and change loc in menubar -->
 <!-- consider a blue footer -->
-<!-- autochange slideshow after a few seconds -->
 <!-- update contact us to have pics of everybody -->
 <!-- need to get list of "highest grossing / most popular" -->
-<!-- search by title needs to work -->
-<!-- add hover text to whatever still needs it. -->
-<!-- titles of movies below posters? -->
 <!-- make everythings dimension in relation to the screen size, to enable risizing of the window? -->
-<!-- space above and below titles should be consistent. look at index for an example. -->
-<!-- the jquery.css file refrenced from index is what gives dialog boxes the blue theme and what not. No other pages use it, so there
-     is an inconsistent theme across pages when you do things like try to log in. Maybe include that css file in the header or footer to fix. -->
-
-<!-- do we want to select our theater before searches? maybe use a drop down auto-selected to closest theater. 
-     Could have this selection in the upper toolbar, index, or on the movies pag. -->
-
-<!-- fix the x in the close box of the pop-up youtube player -->
-<!-- removing the line that referenced some jQuery css fixed the wonky menu bar minus the home icon missing, but made the x for close need fixing -->
-<!-- fix alignment of ratings text -->
 <!-- consider making the play icon fixed size -->
 
 
@@ -99,6 +83,12 @@
                     $(function () {
                         $("a.youtube").YouTubePopup({autoplay: 1});
                     });
+                    
+                    var dropDown = document.getElementById('select_movie');
+                    var ticketsButton = document.getElementById('getShowtimes');
+                    dropDown.onchange = function() {
+                        ticketsButton.disabled = false;
+                    };
                 </script>
                 <div>
                     <h:form class="form">
