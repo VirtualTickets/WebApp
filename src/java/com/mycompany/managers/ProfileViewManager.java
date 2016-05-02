@@ -2,6 +2,7 @@
  * Created by Nicholas Greer on 2016.02.27  * 
  * Copyright © 2016 Nicholas Greer. All rights reserved. * 
  */
+//Provides a view through which to access the logged in user's profile
 package com.mycompany.managers;
 
 import com.mycompany.entities.User;
@@ -35,6 +36,7 @@ public class ProfileViewManager implements Serializable {
 
     }
 
+    //navigate to the profile page
     public String viewProfile() {
         return "Profile";
     }
@@ -46,6 +48,7 @@ public class ProfileViewManager implements Serializable {
         return user;
     }
 
+    //get the currently logged in user
     public User getLoggedInUser() {
         if (!AccountManager.isLoggedIn()) {
             return new User(-1, "", "", "", "", "");

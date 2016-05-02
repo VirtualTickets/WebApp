@@ -2,6 +2,7 @@
  * Created by Nicholas Greer on 2016.02.27  * 
  * Copyright © 2016 Nicholas Greer. All rights reserved. * 
  */
+//Validator to ensure the passworda user enters is sufficiently secure
 package com.mycompany.validators;
 
 import javax.faces.application.FacesMessage;

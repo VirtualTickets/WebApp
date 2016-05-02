@@ -2,6 +2,7 @@
  * Created by Nicholas Greer on 2016.02.27  * 
  * Copyright © 2016 Nicholas Greer. All rights reserved. * 
  */
+//validate the email format to make sure the user entered what could be a real email.
 package com.mycompany.validators;
 
 import javax.faces.application.FacesMessage;
