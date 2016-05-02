@@ -27,11 +27,11 @@ across all web pages.
                 <p:menuitem value="Now Playing" outcome="/NowPlaying" styleClass="topMenuText"/>
                 <p:menuitem>
                     <p:spacer width="20" />
-                    <h:inputText id="zip" value="#{movieManager.zipCode}" required="true" label="Zip Code" style="width:100px; vertical-align: top;">
+                    <h:inputText id="zip" value="#{movieManager.zipCode}" required="true" label="Zip Code" style="width:100px; vertical-align: top; margin-top:3px;">
                         <f:validateLength minimum="5" />
                     </h:inputText>
 
-                    <h:commandButton id="changeLoc"  action="#{movieManager.changeLocation()}" value="Change Location" style="vertical-align: top; font-size: 25px;"/>
+                    <h:commandButton id="changeLoc"  action="#{movieManager.changeLocation()}" value="Change Location" style="vertical-align: top; margin-top:3px; font-size: 25px;"/>
                 </p:menuitem> 
 
 
@@ -41,8 +41,8 @@ across all web pages.
                     
                     <p:inputText style="margin-right:10px;vertical-align: top" placeholder="Search Movies"
                                  value="#{movieManager.searchTitle}"/>
-                    <h:commandButton image="#{resource['images:search.png']}" action="#{movieManager.searchByTitle()}" 
-                                     style="margin-right:10px;vertical-align: top; width: 40px; height: 40px;"/>
+                    <h:commandButton image="#{resource['images:searchIcon.png']}" action="#{movieManager.searchByTitle()}" 
+                                     style="margin-right:30px; margin-top:5px; vertical-align: top; width: 30px; height: 30px;"/>
                     
                     
                     <p:graphicImage id="userImage" class="userImage" height="40" width="40" value="#{accountManager.getUserImage()}" />
