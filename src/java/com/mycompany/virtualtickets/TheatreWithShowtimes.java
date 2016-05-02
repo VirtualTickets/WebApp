@@ -8,13 +8,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * A theatre object with a list of the showtimes. This is to separate the
+ * different movies into different tabs.
  *
  * @author Ben
  */
 public class TheatreWithShowtimes extends Theatre {
-    
+
     private List<Showtime> showtimes;
-    
+
     public TheatreWithShowtimes(String theatreId, String name) {
         super(theatreId, name);
         showtimes = new ArrayList<>();
@@ -27,10 +29,9 @@ public class TheatreWithShowtimes extends Theatre {
     public void setShowtimes(List<Showtime> showtimes) {
         this.showtimes = showtimes;
     }
-    
+
     public void addShowtime(Showtime s) {
         showtimes.add(s);
     }
-    
-    
+
 }
