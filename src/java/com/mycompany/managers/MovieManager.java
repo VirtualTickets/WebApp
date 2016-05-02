@@ -613,7 +613,7 @@ public class MovieManager implements Serializable {
                         
                         //make the text portion of the message add it to our overall message
                         BodyPart messageBodyPart = new MimeBodyPart();
-                        String text = "Here is your ticket order of\n"+numTickets+" tickets to see "+selectedMovie.getTitle()+" at "+selectedShowtime.getTime()+" in "+selectedShowtime.getTheatreName();
+                        String text = "Here is your ticket order of\n"+getTickets()+" to see:\n"+selectedMovie.getTitle()+"\n"+selectedShowtime.getTime()+"\n"+selectedShowtime.getTheatreName();
                         messageBodyPart.setText(text);
                         multipart.addBodyPart(messageBodyPart);
                         
@@ -646,7 +646,7 @@ public class MovieManager implements Serializable {
     
     //create and store a QR code image for a customer's order
     public String getQR() {
-        String qrCodeText = numTickets+" tickets to see "+selectedMovie.getTitle()+" at "+selectedShowtime.getTime()+" in "+selectedShowtime.getTheatreName();
+        String qrCodeText = getTickets()+" to see:\n"+selectedMovie.getTitle()+"\n"+selectedShowtime.getTime()+"\n"+selectedShowtime.getTheatreName();
         File outf = new File(Constants.ROOT_DIRECTORY + "movieTicketQRCode.png");
         FileOutputStream outputStream = null;
         try {
