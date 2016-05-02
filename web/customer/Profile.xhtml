@@ -41,7 +41,7 @@ Copyright © 2016 Nicholas Greer. All rights reserved.
                         <p:tabView style="vertical-align:top" styleClass="tabProfile">
                             
                             
-                            <p:tab title="Basic Info" titleStyle="background-color: #3cc5bc">
+                            <p:tab title="Basic Info" titleStyle="background-color: #3cc5bc;color:white;">
                                 <!-- Basic Info goes here -->
                                 <h:panelGrid columns="2" cellpadding="6" >
                                     <h:outputText value="First Name: " />
@@ -57,8 +57,9 @@ Copyright © 2016 Nicholas Greer. All rights reserved.
                                     <h:outputText value="#{profileViewManager.loggedInUser.email}" />
                                 </h:panelGrid>
                             </p:tab>  
-                            <!--Payment info display -->
-                            <p:tab title="Payment Info" titleStyle="background-color: #3cc5bc">
+                            
+                            <p:tab title="Payment Info" titleStyle="background-color: #3cc5bc;color:white;">
+                                <!--Payment info display -->
                                 <h:panelGrid columns="2" cellpadding="6">
                                     <h:outputText value="Credit Card Number: " />
                                     <h:outputText value="#{profileViewManager.loggedInUser.ccNumberDisplay()}" />
@@ -68,8 +69,9 @@ Copyright © 2016 Nicholas Greer. All rights reserved.
 
                                 </h:panelGrid>
                             </p:tab>
-                            <!--Purchase history display -->
-                            <p:tab title="History" titleStyle="background-color: #3cc5bc">
+                            
+                            <p:tab title="History" titleStyle="background-color: #3cc5bc;color:white;">
+                                <!--Purchase history display -->
                                 <p:dataTable  value="#{accountManager.getBought()}" var="bought" emptyMessage="No purchases made">
 
                                     <p:column >
