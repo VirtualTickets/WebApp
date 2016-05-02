@@ -244,6 +244,7 @@ public class User implements Serializable {
         this.photoCollection = photoCollection;
     }
     
+    //check if a movie is favorited for this user
     public boolean favorited(Movie m) {
         for (Favorited f : favoritedList) {
             if (f.getFavoritedPK().getMovieId().equals(m.getTmsId())) return true;
@@ -251,6 +252,8 @@ public class User implements Serializable {
         
         return false;
     }
+    
+    //get the last 4 digits of the credit card number
     public String ccNumberDisplay()
     {
         BigInteger temp = this.ccNumber;
