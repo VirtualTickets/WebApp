@@ -76,7 +76,9 @@ html, body {
 #title6 {
     width: 24%;
 }
-
+.contact {
+    border: 8px #3cc5bc;
+}
 .rtRating {
     position: absolute;
     top: 100px;

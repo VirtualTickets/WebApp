@@ -340,12 +340,13 @@ public class MovieManager implements Serializable {
      */
     public String[] getBackImages() {
         String[] backImages = {
-            "http://i.imgur.com/QFTEWaa.jpg",
-            "http://i.imgur.com/TewghSg.jpg",
-            "http://i.imgur.com/t9qwqNm.jpg",
-            "http://i.imgur.com/IXeQQtS.jpg",
-            "http://i.imgur.com/chV9r5M.jpg",
-            "http://i.imgur.com/YlAGj5R.jpg"};
+            "#{resource['images:backImage1.jpg']}", 
+            "#{resource['images:backImage2.jpg']}", 
+            "#{resource['images:backImage3.jpg']}", 
+            "#{resource['images:backImage4.jpg']}",
+            "#{resource['images:backImage5.jpg']}", 
+            "#{resource['images:backImage6.jpg']}", 
+            };
 
         return backImages;
     }
