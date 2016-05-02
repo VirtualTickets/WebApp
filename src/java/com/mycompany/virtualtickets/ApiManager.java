@@ -215,7 +215,7 @@ public class ApiManager {
         String url = "http://api.themoviedb.org/3/discover/movie?api_key="
                 + "129068269e8d1c7dd718729d89908946"
                 + "&primary_release_date.gte="
-                + d
+                + "2016-01-01"
                 + "&sort_by=popularity.desc&certification_country=US";
 
         try {
