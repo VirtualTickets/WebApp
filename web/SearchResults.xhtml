@@ -55,6 +55,7 @@ Copyright © 2016 Benjamin Sweeney. All rights reserved.
                                         <h:outputText value="Release Date: "/>
                                         <h:outputText value="#{movie.releaseDate}"/>
                                         <br/>
+                                        <br/>
                                         <p:tabView value="#{movie.theatres}" var="theatre">
                                             <p:tab title="#{theatre.name}" titleStyleClass="theaterTab">
                                                 <p:dataGrid value="#{theatre.showtimes}" var="showtime" >
