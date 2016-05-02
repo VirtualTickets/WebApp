@@ -2,6 +2,7 @@
  * Created by Benjamin Sweeney on 2016.04.07  * 
  * Copyright © 2016 Benjamin Sweeney. All rights reserved. * 
  */
+//Part of a Location table entry has user id and zipcode
 package com.mycompany.entities;
 
 import java.io.Serializable;
@@ -17,6 +18,7 @@ import javax.validation.constraints.NotNull;
 @Embeddable
 public class LocationPK implements Serializable {
 
+    //private fields
     @Basic(optional = false)
     @NotNull
     @Column(name = "user_id")
@@ -26,6 +28,7 @@ public class LocationPK implements Serializable {
     @Column(name = "zipcode")
     private int zipcode;
 
+    //constructors
     public LocationPK() {
     }
 
@@ -34,6 +37,7 @@ public class LocationPK implements Serializable {
         this.zipcode = zipcode;
     }
 
+    //getters and setters
     public int getUserId() {
         return userId;
     }
@@ -50,6 +54,7 @@ public class LocationPK implements Serializable {
         this.zipcode = zipcode;
     }
 
+    //create a hash code for use in the database
     @Override
     public int hashCode() {
         int hash = 0;
@@ -58,6 +63,7 @@ public class LocationPK implements Serializable {
         return hash;
     }
 
+    //check if two LocationPK objects are equal
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -74,6 +80,7 @@ public class LocationPK implements Serializable {
         return true;
     }
 
+    //get a string representation of the LocationPK object
     @Override
     public String toString() {
         return "com.mycompany.entities.LocationPK[ userId=" + userId + ", zipcode=" + zipcode + " ]";

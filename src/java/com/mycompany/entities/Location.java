@@ -2,6 +2,8 @@
  * Created by Benjamin Sweeney on 2016.04.07  * 
  * Copyright © 2016 Benjamin Sweeney. All rights reserved. * 
  */
+//represents an entry in the loation table of the database.
+//This corresponds to a zipcode-based area
 package com.mycompany.entities;
 
 import java.io.Serializable;
@@ -27,6 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Location.findByZipcode", query = "SELECT l FROM Location l WHERE l.locationPK.zipcode = :zipcode")})
 public class Location implements Serializable {
 
+    //private fields
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected LocationPK locationPK;
@@ -34,6 +37,7 @@ public class Location implements Serializable {
     @ManyToOne(optional = false)
     private User user;
 
+    //constructors
     public Location() {
     }
 
@@ -45,6 +49,7 @@ public class Location implements Serializable {
         this.locationPK = new LocationPK(userId, zipcode);
     }
 
+    //getters and setters for the fields
     public LocationPK getLocationPK() {
         return locationPK;
     }
@@ -61,6 +66,7 @@ public class Location implements Serializable {
         this.user = user;
     }
 
+    //create a hash code for use in the database
     @Override
     public int hashCode() {
         int hash = 0;
@@ -68,6 +74,7 @@ public class Location implements Serializable {
         return hash;
     }
 
+    //check if two locations are equal
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -81,6 +88,7 @@ public class Location implements Serializable {
         return true;
     }
 
+    //get a string representation of the Location object
     @Override
     public String toString() {
         return "com.mycompany.entities.Location[ locationPK=" + locationPK + " ]";

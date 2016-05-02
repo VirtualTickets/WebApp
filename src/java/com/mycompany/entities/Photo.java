@@ -2,6 +2,7 @@
  * Created by Nicholas Greer on 2016.04.10  * 
  * Copyright © 2016 Nicholas Greer. All rights reserved. * 
  */
+//represents an entry in the Photo table in the database
 package com.mycompany.entities;
 
 import com.mycompany.managers.Constants;

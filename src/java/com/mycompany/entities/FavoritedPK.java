@@ -2,6 +2,7 @@
  * Created by Benjamin Sweeney on 2016.04.07  * 
  * Copyright © 2016 Benjamin Sweeney. All rights reserved. * 
  */
+//Part of a Favorited entry in the database has user id and movie id of the entry
 package com.mycompany.entities;
 
 import java.io.Serializable;
@@ -18,6 +19,7 @@ import javax.validation.constraints.Size;
 @Embeddable
 public class FavoritedPK implements Serializable {
 
+    //private fields
     @Basic(optional = false)
     @NotNull
     @Column(name = "user_id")
@@ -28,6 +30,7 @@ public class FavoritedPK implements Serializable {
     @Column(name = "movie_id")
     private String movieId;
 
+    //constructors
     public FavoritedPK() {
     }
 
@@ -36,6 +39,7 @@ public class FavoritedPK implements Serializable {
         this.movieId = movieId;
     }
 
+    //getters and setters for the fields
     public int getUserId() {
         return userId;
     }
@@ -52,6 +56,7 @@ public class FavoritedPK implements Serializable {
         this.movieId = movieId;
     }
 
+    //create a hash code for use in the database table
     @Override
     public int hashCode() {
         int hash = 0;
@@ -60,6 +65,7 @@ public class FavoritedPK implements Serializable {
         return hash;
     }
 
+    //check if two FavoritedPK objects are equal
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -76,6 +82,7 @@ public class FavoritedPK implements Serializable {
         return true;
     }
 
+    //get a string representation of the FavoritedPK object
     @Override
     public String toString() {
         return "com.mycompany.entities.FavoritedPK[ userId=" + userId + ", movieId=" + movieId + " ]";
