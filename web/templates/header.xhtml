@@ -38,7 +38,7 @@ across all web pages.
                 <f:facet name="options">    
 
 
-                    
+                    <p:remoteCommand name="search" action="#{movieManager.searchByTitle()}"/>
                     <p:inputText style="margin-right:10px;vertical-align: top" placeholder="Search Movies"
                                  value="#{movieManager.searchTitle}"/>
                     <h:commandButton image="#{resource['images:searchIconWhite.png']}" action="#{movieManager.searchByTitle()}" 
