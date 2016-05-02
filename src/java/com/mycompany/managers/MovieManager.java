@@ -576,14 +576,18 @@ public class MovieManager implements Serializable {
         this.selectedShowtime = null;
     }
     
+    //send an email containing a QR code and information about the users' ticket order
     private void sendConfirm()
     {
-        
+                //set the user to the temporary user
+                //to tupport not-logged-in purchases
                 User user = userTemp;
+                //get the QR code image
                 String imageLoc = getQR();
                 final String username1 = "vitualtickets.noreply@gmail.com";
 		final String password1 = "csd@VT(S16)";
 
+                //set the properties of the email sending
 		Properties props = new Properties();
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.starttls.enable", "true");
@@ -593,21 +597,27 @@ public class MovieManager implements Serializable {
 		
 
 		try {
-                    
+                        //create a new email session
                         Session session = Session.getDefaultInstance(props, null);
                         session.setDebug(true);
 
+                        //populate the base elements: recipients, subject, and sender for a message
 			Message message1 = new MimeMessage(session);
 			message1.setFrom(new InternetAddress("virtualtickets.noreply@gmail.com"));
 			message1.setRecipients(Message.RecipientType.TO,
 				InternetAddress.parse(user.getEmail()));
 			message1.setSubject("VirtualTickets: Your ticket order");
+                        
+                        //start creating the body of the message
                         MimeMultipart multipart = new MimeMultipart();
+                        
+                        //make the text portion of the message add it to our overall message
                         BodyPart messageBodyPart = new MimeBodyPart();
                         String text = "Here is your ticket order";
                         messageBodyPart.setText(text);
                         multipart.addBodyPart(messageBodyPart);
                         
+                        //add th image to our message
                         messageBodyPart = new MimeBodyPart();
                         DataSource fds = new FileDataSource(imageLoc);
                         messageBodyPart.setDataHandler(new DataHandler(fds));
@@ -617,7 +627,7 @@ public class MovieManager implements Serializable {
                         message1.setContent(multipart);
                         
 			
-                        
+                        //send the email
                         Transport transport = session.getTransport("smtp");
                         transport.connect("smtp.gmail.com", "virtualtickets.noreply@gmail.com", "csd@VT(S16)");
                         transport.sendMessage(message1, message1.getAllRecipients());
@@ -632,8 +642,9 @@ public class MovieManager implements Serializable {
                         return ;
 		}
                
-                return ;
     }
+    
+    //create and store a QR code image for a customer's order
     public String getQR() {
         String qrCodeText = "Hello World";
         File outf = new File(Constants.ROOT_DIRECTORY + "movieTicketQRCode.png");
