@@ -51,6 +51,9 @@ import net.glxn.qrgen.javase.QRCode;
 
 /**
  *
+ * Handles when a page is selected and when a movie is selected to send to the
+ * write manager to handle the movies.
+ *
  * @author Ben & Alex
  */
 @Named(value = "movieManager")

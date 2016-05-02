@@ -5,7 +5,8 @@
 package com.mycompany.virtualtickets;
 
 /**
- *
+ * The Showtime object that conatins the showtimes, theatre locations, and dates.
+ * 
  * @author painter
  */
 public class Showtime {

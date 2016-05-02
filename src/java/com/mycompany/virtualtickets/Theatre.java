@@ -7,7 +7,8 @@ package com.mycompany.virtualtickets;
 import java.util.Objects;
 
 /**
- *
+ *  The Theatre object that contains info about a theatre.
+ * 
  * @author painter
  */
 public class Theatre {

@@ -13,6 +13,8 @@ import java.util.Objects;
 
 /**
  *
+ * A movie object that contains all the attributes we get from the API call.
+ *
  * @author painter
  */
 public class Movie implements Comparable<Movie> {
@@ -45,13 +47,9 @@ public class Movie implements Comparable<Movie> {
     public Movie() {
 
     }
-    
+
     public String getTrailer() {
         String ret = new ApiManager().getTrailer(this.getTitle());
-//        if (ret.length() == 0) return "";
-//        int src = ret.indexOf("src=\"");
-//        int end = ret.indexOf("\"", src + 5);
-//        return ret.substring(src + 5, end);
         return ret;
     }
 
@@ -100,21 +98,18 @@ public class Movie implements Comparable<Movie> {
     }
 
     public String getReleaseDate() {
-        
-        
-        
+
         if (releaseDate == null) {
             set();
         }
         if (releaseDate == null) {
             return null;
         }
-        
+
         int month;
         try {
             month = Integer.parseInt(releaseDate.substring(5, 7));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return null;
         }
         String year = releaseDate.substring(0, 4);
