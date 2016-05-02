@@ -3,12 +3,12 @@
  * Created by Nicholas Greer on 2016.02.27  * 
  * Copyright © 2016 Nicholas Greer. All rights reserved. * 
  */
-
+//A number of constants frequently used throughout the app
 package com.mycompany.managers;
 
 /**
  *
- * @author Graar
+ * @author Greer
  */
 public class Constants {
 

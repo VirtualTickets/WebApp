@@ -2,7 +2,7 @@
  * Created by Nicholas Greer on 2016.02.27  * 
  * Copyright © 2016 Nicholas Greer. All rights reserved. * 
  */
-
+//Manages upload of user's photos
 package com.mycompany.managers;
 
 import com.mycompany.entities.Photo;
@@ -44,18 +44,14 @@ public class FileManager {
     private String message = "";
     
     /**
-     * The instance variable 'userFacade' is annotated with the @EJB annotation.
+     * The instance variables are annotated with the @EJB annotation.
      * This means that the GlassFish application server, at runtime, will inject in
-     * this instance variable a reference to the @Stateless session bean UserFacade.
+     * this instance variable a reference to the @Stateless session bean.
      */
     @EJB
     private UserFacade userFacade;
 
-    /**
-     * The instance variable 'photoFacade' is annotated with the @EJB annotation.
-     * This means that the GlassFish application server, at runtime, will inject in
-     * this instance variable a reference to the @Stateless session bean PhotoFacade.
-     */
+    
     @EJB
     private PhotoFacade photoFacade;
 
@@ -96,22 +92,26 @@ public class FileManager {
         }
     }
     
+    //cancel a file upload
     public String cancel() {
         message = "";
         return "Profile?faces-redirect=true";
     }
 
+    //copy a file from the temporary file to the FileStorageLocation
     public FacesMessage copyFile(UploadedFile file) {
         try {
+            //delete the user's current photo so we can replace it with a new one
             deletePhoto();
             
+            //read in the photo from the temporary file
             InputStream in = file.getInputstream();
             
             File tempFile = inputStreamToFile(in, Constants.TEMP_FILE);
             in.close();
 
             FacesMessage resultMsg;
-
+            //get the current user
             String user_name = (String) FacesContext.getCurrentInstance()
                     .getExternalContext().getSessionMap().get("username");
 
@@ -124,7 +124,7 @@ public class FileManager {
             if (!photoList.isEmpty()) {
                 photoFacade.remove(photoList.get(0));
             }
-
+            //save the new photo in the FileStorageLocaton
             photoFacade.create(new Photo(extension, user));
             Photo photo = photoFacade.findPhotosByUserID(user.getId()).get(0);
             in = file.getInputstream();
@@ -139,6 +139,7 @@ public class FileManager {
             "There was a problem reading the image file. Please try again with a new photo file.");
     }
 
+    //save an input stream of bytes to a file in FileStorageLocation
     private File inputStreamToFile(InputStream inputStream, String childName)
             throws IOException {
         // Read in the series of bytes from the input stream
@@ -157,10 +158,13 @@ public class FileManager {
         return targetFile;
     }
 
+    //save the thumbnail(a smaller picture) in the FileStorageLocation
     private void saveThumbnail(File inputFile, Photo inputPhoto) {
         try {
+            //resize the image to a thumbnail
             BufferedImage original = ImageIO.read(inputFile);
             BufferedImage thumbnail = Scalr.resize(original, Constants.THUMBNAIL_SZ);
+            //save the thumbnail
             ImageIO.write(thumbnail, inputPhoto.getExtension(),
                 new File(Constants.ROOT_DIRECTORY, inputPhoto.getThumbnailName()));
         } catch (IOException ex) {
@@ -168,19 +172,23 @@ public class FileManager {
         }
     }
 
+    //delete the photo from the current user
     public void deletePhoto() {
+        //get the current user
         FacesMessage resultMsg;
         String user_name = (String) FacesContext.getCurrentInstance()
                 .getExternalContext().getSessionMap().get("username");
 
         User user = userFacade.findByUsername(user_name);
 
+        //get the list of photos for the current user
         List<Photo> photoList = photoFacade.findPhotosByUserID(user.getId());
         if (photoList.isEmpty()) {
             resultMsg = new FacesMessage("Error", "You do not have a photo to delete.");
         } else {
             Photo photo = photoList.get(0);
             try {
+                //delete the file and the thumbnail
                 Files.deleteIfExists(Paths.get(photo.getFilePath()));
                 Files.deleteIfExists(Paths.get(photo.getThumbnailFilePath()));
                 
