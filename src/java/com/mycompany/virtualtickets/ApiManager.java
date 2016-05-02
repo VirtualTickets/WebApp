@@ -359,7 +359,7 @@ public class ApiManager {
      * @return
      */
     public ArrayList<Movie> moviesPlayingInLocalTheatres(String zip) {
-        //System.out.println("Searching for movies with zip: " + zip);
+        System.out.println("******************MOVIES API CALLED*********************");
         ArrayList<Movie> movs = new ArrayList<Movie>();
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");

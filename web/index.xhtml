@@ -61,7 +61,6 @@
 <!-- add outlines to the images on contact us page. -->
 <!-- ask nick how he got the titlebar for his dialog to be the right color and fix the outline around close button when clicked -->
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
@@ -346,32 +345,32 @@
                             <h:panelGrid styleClass="topPostersPanel" border="1">
                                 <h:panelGrid columns="5" border="0" cellpadding="10" cellspacing="10">
                                     <h:commandLink action="#{movieManager.searchByTitle()}">
-                                        <f:ajax event="action" listener="#{movieManager.setSearchTitle(movieManager.topNowPlayingTitles[0])}"/>
-                                        <h:graphicImage class="grow" url="#{movieManager.nowPlayingPosters[0]}"
+                                        <f:ajax event="action" listener="#{movieManager.setSearchTitle(movieManager.mostPopularTitles[0])}"/>
+                                        <h:graphicImage class="grow" url="#{movieManager.mostPopularPosters[0]}"
                                                         width="180" height="267" alt="Movie img" title="Find Showings"/>
                                     </h:commandLink>
 
                                     <h:commandLink action="#{movieManager.searchByTitle()}">
-                                        <f:ajax event="action" listener="#{movieManager.setSearchTitle(movieManager.topNowPlayingTitles[1])}"/>
-                                        <h:graphicImage class="grow" url="#{movieManager.nowPlayingPosters[1]}"
+                                        <f:ajax event="action" listener="#{movieManager.setSearchTitle(movieManager.mostPopularTitles[1])}"/>
+                                        <h:graphicImage class="grow" url="#{movieManager.mostPopularPosters[1]}"
                                                         width="180" height="266" alt="Movie img" title="Find Showings"/>
                                     </h:commandLink>
 
                                     <h:commandLink action="#{movieManager.searchByTitle()}">
-                                        <f:ajax event="action" listener="#{movieManager.setSearchTitle(movieManager.topNowPlayingTitles[2])}"/>
-                                        <h:graphicImage class="grow" url="#{movieManager.nowPlayingPosters[2]}"
+                                        <f:ajax event="action" listener="#{movieManager.setSearchTitle(movieManager.mostPopularTitles[2])}"/>
+                                        <h:graphicImage class="grow" url="#{movieManager.mostPopularPosters[2]}"
                                                         width="180" height="267" alt="Movie img" title="Find Showings"/>
                                     </h:commandLink>
 
                                     <h:commandLink action="#{movieManager.searchByTitle()}">
-                                        <f:ajax event="action" listener="#{movieManager.setSearchTitle(movieManager.topNowPlayingTitles[3])}"/>
-                                        <h:graphicImage class="grow" url="#{movieManager.nowPlayingPosters[3]}"
+                                        <f:ajax event="action" listener="#{movieManager.setSearchTitle(movieManager.mostPopularTitles[3])}"/>
+                                        <h:graphicImage class="grow" url="#{movieManager.mostPopularPosters[3]}"
                                                         width="180" height="267" alt="Movie img" title="Find Showings"/>
                                     </h:commandLink>
 
                                     <h:commandLink action="#{movieManager.searchByTitle()}">
-                                        <f:ajax event="action" listener="#{movieManager.setSearchTitle(movieManager.topNowPlayingTitles[4])}"/>
-                                        <h:graphicImage class="grow" url="#{movieManager.nowPlayingPosters[4]}"
+                                        <f:ajax event="action" listener="#{movieManager.setSearchTitle(movieManager.mostPopularTitles[4])}"/>
+                                        <h:graphicImage class="grow" url="#{movieManager.mostPopularPosters[4]}"
                                                         width="180" height="267" alt="Movie img" title="Find Showings"/>
                                     </h:commandLink>
                                 </h:panelGrid>
