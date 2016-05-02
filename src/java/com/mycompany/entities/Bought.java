@@ -2,6 +2,8 @@
  * Created by Benjamin Sweeney on 2016.04.29  * 
  * Copyright © 2016 Benjamin Sweeney. All rights reserved. * 
  */
+//Represents a purchase record of a ticket order
+//The primary purpose of this class is to support a purchase history feature
 package com.mycompany.entities;
 
 import java.io.Serializable;
@@ -35,9 +37,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Bought.findByCost", query = "SELECT b FROM Bought b WHERE b.cost = :cost")})
 public class Bought implements Serializable, Comparable<Bought> {
 
+    //various fields in an entry to the Bought table
     private static final long serialVersionUID = 1L;
     @EmbeddedId
-    protected BoughtPK boughtPK;
+    protected BoughtPK boughtPK; //Bought PK contains the purchase date and user id of a bought record
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 256)
@@ -60,6 +63,7 @@ public class Bought implements Serializable, Comparable<Bought> {
     @Column(name = "cost")
     private Float cost;
 
+    //constructors for a Bought object
     public Bought() {
     }
 
@@ -88,6 +92,7 @@ public class Bought implements Serializable, Comparable<Bought> {
         this.boughtPK = new BoughtPK(userId, purchaseDate);
     }
 
+    //getters and setters for the fields of a Bought object
     public BoughtPK getBoughtPK() {
         return boughtPK;
     }
@@ -112,17 +117,21 @@ public class Bought implements Serializable, Comparable<Bought> {
         this.theatre = theatre;
     }
     
+    //returns a formatted version of viewDate
     public String getViewTime() {
         return formatDate(new Date(viewDate));
     }
 
+    //formats a given timestamp into the form MM/DD/YYYY HH:MM (AM|PM)
     public static String formatDate(Date d) {
+        //build the date portion of the output
         StringBuilder s = new StringBuilder().append(d.getMonth() + "/" + d.getDate() + "/" + (d.getYear() + 1900) + " ");
-        
+        //build the time portion of the output
         int hour = d.getHours();
         int minute = d.getMinutes();
         String type;
         
+        //decide which half of the day the time occurs in
         if (hour == 0) {
             hour = 12;
             type = "AM";
@@ -138,11 +147,13 @@ public class Bought implements Serializable, Comparable<Bought> {
             type = "AM";
         }
         
+        //create and return the full output
         s.append(hour + ":" + String.format("%02d", minute) + " " + type);
         
         return s.toString();
     }
 
+    //more getters and setters for the various fields
     public long getViewDate() {
         return viewDate;
     }
@@ -163,14 +174,17 @@ public class Bought implements Serializable, Comparable<Bought> {
         return cost;
     }
     
+    public void setCost(Float cost) {
+        this.cost = cost;
+    }
+    
+    //return a cost string formatted in $D.CC
     public String getFormattedCost() {
         return String.format("$%.2f", getCost());
     }
 
-    public void setCost(Float cost) {
-        this.cost = cost;
-    }
-
+    
+    //hash code creation for storing the Bought object in a hash table
     @Override
     public int hashCode() {
         int hash = 0;
@@ -178,6 +192,7 @@ public class Bought implements Serializable, Comparable<Bought> {
         return hash;
     }
 
+    //check if two Bought objects are equal
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -191,11 +206,13 @@ public class Bought implements Serializable, Comparable<Bought> {
         return true;
     }
 
+    //unused, but outputs a string representation of Bought
     @Override
     public String toString() {
         return "com.mycompany.entities.Bought[ boughtPK=" + boughtPK + " ]";
     }
 
+    //compare two Bought objects
     @Override
     public int compareTo(Bought o) {
         return this.boughtPK.compareTo(o.boughtPK);

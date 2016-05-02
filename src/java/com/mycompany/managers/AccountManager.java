@@ -2,6 +2,7 @@
  * Created by Nicholas Greer on 2016.02.27  * 
  * Copyright © 2016 Nicholas Greer. All rights reserved. * 
  */
+//centralized Class for controlling account operations CRUD
 package com.mycompany.managers;
 
 import com.mycompany.entities.Bought;
@@ -56,20 +57,13 @@ public class AccountManager implements Serializable {
     private User selected;
 
     /**
-     * The instance variable 'userFacade' is annotated with the @EJB annotation.
+     * These instance variables 'are annotated with the @EJB annotation.
      * This means that the GlassFish application server, at runtime, will inject
      * in this instance variable a reference to the @Stateless session bean
-     * UserFacade.
+     * for each one
      */
     @EJB
     private UserFacade userFacade;
-
-    /**
-     * The instance variable 'photoFacade' is annotated with the @EJB
-     * annotation. This means that the GlassFish application server, at runtime,
-     * will inject in this instance variable a reference to the @Stateless
-     * session bean PhotoFacade.
-     */
     @EJB
     private PhotoFacade photoFacade;
     @EJB
@@ -78,6 +72,7 @@ public class AccountManager implements Serializable {
     @EJB
     private FavoritedFacade favoritedFacade;
 
+    //adds a movie to the favorite to the current user.
     public void addFavorite(Movie movie) {
         if (selected != null && movie != null) {
             System.err.println("Movie id: " + movie.getTmsId());
@@ -87,7 +82,7 @@ public class AccountManager implements Serializable {
             
         }
     }
-    
+    //toggles whether or not a movie is in a user's favorite list
     public void toggleFavorite(Movie movie) {
         if (selected != null && movie != null) {
             Favorited f = favoritedFacade.find(new FavoritedPK(selected.getId(), movie.getTmsId()));
@@ -101,10 +96,12 @@ public class AccountManager implements Serializable {
         }
     }
     
+    //returns a list of the US states currently unused
     public String[] getListOfStates() {
         return listOfStates;
     }
 
+    //get the creditcard number of the selected user
     public BigInteger getCcNumber() {
         if (selected != null && selected.getCcNumber() != null) {
             setCcNumber(selected.getCcNumber());
@@ -112,10 +109,12 @@ public class AccountManager implements Serializable {
         return ccNumber;
     }
 
+    //set the credit card number of the selected user
     public void setCcNumber(BigInteger num) {
         ccNumber = num;
     }
 
+    //get the creditcard expiration month of the selected user
     public int getCcExMonth() {
         if (selected != null && selected.getCcExMonth() != null) {
             setCcExMonth(selected.getCcExMonth());
@@ -123,10 +122,12 @@ public class AccountManager implements Serializable {
         return ccExMonth;
     }
 
+    //set the creditcard expiration month of the selected user
     public void setCcExMonth(int month) {
         ccExMonth = (short) month;
     }
 
+    //get the creditcard expiration year of the selected user
     public int getCcExYear() {
         if (selected != null && selected.getCcExYear() != null) {
             setCcExYear(selected.getCcExYear());
@@ -134,6 +135,7 @@ public class AccountManager implements Serializable {
         return ccExYear;
     }
 
+    //set the creditcard expiration year of the selected user
     public void setCcExYear(int year) {
         ccExYear = (short) year;
     }
@@ -233,6 +235,8 @@ public class AccountManager implements Serializable {
         this.zipcode = zipcode;
     }
      */
+    
+    //security questions currently unused. We are considering adding multiple recovery options to our app
     public Map<String, Object> getSecurity_questions() {
         if (security_questions == null) {
             security_questions = new LinkedHashMap<>();
@@ -257,6 +261,7 @@ public class AccountManager implements Serializable {
         this.statusMessage = statusMessage;
     }
 
+    //get the selected user
     public User getSelected() {
         if (selected == null) {
             selected = userFacade.find(FacesContext.getCurrentInstance().
@@ -265,10 +270,12 @@ public class AccountManager implements Serializable {
         return selected;
     }
 
+    //set the selected user
     public void setSelected(User selected) {
         this.selected = selected;
     }
 
+    //create a new user in the database
     public String createAccount() {
 
         // Check to see if a user already exists with the username given.
@@ -277,6 +284,7 @@ public class AccountManager implements Serializable {
             statusMessage="You are already logged in as an active user.";
             return "";
         }
+        //look if the user already exists
         System.out.println(username);
         User aUser = userFacade.findByUsername(username);
 
@@ -286,6 +294,7 @@ public class AccountManager implements Serializable {
             return "";
         }
 
+        //if the user filled in all the fields correctly, try to create the account
         if (statusMessage.isEmpty()) {
             try {
                 User user = new User();
@@ -300,6 +309,7 @@ public class AccountManager implements Serializable {
                 //ZIPCODE?
                 userFacade.create(user);
             } catch (EJBException e) {
+                //if it failed, inform the user
                 username = "";
                 statusMessage = "Something went wrong while creating your account!";
                 return "";
@@ -310,10 +320,14 @@ public class AccountManager implements Serializable {
         return "";
     }
 
+    //change the information in a user entry in the database
     public String updateAccount() {
+        //if all fields on the page are satisfied
         if (statusMessage.isEmpty()) {
+            //find the user
             int user_id = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user_id");
             User editUser = userFacade.getUser(user_id);
+            //try to update the user
             try {
                 editUser.setFirstName(this.selected.getFirstName());
                 editUser.setLastName(this.selected.getLastName());
@@ -325,6 +339,7 @@ public class AccountManager implements Serializable {
                 editUser.setPassword(this.selected.getPassword());
                 userFacade.edit(editUser);
             } catch (EJBException e) {
+                //if the update fails, inform the user
                 username = "";
                 statusMessage = "Something went wrong while editing your profile!";
                 return "";
@@ -334,23 +349,29 @@ public class AccountManager implements Serializable {
         return "";
     }
 
+    //delete an existing entry in the user table
     public String deleteAccount() {
+        //if the user entered the password correctly
         if (statusMessage.isEmpty()) {
+            //try to delete the user's account
             int user_id = (int) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user_id");
             try {
                 userFacade.deleteUser(user_id);
 
             } catch (EJBException e) {
+                //inform the user if something went wrong
                 username = "";
                 statusMessage = "Something went wrong while deleting your account!";
                 return "";
             }
+            //logput the user after deleting their account
             this.logout();
             return "/index.xhtml?faces-redirect=true";
         }
         return "";
     }
 
+    //check to see if a user entered the correct information
     public void validateInformation(ComponentSystemEvent event) {
         FacesContext fc = FacesContext.getCurrentInstance();
 
@@ -378,6 +399,7 @@ public class AccountManager implements Serializable {
         }
     }
 
+    //set a user as the currently active user
     public void initializeSessionMap() {
         User user = userFacade.findByUsername(getUsername());
         FacesContext.getCurrentInstance().getExternalContext().
@@ -386,10 +408,12 @@ public class AccountManager implements Serializable {
                 getSessionMap().put("user_id", user.getId());
     }
 
+    //check if a user's password matches the password they entered
     private boolean correctPasswordEntered(UIComponent components) {
         UIInput uiInputVerifyPassword = (UIInput) components.findComponent("verifyPassword");
         String verifyPassword = uiInputVerifyPassword.getLocalValue() == null ? ""
                 : uiInputVerifyPassword.getLocalValue().toString();
+        //check if the two values match
         if (verifyPassword.isEmpty()) {
             statusMessage = "";
             return false;
@@ -401,8 +425,11 @@ public class AccountManager implements Serializable {
         }
     }
 
+    //log a user out of the app
     public String logout() {
+        //clear the sessionmap
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().clear();
+        //clear the fields
         username = firstName = lastName = password = email = statusMessage = "";
         ccNumber = new BigInteger("0");
         ccExMonth = ccExYear = 0;
@@ -411,11 +438,15 @@ public class AccountManager implements Serializable {
         return "/index.xhtml?faces-redirect=true";
     }
 
+    //return the photo to user for the current user
     public String userPhoto() {
+        //get the current user
         String user_name = (String) FacesContext.getCurrentInstance()
                 .getExternalContext().getSessionMap().get("username");
         User user = userFacade.findByUsername(user_name);
+        //get the user's photos
         List<Photo> photoList = photoFacade.findPhotosByUserID(user.getId());
+        //return either the most recent photo or the default
         if (photoList.isEmpty()) {
             System.out.println("empty images");
             return "defaultUserPhoto.png";
@@ -423,22 +454,25 @@ public class AccountManager implements Serializable {
         return photoList.get(0).getThumbnailName();
     }
     
+    //get the list of items bought by the current user
     public List<Bought> getBought()
     {
         String user_name = (String) FacesContext.getCurrentInstance()
                 .getExternalContext().getSessionMap().get("username");
         User user = userFacade.findByUsername(user_name);
         List<Bought> boughtList = boughtFacade.findByUser(user.getId());
+        //sort the records most recent to least recent
         Collections.sort(boughtList);
         return boughtList;
     }
     
-
+    //static method used freqently to find if any user is logged in
     public static boolean isLoggedIn() {
 
         return null != FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("username");
     }
 
+    //get the address of either the current user's picture or the logged out picture
     public String getUserImage() {
         if (isLoggedIn()) {
             return "/FileStorageLocation/"+userPhoto();
