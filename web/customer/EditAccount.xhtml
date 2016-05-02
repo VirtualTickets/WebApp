@@ -3,12 +3,14 @@
 Created by Nicholas Greer on 2016.02.27 
 Copyright © 2016 Nicholas Greer. All rights reserved.
 -->
+<!--Xhtml page to edit an existing account-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
+    <!--Template we use for all pages -->
     <ui:composition template="/templates/main.xhtml">
     <h:head>
         <title>Edit Account</title>
@@ -21,11 +23,13 @@ Copyright © 2016 Nicholas Greer. All rights reserved.
             <h:form class="form-signin">
                 <h1 class="form-signin-heading">Edit Your Account Information</h1>
                 <br/>
+                <!--Checker to make sure password is correct on submit -->
                 <f:event listener="#{accountManager.validateInformation}" type="postValidate"/>
                 <p:panel id="panel"
                          style="border: 0px solid white">
                     <p:messages id="msgs" />
  
+                    <!--Prefilled with user data, edit these fields to edit the account info-->
                     <h:panelGrid columns="3" cellpadding="5">
                         <p:outputLabel for="firstName" value="First Name" />
                         <h:inputText id="firstName" value="#{accountManager.selected.firstName}"
@@ -85,8 +89,10 @@ Copyright © 2016 Nicholas Greer. All rights reserved.
                         <p:message for="confirmPassword" display="icon"/>
                     </h:panelGrid>
                 </p:panel>
+                <!--If editing fails, display the reason here -->
                 <h:outputLabel id="error" value="#{accountManager.statusMessage}"  />
                 <br/>
+                <!--Submit the account edit -->
                 <h:commandButton class="btn btn-lg btn-success" id="submit"
                                  action="#{accountManager.updateAccount()}" value="Submit" />
                 
@@ -98,6 +104,7 @@ Copyright © 2016 Nicholas Greer. All rights reserved.
                     <f:actionListener binding="#{fileManager.deletePhoto()}" />
                 </h:commandButton>
                 
+                <!--Button to go back to the profile page -->
                 <h:button class="btn btn-lg btn-danger" id="cancel" outcome="Profile" value="Cancel" />
             </h:form>
         </div>

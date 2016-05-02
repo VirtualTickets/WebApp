@@ -3,6 +3,8 @@
 Created by Nicholas Greer on 2016.04.13 
 Copyright © 2016 Nicholas Greer. All rights reserved.
 -->
+
+<!--Footer on every page has social media icons, copyright info, and contact us link -->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -13,6 +15,7 @@ Copyright © 2016 Nicholas Greer. All rights reserved.
     <ui:composition>
         <div align="center">
         <h:form>
+            <!--social media links -->
         <h:panelGrid columns="10" columnClasses="leftTopCornerAlign, rightTopCornerAlign">
             <h:outputLink value="https://www.facebook.com/fandango">
                 <h:graphicImage url="#{resource['images:facebook.png']}" style="width:36px; height:36px;" class="socialMediaIcon" alt="Facebook"/>
@@ -27,8 +30,10 @@ Copyright © 2016 Nicholas Greer. All rights reserved.
                 <h:graphicImage url="#{resource['images:twitter.png']}" style="width:36px; height:36px;" class="socialMediaIcon" alt="Twitter"/>
             </h:outputLink>
             <p:spacer width="120" />
+            <!--copyright info -->
             <h:outputText value="Copyright © 2016 Group 12, Inc. All Rights Reserved."/>
             <p:spacer width="120" />
+            <!--contact us link -->
             <h:commandLink value="Contact Us" action="/ContactUs.xhtml"/>
         </h:panelGrid>
         </h:form>
