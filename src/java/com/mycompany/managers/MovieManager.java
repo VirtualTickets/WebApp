@@ -20,6 +20,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -30,9 +31,11 @@ import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.activation.CommandMap;
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
+import javax.activation.MailcapCommandMap;
 import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
 import javax.mail.BodyPart;
@@ -340,13 +343,12 @@ public class MovieManager implements Serializable {
      */
     public String[] getBackImages() {
         String[] backImages = {
-            "#{resource['images:backImage1.jpg']}", 
-            "#{resource['images:backImage2.jpg']}", 
-            "#{resource['images:backImage3.jpg']}", 
+            "#{resource['images:backImage1.jpg']}",
+            "#{resource['images:backImage2.jpg']}",
+            "#{resource['images:backImage3.jpg']}",
             "#{resource['images:backImage4.jpg']}",
-            "#{resource['images:backImage5.jpg']}", 
-            "#{resource['images:backImage6.jpg']}", 
-            };
+            "#{resource['images:backImage5.jpg']}",
+            "#{resource['images:backImage6.jpg']}",};
 
         return backImages;
     }
@@ -683,6 +685,13 @@ public class MovieManager implements Serializable {
      * ticket order
      */
     private void sendConfirm() {
+
+//        MailcapCommandMap mc = (MailcapCommandMap) CommandMap.getDefaultCommandMap();
+//        mc.addMailcap("text/html;; x-java-content-handler=com.sun.mail.handlers.text_html");
+//        mc.addMailcap("text/xml;; x-java-content-handler=com.sun.mail.handlers.text_xml");
+//        mc.addMailcap("text/plain;; x-java-content-handler=com.sun.mail.handlers.text_plain");
+//        mc.addMailcap("multipart/*;; x-java-content-handler=com.sun.mail.handlers.multipart_mixed");
+//        mc.addMailcap("message/rfc822;; x-java-content- handler=com.sun.mail.handlers.message_rfc822");
         //set the user to the temporary user
         //to tupport not-logged-in purchases
         User user = userTemp;
@@ -697,10 +706,22 @@ public class MovieManager implements Serializable {
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.port", "587");
+//        props.put("mail.smtp.starttls.enable", "true");
+//        props.put("mail.smtp.debug", "true");
+//        props.put("mail.smtp.auth", "true");
+//        props.put("mail.smtp.timeout", 5000);
 
+        Session session = Session.getInstance(props,
+		  new javax.mail.Authenticator() {
+                        @Override
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(username1, password1);
+			}
+		  });
+        
         try {
             //create a new email session
-            Session session = Session.getDefaultInstance(props, null);
+//            Session session = Session.getDefaultInstance(props, null);
             session.setDebug(true);
 
             //populate the base elements: recipients, subject, and sender for a message
@@ -729,7 +750,7 @@ public class MovieManager implements Serializable {
             message1.setContent(multipart);
 
             //send the email
-            Transport transport = session.getTransport("smtp");
+            Transport transport = session.getTransport("smtps");
             transport.connect("smtp.gmail.com", "virtualtickets.noreply@gmail.com", "csd@VT(S16)");
             transport.sendMessage(message1, message1.getAllRecipients());
             transport.close();
@@ -752,6 +773,13 @@ public class MovieManager implements Serializable {
     public String getQR() {
         String qrCodeText = getTickets() + " to see:\n" + selectedMovie.getTitle() + "\n" + selectedShowtime.getTime() + "\n" + selectedShowtime.getTheatreName();
         File outf = new File(Constants.ROOT_DIRECTORY + "movieTicketQRCode.png");
+        if (!outf.exists()) {
+            try {
+                outf.createNewFile();
+            } catch (IOException ex) {
+                Logger.getLogger(MovieManager.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         FileOutputStream outputStream = null;
         try {
             outputStream = new FileOutputStream(outf);
