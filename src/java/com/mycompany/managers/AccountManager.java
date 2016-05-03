@@ -475,7 +475,7 @@ public class AccountManager implements Serializable {
     //get the address of either the current user's picture or the logged out picture
     public String getUserImage() {
         if (isLoggedIn()) {
-            return "/FileStorageLocation/"+userPhoto();
+            return "/Team12StorageLocation/"+userPhoto();
         }
         return "/resources/images/LoggedOut.png";
     }
