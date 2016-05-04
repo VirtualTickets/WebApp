@@ -21,9 +21,10 @@ TODO:
             <ui:define name="content">
                 <div align="center">
                     <br/>
-                    <h:form id="purchase">
+                    <h:form id="purchase" >
                         
                         <h1>PURCHASE</h1>
+                        <p:messages id="msgs" />
                         <p:panelGrid columns="3" styleClass="noBorder">
                             <p:panelGrid columns="2" style="align-self: center;">
                                 <f:facet name="header">
@@ -47,19 +48,30 @@ TODO:
                                     <h:outputText value=" x $11.00" style="font-size: 36px;"/>
                                 </h:panelGroup>
                                 <h:outputText value="* Credit Card Number" />
-                                <h:inputText value="#{movieManager.loggedInTemp.ccNumber}" required="true"/>
+                                <h:inputText id="CreditCardNumber" value="#{movieManager.loggedInTemp.ccNumber}" required="true">
+                                    <f:validateLength minimum="12" />
+                                </h:inputText>
                                 <h:outputText value="* Expiration Month"/>
-                                <h:inputText value="#{movieManager.loggedInTemp.ccExMonth}" required="true"/>
+                                <h:inputText id="ExpirationMonth" value="#{movieManager.loggedInTemp.ccExMonth}" required="true">
+                                    <f:validateLength minimum="1" />
+                                </h:inputText>
                                 <h:outputText value="* Expiration Year"/>
-                                <h:inputText value="#{movieManager.loggedInTemp.ccExYear}" required="true"/>
+                                <h:inputText id="ExpirationYear" value="#{movieManager.loggedInTemp.ccExYear}" required="true">
+                                    <f:validateLength minimum="2" />
+                                </h:inputText>
                                 <h:outputText value="* First Name"/>
-                                <h:inputText value="#{movieManager.loggedInTemp.firstName}" required="true"/>
+                                <h:inputText id="FirstName" value="#{movieManager.loggedInTemp.firstName}" required="true"/>
                                 <h:outputText value="* Last Name" />
-                                <h:inputText value="#{movieManager.loggedInTemp.lastName}" required="true"/>
+                                <h:inputText id="LastName" value="#{movieManager.loggedInTemp.lastName}" required="true"/>
                                 <h:outputText value="* CVC"/>
-                                <h:inputText required="true"/>
+                                <h:inputText id="CVC" required="true">
+                                    <f:validateLength minimum="3" maximum="3" />
+                                </h:inputText>
                                 <h:outputText value="* Email"/>
-                                <h:inputText value="#{movieManager.loggedInTemp.email}"/>
+                                <h:inputText id="Email" value="#{movieManager.loggedInTemp.email}">
+                            <f:validateLength minimum="2" />
+                            <f:validator validatorId="emailValidator" /> 
+                        </h:inputText>
                             </p:panelGrid> 
                             <h:panelGroup>  
                                 <p:panelGrid columns="2" rendered="#{movieManager.selectedMovie != null}" style="align-self: center;">

@@ -22,10 +22,10 @@ public class Constants {
     // If you are Nick P use: 
     //-----------------------------------------------------------
     
-    public static final String ROOT_DIRECTORY = "/home/cs4984/Team12StorageLocation/";
+//    public static final String ROOT_DIRECTORY = "/home/cs4984/Team12StorageLocation/";
 //    public static final String ROOT_DIRECTORY = "C:/Users/Kent/FileStorageLocation/";
 //    public static final String ROOT_DIRECTORY = "C:/Users/Ben/FileStorageLocation/";
-//    public static final String ROOT_DIRECTORY = "C:/VirginiaTech/6_Spring_2016/Cloud/Users/Users_files/FileStorageLocation/";
+    public static final String ROOT_DIRECTORY = "C:/VirginiaTech/6_Spring_2016/Cloud/Users/Users_files/Team12StorageLocation/";
 
     public static final String TEMP_FILE = "tmp_file";
 

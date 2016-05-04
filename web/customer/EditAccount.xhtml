@@ -47,7 +47,7 @@ Copyright © 2016 Nicholas Greer. All rights reserved.
                        <p:outputLabel for="ccn" value="CC Number" />
                     <h:inputText id="ccn" value="#{accountManager.selected.ccNumber}" 
                                  required="true" label="CC Number">
-                        <f:validateLength minimum="2" />
+                        <f:validateLength minimum="12" />
                     </h:inputText>
                     <p:message for="ccn" display="icon" />
 
