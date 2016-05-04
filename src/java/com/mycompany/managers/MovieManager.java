@@ -96,18 +96,10 @@ public class MovieManager implements Serializable {
             "Zootopia", "Eye In The Sky", "The Witch", "10 Cloverfield Lane"};
         criticallyAcclaimedTitles = caTitles;
 
+        //gets data for the 5 crit acclaimed titles from omdb
         for (int i = 0; i <= 5; i++) {
             criticallyAcclaimed.add(apiManager.searchForMovieOmdb(caTitles[i]));
-//            System.out.println("Movie " + i);
-//            System.out.println("~~~~~~~~~~~~rtRATING: " + criticallyAcclaimed.get(i).getRTRating());
-//            System.out.println("~~~~~~~~~~~~rtCriticsConsensus: " + criticallyAcclaimed.get(i).getRTCriticsConsensus());
-//            System.out.println("~~~~~~~~~~~~imdbRating: " + criticallyAcclaimed.get(i).getImdbRating());
         }
-
-//        nowPlaying = new ArrayList<>();
-//        for (int i = 0; i < 128; i++) {
-//            nowPlaying.add(new Movie("Batman vs. Superman" + i));
-//        }
     }
 
     /**
@@ -307,6 +299,8 @@ public class MovieManager implements Serializable {
 
     /**
      * Changes the location
+     * Calls getNowPlayingTitles and getMostPopularTitles to populate drop down
+     * and most pop sections of index with data for the new zip.
      */
     public void changeLocation() {
         locationChanged = true;
@@ -316,7 +310,7 @@ public class MovieManager implements Serializable {
     }
 
     /**
-     *
+     * gets the titles of movies currently playing nearby
      * @return Gets an arraylist of the nowplaying titles.
      */
     public ArrayList<String> getNowPlayingTitles() {
@@ -327,7 +321,6 @@ public class MovieManager implements Serializable {
         if (list != null) {
             for (Movie m : list) {
                 titles.add(m.getTitle());
-
             }
         }
 
@@ -335,33 +328,17 @@ public class MovieManager implements Serializable {
     }
 
     /**
-     *
-     * @return For the critically acclaimed section in the front page.
-     */
-    public String[] getBackImages() {
-        String[] backImages = {
-            "#{resource['images:backImage1.jpg']}", 
-            "#{resource['images:backImage2.jpg']}", 
-            "#{resource['images:backImage3.jpg']}", 
-            "#{resource['images:backImage4.jpg']}",
-            "#{resource['images:backImage5.jpg']}", 
-            "#{resource['images:backImage6.jpg']}", 
-            };
-
-        return backImages;
-    }
-
-    /**
-     *
-     * @return Gets the critically acclaimed titles.
+     * Gets the critically acclaimed titles.
+     * @return the critically acclaimed titles.
      */
     public String[] getCriticallyAcclaimedTitles() {
         return criticallyAcclaimedTitles;
     }
 
     /**
+     *  Gets the rottentomatoes ratings for critically acclaimed titles.
      *
-     * @return A string arraylist of critically acclaimmed ratings.
+     *  @return A string arraylist of critically acclaimed ratings.
      */
     public ArrayList<String> getCriticallyAcclaimedRTRating() {
         ArrayList<String> ratings = new ArrayList<>();
@@ -374,8 +351,9 @@ public class MovieManager implements Serializable {
     }
 
     /**
+     *  Gets the imdb ratings for critically acclaimed titles.
      *
-     * @return A string arraylist of critically acclaimmed ratings.
+     *  @return A string arraylist of critically acclaimed ratings.
      */
     public ArrayList<String> getCriticallyAcclaimedImdbRating() {
         ArrayList<String> ratings = new ArrayList<>();
@@ -388,8 +366,9 @@ public class MovieManager implements Serializable {
     }
 
     /**
+     *  Gets the rottentomatoes critics consensus for critically acclaimed titles.
      *
-     * @return A string arraylist of critically acclaimmed ratings.
+     *  @return A string arraylist of critically acclaimed consensus.
      */
     public ArrayList<String> getCriticallyAcclaimedRTCriticsConsensus() {
         ArrayList<String> criticsC = new ArrayList<>();
@@ -416,7 +395,6 @@ public class MovieManager implements Serializable {
             int i = 0; //index for popularList
             //stops scanning through list of popular titles after 5 titles are added.
             while (titles.size() < 5 && i < popularList.size()) {
-                System.out.println("Checking to see if popTitle: " + popularList.get(i).getTitle() + " is in now Playing.");
                 boolean titleFoundInNowPlaying = false;
                 int k = 0;  //index for nowPlayingList
                 //stops when a title is found
@@ -430,7 +408,6 @@ public class MovieManager implements Serializable {
                 }
                 i++;
             }
-            System.out.println("*************************Popular Titles After Sorting: " + titles);
             //If less than 5 titles are found, titles will be chosen from now playing in the order given.
             if (titles.size() < 5) {
                 int r = 0;  //index for nowPlayingList
@@ -462,7 +439,7 @@ public class MovieManager implements Serializable {
     }
 
     /**
-     *
+     * Gets the posters for the 5 most popular movies
      * @return returns the most popular movie images.
      */
     public ArrayList<String> getMostPopularPosters() {
@@ -477,7 +454,7 @@ public class MovieManager implements Serializable {
                 }
             }
         }
-
+        //System.out.println("POSTERS: " + posters);
         return posters;
     }
 
@@ -494,15 +471,20 @@ public class MovieManager implements Serializable {
     }
 
     public void setPosterClickedTitle(String title) {
-        //System.out.println("poster clicked title set to: " + title);
         this.posterClickedTitle = title;
     }
 
+    /**
+     * searches by titles
+     */
     public String searchByTitle() {
 
         return "/SearchResults";
     }
 
+    /**
+     * searches by poster
+     */
     public String searchByPoster() {
 
         return "/SearchResults";
@@ -528,8 +510,8 @@ public class MovieManager implements Serializable {
     }
 
     /**
-     *
-     * @return A list of movies that is currently showing in movies.
+     * Gets the now playing movies nearby
+     * @return A list of movies that are currently showing nearby.
      */
     public List<Movie> getNowPlaying() {
         if (locationChanged) {
@@ -542,7 +524,7 @@ public class MovieManager implements Serializable {
     }
 
     /**
-     *
+     * Gets the most popular movies
      * @return Returns a list of the most popular movies
      */
     public List<Movie> getMostPopular() {
@@ -554,8 +536,8 @@ public class MovieManager implements Serializable {
     }
 
     /**
-     *
-     * @return Returns the list of movies found by the search bar.
+     * Gets the results of a search
+     * @return Returns the list of movies found by the search.
      */
     public List<Movie> getSearchResults() {
         List<Movie> list = new ArrayList<Movie>();
@@ -575,8 +557,8 @@ public class MovieManager implements Serializable {
     }
 
     /**
-     *
-     * @return A list of movies based on the clicked title.
+     * Gets the search results from clicking a poster in most popular. 
+     * @return A list of movies based on the clicked poster's title.
      */
     public List<Movie> getSearchResultsFromPoster() {
         List<Movie> list = new ArrayList<Movie>();
@@ -734,7 +716,7 @@ public class MovieManager implements Serializable {
             transport.sendMessage(message1, message1.getAllRecipients());
             transport.close();
 
-            System.out.println("Done");
+            //System.out.println("Done");
 
         } catch (MessagingException e) {
             Logger.getLogger(PasswordResetManager.class.getName()).log(Level.SEVERE, null, e);
@@ -814,7 +796,7 @@ public class MovieManager implements Serializable {
     }
 
     /**
-     *
+     * Gets the logged in temp user. 
      * @return The state of the user when they go to the purchase page. Not
      * necessarily need to be logged in.
      */
