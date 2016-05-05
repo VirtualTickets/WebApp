@@ -19,7 +19,11 @@ public class Showtime {
     public Showtime() {
         
     }
-
+    
+    /**
+     * Theatre ID getter and setter
+     * @return theatreId
+     */
     public String getTheatreId() {
         return theatreId;
     }
@@ -28,6 +32,10 @@ public class Showtime {
         this.theatreId = theatreId;
     }
 
+    /**
+     * Theatre Name getter and setter
+     * @return theatreName
+     */
     public String getTheatreName() {
         return theatreName;
     }
@@ -36,6 +44,10 @@ public class Showtime {
         this.theatreName = theatreName;
     }
 
+    /**
+     * Date getter and setter
+     * @return date
+     */
     public String getDate() {
         return date;
     }
@@ -44,11 +56,19 @@ public class Showtime {
         this.date = date;
     }
 
+    /**
+     * The function to get the string of the parsed time in standard time.
+     * @return 
+     */
     public String getTime() {
         
         return parseTime();
     }
     
+    /**
+     * getHour returns the hour of the showtime
+     * @return 
+     */
     public int getHour() {
         if (time == null || time.length() == 0) {
             return 0;
@@ -56,6 +76,10 @@ public class Showtime {
         return Integer.parseInt(time.substring(0, 2));
     }
     
+    /**
+     * getMinute returns the minutes of the showtime
+     * @return 
+     */
     public int getMinute() {
         if (time == null || time.length() == 0) {
             return 0;
@@ -64,10 +88,18 @@ public class Showtime {
     
     }
 
+    /**
+     * setTime sets the time to a new string time.
+     * @param time 
+     */
     public void setTime(String time) {
         this.time = time;
     }
     
+    /**
+     * Parses the time into a time that is in am/pm format
+     * @return The parsed time with am/pm format
+     */
     private String parseTime() {
         if (time == null || time.length() == 0) {
             return "";

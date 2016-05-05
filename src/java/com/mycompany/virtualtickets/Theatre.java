@@ -27,6 +27,10 @@ public class Theatre {
         this.name = name;
     }
 
+    /**
+     * Theatre ID getter and setter
+     * @return theatreId
+     */
     public String getTheatreId() {
         return theatreId;
     }
@@ -35,6 +39,10 @@ public class Theatre {
         this.theatreId = theatreId;
     }
 
+    /**
+     * Name getter and setter
+     * @return name
+     */
     public String getName() {
         return name;
     }
@@ -43,6 +51,10 @@ public class Theatre {
         this.name = name;
     }
 
+    /**
+     * Telephone getter and setter
+     * @return telephone
+     */
     public String getTelephone() {
         return telephone;
     }
@@ -51,6 +63,10 @@ public class Theatre {
         this.telephone = telephone;
     }
     
+    /**
+     * Address getter and setter
+     * @return address
+     */
     public String getAddress() {
         return address;
     }

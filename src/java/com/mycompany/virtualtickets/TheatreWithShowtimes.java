@@ -17,11 +17,20 @@ public class TheatreWithShowtimes extends Theatre {
 
     private List<Showtime> showtimes;
 
+    /**
+     * Calls the super constructor with the parameters passed.
+     * @param theatreId
+     * @param name 
+     */
     public TheatreWithShowtimes(String theatreId, String name) {
         super(theatreId, name);
         showtimes = new ArrayList<>();
     }
 
+    /**
+     * Showtimes getter and setter
+     * @return showtimes
+     */
     public List<Showtime> getShowtimes() {
         return showtimes;
     }
@@ -30,6 +39,10 @@ public class TheatreWithShowtimes extends Theatre {
         this.showtimes = showtimes;
     }
 
+    /**
+     * Adds a showtimes to the showtimes list
+     * @param s The showtime being added.
+     */
     public void addShowtime(Showtime s) {
         showtimes.add(s);
     }
