@@ -3,6 +3,7 @@
 Created by Benjamin Sweeney on 2016.04.13 
 Copyright © 2016 Benjamin Sweeney. All rights reserved.
 -->
+<!--Xhtml page that displays movie info on movies currently playing near you -->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
@@ -15,6 +16,7 @@ Copyright © 2016 Benjamin Sweeney. All rights reserved.
         <link href='https://fonts.googleapis.com/css?family=Lato:900' rel='stylesheet' type='text/css'></link>
     </h:head>
     <h:body>
+        <!--The template we use for every Xhtml page -->
         <ui:composition template="/templates/main.xhtml">
             <ui:define name="content">
                 <br/>
@@ -25,14 +27,17 @@ Copyright © 2016 Benjamin Sweeney. All rights reserved.
                 <br/>
                 <div id="moviesPage" align="center">
                     <div style="width: 60%; top: 100px;">
+                        <!--The actual movie info is displayed here -->
                         <p:accordionPanel var="movie" value="#{movieManager.nowPlaying}" dynamic="true" cache="true">
 
                             <p:tab title="#{movie.title}" titleStyleClass="movieTab" disabled="#{movieManager.nowPlaying.size() == 1}">
                                 <p:panelGrid columns="2" style="max-width: 100%;">
                                     <h:panelGroup>    
+                                        <!--The picture of the movie -->
                                         <h:graphicImage id="img" value="#{movie.preferredImageUri}" style="max-height: 370px; max-width: 250px" alt="Hello"/>
                                         <br/>
                                         <h:form id="favorite">
+                                            <!--Favorite/Unfavorite button -->
                                             <p:commandButton value="Un-favorite" actionListener="#{movieManager.setFavorited(false, movie)}"
                                                              rendered="#{movieManager.isFavorited(movie) and movieManager.user != null}"
                                                              partialSubmit="true" update="favorite" icon="ui-icon-star"/>
@@ -42,6 +47,7 @@ Copyright © 2016 Benjamin Sweeney. All rights reserved.
                                         </h:form>
                                     </h:panelGroup>
                                     <h:panelGroup>
+                                        <!--Information about the movie in general -->
                                         <h:outputText value="#{movie.longDescription}" rendered="#{movie.longDescription != null and movie.longDescription.length() > 0}"/>
                                         <br/>
                                         <br/>
@@ -57,6 +63,7 @@ Copyright © 2016 Benjamin Sweeney. All rights reserved.
                                         <h:outputText value="#{movie.releaseDate}"/>
                                         <br/>
                                         <br/>
+                                        <!--Specific showtimes and theaters near you -->
                                         <p:tabView value="#{movie.theatres}" var="theatre">
                                             <p:tab title="#{theatre.name}" titleStyleClass="theaterTab">
                                                 <p:dataGrid value="#{theatre.showtimes}" var="showtime" >

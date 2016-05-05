@@ -148,6 +148,10 @@ public class FileManager {
 
         // Write the series of bytes on file.
         File targetFile = new File(Constants.ROOT_DIRECTORY, childName);
+        
+        if (!targetFile.exists()) {
+            targetFile.createNewFile();
+        }
 
         OutputStream outStream;
         outStream = new FileOutputStream(targetFile);

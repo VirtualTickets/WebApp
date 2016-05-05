@@ -10,7 +10,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
- *
+ *The facade or java to database table interface for the table Location
+ * 
  * @author Ben
  */
 @Stateless
@@ -24,6 +25,9 @@ public class LocationFacade extends AbstractFacade<Location> {
         return em;
     }
 
+    /**
+     * constructor
+     */
     public LocationFacade() {
         super(Location.class);
     }

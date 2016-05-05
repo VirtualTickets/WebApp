@@ -1,5 +1,5 @@
 /*
- * Created by Benjamin Sweeney on 2016.04.13  * 
+ * Created by Benjamin Sweeney , Kent Hannigan, and Alex Hsu on 2016.04.13  * 
  * Copyright © 2016 Benjamin Sweeney. All rights reserved. * 
  */
 package com.mycompany.managers;
@@ -20,6 +20,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -30,9 +31,11 @@ import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.activation.CommandMap;
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
+import javax.activation.MailcapCommandMap;
 import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
 import javax.mail.BodyPart;
@@ -54,7 +57,7 @@ import net.glxn.qrgen.javase.QRCode;
  * Handles when a page is selected and when a movie is selected to send to the
  * write manager to handle the movies.
  *
- * @author Ben & Alex
+ * @author Ben, Alex, and Kent
  */
 @Named(value = "movieManager")
 @SessionScoped
@@ -141,7 +144,6 @@ public class MovieManager implements Serializable {
      * favorites.
      */
     public void setFavorited(boolean favorited, Movie currMovie) {
-        //System.err.println("Setting favorite");
         if (getUser() != null && currMovie != null) {
             Favorited f = favoritedFacade.find(new FavoritedPK(user.getId(), currMovie.getTmsId()));
 
@@ -317,21 +319,17 @@ public class MovieManager implements Serializable {
      * @return the list of most popular movies
      */
     public List<Movie> getMostPopPanel() {
-        System.out.println("GET MOST POP PANEL CALLED ****************************************");
         if (mostPopPanel == null || locationChanged) {
             //gets data for the 5 most popular titles from omdb
             List<Movie> mostPop = getMostPopular();
             ArrayList<String> mostPopTitles = getMostPopularTitles();
             List<Movie> tempPopPanel = new ArrayList<>();
-            System.out.println("MOST POP TITLES: " + mostPopTitles);
             for (int i = 0; i < 5; i++) {
                 tempPopPanel.add(apiManager.searchForMovieOmdb(mostPopTitles.get(i)));
                 tempPopPanel.get(i).setLongDescription(mostPop.get(i).getLongDescription());
-                System.out.println("TITLE: " + mostPopTitles.get(i) + "desc: " + tempPopPanel.get(i).getLongDescription());
             }
             mostPopPanel = tempPopPanel;
         }
-        System.out.println("!!!!!!!!!!!!!!!!!!!!SIZE: " + mostPopPanel.size());
         return mostPopPanel;
     }
     
@@ -509,7 +507,6 @@ public class MovieManager implements Serializable {
             }
 
             mostPopularTitles = titles;
-            System.out.println("NEW POP");
             mostPopular = newPop;
         }
         return mostPopularTitles;
@@ -531,7 +528,6 @@ public class MovieManager implements Serializable {
                 }
             }
         }
-        //System.out.println("POSTERS: " + posters);
         return posters;
     }
 
@@ -764,6 +760,13 @@ public class MovieManager implements Serializable {
      * ticket order
      */
     private void sendConfirm() {
+
+        /* MailcapCommandMap mc = (MailcapCommandMap) CommandMap.getDefaultCommandMap();
+        mc.addMailcap("text/html;; x-java-content-handler=com.sun.mail.handlers.text_html");
+        mc.addMailcap("text/xml;; x-java-content-handler=com.sun.mail.handlers.text_xml");
+        mc.addMailcap("text/plain;; x-java-content-handler=com.sun.mail.handlers.text_plain");
+        mc.addMailcap("multipart/*;; x-java-content-handler=com.sun.mail.handlers.multipart_mixed");
+        mc.addMailcap("message/rfc822;; x-java-content- handler=com.sun.mail.handlers.message_rfc822"); */
         //set the user to the temporary user
         //to tupport not-logged-in purchases
         User user = userTemp;
@@ -778,10 +781,24 @@ public class MovieManager implements Serializable {
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.port", "587");
+        
+        
+        /* props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.debug", "true");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.timeout", 5000); */
 
+        Session session = Session.getInstance(props,
+		  new javax.mail.Authenticator() {
+                        @Override
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(username1, password1);
+			}
+		  });
+        
         try {
             //create a new email session
-            Session session = Session.getDefaultInstance(props, null);
+            //Session session = Session.getDefaultInstance(props, null);
             session.setDebug(true);
 
             //populate the base elements: recipients, subject, and sender for a message
@@ -810,12 +827,11 @@ public class MovieManager implements Serializable {
             message1.setContent(multipart);
 
             //send the email
-            Transport transport = session.getTransport("smtp");
+            Transport transport = session.getTransport("smtps");
             transport.connect("smtp.gmail.com", "virtualtickets.noreply@gmail.com", "csd@VT(S16)");
             transport.sendMessage(message1, message1.getAllRecipients());
             transport.close();
 
-            //System.out.println("Done");
 
         } catch (MessagingException e) {
             Logger.getLogger(PasswordResetManager.class.getName()).log(Level.SEVERE, null, e);
@@ -833,6 +849,13 @@ public class MovieManager implements Serializable {
     public String getQR() {
         String qrCodeText = getTickets() + " to see:\n" + selectedMovie.getTitle() + "\n" + selectedShowtime.getTime() + "\n" + selectedShowtime.getTheatreName();
         File outf = new File(Constants.ROOT_DIRECTORY + "movieTicketQRCode.png");
+        if (!outf.exists()) {
+            try {
+                outf.createNewFile();
+            } catch (IOException ex) {
+                Logger.getLogger(MovieManager.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         FileOutputStream outputStream = null;
         try {
             outputStream = new FileOutputStream(outf);

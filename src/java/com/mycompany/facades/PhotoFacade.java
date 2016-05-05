@@ -11,7 +11,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
- *
+ *The facade or java to database table interface for the table Photo
+ * 
  * @author Greer
  */
 // PhotoFacade is an EJB style POJO (Plain Old Java Object) session bean, 
@@ -28,11 +29,21 @@ public class PhotoFacade extends AbstractFacade<Photo> {
         return em;
     }
 
+    /**
+     * constructor
+     */
     public PhotoFacade() {
         super(Photo.class);
     }
     
     // The following findPhotosByUserID method is added to the generated code.
+
+    /**
+     *Finds existing Photo entities by searching for their userId
+     * 
+     * @param userID
+     * @return
+     */
     
     public List<Photo> findPhotosByUserID(Integer userID) {
         return (List<Photo>) em.createNamedQuery("Photo.findPhotosByUserId")

@@ -101,19 +101,19 @@ public class PasswordResetManager implements Serializable{
 		props.put("mail.smtp.host", "smtp.gmail.com");
 		props.put("mail.smtp.port", "587");
 
-                /*currently unused, but might allow for more specific control of a session
+                /*currently unused, but might allow for more specific control of a session*/
 		Session session = Session.getInstance(props,
 		  new javax.mail.Authenticator() {
                         @Override
 			protected PasswordAuthentication getPasswordAuthentication() {
 				return new PasswordAuthentication(username1, password1);
 			}
-		  });*/
+		  });
 
 		try {
                     
                     //set up a new email session
-                    Session session = Session.getDefaultInstance(props, null);
+//                    Session session = Session.getDefaultInstance(props, null);
                     session.setDebug(true);
 
                     //create the basic email info: to, from, and subject
