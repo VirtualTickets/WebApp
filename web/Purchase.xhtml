@@ -10,6 +10,7 @@ TODO:
 4. adjust placement so everything is centered, leaving equal amounts of white
    space on either side.
 -->
+<!--Xhtml page to enter purchase info and actually buy the ticket -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
@@ -17,6 +18,7 @@ TODO:
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:body>
+        <!--The template we use for every Xhtml page -->
         <ui:composition template="/templates/main.xhtml">
             <ui:define name="content">
                 <div align="center">
@@ -25,6 +27,7 @@ TODO:
                         
                         <h1>PURCHASE</h1>
                         <p:messages id="msgs" />
+                        <!--Fields to enter info for purchase -->
                         <p:panelGrid columns="3" styleClass="noBorder">
                             <p:panelGrid columns="2" style="align-self: center;">
                                 <f:facet name="header">
@@ -32,6 +35,7 @@ TODO:
                                 </f:facet>
                                 <h:outputText value="Number of tickets"/>
                                 <h:panelGroup >
+                                    <!--Select Number of tickets -->
                                     <p:selectOneMenu value="#{movieManager.numTickets}" id="numTickets">
                                         <f:selectItem itemLabel="1" itemValue="1"/>
                                         <f:selectItem itemLabel="2" itemValue="2"/>
@@ -74,6 +78,7 @@ TODO:
                         </h:inputText>
                             </p:panelGrid> 
                             <h:panelGroup>  
+                                <!--Display the movie info for the movie you are buying tickets for -->
                                 <p:panelGrid columns="2" rendered="#{movieManager.selectedMovie != null}" style="align-self: center;">
                                     <f:facet name="header">
                                         <h:outputText value="Movie Info"/>
@@ -96,10 +101,12 @@ TODO:
                         </p:panelGrid>
                         <br/>
                         <p:panel>
+                            <!--Dynamically updated total cost display -->
                             <h:outputText value="#{movieManager.totalPrice}" id="price" style="font-weight: bold; font-size: 28px;"/>
                         </p:panel>
                         <br/>
                         <br/>
+                        <!--Confirm and cancel buttons -->
                         <h:button value="Back " outcome="/NowPlaying"/>
                            
                         <h:commandButton value="Confirm" action="#{movieManager.confirmPurchase()}"/>
