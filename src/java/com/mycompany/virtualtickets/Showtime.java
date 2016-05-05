@@ -16,39 +16,81 @@ public class Showtime {
     private String date; 
     private String time; 
     
+    /**
+     *Constructor
+     */
     public Showtime() {
         
     }
 
+    /**
+     *get theatre Id
+     * 
+     * @return
+     */
     public String getTheatreId() {
         return theatreId;
     }
 
+    /**
+     *set theatre Id
+     * 
+     * @param theatreId
+     */
     public void setTheatreId(String theatreId) {
         this.theatreId = theatreId;
     }
 
+    /**
+     *get theatre name
+     * 
+     * @return
+     */
     public String getTheatreName() {
         return theatreName;
     }
 
+    /**
+     *set theatre name
+     * 
+     * @param theatreName
+     */
     public void setTheatreName(String theatreName) {
         this.theatreName = theatreName;
     }
 
+    /**
+     *get date
+     * 
+     * @return
+     */
     public String getDate() {
         return date;
     }
 
+    /**
+     *set date
+     * 
+     * @param date
+     */
     public void setDate(String date) {
         this.date = date;
     }
 
+    /**
+     *get time
+     * 
+     * @return
+     */
     public String getTime() {
         
         return parseTime();
     }
     
+    /**
+     * get the hour from the time
+     * @return
+     */
     public int getHour() {
         if (time == null || time.length() == 0) {
             return 0;
@@ -56,6 +98,11 @@ public class Showtime {
         return Integer.parseInt(time.substring(0, 2));
     }
     
+    /**
+     *get the minute from the time
+     * 
+     * @return
+     */
     public int getMinute() {
         if (time == null || time.length() == 0) {
             return 0;
@@ -64,10 +111,18 @@ public class Showtime {
     
     }
 
+    /**
+     *set time
+     * 
+     * @param time
+     */
     public void setTime(String time) {
         this.time = time;
     }
     
+    /**
+     Parse the time into a 12-hour AM/PM format
+     */
     private String parseTime() {
         if (time == null || time.length() == 0) {
             return "";

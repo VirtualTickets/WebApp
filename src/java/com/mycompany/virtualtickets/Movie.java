@@ -32,6 +32,13 @@ public class Movie implements Comparable<Movie> {
     private String imdbRating;
     private String zipcode;
 
+    /**
+     *Change a favorited list into a list of movies
+     * 
+     * @param favorited
+     * @param zipcode
+     * @return
+     */
     public static List<Movie> convertFavorited(List<Favorited> favorited, String zipcode) {
         List<Movie> list = new ArrayList<>();
 
@@ -44,36 +51,76 @@ public class Movie implements Comparable<Movie> {
     private String rtRating;
     private String rtCriticsConsensus;
 
+    /**
+     *Constructor
+     * 
+     */
     public Movie() {
 
     }
 
+    /**
+     * Get the trailer for this movie
+     * 
+     * @return
+     */
     public String getTrailer() {
         String ret = new ApiManager().getTrailer(this.getTitle());
         return ret;
     }
 
+    /**
+     *Constructor based on a favorited entry
+     * 
+     * @param f
+     */
     public Movie(Favorited f) {
         this.tmsId = f.getFavoritedPK().getMovieId();
     }
 
+    /**
+     *Constructor based on theatre movie showtime ID
+     * 
+     * @param tmsId
+     */
     public Movie(String tmsId) {
         this.tmsId = tmsId;
     }
 
+    /**
+     *Constructor based on theatre movie showtime ID and zipcode
+     * 
+     * @param tmsId
+     * @param zipcode
+     */
     public Movie(String tmsId, String zipcode) {
         this.tmsId = tmsId;
         this.zipcode = zipcode;
     }
 
+    /**
+     *Get the tmsId
+     * 
+     * @return
+     */
     public String getTmsId() {
         return tmsId;
     }
 
+    /**
+     *set the tmsId
+     * 
+     * @param tmsId
+     */
     public void setTmsId(String tmsId) {
         this.tmsId = tmsId;
     }
 
+    /**
+     *get the title
+     * 
+     * @return
+     */
     public String getTitle() {
         if (title == null) {
             set();
@@ -82,10 +129,20 @@ public class Movie implements Comparable<Movie> {
         return title;
     }
 
+    /**
+     *set the title
+     * 
+     * @param title
+     */
     public void setTitle(String title) {
         this.title = title;
     }
 
+    /**
+     *get the release year
+     * 
+     * @return
+     */
     public int getReleaseYear() {
         if (releaseYear == 0) {
             set();
@@ -93,10 +150,20 @@ public class Movie implements Comparable<Movie> {
         return releaseYear;
     }
 
+    /**
+     *set the release year
+     * 
+     * @param releaseYear
+     */
     public void setReleaseYear(int releaseYear) {
         this.releaseYear = releaseYear;
     }
 
+    /**
+     *get the release date
+     * 
+     * @return
+     */
     public String getReleaseDate() {
 
         if (releaseDate == null) {
@@ -117,10 +184,20 @@ public class Movie implements Comparable<Movie> {
         return Constants.MONTHS[month - 1] + " " + day + ", " + year;
     }
 
+    /**
+     *set the release date
+     * 
+     * @param releaseDate
+     */
     public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
     }
 
+    /**
+     *get the long description
+     * 
+     * @return
+     */
     public String getLongDescription() {
         if (longDescription == null) {
             set();
@@ -128,10 +205,20 @@ public class Movie implements Comparable<Movie> {
         return longDescription;
     }
 
+    /**
+     *set the long description
+     * 
+     * @param longDescription
+     */
     public void setLongDescription(String longDescription) {
         this.longDescription = longDescription;
     }
 
+    /**
+     *get the rating
+     * 
+     * @return
+     */
     public String getRating() {
         if (rating == null) {
             set();
@@ -139,10 +226,19 @@ public class Movie implements Comparable<Movie> {
         return rating;
     }
 
+    /**
+     *set the rating
+     * 
+     * @param rating
+     */
     public void setRating(String rating) {
         this.rating = rating;
     }
 
+    /**
+     * get the runtime
+     * @return
+     */
     public String getRuntime() {
         if (runtime == null) {
             set();
@@ -156,10 +252,20 @@ public class Movie implements Comparable<Movie> {
         return String.format("%d:%02d", hours, minutes);
     }
 
+    /**
+     *set the runtime
+     * 
+     * @param runtime
+     */
     public void setRuntime(String runtime) {
         this.runtime = runtime;
     }
 
+    /**
+     *get the preferredImageUri
+     * 
+     * @return
+     */
     public String getPreferredImageUri() {
         if (preferredImageUri == null) {
             retrievePreferredImageUri();
@@ -167,16 +273,30 @@ public class Movie implements Comparable<Movie> {
         return preferredImageUri;
     }
 
+    /**
+     *Give this the preferred image Uri from the API
+     * 
+     */
     public void retrievePreferredImageUri() {
         if (preferredImageUri == null) {
             setPreferredImageUri(new ApiManager().getPosterURL(getTitle()));
         }
     }
 
+    /**
+     *set the preferred image Uri
+     * 
+     * @param preferredImageUri
+     */
     public void setPreferredImageUri(String preferredImageUri) {
         this.preferredImageUri = preferredImageUri;
     }
 
+    /**
+     *get showtimes
+     * 
+     * @return
+     */
     public List<Showtime> getShowtimes() {
         if (showtimes == null) {
             set();
@@ -184,10 +304,20 @@ public class Movie implements Comparable<Movie> {
         return showtimes;
     }
 
+    /**
+     *set showtimes
+     * 
+     * @param showtimes
+     */
     public void setShowtimes(List<Showtime> showtimes) {
         this.showtimes = showtimes;
     }
 
+    /**
+     *get the metascore
+     * 
+     * @return
+     */
     public String getMetascore() {
         if (metascore == null) {
             set();
@@ -195,10 +325,20 @@ public class Movie implements Comparable<Movie> {
         return metascore;
     }
 
+    /**
+     *set the metascore
+     * 
+     * @param metascore
+     */
     public void setMetascore(String metascore) {
         this.metascore = metascore;
     }
 
+    /**
+     *get the imdb rating
+     * 
+     * @return
+     */
     public String getImdbRating() {
         if (imdbRating == null) {
             set();
@@ -206,26 +346,56 @@ public class Movie implements Comparable<Movie> {
         return imdbRating;
     }
 
+    /**
+     *set the imdb rating
+     * 
+     * @param imdbRating
+     */
     public void setImdbRating(String imdbRating) {
         this.imdbRating = imdbRating;
     }
 
+    /**
+     *get Rotten tomatoes rating
+     * 
+     * @return
+     */
     public String getRTRating() {
         return rtRating;
     }
 
+    /**
+     *set Rotten tomatoes rating
+     * 
+     * @param rtRating
+     */
     public void setRTRating(String rtRating) {
         this.rtRating = rtRating;
     }
 
+    /**
+     *get rotten tomatoes critic consensus
+     * 
+     * @return
+     */
     public String getRTCriticsConsensus() {
         return rtCriticsConsensus;
     }
 
+    /**
+     *set rotten tomatoes critic consensus
+     * 
+     * @param rtCriticsConsensus
+     */
     public void setRTCriticsConsensus(String rtCriticsConsensus) {
         this.rtCriticsConsensus = rtCriticsConsensus;
     }
 
+    /**
+     *get the theatres and showtimes for this movie
+     * 
+     * @return
+     */
     public List<TheatreWithShowtimes> getTheatres() {
         ArrayList<TheatreWithShowtimes> list = new ArrayList<>();
 
@@ -268,16 +438,21 @@ public class Movie implements Comparable<Movie> {
         return true;
     }
 
+    /**
+     Set this movie with a new showtime set
+     */
     private void set() {
         this.set(new ApiManager().movieShowtimes(tmsId, zipcode));
     }
 
+    //helper for set()
     private void set(ArrayList<Movie> movieShowtimes) {
         if (movieShowtimes != null && movieShowtimes.size() > 0) {
             this.set(movieShowtimes.get(0));
         }
     }
 
+    //set this to a different movie
     private void set(Movie movie) {
         this.imdbRating = movie.imdbRating;
         this.longDescription = movie.longDescription;
