@@ -815,7 +815,7 @@ public class MovieManager implements Serializable {
             BodyPart messageBodyPart = new MimeBodyPart();
             String text = "Here is your ticket order of\n" + getTickets() + " to see:\n" + selectedMovie.getTitle() + "\n" + selectedShowtime.getTime() + "\n" + selectedShowtime.getTheatreName() 
                     +"\n\n"
-                    + "Either present the QR code below to a ticket taker on your phone or print it out to recieve your ticket(s). \n \n"
+                    + "-Either present the QR code below to a ticket taker on your phone or print it out to recieve your ticket(s). \n \n"
                     + "How to use your Print at Home ticket:\n" 
                     + "Step 1: Print your Print at Home ticket and bring it to the theater.\n"
                     + "Step 2: Go directly to the ticket taker to have your Print at Home ticket scanned.\n"
@@ -904,21 +904,6 @@ public class MovieManager implements Serializable {
 
         // supply any hint to ZXING
         QRCode.from(qrCodeText).withHint(EncodeHintType.CHARACTER_SET, "UTF-8");
-
-        // encode contact data as vcard using defaults
-        VCard johnDoe = new VCard("John Doe")
-                .setEmail("john.doe@example.org")
-                .setAddress("John Doe Street 1, 5678 Doestown")
-                .setTitle("Mister")
-                .setCompany("John Doe Inc.")
-                .setPhoneNumber("1234")
-                .setWebsite("www.example.org");
-        QRCode.from(johnDoe).file();
-
-        // if using special characters don't forget to supply the encoding
-        VCard johnSpecial = new VCard("Jöhn Dɵe")
-                .setAddress("ëåäöƞ Sträät 1, 1234 Döestüwn");
-        QRCode.from(johnSpecial).withCharset("UTF-8").file();
 
         return Constants.ROOT_DIRECTORY + "movieTicketQRCode.png";
     }
