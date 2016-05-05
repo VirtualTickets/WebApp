@@ -18,92 +18,59 @@ public class Theatre {
     private String telephone; 
     private String address;
     
-    /**
-     * Constructor
-     */
     public Theatre() {
         // Nothing
     }
     
-    /**
-     *Constructor based on theatre Id and name of theatre
-     * 
-     * @param theatreId
-     * @param name
-     */
     public Theatre(String theatreId, String name) {
         this.theatreId = theatreId;
         this.name = name;
     }
 
     /**
-     *get theatre Id
-     * 
-     * @return
+     * Theatre ID getter and setter
+     * @return theatreId
      */
     public String getTheatreId() {
         return theatreId;
     }
 
-    /**
-     *set theatre Id
-     * 
-     * @param theatreId
-     */
     public void setTheatreId(String theatreId) {
         this.theatreId = theatreId;
     }
 
     /**
-     *get Name
-     * 
-     * @return
+     * Name getter and setter
+     * @return name
      */
     public String getName() {
         return name;
     }
 
-    /**
-     *set Name
-     * 
-     * @param name
-     */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     *get phone number
-     * 
-     * @return
+     * Telephone getter and setter
+     * @return telephone
      */
     public String getTelephone() {
         return telephone;
     }
 
-    /**
-     *set phone number
-     * 
-     * @param telephone
-     */
     public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
     
     /**
-     *get address
-     * 
-     * @return
+     * Address getter and setter
+     * @return address
      */
     public String getAddress() {
         return address;
     }
 
-    /**
-     *set address
-     * 
-     * @param address
-     */
     public void setAddress(String address) {
         this.address = address;
     }

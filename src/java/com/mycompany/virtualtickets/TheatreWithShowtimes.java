@@ -18,10 +18,9 @@ public class TheatreWithShowtimes extends Theatre {
     private List<Showtime> showtimes;
 
     /**
-     *Constructor based on theatre Id and name of theatre
-     * 
+     * Calls the super constructor with the parameters passed.
      * @param theatreId
-     * @param name
+     * @param name 
      */
     public TheatreWithShowtimes(String theatreId, String name) {
         super(theatreId, name);
@@ -29,27 +28,20 @@ public class TheatreWithShowtimes extends Theatre {
     }
 
     /**
-     *get showtimes
-     * 
-     * @return
+     * Showtimes getter and setter
+     * @return showtimes
      */
     public List<Showtime> getShowtimes() {
         return showtimes;
     }
 
-    /**
-     *set showtimes
-     * 
-     * @param showtimes
-     */
     public void setShowtimes(List<Showtime> showtimes) {
         this.showtimes = showtimes;
     }
 
     /**
-     *add a showtime to this theatrewithshowtimes's showtimes
-     * 
-     * @param s
+     * Adds a showtimes to the showtimes list
+     * @param s The showtime being added.
      */
     public void addShowtime(Showtime s) {
         showtimes.add(s);

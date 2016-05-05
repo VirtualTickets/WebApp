@@ -16,71 +16,49 @@ public class Showtime {
     private String date; 
     private String time; 
     
-    /**
-     *Constructor
-     */
     public Showtime() {
         
     }
-
+    
     /**
-     *get theatre Id
-     * 
-     * @return
+     * Theatre ID getter and setter
+     * @return theatreId
      */
     public String getTheatreId() {
         return theatreId;
     }
 
-    /**
-     *set theatre Id
-     * 
-     * @param theatreId
-     */
     public void setTheatreId(String theatreId) {
         this.theatreId = theatreId;
     }
 
     /**
-     *get theatre name
-     * 
-     * @return
+     * Theatre Name getter and setter
+     * @return theatreName
      */
     public String getTheatreName() {
         return theatreName;
     }
 
-    /**
-     *set theatre name
-     * 
-     * @param theatreName
-     */
     public void setTheatreName(String theatreName) {
         this.theatreName = theatreName;
     }
 
     /**
-     *get date
-     * 
-     * @return
+     * Date getter and setter
+     * @return date
      */
     public String getDate() {
         return date;
     }
 
-    /**
-     *set date
-     * 
-     * @param date
-     */
     public void setDate(String date) {
         this.date = date;
     }
 
     /**
-     *get time
-     * 
-     * @return
+     * The function to get the string of the parsed time in standard time.
+     * @return 
      */
     public String getTime() {
         
@@ -88,8 +66,8 @@ public class Showtime {
     }
     
     /**
-     * get the hour from the time
-     * @return
+     * getHour returns the hour of the showtime
+     * @return 
      */
     public int getHour() {
         if (time == null || time.length() == 0) {
@@ -99,9 +77,8 @@ public class Showtime {
     }
     
     /**
-     *get the minute from the time
-     * 
-     * @return
+     * getMinute returns the minutes of the showtime
+     * @return 
      */
     public int getMinute() {
         if (time == null || time.length() == 0) {
@@ -112,16 +89,16 @@ public class Showtime {
     }
 
     /**
-     *set time
-     * 
-     * @param time
+     * setTime sets the time to a new string time.
+     * @param time 
      */
     public void setTime(String time) {
         this.time = time;
     }
     
     /**
-     Parse the time into a 12-hour AM/PM format
+     * Parses the time into a time that is in am/pm format
+     * @return The parsed time with am/pm format
      */
     private String parseTime() {
         if (time == null || time.length() == 0) {

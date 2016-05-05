@@ -31,14 +31,27 @@ public class Movie implements Comparable<Movie> {
     private String metascore;
     private String imdbRating;
     private String zipcode;
+    private String rtRating;
+    private String rtCriticsConsensus;
 
-    /**
-     *Change a favorited list into a list of movies
-     * 
-     * @param favorited
-     * @param zipcode
-     * @return
-     */
+
+    public Movie() {
+        //Empty Constructor
+    }
+
+    public Movie(Favorited f) {
+        this.tmsId = f.getFavoritedPK().getMovieId();
+    }
+
+    public Movie(String tmsId) {
+        this.tmsId = tmsId;
+    }
+
+    public Movie(String tmsId, String zipcode) {
+        this.tmsId = tmsId;
+        this.zipcode = zipcode;
+    }
+
     public static List<Movie> convertFavorited(List<Favorited> favorited, String zipcode) {
         List<Movie> list = new ArrayList<>();
 
@@ -48,21 +61,9 @@ public class Movie implements Comparable<Movie> {
 
         return list;
     }
-    private String rtRating;
-    private String rtCriticsConsensus;
-
     /**
-     *Constructor
-     * 
-     */
-    public Movie() {
-
-    }
-
-    /**
-     * Get the trailer for this movie
-     * 
-     * @return
+     * Gets url for the trailer from the trailer api.
+     * @return the string url of the trailer
      */
     public String getTrailer() {
         String ret = new ApiManager().getTrailer(this.getTitle());
@@ -70,56 +71,20 @@ public class Movie implements Comparable<Movie> {
     }
 
     /**
-     *Constructor based on a favorited entry
-     * 
-     * @param f
-     */
-    public Movie(Favorited f) {
-        this.tmsId = f.getFavoritedPK().getMovieId();
-    }
-
-    /**
-     *Constructor based on theatre movie showtime ID
-     * 
-     * @param tmsId
-     */
-    public Movie(String tmsId) {
-        this.tmsId = tmsId;
-    }
-
-    /**
-     *Constructor based on theatre movie showtime ID and zipcode
-     * 
-     * @param tmsId
-     * @param zipcode
-     */
-    public Movie(String tmsId, String zipcode) {
-        this.tmsId = tmsId;
-        this.zipcode = zipcode;
-    }
-
-    /**
-     *Get the tmsId
-     * 
-     * @return
+     * Tms ID getter and setter
+     * @return tmsID
      */
     public String getTmsId() {
         return tmsId;
     }
 
-    /**
-     *set the tmsId
-     * 
-     * @param tmsId
-     */
     public void setTmsId(String tmsId) {
         this.tmsId = tmsId;
     }
 
     /**
-     *get the title
-     * 
-     * @return
+     * Title getter and setter. If title is null, set up the title.
+     * @return title
      */
     public String getTitle() {
         if (title == null) {
@@ -129,19 +94,13 @@ public class Movie implements Comparable<Movie> {
         return title;
     }
 
-    /**
-     *set the title
-     * 
-     * @param title
-     */
     public void setTitle(String title) {
         this.title = title;
     }
 
     /**
-     *get the release year
-     * 
-     * @return
+     * Release year getter and setter
+     * @return releaseYear
      */
     public int getReleaseYear() {
         if (releaseYear == 0) {
@@ -150,19 +109,13 @@ public class Movie implements Comparable<Movie> {
         return releaseYear;
     }
 
-    /**
-     *set the release year
-     * 
-     * @param releaseYear
-     */
     public void setReleaseYear(int releaseYear) {
         this.releaseYear = releaseYear;
     }
 
     /**
-     *get the release date
-     * 
-     * @return
+     * ReleaseDate getter and setter Converts the release day into a readable date
+     * @return release Date
      */
     public String getReleaseDate() {
 
@@ -184,19 +137,13 @@ public class Movie implements Comparable<Movie> {
         return Constants.MONTHS[month - 1] + " " + day + ", " + year;
     }
 
-    /**
-     *set the release date
-     * 
-     * @param releaseDate
-     */
     public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
     }
 
     /**
-     *get the long description
-     * 
-     * @return
+     * Long description getter and setter
+     * @return longDescription
      */
     public String getLongDescription() {
         if (longDescription == null) {
@@ -205,19 +152,13 @@ public class Movie implements Comparable<Movie> {
         return longDescription;
     }
 
-    /**
-     *set the long description
-     * 
-     * @param longDescription
-     */
     public void setLongDescription(String longDescription) {
         this.longDescription = longDescription;
     }
 
     /**
-     *get the rating
-     * 
-     * @return
+     * Rating getter and setter
+     * @return rating
      */
     public String getRating() {
         if (rating == null) {
@@ -226,18 +167,12 @@ public class Movie implements Comparable<Movie> {
         return rating;
     }
 
-    /**
-     *set the rating
-     * 
-     * @param rating
-     */
     public void setRating(String rating) {
         this.rating = rating;
     }
-
     /**
-     * get the runtime
-     * @return
+     * Run time getter and setter
+     * @return runtime
      */
     public String getRuntime() {
         if (runtime == null) {
@@ -252,19 +187,13 @@ public class Movie implements Comparable<Movie> {
         return String.format("%d:%02d", hours, minutes);
     }
 
-    /**
-     *set the runtime
-     * 
-     * @param runtime
-     */
     public void setRuntime(String runtime) {
         this.runtime = runtime;
     }
 
     /**
-     *get the preferredImageUri
-     * 
-     * @return
+     * Gets the URL image of the poster for the movie
+     * @return preferredImageUri
      */
     public String getPreferredImageUri() {
         if (preferredImageUri == null) {
@@ -272,10 +201,9 @@ public class Movie implements Comparable<Movie> {
         }
         return preferredImageUri;
     }
-
+    
     /**
-     *Give this the preferred image Uri from the API
-     * 
+     * Retrieves the preferredImageUri from the api manager.
      */
     public void retrievePreferredImageUri() {
         if (preferredImageUri == null) {
@@ -284,18 +212,16 @@ public class Movie implements Comparable<Movie> {
     }
 
     /**
-     *set the preferred image Uri
-     * 
-     * @param preferredImageUri
+     * preferredImageURI setter
+     * @param preferredImageUri 
      */
     public void setPreferredImageUri(String preferredImageUri) {
         this.preferredImageUri = preferredImageUri;
     }
 
     /**
-     *get showtimes
-     * 
-     * @return
+     * showtimes getter and setter
+     * @return showtimes
      */
     public List<Showtime> getShowtimes() {
         if (showtimes == null) {
@@ -304,19 +230,12 @@ public class Movie implements Comparable<Movie> {
         return showtimes;
     }
 
-    /**
-     *set showtimes
-     * 
-     * @param showtimes
-     */
     public void setShowtimes(List<Showtime> showtimes) {
         this.showtimes = showtimes;
     }
-
     /**
-     *get the metascore
-     * 
-     * @return
+     * Metascore getter and setter
+     * @return metascore
      */
     public String getMetascore() {
         if (metascore == null) {
@@ -325,20 +244,14 @@ public class Movie implements Comparable<Movie> {
         return metascore;
     }
 
-    /**
-     *set the metascore
-     * 
-     * @param metascore
-     */
     public void setMetascore(String metascore) {
         this.metascore = metascore;
     }
 
     /**
-     *get the imdb rating
-     * 
-     * @return
-     */
+     * Imbd rating getter and setter
+     * @return imbdRating
+     */    
     public String getImdbRating() {
         if (imdbRating == null) {
             set();
@@ -346,55 +259,37 @@ public class Movie implements Comparable<Movie> {
         return imdbRating;
     }
 
-    /**
-     *set the imdb rating
-     * 
-     * @param imdbRating
-     */
     public void setImdbRating(String imdbRating) {
         this.imdbRating = imdbRating;
     }
-
+    
     /**
-     *get Rotten tomatoes rating
-     * 
-     * @return
+     * rtRating getter and setter
+     * @return rtRating
      */
     public String getRTRating() {
         return rtRating;
     }
 
-    /**
-     *set Rotten tomatoes rating
-     * 
-     * @param rtRating
-     */
     public void setRTRating(String rtRating) {
         this.rtRating = rtRating;
     }
 
     /**
-     *get rotten tomatoes critic consensus
-     * 
-     * @return
+     * RT critics consensus getter and setter
+     * @return rtCriticsConsensus
      */
     public String getRTCriticsConsensus() {
         return rtCriticsConsensus;
     }
 
-    /**
-     *set rotten tomatoes critic consensus
-     * 
-     * @param rtCriticsConsensus
-     */
     public void setRTCriticsConsensus(String rtCriticsConsensus) {
         this.rtCriticsConsensus = rtCriticsConsensus;
     }
 
     /**
-     *get the theatres and showtimes for this movie
-     * 
-     * @return
+     * Gets all the theatres corresponding to the current selected zipcode.
+     * @return list List of all the movies in the zip code
      */
     public List<TheatreWithShowtimes> getTheatres() {
         ArrayList<TheatreWithShowtimes> list = new ArrayList<>();
@@ -439,20 +334,26 @@ public class Movie implements Comparable<Movie> {
     }
 
     /**
-     Set this movie with a new showtime set
+     * Accesses the api manager with the list of movies
      */
     private void set() {
         this.set(new ApiManager().movieShowtimes(tmsId, zipcode));
     }
 
-    //helper for set()
+    /**
+     * Sets the showtimes of the movie from the one got from the Api manager.
+     * @param movieShowtimes A list of showtimes.
+     */
     private void set(ArrayList<Movie> movieShowtimes) {
         if (movieShowtimes != null && movieShowtimes.size() > 0) {
             this.set(movieShowtimes.get(0));
         }
     }
 
-    //set this to a different movie
+    /**
+     * Set to the movie object to the information got from the API
+     * @param movie 
+     */
     private void set(Movie movie) {
         this.imdbRating = movie.imdbRating;
         this.longDescription = movie.longDescription;
