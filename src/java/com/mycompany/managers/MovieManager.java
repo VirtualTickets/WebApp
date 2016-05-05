@@ -62,6 +62,7 @@ public class MovieManager implements Serializable {
 
     private List<Movie> nowPlaying;
     private List<Movie> mostPopular;
+    private List<Movie> mostPopPanel;
     private ArrayList<String> mostPopularTitles;
     private String searchTitle;
     private String posterClickedTitle;
@@ -96,7 +97,8 @@ public class MovieManager implements Serializable {
             "Zootopia", "Eye In The Sky", "The Witch", "10 Cloverfield Lane"};
         criticallyAcclaimedTitles = caTitles;
 
-        //gets data for the 5 crit acclaimed titles from omdb
+
+        //gets data for the 6 crit acclaimed titles from omdb
         for (int i = 0; i <= 5; i++) {
             criticallyAcclaimed.add(apiManager.searchForMovieOmdb(caTitles[i]));
         }
@@ -306,9 +308,78 @@ public class MovieManager implements Serializable {
         locationChanged = true;
         ArrayList<String> tempNowPlaying = getNowPlayingTitles();
         ArrayList<String> tempMostPopular = getMostPopularTitles();
+        List<Movie> tempMostPopPanel = getMostPopPanel();
         locationChanged = false;
     }
 
+    /**
+     * gets the data for the most popular panels that pop up on mouse over
+     * @return the list of most popular movies
+     */
+    public List<Movie> getMostPopPanel() {
+        System.out.println("GET MOST POP PANEL CALLED ****************************************");
+        if (mostPopPanel == null || locationChanged) {
+            //gets data for the 5 most popular titles from omdb
+            List<Movie> mostPop = getMostPopular();
+            ArrayList<String> mostPopTitles = getMostPopularTitles();
+            List<Movie> tempPopPanel = new ArrayList<>();
+            System.out.println("MOST POP TITLES: " + mostPopTitles);
+            for (int i = 0; i < 5; i++) {
+                tempPopPanel.add(apiManager.searchForMovieOmdb(mostPopTitles.get(i)));
+                tempPopPanel.get(i).setLongDescription(mostPop.get(i).getLongDescription());
+                System.out.println("TITLE: " + mostPopTitles.get(i) + "desc: " + tempPopPanel.get(i).getLongDescription());
+            }
+            mostPopPanel = tempPopPanel;
+        }
+        System.out.println("!!!!!!!!!!!!!!!!!!!!SIZE: " + mostPopPanel.size());
+        return mostPopPanel;
+    }
+    
+    /**
+     *  Gets the rottentomatoes ratings for the most popular titles.
+     *
+     *  @return A list of popular titles ratings as strings.
+     */
+    public ArrayList<String> getMostPopPanelRtRating() {
+        ArrayList<String> ratings = new ArrayList<>();
+        List<Movie> popPanel = getMostPopPanel();
+        for (Movie m : popPanel) {
+            ratings.add(m.getRTRating());
+        }
+
+        return ratings;
+    }
+    
+    /**
+     *  Gets the IMDB ratings for the most popular titles.
+     *
+     *  @return A list of popular titles ratings as strings.
+     */
+    public ArrayList<String> getMostPopPanelImdbRating() {
+        ArrayList<String> ratings = new ArrayList<>();
+
+        for (Movie m : mostPopPanel) {
+            ratings.add(m.getImdbRating());
+        }
+
+        return ratings;
+    }
+    
+        /**
+     *  Gets the rottentomatoes ratings for the most popular titles.
+     *
+     *  @return A list of popular titles ratings as strings.
+     */
+    public ArrayList<String> getMostPopPanelDesc() {
+        ArrayList<String> desc = new ArrayList<>();
+
+        for (Movie m : mostPopPanel) {
+            desc.add(m.getLongDescription());
+        }
+
+        return desc;
+    }
+    
     /**
      * gets the titles of movies currently playing nearby
      * @return Gets an arraylist of the nowplaying titles.
@@ -390,6 +461,7 @@ public class MovieManager implements Serializable {
             ArrayList<String> titles = new ArrayList<>();
             List<Movie> popularList = getMostPopular();
             List<Movie> nowPlayingList = getNowPlaying();
+            List<Movie> newPop = new ArrayList<>();
             int nowPlayingSize = nowPlayingList.size();
 
             int i = 0; //index for popularList
@@ -402,6 +474,7 @@ public class MovieManager implements Serializable {
                     //checks if the popular title is actually playing nearby before adding.
                     if (nowPlayingList.get(k).getTitle().equals(popularList.get(i).getTitle())) {
                         titles.add(popularList.get(i).getTitle());
+                        newPop.add(nowPlayingList.get(k));
                         titleFoundInNowPlaying = true;
                     }
                     k++;
@@ -414,6 +487,7 @@ public class MovieManager implements Serializable {
                 if (titles.size() == 0) {
                     while (titles.size() < 5 && r < nowPlayingSize) {
                         titles.add(nowPlayingList.get(r).getTitle());
+                        newPop.add(nowPlayingList.get(r));
                         r++;
                     }
                 } else {
@@ -427,6 +501,7 @@ public class MovieManager implements Serializable {
                         }
                         if (!titleAlreadyInList) {
                             titles.add(nowPlayingList.get(r).getTitle());
+                            newPop.add(nowPlayingList.get(r));
                         }
                         r++;
                     }
@@ -434,6 +509,8 @@ public class MovieManager implements Serializable {
             }
 
             mostPopularTitles = titles;
+            System.out.println("NEW POP");
+            mostPopular = newPop;
         }
         return mostPopularTitles;
     }
@@ -471,7 +548,12 @@ public class MovieManager implements Serializable {
      * @param searchTitle the title to be searched
      */
     public void setSearchTitle(String searchTitle) {
-        this.searchTitle = searchTitle;
+        if (searchTitle.equals("Choose a Movie")) {
+            this.searchTitle = " ";
+        }
+        else {
+            this.searchTitle = searchTitle;
+        }
     }
 
     /**
@@ -547,9 +629,10 @@ public class MovieManager implements Serializable {
         if (mostPopular == null) {
             mostPopular = apiManager.findPopularMovies();
         }
-
+        
         return mostPopular;
     }
+    
 
     /**
      * Gets the results of a search

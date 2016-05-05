@@ -211,6 +211,17 @@ h1 {
     color: orange;
 }
 
+.imgPanelTitle {
+    font-family: 'Lato', sans-serif;
+    font-size: 28px;
+    color: white;
+}
+
+.imgPanel {
+    width: 35%;
+    background-color: #3cc5bc;
+}
+
 
 #criticallyAcclaimedTitle {
     margin-top: 20px;

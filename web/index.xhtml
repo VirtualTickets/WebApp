@@ -1,65 +1,26 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!-- TODO Lists for Others:                                              -->
+<!-- This is the home page of Virtual Tickets
+        @Author: Kent Hannigan
+     
+     Allows the user to select movies from a dropdown, containing every movie playing nearby.
+     The user can then press get tickets and showtimes to be taken to a list of showings. 
+     
+     The user can also select a movie by clicking on a poster in the Most Popular section. 
+     Most popular is a list of the 5 highest grossing movies playing nearby.
+     When the user hovers over an image the description and ratings are shown. 
+     
+     The Critically Acclaimed section shows a few highly rated movies, along with their 
+     critics consensus from rottentomatoes.com. Each of these 6 movies has an IMDB score,
+     as well as a rotten tomatoes rating. By clicking on the image, a youtube trailer is
+     displayed for that movie. 
+     The user can go left and right a movie by using clicking the side arrow overlays, 
+     as well as by using the nav dots. 
+     No Api gave movie posters as large as necessary for this, so a static list of critically 
+     acclaimed movies was chosen. The ratings are dynamic. 
 
-<!-- Alex & Ben:  ********************************************************************************************************************************************* -->
-<!-- date selector on movie page as well, like fandango -->
-<!-- potential date selector options http://www.primefaces.org/showcase/ui/input/calendar.xhtml That page has a few, not just the calendar thing.
-     http://www.primefaces.org/showcase/ui/misc/responsive.xhtml the calendar text line here is really cool, check it out as an option -->
-<!-- movies page needs to reset when navigated away from -->
-<!-- On Movies.xhtml: blue theater tab or blue background for contents of the accordionPanel (#3cc5bc) -->
-<!-- section titles need to be in CAPS. (NOW PLAYING for e.x.)-->
-<!-- favorite button on movies page needs to be the outline of a star that when hovered over fills in with orange, blue, or yellow (decide on the best looking color). -->
-<!-- theme of blue/orange/dark gray/light gray needs to be used across all pages. --> 
-<!-- add fields for things like genre, actors, producer, etc to movies page -->
-<!-- get some trailers!!!! 
-     http://www.primefaces.org/showcase/ui/multimedia/media.xhtml for inline. Look at my jquery on index for popup player -->
-<!-- put search button on right side of the search box and make it simply a magnifier icon
-     http://www.primefaces.org/showcase/ui/misc/responsive.xhtml splitButton might be good for this. -->
-<!-- what is that random string below release date on the movies page? -->
-<!-- favorites page is blank -->
-<!-- Some movies, such as Baaghi in 22043 zip code, don't have a poster, runtime, etc. When you search for those showtimes a NullPointerException is thrown.
-     This needs to be handled more gracefully. 
-     Similarly trying to find tickets for los compadres gives the following error:
-     Message=/SearchResults.xhtml @56,85 value="pound{movie.releaseDate}": java.lang.StringIndexOutOfBoundsException: String index out of range: 7-->
-<!-- ********************************************************************************************************************************************************** -->
-
-<!-- Nick G:    *********************************************************************************************************************************************** -->
-<!-- nick needs to fix the forgot password button, so that it uses jquery style -->
-<!-- white text for top menu and change font if possible. -->
-<!-- signing in requires clicking the button. it should submit when the user hits enter as well. -->
-<!-- purchase history should have newest purchases at the top -->
-<!-- space out buttons on profile page -->
-<!-- dont show full CC number. maybe show ********1234 (*s for all but last 4 digits) -->
-<!-- should logging in return you to the index? I just logged in while on the create account page and it left me there -->
-<!-- ********************************************************************************************************************************************************** -->
-
-
-<!-- Ben, Alex, and Nick, these apply to all of you:    ******************************************************************************************************* -->
-<!-- change timestamps to normal, fuck this military shit. I see it in purchase history -->
-<!-- footer needs to be at bottom of page, not at the bottom of the page's content. this issue exists on a few diff pages. -->
-<!-- pages need to reset when you navigate away from them. currently fields stay filled in as they were -->
-<!-- the dialogbox theme is not consistent accross pages, because the jquery.css file refrenced in index is not on every page. This leads to things like log in dialog box
-     looking different of different pages. Adding the jquery.css file to the header or footer might fix this. -->
-<!-- spacing above and below titles needs to be equal. look at index.html for examples. -->
-<!-- any buttons that are touching each other need to be spaced -->
-<!-- favorites shouldn't be in the header, only in the user drop down. -->
-<!-- I tried my best to comment out all of the print statements, but there are still some weird ones labeled "Severe:" that I believe Ben made and I can't find. --> 
-<!-- maybe add info to qr code for who purchased the ticket. So something like "Paid for by Kent Hannigan with credit card ending in 1234." -->
-<!-- ********************************************************************************************************************************************************** -->
-
-
-<!-- My TODO List: --> 
-<!-- if you clicked get tickets and showtimes while drop down is on choose a movie, nothing should happen or error message displayed -->
-<!-- need to get the SEARCH_BY_POSTER shit working. not sure why it doesn't -->
-<!-- consider a blue footer -->
-<!-- update contact us to have pics of everybody -->
-<!-- need to get list of "highest grossing / most popular" -->
-<!-- make everythings dimension in relation to the screen size, to enable risizing of the window? -->
-<!-- consider making the play icon fixed size -->
-<!-- consider making the change loc box and button smaller. -->
-<!-- add hover stuff to the search button in header -->
-<!-- add outlines to the images on contact us page. -->
-<!-- ask nick how he got the titlebar for his dialog to be the right color and fix the outline around close button when clicked -->
+     Getters and Setters in MovieManager.java are used to get titles, ratings, descriptions, and posters.
+     Also contained in MovieManager is the code that updates the posters and lists when the location is changed. 
+-->
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
@@ -87,10 +48,10 @@
                     $(function () {
                         $("a.youtube").YouTubePopup({autoplay: 1});
                     });
-                    
+
                     var dropDown = document.getElementById('select_movie');
                     var ticketsButton = document.getElementById('getShowtimes');
-                    dropDown.onchange = function() {
+                    dropDown.onchange = function () {
                         ticketsButton.disabled = false;
                     };
                 </script>
@@ -346,32 +307,147 @@
                                 <h:panelGrid columns="5" border="0" cellpadding="10" cellspacing="10">
                                     <h:commandLink action="#{movieManager.searchByTitle()}">
                                         <f:ajax event="action" listener="#{movieManager.setSearchTitle(movieManager.mostPopularTitles[0])}"/>
-                                        <h:graphicImage class="grow" url="#{movieManager.mostPopularPosters[0]}"
+                                        <h:graphicImage class="grow" id="img1" url="#{movieManager.mostPopularPosters[0]}"
                                                         width="180" height="267" alt="Movie img" title="Find Showings"/>
+                                        <p:overlayPanel class="imgPanel" for="img1" hideEffect="fade" showEvent="mouseover" hideEvent="mouseout">
+                                            <span class="imgPanelTitle">#{movieManager.mostPopularTitles[0]}</span>
+                                            <br/>
+                                            <br/>
+                                            <h:panelGroup>
+                                                <img src="#{resource['images:rtIcon.png']}" />
+                                                <span style="margin-left: 10px; font-color: white; font-size: 25px;">
+                                                    #{movieManager.mostPopPanelRtRating[0]}
+                                                </span>
+                                            </h:panelGroup>
+                                            <p:spacer width="20" />
+                                            <h:panelGroup>
+                                                <img src="#{resource['images:imdbIcon.png']}" />                                                         
+                                                <span style="margin-left: 10px; font-color: white; font-size: 25px;">
+                                                    #{movieManager.mostPopPanelImdbRating[0]}
+                                                </span>
+                                            </h:panelGroup>
+                                            <br/>
+                                            <br/>
+                                            <div>
+                                                #{movieManager.mostPopPanelDesc[0]}
+                                            </div>
+                                        </p:overlayPanel>
                                     </h:commandLink>
 
                                     <h:commandLink action="#{movieManager.searchByTitle()}">
                                         <f:ajax event="action" listener="#{movieManager.setSearchTitle(movieManager.mostPopularTitles[1])}"/>
-                                        <h:graphicImage class="grow" url="#{movieManager.mostPopularPosters[1]}"
-                                                        width="180" height="266" alt="Movie img" title="Find Showings"/>
+                                        <h:graphicImage class="grow" id="img2" url="#{movieManager.mostPopularPosters[1]}"
+                                                        width="180" height="267" alt="Movie img" title="Find Showings"/>
+                                        <p:overlayPanel class="imgPanel" for="img2" hideEffect="fade" showEvent="mouseover" hideEvent="mouseout">
+                                            <span class="imgPanelTitle">#{movieManager.mostPopularTitles[1]}</span>
+                                            <br/>
+                                            <br/>
+                                            <h:panelGroup>
+                                                <img src="#{resource['images:rtIcon.png']}" />
+                                                <span style="margin-left: 10px; font-color: white; font-size: 25px;">
+                                                    #{movieManager.mostPopPanelRtRating[1]}
+                                                </span>
+                                            </h:panelGroup>
+                                            <p:spacer width="20" />
+                                            <h:panelGroup>
+                                                <img src="#{resource['images:imdbIcon.png']}" />                                                         
+                                                <span style="margin-left: 10px; font-color: white; font-size: 25px;">
+                                                    #{movieManager.mostPopPanelImdbRating[1]}
+                                                </span>
+                                            </h:panelGroup>
+                                            <br/>
+                                            <br/>
+                                            <div>
+                                                #{movieManager.mostPopPanelDesc[1]}
+                                            </div>
+                                        </p:overlayPanel>
                                     </h:commandLink>
 
                                     <h:commandLink action="#{movieManager.searchByTitle()}">
                                         <f:ajax event="action" listener="#{movieManager.setSearchTitle(movieManager.mostPopularTitles[2])}"/>
-                                        <h:graphicImage class="grow" url="#{movieManager.mostPopularPosters[2]}"
+                                        <h:graphicImage class="grow" id="img3" url="#{movieManager.mostPopularPosters[2]}"
                                                         width="180" height="267" alt="Movie img" title="Find Showings"/>
+                                        <p:overlayPanel class="imgPanel" for="img3" hideEffect="fade" showEvent="mouseover" hideEvent="mouseout">
+                                            <span class="imgPanelTitle">#{movieManager.mostPopularTitles[2]}</span>
+                                            <br/>
+                                            <br/>
+                                            <h:panelGroup>
+                                                <img src="#{resource['images:rtIcon.png']}" />
+                                                <span style="margin-left: 10px; font-color: white; font-size: 25px;">
+                                                    #{movieManager.mostPopPanelRtRating[2]}
+                                                </span>
+                                            </h:panelGroup>
+                                            <p:spacer width="20" />
+                                            <h:panelGroup>
+                                                <img src="#{resource['images:imdbIcon.png']}" />                                                         
+                                                <span style="margin-left: 10px; font-color: white; font-size: 25px;">
+                                                    #{movieManager.mostPopPanelImdbRating[2]}
+                                                </span>
+                                            </h:panelGroup>
+                                            <br/>
+                                            <br/>
+                                            <div>
+                                                #{movieManager.mostPopPanelDesc[2]}
+                                            </div>
+                                        </p:overlayPanel>
                                     </h:commandLink>
 
                                     <h:commandLink action="#{movieManager.searchByTitle()}">
                                         <f:ajax event="action" listener="#{movieManager.setSearchTitle(movieManager.mostPopularTitles[3])}"/>
-                                        <h:graphicImage class="grow" url="#{movieManager.mostPopularPosters[3]}"
+                                        <h:graphicImage class="grow" id="img4" url="#{movieManager.mostPopularPosters[3]}"
                                                         width="180" height="267" alt="Movie img" title="Find Showings"/>
+                                        <p:overlayPanel class="imgPanel" for="img4" hideEffect="fade" showEvent="mouseover" hideEvent="mouseout">
+                                            <span class="imgPanelTitle">#{movieManager.mostPopularTitles[3]}</span>
+                                            <br/>
+                                            <br/>
+                                            <h:panelGroup>
+                                                <img src="#{resource['images:rtIcon.png']}" />
+                                                <span style="margin-left: 10px; font-color: white; font-size: 25px;">
+                                                    #{movieManager.mostPopPanelRtRating[3]}
+                                                </span>
+                                            </h:panelGroup>
+                                            <p:spacer width="20" />
+                                            <h:panelGroup>
+                                                <img src="#{resource['images:imdbIcon.png']}" />                                                         
+                                                <span style="margin-left: 10px; font-color: white; font-size: 25px;">
+                                                    #{movieManager.mostPopPanelImdbRating[3]}
+                                                </span>
+                                            </h:panelGroup>
+                                            <br/>
+                                            <br/>
+                                            <div>
+                                                #{movieManager.mostPopPanelDesc[3]}
+                                            </div>
+                                        </p:overlayPanel>
                                     </h:commandLink>
 
                                     <h:commandLink action="#{movieManager.searchByTitle()}">
                                         <f:ajax event="action" listener="#{movieManager.setSearchTitle(movieManager.mostPopularTitles[4])}"/>
-                                        <h:graphicImage class="grow" url="#{movieManager.mostPopularPosters[4]}"
+                                        <h:graphicImage class="grow" id="img5" url="#{movieManager.mostPopularPosters[4]}"
                                                         width="180" height="267" alt="Movie img" title="Find Showings"/>
+                                        <p:overlayPanel class="imgPanel" for="img5" hideEffect="fade" showEvent="mouseover" hideEvent="mouseout">
+                                            <span class="imgPanelTitle">#{movieManager.mostPopularTitles[4]}</span>
+                                            <br/>
+                                            <br/>
+                                            <h:panelGroup>
+                                                <img src="#{resource['images:rtIcon.png']}" />
+                                                <span style="margin-left: 10px; font-color: white; font-size: 25px;">
+                                                    #{movieManager.mostPopPanelRtRating[4]}
+                                                </span>
+                                            </h:panelGroup>
+                                            <p:spacer width="20" />
+                                            <h:panelGroup>
+                                                <img src="#{resource['images:imdbIcon.png']}" />                                                         
+                                                <span style="margin-left: 10px; font-color: white; font-size: 25px;">
+                                                    #{movieManager.mostPopPanelImdbRating[4]}
+                                                </span>
+                                            </h:panelGroup>
+                                            <br/>
+                                            <br/>
+                                            <div>
+                                                #{movieManager.mostPopPanelDesc[4]}
+                                            </div>
+                                        </p:overlayPanel>
                                     </h:commandLink>
                                 </h:panelGrid>
                             </h:panelGrid>
