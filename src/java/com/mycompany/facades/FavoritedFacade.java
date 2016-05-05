@@ -10,7 +10,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
- *
+ * The facade or java to database table interface for the table Favorited
+ * 
  * @author Ben
  */
 @Stateless
@@ -24,6 +25,9 @@ public class FavoritedFacade extends AbstractFacade<Favorited> {
         return em;
     }
 
+    /**
+     * constructor
+     */
     public FavoritedFacade() {
         super(Favorited.class);
     }

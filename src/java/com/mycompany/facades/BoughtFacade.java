@@ -11,7 +11,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
- *
+ *The facade or java to database table interface for the table Bought
+ * 
  * @author Ben
  */
 @Stateless
@@ -25,11 +26,19 @@ public class BoughtFacade extends AbstractFacade<Bought> {
         return em;
     }
 
+    /**
+     * constructor
+     */
     public BoughtFacade() {
         super(Bought.class);
     }
     
-    
+    /**
+     *Find existing bought entities in the database table by searching their userId
+     * 
+     * @param userId
+     * @return
+     */
     public List<Bought> findByUser(int userId) {
         return em.createNamedQuery("Bought.findByUserId")
                 .setParameter("userId", userId)
