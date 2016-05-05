@@ -813,7 +813,13 @@ public class MovieManager implements Serializable {
 
             //make the text portion of the message add it to our overall message
             BodyPart messageBodyPart = new MimeBodyPart();
-            String text = "Here is your ticket order of\n" + getTickets() + " to see:\n" + selectedMovie.getTitle() + "\n" + selectedShowtime.getTime() + "\n" + selectedShowtime.getTheatreName();
+            String text = "Here is your ticket order of\n" + getTickets() + " to see:\n" + selectedMovie.getTitle() + "\n" + selectedShowtime.getTime() + "\n" + selectedShowtime.getTheatreName() 
+                    +"\n\n"
+                    + "Either present the QR code below to a ticket taker on your phone or print it out to recieve your ticket(s). \n \n"
+                    + "How to use your Print at Home ticket:\n" 
+                    + "Step 1: Print your Print at Home ticket and bring it to the theater.\n"
+                    + "Step 2: Go directly to the ticket taker to have your Print at Home ticket scanned.\n"
+                    + "Step 3: Enjoy the movie. \n";
             messageBodyPart.setText(text);
             multipart.addBodyPart(messageBodyPart);
 
